@@ -1,0 +1,20 @@
+﻿<Page x:Class="FSM3.Main.HomePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:FSM3.Main"
+      mc:Ignorable="d" 
+      d:DesignHeight="417" d:DesignWidth="354"
+      Title="HomePage">
+
+    <Grid>
+        <Border CornerRadius="7"  BorderBrush="#FF4E4E4E" BorderThickness="1" HorizontalAlignment="Left" Height="101" Margin="18,28,0,0" VerticalAlignment="Top" Width="318">
+            <Grid>
+                <Label Content="这是自定义主页" HorizontalAlignment="Left" Margin="107,6,0,0" VerticalAlignment="Top" Width="100"/>
+                <Label Content="你可以在这里添加想要添加的内容,详见设置-个性化-自定义主页&#xD;&#xA;当然,这都基于xaml,所以你在其他软件写的xaml做点适配也可以拿来&#xD;&#xA;用(但是不推荐)&#xD;&#xA;如果你熟练掌握WPF控件编写,你能把FSM主页弄得特好看,这超酷的!&#xD;&#xA;感谢您使用FSM启动器啦" HorizontalAlignment="Left" Margin="8,29,0,0" VerticalAlignment="Top" Width="304" FontSize="10" Height="65"/>
+
+            </Grid>
+        </Border>
+    </Grid>
+</Page>

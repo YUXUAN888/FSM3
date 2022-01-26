@@ -1,0 +1,16 @@
+﻿<Page x:Class="FSM3.Login_Pages.WrS"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:FSM3.Login_Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="280.8" d:DesignWidth="352.8"
+      Title="WrS">
+
+    <Grid>
+        <Image x:Name="IMM" HorizontalAlignment="Left" Height="100" Margin="126,62,0,0" VerticalAlignment="Top" Width="100"/>
+        <Label x:Name="NNN" Content="Label" HorizontalAlignment="Left" Margin="155,182,0,0" VerticalAlignment="Top" FontSize="17"/>
+
+    </Grid>
+</Page>

@@ -1,0 +1,21 @@
+﻿<UserControl x:Class="FSMLauncher_3.About_List.DoItem"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:FSM3.About_List"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" Height="34.02" Width="329.396">
+    <Grid>
+        <Image x:Name="Dimage" HorizontalAlignment="Left" Height="33" Margin="3,1,0,0" VerticalAlignment="Top" Width="34" Source="/Image/0E885BB0.PNG" Stretch="Fill" StretchDirection="DownOnly"/>
+        <Label x:Name="DverV" HorizontalAlignment="Left" Height="26" Margin="50,-4,0,0" VerticalAlignment="Top" Width="268" FontSize="17" Foreground="#DD232323" Content=""/>
+        <Border CornerRadius="6,6,6,6" BorderBrush="#FF373C42" BorderThickness="1" HorizontalAlignment="Left" Height="13" Margin="53,22,0,-0.6" VerticalAlignment="Top" Width="154">
+            <Border.Background>
+                <SolidColorBrush Color="#FF595757" Opacity="0.88"/>
+            </Border.Background>
+            <StackPanel />
+        </Border>
+        <Label x:Name="BBLX" Content="" HorizontalAlignment="Left" Height="19" Margin="54,19,0,-3.6" VerticalAlignment="Top" Width="146" FontSize="9" Foreground="#DDFFFFFF"/>
+
+    </Grid>
+</UserControl>

@@ -1,0 +1,18 @@
+﻿<Page
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:FSM3.Login_Pages"
+      xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks" x:Class="FSM3.Login_Pages.WrLogin"
+      mc:Ignorable="d" 
+      d:DesignHeight="280.8" d:DesignWidth="352.8"
+      Title="WrLogin">
+
+    <Grid>
+        <Button Content="新增账号" HorizontalAlignment="Left" Height="36" Margin="104,214,0,0" VerticalAlignment="Top" Width="147" Click="Button_Click"/>
+
+        <iconPacks:PackIconSimpleIcons Kind="Microsoft" Height="90" Width="223" Margin="66,30,0,0" Foreground="#FF9A9898"/>
+
+    </Grid>
+</Page>

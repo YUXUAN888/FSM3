@@ -1,0 +1,60 @@
+﻿<Page
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:FSM3.Pages" xmlns:ui="http://schemas.modernwpf.com/2019" xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+      xmlns:System="clr-namespace:System;assembly=mscorlib" xmlns:About_List="clr-namespace:FSMLauncher_3.About_List" x:Class="FSM3.Pages.Download"
+      mc:Ignorable="d" 
+      d:DesignHeight="444" d:DesignWidth="788"
+      Title="Download" Width="752.8" Loaded="Load">
+
+    <Page.Resources>
+        <System:String x:Key="N1">开始安装</System:String>
+    </Page.Resources>
+
+    <Grid>
+        <TabControl>
+            <TabItem>
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <iconPacks:PackIconSimpleIcons Kind="Webpack" Margin="0,2,5,0"/>
+                        <Label Content="Minecraft"/>
+                    </StackPanel>
+                </TabItem.Header>
+                <Grid>
+
+
+                    <ListView x:Name="MCV" Width="541" VerticalAlignment="Top" SelectionChanged="MCV_SelectionChanged" Margin="208,36,0,0" Height="326" HorizontalAlignment="Left">
+                    </ListView>
+                    <Button x:Name="ForgeB" Width="149" VerticalAlignment="Top" Margin="51,85,0,0" Height="43" HorizontalContentAlignment="Left" HorizontalAlignment="Left" FontSize="12" Content="Forge(主流加载器)&#xA;当前未选择" Click="Tile_Click_25"/>
+                    <Button x:Name="FabricB" Width="149" VerticalAlignment="Top" Margin="51,136,0,0" Height="43" HorizontalContentAlignment="Left" HorizontalAlignment="Left" FontSize="12" Content="Fabric(轻量加载器)&#xA;当前未选择" Click="Tile_Click_26"/>
+                    <Button x:Name="OptifineB" Width="149" VerticalAlignment="Top" Margin="51,186,0,0" Height="43" HorizontalContentAlignment="Left" HorizontalAlignment="Left" FontSize="12" Content="Optifine(高清修复)&#xA;当前未选择" Click="Tile_Click_17"/>
+                    <Button x:Name="LiteB" Width="149" VerticalAlignment="Top" ToolTip="选择要安装的LiteLoader" Margin="51,237,0,0" Height="43" HorizontalContentAlignment="Left" HorizontalAlignment="Left" FontSize="12" Content="LiteLoader(轻量加载器)&#xA;当前未选择" Click="Tile_Click_X"/>
+                    <Image HorizontalAlignment="Left" Height="34" Margin="9,191,0,0" VerticalAlignment="Top" Width="36" Source="/FSM3;component/Image/OptifineLogo.png"/>
+                    <Image HorizontalAlignment="Left" Height="34" Margin="0,141,0,0" VerticalAlignment="Top" Width="54" Source="/FSM3;component/Image/Fabric.png" StretchDirection="DownOnly"/>
+                    <Image HorizontalAlignment="Left" Height="34" Margin="13,90,0,0" VerticalAlignment="Top" Width="34" Source="/FSM3;component/Image/ForgeN.png" StretchDirection="DownOnly"/>
+                    <Image HorizontalAlignment="Left" Height="34" Margin="15,243,0,0" VerticalAlignment="Top" Width="28" Source="/FSM3;component/Image/LiteLoader.png"/>
+                    <ComboBox x:Name="yxlx" HorizontalAlignment="Left" Margin="11,37,0,0" VerticalAlignment="Top" Width="189" Height="35" SelectedIndex="0" FontSize="15" SelectionChanged="ComboBox_SelectionChanged">
+                        <ComboBoxItem Content="正式版"/>
+                        <ComboBoxItem Content="快照版"/>
+                        <ComboBoxItem Content="早期测试版"/>
+                        <ComboBoxItem Content="远古版"/>
+                        <ComboBoxItem Content="愚人节版本"/>
+                    </ComboBox>
+                    <Button Content="开始安装" HorizontalAlignment="Left" Margin="12,299,0,0" Style="{StaticResource AccentButtonStyle}" VerticalAlignment="Top" Width="188" Height="60" FontSize="16.88" Click="Button_Click"/>
+
+                </Grid>
+            </TabItem>
+            <TabItem>
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <iconPacks:PackIconSimpleIcons Kind="CurseForge" Margin="0,2,5,0"/>
+                        <Label Content="CurseForge"/>
+                    </StackPanel>
+                </TabItem.Header>
+                <Grid/>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Page>

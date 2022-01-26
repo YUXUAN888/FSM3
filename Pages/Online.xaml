@@ -1,0 +1,49 @@
+﻿<Page x:Class="FSM3.Pages.Online"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:FSM3.Pages" xmlns:ui="http://schemas.modernwpf.com/2019"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Online" Width="752.8">
+
+    <Grid>
+        <TabControl>
+            <TabItem>
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <ui:FontIcon Glyph="&#xE716;" Margin="0,0,4,0"/>
+                        <Label Content="普通联机"/>
+                    </StackPanel>
+                </TabItem.Header>
+                <Grid>
+                    <Grid.Background>
+                        <ImageBrush/>
+                    </Grid.Background>
+                    <Button Content="创建并开启房间" HorizontalAlignment="Left" Height="38" Margin="139,356,0,0" VerticalAlignment="Top" Width="233" Click="Button_Click_1"/>
+                    <TextBlock HorizontalAlignment="Left" Height="328" Margin="21,14,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="710"/>
+                    <Button Content="加入房间" HorizontalAlignment="Left" Height="38" Margin="378,356,0,0" VerticalAlignment="Top" Width="233" Click="Button_Click_2"/>
+                </Grid>
+            </TabItem>
+            <TabItem>
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <ui:FontIcon Glyph="&#xEBDA;" Margin="0,0,4,0"/>
+                        <Label Content="高性能联机"/>
+                    </StackPanel>
+                </TabItem.Header>
+                <Grid>
+                    <Grid.Background>
+                        <ImageBrush/>
+                    </Grid.Background>
+                    <Button Content="加入高性能房间" HorizontalAlignment="Left" Height="38" Margin="195,350,0,0" VerticalAlignment="Top" Width="233" Click="Button_Click_GXNJ"/>
+                    <Button Content="创建并开启高性能房间" HorizontalAlignment="Left" Height="38" Margin="195,308,0,0" VerticalAlignment="Top" Width="233" Click="Button_Click_GXNK"/>
+                    <RadioButton Content="杭州高性能" HorizontalAlignment="Left" Margin="447,311,0,0" VerticalAlignment="Top" IsChecked="True"/>
+                    <RadioButton Content="广州高性能" HorizontalAlignment="Left" Margin="447,354,0,0" VerticalAlignment="Top"/>
+                </Grid>
+            </TabItem>
+        </TabControl>
+
+    </Grid>
+</Page>
