@@ -342,6 +342,9 @@
   <ItemGroup>
     <Resource Include="SharpGL.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Made\CS.h" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="packages\System.Runtime.WindowsRuntime.4.6.0\build\net451\System.Runtime.WindowsRuntime.targets" Condition="Exists('packages\System.Runtime.WindowsRuntime.4.6.0\build\net451\System.Runtime.WindowsRuntime.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
