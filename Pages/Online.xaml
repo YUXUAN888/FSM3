@@ -21,9 +21,9 @@
                     <Grid.Background>
                         <ImageBrush/>
                     </Grid.Background>
-                    <Button Content="创建并开启房间" HorizontalAlignment="Left" Height="38" Margin="139,356,0,0" VerticalAlignment="Top" Width="233" Click="Button_Click_1"/>
+                    <Button Content="创建并开启房间" HorizontalAlignment="Left" Height="38" Margin="139,349,0,0" VerticalAlignment="Top" Width="233" Click="Button_Click_1"/>
                     <TextBlock HorizontalAlignment="Left" Height="328" Margin="21,14,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="710"/>
-                    <Button Content="加入房间" HorizontalAlignment="Left" Height="38" Margin="378,356,0,0" VerticalAlignment="Top" Width="233" Click="Button_Click_2"/>
+                    <Button Content="加入房间" HorizontalAlignment="Left" Height="38" Margin="378,349,0,0" VerticalAlignment="Top" Width="233" Click="Button_Click_2"/>
                 </Grid>
             </TabItem>
             <TabItem>
