@@ -8,6 +8,12 @@
         xmlns:ui="http://schemas.modernwpf.com/2019" xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         ui:WindowHelper.UseModernWindowStyle="False"
         ui:ThemeManager.IsThemeAware="True"
+        
+        
+        
+        BorderThickness="3"
+        
+        
     Title="FSM3 Restructure" Height="474" Width="794.4" AllowsTransparency="True" WindowStyle="None" Background="{DynamicResource SystemControlPageBackgroundAltHighBrush}"  Foreground="{DynamicResource SystemControlPageTextBaseHighBrush}" WindowStartupLocation="CenterScreen" Loaded="Load" SizeChanged="Size">
     <Grid>
 
@@ -96,4 +102,7 @@
 
 
     </Grid>
+    <Window.Effect>
+        <DropShadowEffect BlurRadius="13" Opacity="0.3"  Direction="90" ShadowDepth="3"/>
+    </Window.Effect>
 </Window>
