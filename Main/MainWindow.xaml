@@ -10,10 +10,7 @@
         ui:ThemeManager.IsThemeAware="True"
         
         
-        
-        BorderThickness="3"
-        
-        
+
     Title="FSM3 Restructure" Height="474" Width="794.4" AllowsTransparency="True" WindowStyle="None" Background="{DynamicResource SystemControlPageBackgroundAltHighBrush}"  Foreground="{DynamicResource SystemControlPageTextBaseHighBrush}" WindowStartupLocation="CenterScreen" Loaded="Load" SizeChanged="Size">
     <Grid>
 
