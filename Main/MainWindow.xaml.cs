@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
@@ -249,6 +250,16 @@ namespace FSM3
             dstBmp.UnlockBits(dstBmpData);
             return true;
         }
+        public class ZWindoww
+        {
+            public static Window Zwindow { get; set; }
+
+        }
+        public class ZBt
+        {
+            public static Label zbt { get; set; }
+
+        }
         public MainWindow()
         {
             InitializeComponent();
@@ -256,6 +267,13 @@ namespace FSM3
             this.ResizeMode = ResizeMode.CanMinimize;
             framecontrol.frame = ZFrame;
             tools.Tools = Toolsw;
+            ZWindoww.Zwindow = ZWindow;
+            ZBt.zbt = ZBT;
+            Directory.CreateDirectory(System.AppDomain.CurrentDomain.BaseDirectory + @"FSM");
+            if (IniReadValue("ONLINE", "TCPP2P") == "" || IniReadValue("ONLINE", "TCPP2P") == null)
+            {
+                WritePrivateProfileString("ONLINE", "TCPP2P", "stcp", FileS);
+            }
             ZFrame.Navigate(dyuri("/Pages/Game.xaml"));
             if (IniReadValueW("Mojang", "Mail") == null || IniReadValueW("Mojang", "Mail") == "")
             {
@@ -302,21 +320,12 @@ namespace FSM3
                 {
                     MicrosoftLogin microsoftLogin = new MicrosoftLogin();
                     Xbox XboxLogin = new Xbox();
-
                     Minecraft_Token = new MinecraftLogin().GetToken(XboxLogin.XSTSLogin(XboxLogin.GetToken(microsoftLogin.RefreshingTokens(IniReadValueW("wr", "Atoken")))));
                     MinecraftLogin minecraftlogin = new MinecraftLogin();
                     var Minecraft = minecraftlogin.GetMincraftuuid(Minecraft_Token);
-
                     wruuid = Minecraft.uuid;
                     wrname = Minecraft.name;
                     wrtoken = Minecraft_Token;
-
-
-
-
-
-
-
                     loginmode = "wr";
                     wryes = "888";
                     System.Drawing.Point point = new System.Drawing.Point(8, 8);
@@ -412,6 +421,16 @@ namespace FSM3
 
         private async void Button_Click_1(object sender, RoutedEventArgs e)
         {
+            try
+            {
+                Online.CmdProcess1.Kill();
+                Online.CmdProcess1.CancelOutputRead();
+                //ReadStdOutput = null;
+            }
+            catch
+            {
+
+            }
             (FindResource("hideMe") as System.Windows.Media.Animation.Storyboard).Begin(this);
             await Task.Run(() =>
             {

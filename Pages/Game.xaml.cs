@@ -133,7 +133,7 @@ namespace FSM3.Pages
         static System.Windows.Threading.DispatcherTimer Jarw = new System.Windows.Threading.DispatcherTimer();
         public static System.Windows.Threading.DispatcherTimer ONLINEW = new System.Windows.Threading.DispatcherTimer();
         static System.Windows.Threading.DispatcherTimer UPDATEW = new System.Windows.Threading.DispatcherTimer();
-        static int did1, did2, did3, did4;
+        public static int did1, did2, did3, did4;
         public static int id = 0;
         static String ZongX = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData); //获取APPDATA
         public string UpdateD;
@@ -526,8 +526,7 @@ namespace FSM3.Pages
                 (FindResource("showMe") as System.Windows.Media.Animation.Storyboard).Begin(XZWRZH);
             }
         }
-        public static String FileOnlineServer = ZongW + @"\Server";
-        public static String FileOnlineKEHU = ZongW + @"\Client";
+
         public static String FileS = System.AppDomain.CurrentDomain.BaseDirectory + @"FSM\FSM.slx";
         public static System.Windows.Media.Animation.DoubleAnimation OSMessage(int From, double To, double Time)
         {
@@ -562,23 +561,30 @@ namespace FSM3.Pages
 
         private void WrUP(object sender, MouseButtonEventArgs e)
         {
-            if (wryes == "888")
+            try
             {
-                WrD.SelectedIndex = 1;
-                NNW.Content = wrname;
-                BitmapImage bi = new BitmapImage();
-                // BitmapImage.UriSource must be in a BeginInit/EndInit block.  
-                bi.BeginInit();
-                bi.UriSource = new Uri(System.AppDomain.CurrentDomain.BaseDirectory + @"FSM\Skin\steven.png", UriKind.RelativeOrAbsolute);
-                bi.EndInit();
-                IMW.Source = bi;
-                loginmode = "wr";
-                WritePrivateProfileString("Login", "LoginM", "1", FileS);
+                if (wryes == "888")
+                {
+                    WrD.SelectedIndex = 1;
+                    NNW.Content = wrname;
+                    BitmapImage bi = new BitmapImage();
+                    // BitmapImage.UriSource must be in a BeginInit/EndInit block.  
+                    bi.BeginInit();
+                    bi.UriSource = new Uri(System.AppDomain.CurrentDomain.BaseDirectory + @"FSM\Skin\steven.png", UriKind.RelativeOrAbsolute);
+                    bi.EndInit();
+                    IMW.Source = bi;
+                    loginmode = "wr";
+                    WritePrivateProfileString("Login", "LoginM", "1", FileS);
+                }
+                else
+                {
+                    WrD.SelectedIndex = 0;
+                    loginmode = "";
+                }
             }
-            else
+            catch
             {
-                WrD.SelectedIndex = 0;
-                loginmode = "";
+
             }
         }
 

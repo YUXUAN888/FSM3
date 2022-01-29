@@ -65,9 +65,9 @@
                         <Grid>
                             <Label Content="联机模式" HorizontalAlignment="Left" Margin="16,10,0,0" VerticalAlignment="Top" Height="30" Width="99" FontSize="24"/>
                             <Label Content="一般无需设置,若距离广州较近推荐开启广州服务&#xD;&#xA;加入方需跟房主一样配置" HorizontalAlignment="Left" Margin="16,58,0,0" VerticalAlignment="Top" Height="38" Width="303" FontSize="14"/>
-                            <CheckBox x:Name="GZJDXZ" Content="启用广州联机服务(距离广州近可开启)" HorizontalAlignment="Left" Height="43" VerticalAlignment="Top" Width="271" Checked="CheckBox_Checked_1" Click="Ch" Margin="434,69,0,0"/>
-                            <RadioButton x:Name="STCP" Content="传输网络(成功率高,延迟稍高 推荐)" HorizontalAlignment="Left" VerticalAlignment="Top" Height="29" Width="251" Checked="RadioButton_Checked_2" Margin="434,5,0,0" IsChecked="True"/>
-                            <RadioButton x:Name="XTCP" Content="对等网络(成功率低,延迟稍低)" HorizontalAlignment="Left" VerticalAlignment="Top" Height="30" Width="245" Checked="RadioButton_Checked_3" Margin="434,40,0,0"/>
+                            <CheckBox x:Name="GZJDXZ" Content="启用广州联机服务(距离广州近可开启)" HorizontalAlignment="Left" Height="37" VerticalAlignment="Top" Width="271" Checked="CheckBox_Checked_1" Click="Ch" Margin="434,71,0,0"/>
+                            <RadioButton x:Name="STCP" Content="传输网络(成功率高,延迟稍高 推荐)" HorizontalAlignment="Left" VerticalAlignment="Top" Height="29" Width="251" Checked="RadioButton_Checked_2" Margin="434,5,0,0"/>
+                            <RadioButton x:Name="XTCP" Content="对等网络(成功率低,延迟稍低)" HorizontalAlignment="Left" VerticalAlignment="Top" Height="30" Width="245" Checked="RadioButton_Checked_3" Margin="434,39,0,0"/>
 
                         </Grid>
                     </Border>

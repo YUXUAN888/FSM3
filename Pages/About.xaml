@@ -3,7 +3,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:FSM3.Pages" xmlns:ui="http://schemas.modernwpf.com/2019"
+      xmlns:local="clr-namespace:FSM3.Pages" xmlns:ui="http://schemas.modernwpf.com/2019" xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
       mc:Ignorable="d" d:DesignWidth="800"
       Title="About" Width="752.8" Height="905.65">
 
@@ -17,6 +17,13 @@
                     </StackPanel>
                 </TabItem.Header>
                 <Grid>
+                    <Button HorizontalAlignment="Left" Height="85" Margin="16,17,0,0" VerticalAlignment="Top" Width="231" Click="Button_Click_5">
+                        <StackPanel Height="76" Width="237">
+                            <iconPacks:PackIconSimpleIcons Kind="Feedly" Margin="0,2,0,0" Height="63" Width="91"/>
+                            <Label Content="反馈" Margin="173.5,-17,14.8,0" FontSize="20"/>
+                        </StackPanel>
+                    </Button>
+                    <Button Content="？？？？？？？？？？？" HorizontalAlignment="Left" Margin="256,18,0,0" VerticalAlignment="Top" Width="217" Height="83" Background="Red" Foreground="White" Click="Button_Click_6"/>
 
                 </Grid>
             </TabItem>
@@ -40,13 +47,13 @@
                             <Button Content="赞助作者" HorizontalAlignment="Left" Margin="630,183,0,0" VerticalAlignment="Top" Width="92" Click="Button_Click"/>
                             <Button Content="Blog" HorizontalAlignment="Left" Margin="630,252,0,0" VerticalAlignment="Top" Width="92" Click="Button_Click_1"/>
                             <Button Content="赞助他" HorizontalAlignment="Left" Margin="630,323,0,0" VerticalAlignment="Top" Width="92" Click="Button_Click_2"/>
-                            <Button HorizontalAlignment="Left" Height="62" VerticalAlignment="Top" Width="63" Margin="9,306,0,0">
+                            <Button HorizontalAlignment="Left" Height="62" VerticalAlignment="Top" Width="63" Margin="9,306,0,0" Click="Button_Click_4">
                                 <Button.Background>
                                     <ImageBrush ImageSource="../Image/ss.png"/>
                                 </Button.Background>
                             </Button>
                             <GroupBox Header="赞助名单(感谢你们!)" HorizontalAlignment="Left" Height="231" Margin="5,412,0,0" VerticalAlignment="Top" Width="719" FontSize="22">
-                                <Label Content="战神福尔康,Nunzio520,Himcd,苦逼的老何,ShanZhiXiaoZhu,&#xA;MaverickPig,Bolen,爱发电用户_xJf4,爱发电用户_CqeR,&#xA;不吃剩饭的老剩饭,爱发电用户_SaeE,SakuraMoyi,爱发电用户_eHSs,&#xA;Ablazy,？ 感谢你们!" HorizontalAlignment="Left" Height="171" Margin="0,1,0,-5.6" VerticalAlignment="Top" Width="710" FontSize="20"/>
+                                <Label Content="战神福尔康,Nunzio520,Himcd,苦逼的老何,ShanZhiXiaoZhu,&#xA;MaverickPig,Bolen,爱发电用户_xJf4,爱发电用户_CqeR,&#xA;不吃剩饭的老剩饭,爱发电用户_SaeE,SakuraMoyi,爱发电用户_eHSs,&#xA;Ablazy,？,Loki 感谢你们!" HorizontalAlignment="Left" Height="171" Margin="0,1,0,-5.6" VerticalAlignment="Top" Width="710" FontSize="20"/>
                             </GroupBox>
                             <GroupBox Header="特别鸣谢" HorizontalAlignment="Left" Height="251" Margin="8,577,0,0" VerticalAlignment="Top" Width="651" FontSize="22"/>
                             <Image HorizontalAlignment="Left" Height="62" VerticalAlignment="Top" Width="63" Source="/FSM3;component/Image/44.jpg" Margin="21,626,0,0"/>

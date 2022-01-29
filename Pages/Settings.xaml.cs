@@ -129,6 +129,28 @@ namespace FSM3.Pages
         public Settings()
         {
             InitializeComponent();
+            if(IniReadValue("ONLINE", "Server") != "" && IniReadValue("ONLINE", "Server") == "GZ")
+            {
+                GZJDXZ.IsChecked = true;
+            }
+            STCP.IsChecked = false;
+            XTCP.IsChecked = false;
+            if (IniReadValue("ONLINE", "TCPP2P") == "" || IniReadValue("ONLINE", "TCPP2P") == null)
+            {
+                STCP.IsChecked = true;
+                WritePrivateProfileString("ONLINE", "TCPP2P", "stcp", FileS);
+            }
+            else
+            {
+                if (IniReadValue("ONLINE", "TCPP2P") == "stcp")
+                {
+                    STCP.IsChecked = true;
+                }
+                else if (IniReadValue("ONLINE", "TCPP2P") == "xtcp")
+                {
+                    XTCP.IsChecked = true;
+                }
+            }
             try
             {
                 for (int i = 0; i < int.Parse(IniReadValue("Java", "JavaS")); ++i)
@@ -186,7 +208,7 @@ namespace FSM3.Pages
 
         private void RadioButton_Checked_3(object sender, RoutedEventArgs e)
         {
-
+            WritePrivateProfileString("ONLINE", "TCPP2P", "xtcp", FileS);
         }
 
         private void CheckBox_Checked_1(object sender, RoutedEventArgs e)
@@ -196,12 +218,19 @@ namespace FSM3.Pages
 
         private void RadioButton_Checked_2(object sender, RoutedEventArgs e)
         {
-
+            WritePrivateProfileString("ONLINE", "TCPP2P", "stcp", FileS);
         }
 
         private void Ch(object sender, RoutedEventArgs e)
         {
-
+            if (IniReadValue("ONLINE", "Server") == "GZ")
+            {
+                WritePrivateProfileString("ONLINE", "Server", "SH", FileS);
+            }
+            else
+            {
+                WritePrivateProfileString("ONLINE", "Server", "GZ", FileS);
+            }
         }
 
         private void AZGX_Click(object sender, RoutedEventArgs e)
@@ -352,5 +381,7 @@ namespace FSM3.Pages
             var result = await dialog.ShowAsync();
             
         }
+
+        
     }
 }

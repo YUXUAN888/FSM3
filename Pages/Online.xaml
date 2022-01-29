@@ -21,9 +21,9 @@
                     <Grid.Background>
                         <ImageBrush/>
                     </Grid.Background>
-                    <Button Content="创建并开启房间" HorizontalAlignment="Left" Height="38" Margin="139,349,0,0" VerticalAlignment="Top" Width="233" Click="Button_Click_1"/>
-                    <TextBlock HorizontalAlignment="Left" Height="328" Margin="21,14,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="710"/>
-                    <Button Content="加入房间" HorizontalAlignment="Left" Height="38" Margin="378,349,0,0" VerticalAlignment="Top" Width="233" Click="Button_Click_2"/>
+                    <Button x:Name="CJFJ" Content="创建并开启房间" HorizontalAlignment="Left" Height="38" Margin="139,349,0,0" VerticalAlignment="Top" Width="233" Click="Button_Click_1"/>
+                    <TextBox x:Name="SC" HorizontalAlignment="Left" Height="251" Margin="21,14,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="710" Visibility="Hidden"/>
+                    <Button x:Name="JRFJ" Content="加入房间" HorizontalAlignment="Left" Height="38" Margin="378,349,0,0" VerticalAlignment="Top" Width="233" Click="Button_Click_2"/>
                 </Grid>
             </TabItem>
             <TabItem>
@@ -37,10 +37,11 @@
                     <Grid.Background>
                         <ImageBrush/>
                     </Grid.Background>
-                    <Button Content="加入高性能房间" HorizontalAlignment="Left" Height="38" Margin="195,350,0,0" VerticalAlignment="Top" Width="233" Click="Button_Click_GXNJ"/>
-                    <Button Content="创建并开启高性能房间" HorizontalAlignment="Left" Height="38" Margin="195,308,0,0" VerticalAlignment="Top" Width="233" Click="Button_Click_GXNK"/>
-                    <RadioButton Content="杭州高性能" HorizontalAlignment="Left" Margin="447,311,0,0" VerticalAlignment="Top" IsChecked="True"/>
-                    <RadioButton Content="广州高性能" HorizontalAlignment="Left" Margin="447,354,0,0" VerticalAlignment="Top"/>
+                    <Button x:Name="GXNJR" Content="加入高性能房间" HorizontalAlignment="Left" Height="38" Margin="195,318,0,0" VerticalAlignment="Top" Width="233" Click="Button_Click_GXNJ"/>
+                    <Button x:Name="GXNCJ" Content="创建并开启高性能房间" HorizontalAlignment="Left" Height="38" Margin="195,276,0,0" VerticalAlignment="Top" Width="233" Click="Button_Click_GXNK"/>
+                    <RadioButton x:Name="HZ" Content="杭州高性能" HorizontalAlignment="Left" Margin="447,279,0,0" VerticalAlignment="Top" IsChecked="True"/>
+                    <RadioButton x:Name="GZ2" Content="广州高性能" HorizontalAlignment="Left" Margin="447,322,0,0" VerticalAlignment="Top"/>
+                    <Label Content="高性能联机请到 更多-关于-赞助作者 购买" HorizontalAlignment="Left" Margin="196,368,0,0" VerticalAlignment="Top" Width="349" HorizontalContentAlignment="Center"/>
                 </Grid>
             </TabItem>
         </TabControl>

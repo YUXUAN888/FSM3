@@ -1,4 +1,4 @@
-﻿<Window x:Class="FSM3.MainWindow"
+﻿<Window x:Name="ZWindow" x:Class="FSM3.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -50,7 +50,7 @@
                     <ImageBrush/>
                 </Button.Foreground>
             </Button>
-            <Label Content="FSM Launcher" HorizontalAlignment="Left" Margin="34,8,0,0" VerticalAlignment="Top" Height="18" Width="117" FontSize="15"/>
+            <Label x:Name="ZBT" Content="FSM Launcher" HorizontalAlignment="Left" Margin="34,8,0,0" VerticalAlignment="Top" Height="18" Width="234" FontSize="15"/>
             <Image HorizontalAlignment="Left" Height="30" Margin="1,4,0,0" VerticalAlignment="Top" Width="32" Source="/FSM3;component/Image/FSMLogo.png"/>
             <Label Content="是猪鼻子哦" HorizontalAlignment="Left" Height="18" Margin="565,4,0,0" VerticalAlignment="Top" Width="79" RenderTransformOrigin="0.5,0.5" FontFamily="Gill Sans MT">
                 <Label.RenderTransform>
