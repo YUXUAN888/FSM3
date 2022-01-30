@@ -759,7 +759,7 @@ namespace FSM3.Pages
                         CmdProcess1.Kill();
                         CmdProcess1.CancelOutputRead();
                         //ReadStdOutput = null;
-                        CmdProcess1.OutputDataReceived -= new DataReceivedEventHandler(p_OutputDataReceived1);
+                        CmdProcess1.OutputDataReceived -= new DataReceivedEventHandler(p_OutputDataReceivedw);
                         
                     }
                     catch
@@ -768,7 +768,7 @@ namespace FSM3.Pages
                         {
                             CmdProcess1.CancelOutputRead();
                             //ReadStdOutput = null;
-                            CmdProcess1.OutputDataReceived -= new DataReceivedEventHandler(p_OutputDataReceived1);
+                            CmdProcess1.OutputDataReceived -= new DataReceivedEventHandler(p_OutputDataReceivedw);
                             
                         }
                         catch
@@ -843,6 +843,7 @@ namespace FSM3.Pages
                     {
                         byte[] b = System.Text.Encoding.Default.GetBytes(aw);
                         Clipboard.SetDataObject(Convert.ToBase64String(b));
+                        GXNCJ.Content = "关闭房间";
                     }
                 }
                 if (msg.IndexOf("error") + 1 != 0)
@@ -871,7 +872,7 @@ namespace FSM3.Pages
                         CmdProcess1.Kill();
                         CmdProcess1.CancelOutputRead();
                         //ReadStdOutput = null;
-                        CmdProcess1.OutputDataReceived -= new DataReceivedEventHandler(p_OutputDataReceived1);
+                        CmdProcess1.OutputDataReceived -= new DataReceivedEventHandler(p_OutputDataReceivedG);
 
                     }
                     catch
@@ -880,12 +881,12 @@ namespace FSM3.Pages
                         {
                             CmdProcess1.CancelOutputRead();
                             //ReadStdOutput = null;
-                            CmdProcess1.OutputDataReceived -= new DataReceivedEventHandler(p_OutputDataReceived1);
-
+                            CmdProcess1.OutputDataReceived -= new DataReceivedEventHandler(p_OutputDataReceivedG);
+                            GXNCJ.Content = "创建并开启房间";
                         }
                         catch
                         {
-
+                            GXNCJ.Content = "创建并开启房间";
                         }
                     }
                     if (msg.IndexOf("port already used") + 1 != 0)
@@ -907,64 +908,81 @@ namespace FSM3.Pages
         }
         private async void Button_Click_GXNK(object sender, RoutedEventArgs e)
         {
-            String JD;
-            if (HZ.IsChecked == true)
+            if (GXNCJ.Content.ToString() is "关闭房间")
             {
-                JD = "hz.qwq.one";
+                try
+                {
+                    CmdProcess1.Kill();
+                    CmdProcess1.CancelOutputRead();
+                    //ReadStdOutput = null;
+                    CmdProcess1.OutputDataReceived -= new DataReceivedEventHandler(p_OutputDataReceivedG);
+                    GXNCJ.Content = "创建并开启房间";
+                }
+                catch
+                {
+
+                }
             }
-            else
-            {
-                JD = "gz2.qwq.one";
-            }
-            StackPanel panel = new StackPanel()
-            {
-                VerticalAlignment = VerticalAlignment.Stretch,
-                HorizontalAlignment = HorizontalAlignment.Stretch,
-            };
-            panel.Children.Add(new TextBlock() { Text = "请输入你的一些信息，以便进行高性能联机" });
-            TextBox box = new TextBox();
-            TextBox box2 = new TextBox();
-            TextBox box3 = new TextBox();
-            box.SetCurrentValue(ModernWpf.Controls.Primitives.ControlHelper.HeaderProperty, "密码(请勿泄露):");
-            box2.SetCurrentValue(ModernWpf.Controls.Primitives.ControlHelper.HeaderProperty, "你的QQ:");
-            box3.SetCurrentValue(ModernWpf.Controls.Primitives.ControlHelper.HeaderProperty, "游戏端口:");
-            panel.Children.Add(box);
-            panel.Children.Add(box2);
-            panel.Children.Add(box3);
-            ContentDialog dialog = new ContentDialog()
-            {
-                Title = "联机信息采集",
-                PrimaryButtonText = "开始！",
-                CloseButtonText = "取消",
-                IsPrimaryButtonEnabled = true,
-                DefaultButton = ContentDialogButton.Primary,
-                Content = panel,
-            };
-            var result = await dialog.ShowAsync();
-            if (result == ContentDialogResult.Primary)
-            {
-                String Password = box.Text;
-                String QQ = box2.Text;
-                String DK = box3.Text;
-                Game.WritePrivateProfileString("common", "server_addr", JD, FileOnlineServer + @"\frpc.ini");
-                Game.WritePrivateProfileString("common", "server_port", "7000", FileOnlineServer + @"\frpc.ini");
-                Game.WritePrivateProfileString("common", "user", QQ, FileOnlineServer + @"\frpc.ini");
-                Game.WritePrivateProfileString("common", "meta_token", Password, FileOnlineServer + @"\frpc.ini");
-                Game.WritePrivateProfileString(QQ, "type", "stcp", FileOnlineServer + @"\frpc.ini");
-                Game.WritePrivateProfileString(QQ, "sk", "test", FileOnlineServer + @"\frpc.ini");
-                Game.WritePrivateProfileString(QQ, "local_port", DK, FileOnlineServer + @"\frpc.ini");
-                Game.WritePrivateProfileString(QQ, "remote_port", "32423", FileOnlineServer + @"\frpc.ini");
-                CmdProcess1.StartInfo.FileName = FileOnlineServer + @"\frpc.exe";
-                //CmdProcess.StartInfo.FileName = StartFileName;
-                CmdProcess1.StartInfo.Arguments = "-c " + FileOnlineServer + @"\frpc.ini";
-                CmdProcess1.StartInfo.CreateNoWindow = true;
-                CmdProcess1.StartInfo.UseShellExecute = false;
-                CmdProcess1.StartInfo.RedirectStandardInput = true;
-                CmdProcess1.StartInfo.RedirectStandardOutput = true;
-                CmdProcess1.OutputDataReceived += new DataReceivedEventHandler(p_OutputDataReceivedG);
-                CmdProcess1.Start();
-                CmdProcess1.BeginOutputReadLine();
-                aw = EncryptDES(QQ + "|" + JD + "|" + Password, "1234567w");
+            else {
+                String JD;
+                if (HZ.IsChecked == true)
+                {
+                    JD = "hz.qwq.one";
+                }
+                else
+                {
+                    JD = "gz2.qwq.one";
+                }
+                StackPanel panel = new StackPanel()
+                {
+                    VerticalAlignment = VerticalAlignment.Stretch,
+                    HorizontalAlignment = HorizontalAlignment.Stretch,
+                };
+                panel.Children.Add(new TextBlock() { Text = "请输入你的一些信息，以便进行高性能联机" });
+                TextBox box = new TextBox();
+                TextBox box2 = new TextBox();
+                TextBox box3 = new TextBox();
+                box.SetCurrentValue(ModernWpf.Controls.Primitives.ControlHelper.HeaderProperty, "密码(请勿泄露):");
+                box2.SetCurrentValue(ModernWpf.Controls.Primitives.ControlHelper.HeaderProperty, "你的QQ:");
+                box3.SetCurrentValue(ModernWpf.Controls.Primitives.ControlHelper.HeaderProperty, "游戏端口:");
+                panel.Children.Add(box);
+                panel.Children.Add(box2);
+                panel.Children.Add(box3);
+                ContentDialog dialog = new ContentDialog()
+                {
+                    Title = "联机信息采集",
+                    PrimaryButtonText = "开始！",
+                    CloseButtonText = "取消",
+                    IsPrimaryButtonEnabled = true,
+                    DefaultButton = ContentDialogButton.Primary,
+                    Content = panel,
+                };
+                var result = await dialog.ShowAsync();
+                if (result == ContentDialogResult.Primary)
+                {
+                    String Password = box.Text;
+                    String QQ = box2.Text;
+                    String DK = box3.Text;
+                    Game.WritePrivateProfileString("common", "server_addr", JD, FileOnlineServer + @"\frpc.ini");
+                    Game.WritePrivateProfileString("common", "server_port", "7000", FileOnlineServer + @"\frpc.ini");
+                    Game.WritePrivateProfileString("common", "user", QQ, FileOnlineServer + @"\frpc.ini");
+                    Game.WritePrivateProfileString("common", "meta_token", Password, FileOnlineServer + @"\frpc.ini");
+                    Game.WritePrivateProfileString(QQ, "type", "stcp", FileOnlineServer + @"\frpc.ini");
+                    Game.WritePrivateProfileString(QQ, "sk", "test", FileOnlineServer + @"\frpc.ini");
+                    Game.WritePrivateProfileString(QQ, "local_port", DK, FileOnlineServer + @"\frpc.ini");
+                    Game.WritePrivateProfileString(QQ, "remote_port", "32423", FileOnlineServer + @"\frpc.ini");
+                    CmdProcess1.StartInfo.FileName = FileOnlineServer + @"\frpc.exe";
+                    //CmdProcess.StartInfo.FileName = StartFileName;
+                    CmdProcess1.StartInfo.Arguments = "-c " + FileOnlineServer + @"\frpc.ini";
+                    CmdProcess1.StartInfo.CreateNoWindow = true;
+                    CmdProcess1.StartInfo.UseShellExecute = false;
+                    CmdProcess1.StartInfo.RedirectStandardInput = true;
+                    CmdProcess1.StartInfo.RedirectStandardOutput = true;
+                    CmdProcess1.OutputDataReceived += new DataReceivedEventHandler(p_OutputDataReceivedG);
+                    CmdProcess1.Start();
+                    CmdProcess1.BeginOutputReadLine();
+                    aw = EncryptDES(QQ + "|" + JD + "|" + Password, "1234567w");
+                }
             }
         }
         String aw;

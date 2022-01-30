@@ -19,6 +19,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
+using static FSM3.MainWindow;
 
 namespace FSM3.Pages
 {
@@ -129,7 +131,7 @@ namespace FSM3.Pages
         public Settings()
         {
             InitializeComponent();
-            if(IniReadValue("ONLINE", "Server") != "" && IniReadValue("ONLINE", "Server") == "GZ")
+            if (IniReadValue("ONLINE", "Server") != "" && IniReadValue("ONLINE", "Server") == "GZ")
             {
                 GZJDXZ.IsChecked = true;
             }
@@ -235,7 +237,7 @@ namespace FSM3.Pages
 
         private void AZGX_Click(object sender, RoutedEventArgs e)
         {
-            
+
         }
 
         private async void Button_Click_2(object sender, RoutedEventArgs e)
@@ -294,9 +296,10 @@ namespace FSM3.Pages
             }
         }
 
-        private void Button_Click_3(object sender, RoutedEventArgs e)
+        private async void Button_Click_3(object sender, RoutedEventArgs e)
         {
             System.Diagnostics.Process.Start("https://www.kancloud.cn/yu_xuan/fsm3/2628960");
+
         }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -327,7 +330,7 @@ namespace FSM3.Pages
         private void MouseUP(object sender, MouseButtonEventArgs e)
         {
             WritePrivateProfileString("RAM", "RAMW", RAMS.Value.ToString(), FileS);
-            
+
         }
 
         private void AutoJava_c(object sender, RoutedEventArgs e)
@@ -341,15 +344,133 @@ namespace FSM3.Pages
                 java_list.IsEnabled = true;
             }
         }
-
         private void GSXT_Checked(object sender, RoutedEventArgs e)
         {
-
+            DisHelper.DisHelper.RunOnMainThread(() =>
+            {
+                ThemeManager.Current.AccentColor = Color.FromRgb(255,140,0) ;  //橙色
+            });
+            DisHelper.DisHelper.RunOnMainThread(() =>
+            {
+                ThemeManager.Current.AccentColor = Color.FromRgb(255, 67, 67);  //鲜艳红
+            });
+            DisHelper.DisHelper.RunOnMainThread(() =>
+            {
+                ThemeManager.Current.AccentColor = Color.FromRgb(232, 17, 35);  //中国红
+            });
+            DisHelper.DisHelper.RunOnMainThread(() =>
+            {
+                ThemeManager.Current.AccentColor = Color.FromRgb(234, 0, 94);  //小马宝莉
+            });
+            DisHelper.DisHelper.RunOnMainThread(() =>
+            {
+                ThemeManager.Current.AccentColor = Color.FromRgb(142, 140, 216);  //淡紫色
+            });
+            DisHelper.DisHelper.RunOnMainThread(() =>
+            {
+                ThemeManager.Current.AccentColor = Color.FromRgb(45, 125, 154);  //青色
+            });
+            DisHelper.DisHelper.RunOnMainThread(() =>
+            {
+                ThemeManager.Current.AccentColor = Color.FromRgb(16, 124, 16);  //原谅绿
+            });
+            DisHelper.DisHelper.RunOnMainThread(() =>
+            {
+                ThemeManager.Current.AccentColor = Color.FromRgb(46, 47, 42);  //高端灰
+            });
+            DisHelper.DisHelper.RunOnMainThread(() =>
+            {
+                ThemeManager.Current.AccentColor = Color.FromRgb(0, 178, 148);  //实力青
+            });
+            DisHelper.DisHelper.RunOnMainThread(() =>
+            {
+                ThemeManager.Current.AccentColor = Color.FromRgb(0, 204, 106);  //青草绿
+            });
+            DisHelper.DisHelper.RunOnMainThread(() =>
+            {
+                ThemeManager.Current.AccentColor = Color.FromRgb(202, 80, 16);  //深度橘
+            });
         }
+        public class AccentColors : List<AccentColor>
+        {
+            public AccentColors()
+            {
+                Add("#FFB900", "Yellow gold");
+                Add("#FF8C00", "Gold");
+                Add("#F7630C", "Orange bright");
+                Add("#CA5010", "Orange dark");
+                Add("#DA3B01", "Rust");
+                Add("#EF6950", "Pale rust");
+                Add("#D13438", "Brick red");
+                Add("#FF4343", "Mod red");
+                Add("#E74856", "Pale red");
+                Add("#E81123", "Red");
+                Add("#EA005E", "Rose bright");
+                Add("#C30052", "Rose");
+                Add("#E3008C", "Plum light");
+                Add("#BF0077", "Plum");
+                Add("#C239B3", "Orchid light");
+                Add("#9A0089", "Orchid");
+                Add("#0078D7", "Default blue");
+                Add("#0063B1", "Navy blue");
+                Add("#8E8CD8", "Purple shadow");
+                Add("#6B69D6", "Purple shadow Dark");
+                Add("#8764B8", "Iris pastel");
+                Add("#744DA9", "Iris spring");
+                Add("#B146C2", "Violet red light");
+                Add("#881798", "Violet red");
+                Add("#0099BC", "Cool blue bright");
+                Add("#2D7D9A", "Cool blue");
+                Add("#00B7C3", "Seafoam");
+                Add("#038387", "Seafoam team");
+                Add("#00B294", "Mint light");
+                Add("#018574", "Mint dark");
+                Add("#00CC6A", "Turf green");
+                Add("#10893E", "Sport green");
+                Add("#7A7574", "Gray");
+                Add("#5D5A58", "Gray brown");
+                Add("#68768A", "Steel blue");
+                Add("#515C6B", "Metal blue");
+                Add("#567C73", "Pale moss");
+                Add("#486860", "Moss");
+                Add("#498205", "Meadow green");
+                Add("#107C10", "Green");
+                Add("#767676", "Overcast");
+                Add("#4C4A48", "Storm");
+                Add("#69797E", "Blue gray");
+                Add("#4A5459", "Gray dark");
+                Add("#647C64", "Liddy green");
+                Add("#525E54", "Sage");
+                Add("#847545", "Camouflage desert");
+                Add("#7E735F", "Camouflage");
+            }
 
+            private void Add(string color, string name)
+            {
+                Add(new AccentColor((Color)ColorConverter.ConvertFromString(color), name));
+            }
+        }
+        public class AccentColor
+        {
+            public AccentColor(Color color, string name)
+            {
+                Color = color;
+                Name = name;
+                Brush = new SolidColorBrush(color);
+            }
+
+            public Color Color { get; }
+            public string Name { get; }
+            public SolidColorBrush Brush { get; }
+
+            public override string ToString()
+            {
+                return Name;
+            }
+        }
         private void GSXT_Click(object sender, RoutedEventArgs e)
         {
-            if(GSXT.IsChecked == true)
+            if (GSXT.IsChecked == true)
             {
                 QHZTS.IsEnabled = false;
             }
@@ -379,9 +500,108 @@ namespace FSM3.Pages
                 Content = panel,
             };
             var result = await dialog.ShowAsync();
-            
+
         }
 
-        
+        bool IsLeftMouseDown = false;
+        byte cc = 83;
+        byte cd = 21;
+        byte ca = 24;
+        byte cb = 66;
+        private async void Caidan(object sender, MouseButtonEventArgs e)
+        {
+            IsLeftMouseDown = true;
+            Random ra = new Random();
+
+            Thread.Sleep(1500);
+
+            if (IsLeftMouseDown)
+            {
+                while (true)
+                {
+                    await Task.Run(() => Thread.Sleep(123));
+                    ca = (byte)(ca + ra.Next(8, 88));
+                    cb = (byte)(cb + ra.Next(9, 99));
+                    cc = (byte)(cc + ra.Next(11, 200));
+                    cd = (byte)(cd + ra.Next(8, 66));
+                    if (ca > (byte)255)
+                    {
+                        ca = 110;
+                    }
+                    ZBt.zbt.Foreground = new SolidColorBrush(Color.FromArgb(ca, cb, cc, cd));
+                }
+            }
+            else
+            {
+
+            }
+        }
+
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            switch (ColorCombobox.SelectedIndex)
+            {
+                case 0:
+                    DisHelper.DisHelper.RunOnMainThread(() =>
+                    {
+                        ThemeManager.Current.AccentColor = Color.FromRgb(255, 140, 0);  //橙色
+                    });
+                    break;
+                case 1:
+                    DisHelper.DisHelper.RunOnMainThread(() =>
+                    {
+                        ThemeManager.Current.AccentColor = Color.FromRgb(255, 67, 67);  //鲜艳红
+                    });
+                    break;
+                case 2:
+                    DisHelper.DisHelper.RunOnMainThread(() =>
+                    {
+                        ThemeManager.Current.AccentColor = Color.FromRgb(232, 17, 35);  //中国红
+                    });
+                    break;
+                case 3:
+                    DisHelper.DisHelper.RunOnMainThread(() =>
+                    {
+                        ThemeManager.Current.AccentColor = Color.FromRgb(234, 0, 94);  //小马宝莉
+                    });
+                    break;
+                case 4:
+                    DisHelper.DisHelper.RunOnMainThread(() =>
+                    {
+                        ThemeManager.Current.AccentColor = Color.FromRgb(142, 140, 216);  //淡紫色
+                    });
+                    break;
+                case 5:
+                    DisHelper.DisHelper.RunOnMainThread(() =>
+                    {
+                        ThemeManager.Current.AccentColor = Color.FromRgb(45, 125, 154);  //青色
+                    });
+                    break;
+                case 6:
+                    DisHelper.DisHelper.RunOnMainThread(() =>
+                    {
+                        ThemeManager.Current.AccentColor = Color.FromRgb(16, 124, 16);  //原谅绿
+                    });
+                    break;
+                case 7:
+                    DisHelper.DisHelper.RunOnMainThread(() =>
+                    {
+                        ThemeManager.Current.AccentColor = Color.FromRgb(46, 47, 42);  //高端灰
+                    });
+                    break;
+                case 8:
+                    DisHelper.DisHelper.RunOnMainThread(() =>
+                    {
+                        ThemeManager.Current.AccentColor = Color.FromRgb(0, 204, 106);  //青草绿
+                    });
+                    break;
+                case 9:
+                    DisHelper.DisHelper.RunOnMainThread(() =>
+                    {
+                        ThemeManager.Current.AccentColor = Color.FromRgb(202, 80, 16);  //深度橘
+                    });
+                    break;
+            }
+        }
     }
 }

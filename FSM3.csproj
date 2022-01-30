@@ -195,6 +195,7 @@
     <Compile Include="About List\PathItem.xaml.cs">
       <DependentUpon>PathItem.xaml</DependentUpon>
     </Compile>
+    <Compile Include="DisHelper\DisHelper.cs" />
     <Compile Include="Download_Pages\Fabric.xaml.cs">
       <DependentUpon>Fabric.xaml</DependentUpon>
     </Compile>

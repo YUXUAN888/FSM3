@@ -49,7 +49,7 @@
                                 <PasswordBox x:Name="Mojang2" HorizontalAlignment="Left" Height="32" Margin="60,124,0,0" VerticalAlignment="Top" Width="275"/>
                                 <Label Content="邮箱:" HorizontalAlignment="Left" Margin="18,93,0,0" VerticalAlignment="Top"/>
                                 <Label Content="密码:" HorizontalAlignment="Left" Margin="18,131,0,0" VerticalAlignment="Top"/>
-                                <Button Content="登录" HorizontalAlignment="Left" Height="31" Margin="211,170,0,0" VerticalAlignment="Top" Width="124" Click="Button_Click"/>
+                                <Button Content="登录" HorizontalAlignment="Left" Height="31" Margin="233,170,0,0" VerticalAlignment="Top" Width="102" Click="Button_Click"/>
 
                             </Grid>
                         </TabItem>
@@ -114,13 +114,25 @@
                                 </TransformGroup>
                             </TabItem.RenderTransform>
                             <Grid>
-                                <iconPacks:PackIconSimpleIcons Kind="Microsoft" Height="178" Width="210" Margin="-2,8,0,0">
+                                <iconPacks:PackIconSimpleIcons Kind="Microsoft" Height="178" Width="210" Margin="-1,7,0,0">
                                     <iconPacks:PackIconSimpleIcons.Foreground>
                                         <SolidColorBrush Color="#FFD0D0D0" Opacity="0.55"/>
                                     </iconPacks:PackIconSimpleIcons.Foreground>
                                 </iconPacks:PackIconSimpleIcons>
                                 <Image x:Name="IMW" HorizontalAlignment="Left" Height="100" Margin="126,57,0,0" VerticalAlignment="Top" Width="100"/>
                                 <Label x:Name="NNW" Content="Label" HorizontalAlignment="Left" Margin="86,187,0,0" VerticalAlignment="Top" FontSize="17" Width="181" HorizontalContentAlignment="Center"/>
+                                <Button Height="25" Width="37" Margin="10,240,0,10.2" Click="Button_Click_4">
+                                    <ui:FontIcon Glyph="&#xE9AC;" Width="28" RenderTransformOrigin="0.5,0.5" Height="21" Margin="-4,-5,0,0">
+                                        <ui:FontIcon.RenderTransform>
+                                            <TransformGroup>
+                                                <ScaleTransform ScaleX="-1"/>
+                                                <SkewTransform/>
+                                                <RotateTransform/>
+                                                <TranslateTransform/>
+                                            </TransformGroup>
+                                        </ui:FontIcon.RenderTransform>
+                                    </ui:FontIcon>
+                                </Button>
                             </Grid>
                         </TabItem>
                     </TabControl>
@@ -156,6 +168,25 @@
                     <Grid.Background>
                         <ImageBrush/>
                     </Grid.Background>
+                    <TabControl>
+                        <TabItem Height="1">
+                            <Grid>
+                                <TextBox HorizontalAlignment="Left" Height="25" Margin="69,59,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="271"/>
+                                <Label Content="服务器:" HorizontalAlignment="Left" Margin="12,66,0,0" VerticalAlignment="Top"/>
+                                <TextBox HorizontalAlignment="Left" Height="25" Margin="69,102,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="271"/>
+                                <Label Content="邮箱:" HorizontalAlignment="Left" Margin="10,109,0,0" VerticalAlignment="Top" Width="44" HorizontalContentAlignment="Right"/>
+                                <PasswordBox Width="271" Margin="69,145,12.8,96.2"/>
+                                <Label Content="密码:" HorizontalAlignment="Left" Margin="10,152,0,0" VerticalAlignment="Top" Width="44" HorizontalContentAlignment="Right"/>
+                                <Button Content="登录" HorizontalAlignment="Left" Margin="246,186,0,0" VerticalAlignment="Top" Width="94"/>
+
+                            </Grid>
+                        </TabItem>
+                        <TabItem Height="1">
+                            <Grid>
+
+                            </Grid>
+                        </TabItem>
+                    </TabControl>
                 </Grid>
             </TabItem>
         </TabControl>

@@ -46,13 +46,32 @@
 
                 </Grid>
             </TabItem>
-            <TabItem>
+            <TabItem Width="129">
                 <TabItem.Header>
-                    <StackPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Horizontal" Margin="0,0,9.2,0">
                         <iconPacks:PackIconSimpleIcons Kind="CurseForge" Margin="0,2,5,0"/>
                         <Label Content="CurseForge"/>
                     </StackPanel>
                 </TabItem.Header>
+                <Grid>
+                    <Label Content="嗷呜，CurseForge还没好" HorizontalAlignment="Left" Height="40" Margin="294,182,0,0" VerticalAlignment="Top" Width="208"/>
+                </Grid>
+            </TabItem>
+            <TabItem Height="1" RenderTransformOrigin="0.5,0.5">
+                <Grid>
+
+                </Grid>
+            </TabItem>
+            <TabItem Height="1" RenderTransformOrigin="0.5,0.5">
+
+                <Grid/>
+            </TabItem>
+            <TabItem Height="1" RenderTransformOrigin="0.5,0.5">
+
+                <Grid/>
+            </TabItem>
+            <TabItem Height="1" RenderTransformOrigin="0.5,0.5">
+
                 <Grid/>
             </TabItem>
         </TabControl>

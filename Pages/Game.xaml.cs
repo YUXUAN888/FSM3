@@ -99,31 +99,36 @@ namespace FSM3.Pages
             {
                 OfflineName.Text = IniReadValueW("OffLine", "ID");
             }
-            switch (IniReadValue("Login", "LoginM"))
+            try
             {
-                case "1":
-                    if (wryes == "888")
-                    {
-                        WrD.SelectedIndex = 1;
-                        NNW.Content = wrname;
-                        BitmapImage bi = new BitmapImage();
-                        // BitmapImage.UriSource must be in a BeginInit/EndInit block.  
-                        bi.BeginInit();
-                        bi.UriSource = new Uri(System.AppDomain.CurrentDomain.BaseDirectory + @"FSM\Skin\steven.png", UriKind.RelativeOrAbsolute);
-                        bi.EndInit();
-                        IMW.Source = bi;
-                        loginmode = "wr";
-                        WritePrivateProfileString("Login", "LoginM", "1", FileS);
-                    }
-                    else
-                    {
-                        WrD.SelectedIndex = 0;
-                        loginmode = "";
-                    }
-                    break;
+                switch (IniReadValue("Login", "LoginM"))
+                {
+                    case "1":
+                        if (wryes == "888")
+                        {
+                            loginmode = "wr";
+                            WritePrivateProfileString("Login", "LoginM", "1", FileS);
+                            WrD.SelectedIndex = 1;
+                            NNW.Content = wrname;
+                            BitmapImage bi = new BitmapImage();
+                            // BitmapImage.UriSource must be in a BeginInit/EndInit block.  
+                            bi.BeginInit();
+                            bi.UriSource = new Uri(System.AppDomain.CurrentDomain.BaseDirectory + @"FSM\Skin\steven.png", UriKind.RelativeOrAbsolute);
+                            bi.EndInit();
+                            IMW.Source = bi;
+                        }
+                        else
+                        {
+                            WrD.SelectedIndex = 0;
+                            loginmode = "";
+                        }
+                        break;
+                }
             }
-            
+            catch
+            {
 
+            }
         }
         public static int dw;
         public static string Mojangname;
@@ -508,22 +513,28 @@ namespace FSM3.Pages
        
         private void OnQw(object ob, EventArgs a)
         {
-
-            if (DIYvar.xzItems[dw].xzwz == "完成")
+            try
             {
-                System.Drawing.Point point = new System.Drawing.Point(8, 8);
-                System.Drawing.Size size = new System.Drawing.Size(8, 8);
-                Bitmap bitmap = new Bitmap(System.AppDomain.CurrentDomain.BaseDirectory + @"FSM\Skin\Skin.png");
-                var i = crop(bitmap, new System.Drawing.Point(8, 8), new System.Drawing.Size(8, 8));
-                Zoom(i, 258, 258, out i, ZoomType.NearestNeighborInterpolation);
-                i.Save(System.AppDomain.CurrentDomain.BaseDirectory + @"FSM\Skin\steven.png");
-                System.Drawing.Image img = i;
-                BitmapImage bi = new BitmapImage();
-                // BitmapImage.UriSource must be in a BeginInit/EndInit block.  
-                IMW.Source = BitmapToBitmapImage(i);
-                ///WritePrivateProfileString("wr", "Atoken", refresh_token, File_);
-                (FindResource("hideMe") as System.Windows.Media.Animation.Storyboard).Begin(TX);
-                (FindResource("showMe") as System.Windows.Media.Animation.Storyboard).Begin(XZWRZH);
+                if (DIYvar.xzItems[dw].xzwz == "完成")
+                {
+                    System.Drawing.Point point = new System.Drawing.Point(8, 8);
+                    System.Drawing.Size size = new System.Drawing.Size(8, 8);
+                    Bitmap bitmap = new Bitmap(System.AppDomain.CurrentDomain.BaseDirectory + @"FSM\Skin\Skin.png");
+                    var i = crop(bitmap, new System.Drawing.Point(8, 8), new System.Drawing.Size(8, 8));
+                    Zoom(i, 258, 258, out i, ZoomType.NearestNeighborInterpolation);
+                    i.Save(System.AppDomain.CurrentDomain.BaseDirectory + @"FSM\Skin\steven.png");
+                    System.Drawing.Image img = i;
+                    BitmapImage bi = new BitmapImage();
+                    // BitmapImage.UriSource must be in a BeginInit/EndInit block.  
+                    IMW.Source = BitmapToBitmapImage(i);
+                    ///WritePrivateProfileString("wr", "Atoken", refresh_token, File_);
+                    (FindResource("hideMe") as System.Windows.Media.Animation.Storyboard).Begin(TX);
+                    (FindResource("showMe") as System.Windows.Media.Animation.Storyboard).Begin(XZWRZH);
+                }
+            }
+            catch
+            {
+
             }
         }
 
@@ -565,6 +576,8 @@ namespace FSM3.Pages
             {
                 if (wryes == "888")
                 {
+                    loginmode = "wr";
+                    WritePrivateProfileString("Login", "LoginM", "1", FileS);
                     WrD.SelectedIndex = 1;
                     NNW.Content = wrname;
                     BitmapImage bi = new BitmapImage();
@@ -573,8 +586,6 @@ namespace FSM3.Pages
                     bi.UriSource = new Uri(System.AppDomain.CurrentDomain.BaseDirectory + @"FSM\Skin\steven.png", UriKind.RelativeOrAbsolute);
                     bi.EndInit();
                     IMW.Source = bi;
-                    loginmode = "wr";
-                    WritePrivateProfileString("Login", "LoginM", "1", FileS);
                 }
                 else
                 {
@@ -617,6 +628,18 @@ namespace FSM3.Pages
             offlinename = OfflineName.Text;
             loginmode = "offline";
             WritePrivateProfileString("OffLine", "ID", OfflineName.Text, ZongW + @"\ConsoleW.qwq");
+        }
+
+        private void Button_Click_4(object sender, RoutedEventArgs e)
+        {
+            loginmode = "";
+            WritePrivateProfileString("wr", "Atoken", "", ZongW + @"\ConsoleW.qwq");
+            ///WR.DeleteValue("Atoken");
+            WrD.SelectedIndex = 0;
+            wryes = "";
+            wrname = "";
+            wruuid = "";
+            wrtoken = "";
         }
 
         private void Button_Click_3(object sender, RoutedEventArgs e)
