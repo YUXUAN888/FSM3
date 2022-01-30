@@ -64,11 +64,11 @@ Fody add-in for embedding references as resources.
 Licensed under the MIT License(MIT);  
 https://github.com/Fody/Costura/blob/master/license.txt  
 
-## ModernUI  
+## ModernWpf
 
 Brings the new Modern UI alias Metro UI of Windows 8/10 to .NET Windows Forms applications.
 Licensed under the MIT License(MIT);  
-https://github.com/MassimoLoi/ModernUI/blob/master/LICENSE.md
+https://github.com/Kinnara/ModernWpf#readme
 
 ## SharpZipLib  
 
