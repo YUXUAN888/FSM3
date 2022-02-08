@@ -91,13 +91,11 @@ SharpZipLib (#ziplib, formerly NZipLib) is a compression library for Zip, GZip, 
 Licensed under the MIT License(MIT);  
 https://github.com/icsharpcode/SharpZipLib/blob/master/LICENSE.txt  
 
-## MojangSharp  
+## MojangAPI  
 
-https://github.com/hawezo/MojangSharp  
-Copyright 2017 Enzo Innocenzi  
-MojangSharp is a C# wrapper for the Mojang API and Mojang Authentication API.  
-Licensed under the Apache License, Version 2.0;  
-https://github.com/hawezo/MojangSharp/blob/master/LICENSE  
+https://github.com/CmlLib/MojangAPI
+Copyright 2021 CmlLib  
+.NET Library for Mojang API、 Mojang Authentication 和 Microsoft Xbox Authentication
 
 ## SquareMinecraftLauncherCore
 
