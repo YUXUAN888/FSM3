@@ -79,9 +79,10 @@ https://github.com/Fody/Costura/blob/master/license.txt
 
 ## ModernWpf
 
+https://github.com/Kinnara/ModernWpf/
 Brings the new Modern UI alias Metro UI of Windows 8/10 to .NET Windows Forms applications.
 Licensed under the MIT License(MIT);  
-https://github.com/Kinnara/ModernWpf#readme
+https://github.com/Kinnara/ModernWpf/blob/master/LICENSE
 
 ## SharpZipLib  
 
@@ -95,7 +96,7 @@ https://github.com/icsharpcode/SharpZipLib/blob/master/LICENSE.txt
 
 https://github.com/CmlLib/MojangAPI
 Copyright 2021 CmlLib  
-.NET Library for Mojang API、 Mojang Authentication 和 Microsoft Xbox Authentication
+.NET Library for Mojang API、 Mojang Authentication and Microsoft Xbox Authentication
 
 ## SquareMinecraftLauncherCore
 
