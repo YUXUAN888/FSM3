@@ -24,6 +24,7 @@ BMCLAPI和BMCL不同，属于非开源项目
 ------------
 
 #### 2018k
+> 关于  
 简单, 快速。
 一个软件更新平台
 https://2018k.cn
@@ -63,11 +64,11 @@ Fody add-in for embedding references as resources.
 Licensed under the MIT License(MIT);  
 https://github.com/Fody/Costura/blob/master/license.txt  
 
-## ModernUI  
+## ModernWpf
 
 Brings the new Modern UI alias Metro UI of Windows 8/10 to .NET Windows Forms applications.
 Licensed under the MIT License(MIT);  
-https://github.com/MassimoLoi/ModernUI/blob/master/LICENSE.md
+https://github.com/Kinnara/ModernWpf#readme
 
 ## SharpZipLib  
 
