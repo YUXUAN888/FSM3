@@ -14,7 +14,7 @@
     </Page.Resources>
 
     <Grid>
-        <TabControl>
+        <TabControl x:Name="DTB">
             <TabItem>
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
@@ -42,37 +42,59 @@
                         <ComboBoxItem Content="远古版"/>
                         <ComboBoxItem Content="愚人节版本"/>
                     </ComboBox>
-                    <Button Content="开始安装" HorizontalAlignment="Left" Margin="12,299,0,0" Style="{StaticResource AccentButtonStyle}" VerticalAlignment="Top" Width="188" Height="60" FontSize="16.88" Click="Button_Click"/>
+                    <Button Content="开始安装" HorizontalAlignment="Left" Margin="12,299,0,0" Style="{StaticResource AccentButtonStyle}" VerticalAlignment="Top" Width="188" Height="60" FontSize="17.11" Click="Button_Click"/>
 
                 </Grid>
             </TabItem>
-            <TabItem Width="129">
+            <TabItem>
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal" Margin="0,0,9.2,0">
-                        <iconPacks:PackIconSimpleIcons Kind="CurseForge" Margin="0,2,5,0"/>
-                        <Label Content="CurseForge"/>
+                        <iconPacks:PackIconSimpleIcons Kind="Modx" Margin="0,2,5,0"/>
+                        <Label Content="资源下载"/>
+                    </StackPanel>
+                </TabItem.Header>
+                <Grid/>
+            </TabItem>
+            <TabItem>
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal" Margin="0,0,9.2,0">
+                        <iconPacks:PackIconSimpleIcons Kind="Uploaded" Margin="0,2,5,0"/>
+                        <Label Content="下载进程"/>
                     </StackPanel>
                 </TabItem.Header>
                 <Grid>
-                    <Label Content="嗷呜，CurseForge还没好" HorizontalAlignment="Left" Height="40" Margin="294,182,0,0" VerticalAlignment="Top" Width="208"/>
+                    <Border CornerRadius="7,7,7,7" BorderBrush="#FF323232" BorderThickness="1" HorizontalAlignment="Left" Height="364" Margin="17,13,0,0" VerticalAlignment="Top" Width="713">
+                        <Grid>
+                            <Label x:Name="SFYXZJC" Style="{StaticResource DefaultLabelStyle}" Content="当前无下载进程" HorizontalAlignment="Left" Margin="16,13,0,0" VerticalAlignment="Top" FontSize="21"/>
+                            <ListBox x:Name="XZJC" HorizontalAlignment="Left" Height="303" Margin="11,46,0,0" VerticalAlignment="Top" Width="690" SelectionChanged="XZJC_SelectionChanged"/>
+                        </Grid>
+                    </Border>
                 </Grid>
             </TabItem>
             <TabItem Height="1" RenderTransformOrigin="0.5,0.5">
                 <Grid>
+                    <ListBox x:Name="ForgeList" HorizontalAlignment="Left" Height="292" Margin="166,71,0,0" VerticalAlignment="Top" Width="417" SelectionChanged="ForgeList_SelectionChanged"/>
+                    <Button x:Name="MaxForge" Content="" HorizontalAlignment="Left" Margin="165,30,0,0" VerticalAlignment="Top" Width="420" Height="35" Click="MaxForge_Click"/>
 
                 </Grid>
             </TabItem>
             <TabItem Height="1" RenderTransformOrigin="0.5,0.5">
 
-                <Grid/>
+                <Grid>
+                    <ListBox x:Name="OptifineList" HorizontalAlignment="Left"  Height="326" Margin="166,37,0,0" VerticalAlignment="Top" Width="417" SelectionChanged="OptifineList_SelectionChanged"/>
+                </Grid>
             </TabItem>
             <TabItem Height="1" RenderTransformOrigin="0.5,0.5">
 
-                <Grid/>
+                <Grid>
+                    <ListBox x:Name="FabList"  HorizontalAlignment="Left"  Height="326" Margin="166,37,0,0" VerticalAlignment="Top" Width="417" SelectionChanged="FabList_SelectionChanged"/>
+                </Grid>
             </TabItem>
             <TabItem Height="1" RenderTransformOrigin="0.5,0.5">
 
-                <Grid/>
+                <Grid>
+                    <ListBox x:Name="LiteList"  HorizontalAlignment="Left"  Height="326" Margin="166,37,0,0" VerticalAlignment="Top" Width="417"/>
+                </Grid>
             </TabItem>
         </TabControl>
     </Grid>

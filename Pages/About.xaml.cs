@@ -1,12 +1,16 @@
-﻿using FSMLauncher_3;
+﻿using FSM3.About_List;
+using FSM3.DisHelper;
+using FSMLauncher_3;
 using Gac;
 using ICSharpCode.SharpZipLib.Zip;
 using ModernWpf.Controls;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Media;
+using System.Net;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -45,7 +49,7 @@ namespace FSM3.Pages
 
         private void Tile_Click_16(object sender, RoutedEventArgs e)
         {
-            System.Diagnostics.Process.Start("https://github.com/YUXUAN888/FSMLauncher3");
+            System.Diagnostics.Process.Start("https://github.com/YUXUAN888/FSM3");
         }
 
         private void Button_Click_37(object sender, RoutedEventArgs e)
@@ -74,8 +78,9 @@ namespace FSM3.Pages
         }
 
         private void Button_Click_5(object sender, RoutedEventArgs e)
-        {
-            System.Diagnostics.Process.Start("https://support.qq.com/products/361169");
+        {     
+            framecontrol.frame.Source = new Uri("/Pages/FK.xaml", UriKind.RelativeOrAbsolute);
+            //System.Diagnostics.Process.Start("https://support.qq.com/products/361169");
         }
         public void SendMsgHander(DownMsg msg)
         {

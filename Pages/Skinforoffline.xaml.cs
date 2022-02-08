@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace FSM3.Download_Pages
+namespace FSM3.Pages
 {
     /// <summary>
-    /// Forge.xaml 的交互逻辑
+    /// Skinforoffline.xaml 的交互逻辑
     /// </summary>
-    public partial class Forge : Page
+    public partial class Skinforoffline : Page
     {
-        public Forge()
+        public Skinforoffline()
         {
             InitializeComponent();
         }

@@ -24,6 +24,8 @@
                     <Button x:Name="CJFJ" Content="创建并开启房间" HorizontalAlignment="Left" Height="38" Margin="139,349,0,0" VerticalAlignment="Top" Width="233" Click="Button_Click_1"/>
                     <TextBox x:Name="SC" HorizontalAlignment="Left" Height="251" Margin="21,14,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="710" Visibility="Hidden"/>
                     <Button x:Name="JRFJ" Content="加入房间" HorizontalAlignment="Left" Height="38" Margin="378,349,0,0" VerticalAlignment="Top" Width="233" Click="Button_Click_2"/>
+                    <Label Content="普通联机(基于frp)" HorizontalAlignment="Left" Margin="11,10,0,0" VerticalAlignment="Top" FontSize="24"/>
+                    <Label Content="普通联机不支持离线模式进入,连接方式首选TCP,稳定且流畅" HorizontalAlignment="Left" Margin="11,42,0,0" VerticalAlignment="Top" FontSize="15"/>
                 </Grid>
             </TabItem>
             <TabItem>
@@ -42,6 +44,25 @@
                     <RadioButton x:Name="HZ" Content="杭州高性能" HorizontalAlignment="Left" Margin="447,279,0,0" VerticalAlignment="Top" IsChecked="True"/>
                     <RadioButton x:Name="GZ2" Content="广州高性能" HorizontalAlignment="Left" Margin="447,322,0,0" VerticalAlignment="Top"/>
                     <Label Content="高性能联机请到 更多-关于-赞助作者 购买" HorizontalAlignment="Left" Margin="196,368,0,0" VerticalAlignment="Top" Width="349" HorizontalContentAlignment="Center"/>
+                    <Label Content="高性能联机(基于frp)" HorizontalAlignment="Left" Margin="11,10,0,0" VerticalAlignment="Top" FontSize="24"/>
+                    <Label Content="高性能联机为质量最好的联机方式,新疆连杭州也不超35ms" HorizontalAlignment="Left" Margin="11,42,0,0" VerticalAlignment="Top" FontSize="15"/>
+                </Grid>
+            </TabItem>
+            <TabItem>
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <ui:FontIcon Glyph="&#xE71B;" Margin="0,0,4,0"/>
+                        <Label Content="BaibaoSkin方式"/>
+                    </StackPanel>
+                </TabItem.Header>
+                <Grid>
+                    <Grid.Background>
+                        <ImageBrush/>
+                    </Grid.Background>
+                    <Label Content="以BaibaoSkin方式联机(P2PSocket)" HorizontalAlignment="Left" Margin="11,10,0,0" VerticalAlignment="Top" FontSize="24"/>
+                    <Label Content="相较于前两者,BaibaoSkin方式无需正版,双方离线也可进行联机" HorizontalAlignment="Left" Margin="11,42,0,0" VerticalAlignment="Top" FontSize="15"/>
+                    <Button x:Name="CJFJ_Baibao" Content="创建并开启房间" HorizontalAlignment="Left" Height="38" Margin="139,349,0,0" VerticalAlignment="Top" Width="233" Click="Button_Click_66"/>
+                    <Button x:Name="JRFJ_Baibao" Content="加入房间" HorizontalAlignment="Left" Height="38" Margin="378,349,0,0" VerticalAlignment="Top" Width="233" Click="Button_Click_77"/>
                 </Grid>
             </TabItem>
         </TabControl>

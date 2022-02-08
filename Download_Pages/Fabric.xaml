@@ -9,6 +9,6 @@
       Title="Fabric">
 
     <Grid>
-        
+        <Image x:Name="FSMLogo" HorizontalAlignment="Left" Height="130" Margin="291,138,0,0" VerticalAlignment="Top" Width="130" Source="/FSM3;component/Image/FSMLogo.png"/>
     </Grid>
 </Page>

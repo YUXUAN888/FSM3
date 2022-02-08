@@ -4,7 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:FSM3.Main"
-      xmlns:Home_API="clr-namespace:FSM3.Home_API" x:Class="FSM3.Main.HomePage"
+      xmlns:Home_API="clr-namespace:FSM3.Home_API" xmlns:ThreadedUI="clr-namespace:ModernWpf.SampleApp.ThreadedUI" x:Class="FSM3.Main.HomePage"
       mc:Ignorable="d" 
       d:DesignHeight="417" d:DesignWidth="354"
       Title="HomePage">

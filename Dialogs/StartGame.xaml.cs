@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace FSM3.Download_Pages
+namespace FSM3.Dialogs
 {
     /// <summary>
-    /// Optifine.xaml 的交互逻辑
+    /// StartGame.xaml 的交互逻辑
     /// </summary>
-    public partial class Optifine : Page
+    public partial class StartGame : UserControl
     {
-        public Optifine()
+        public StartGame()
         {
             InitializeComponent();
         }

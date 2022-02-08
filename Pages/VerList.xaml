@@ -9,18 +9,18 @@
       Title="VerList">
 
     <Grid>
-        <ListBox HorizontalAlignment="Left" Height="385" Margin="9,8,0,0" VerticalAlignment="Top" Width="374">
+        <ListBox x:Name="pathlist" HorizontalAlignment="Left" Height="385" Margin="9,8,0,0" VerticalAlignment="Top" Width="360" SelectionChanged="pathlist_SelectionChanged">
             <ListBox.Background>
                 <ImageBrush/>
             </ListBox.Background>
         </ListBox>
-        <ListBox HorizontalAlignment="Left" Height="385" Margin="385,8,0,0" VerticalAlignment="Top" Width="409">
+        <ListBox x:Name="vlist" HorizontalAlignment="Left" Height="385" Margin="375,8,0,0" VerticalAlignment="Top" Width="375" SelectionChanged="vlist_SelectionChanged">
             <ListBox.Background>
                 <ImageBrush/>
             </ListBox.Background>
         </ListBox>
-        <Button Content="新增游戏文件夹" HorizontalAlignment="Left" Height="37" Margin="9,397,0,0" VerticalAlignment="Top" Width="145"/>
-        <Button Content="删除选中文件夹" HorizontalAlignment="Left" Height="37" Style="{StaticResource AccentButtonStyle}" Margin="160,397,0,0" VerticalAlignment="Top" Width="145" Foreground="White" BorderBrush="Red">
+        <Button Content="新增游戏文件夹" HorizontalAlignment="Left" Height="37" Margin="9,397,0,0" VerticalAlignment="Top" Width="145" Click="Button_Click_1"/>
+        <Button Content="删除选中文件夹" HorizontalAlignment="Left" Height="37" Style="{StaticResource AccentButtonStyle}" Margin="160,397,0,0" VerticalAlignment="Top" Width="145" Foreground="White" BorderBrush="Red" Click="Button_Click">
             <Button.Background>
                 <SolidColorBrush Color="#FFFD0000" Opacity="0.66"/>
             </Button.Background>

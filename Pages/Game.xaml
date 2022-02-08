@@ -5,21 +5,20 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:FSM3.Pages" xmlns:ui="http://schemas.modernwpf.com/2019"
       xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
-      xmlns:squareminecraftlauncherskin="clr-namespace:SquareMinecraftLauncherSkin;assembly=SquareMinecraftLauncherSkin"
+      xmlns:squareminecraftlauncherskin="clr-namespace:SquareMinecraftLauncherSkin;assembly=SquareMinecraftLauncherSkin" xmlns:dialogs="clr-namespace:FSM3.Dialogs"
       mc:Ignorable="d" 
       d:DesignHeight="444"
       Title="Game" Width="752.8">
-
-    <Grid Margin="0,0,-0.2,0" Loaded="Load" >
-        <Button HorizontalAlignment="Right" Height="79" Style="{StaticResource AccentButtonStyle}" VerticalAlignment="Bottom" Width="248" Margin="12" Click="Button_Click">
+    <Grid x:Name="GameGrid" Margin="0,0,-0.2,0" Loaded="Load" >
+        <Button x:Name="StartGame" HorizontalAlignment="Right" Height="79" Style="{StaticResource AccentButtonStyle}" VerticalAlignment="Bottom" Width="248" Margin="12" Click="Button_Click_Start">
             <WrapPanel Height="64" Width="229">
                 <Label Content="启动游戏" Height="32" Width="231" FontSize="25.8" Foreground="White" HorizontalContentAlignment="Center" Margin="0,33,0,0" VerticalAlignment="Center"/>
                 <Label x:Name="NowV" Content="未选择版本" Height="16" Width="231" FontSize="12.8" Foreground="#FFEAEAEA" HorizontalContentAlignment="Center" Margin="0,-111,0,0" FontFamily="Microsoft YaHei UI"/>
             </WrapPanel>
         </Button>
-        <Button Content="版本选择" HorizontalAlignment="Right" Height="37" Margin="0,0,265,53" VerticalAlignment="Bottom" Width="111" Click="Button_Click_3" FontSize="14.556"/>
-        <Button Content="版本设置" HorizontalAlignment="Right" Height="37" Margin="0,0,265,13" VerticalAlignment="Bottom" Width="111" FontSize="14.556"/>
-        <TabControl x:Name="IDTab" SelectionChanged="TabControl_SelectionChanged" HorizontalAlignment="Left" Height="328" Margin="382,18,0,0" VerticalAlignment="Top" Width="353" TabStripPlacement="Bottom" SelectedIndex="0">
+        <Button Content="版本选择" HorizontalAlignment="Right" Height="37" Margin="0,0,265,54" VerticalAlignment="Bottom" Width="111" Click="Button_Click_3" FontSize="14.556"/>
+        <Button Content="版本设置" HorizontalAlignment="Right" Height="37" Margin="0,0,265,12" VerticalAlignment="Bottom" Width="111" FontSize="14.556" Click="Button_Click_9"/>
+        <TabControl x:Name="IDTab" SelectionChanged="TabControl_SelectionChanged" HorizontalAlignment="Left" Height="328" Margin="382,18,0,0" VerticalAlignment="Top" Width="353" TabStripPlacement="Bottom" SelectedIndex="0" MouseLeftButtonDown="Left">
             <TabControl.Background>
                 <ImageBrush/>
             </TabControl.Background>
@@ -44,12 +43,12 @@
                                     <TranslateTransform/>
                                 </TransformGroup>
                             </TabItem.RenderTransform>
-                            <Grid>
+                            <Grid x:Name="MojangGrid">
                                 <TextBox x:Name="Mojang1" HorizontalAlignment="Left" Height="24" Margin="60,85,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="275"/>
                                 <PasswordBox x:Name="Mojang2" HorizontalAlignment="Left" Height="32" Margin="60,124,0,0" VerticalAlignment="Top" Width="275"/>
-                                <Label Content="邮箱:" HorizontalAlignment="Left" Margin="18,93,0,0" VerticalAlignment="Top"/>
-                                <Label Content="密码:" HorizontalAlignment="Left" Margin="18,131,0,0" VerticalAlignment="Top"/>
-                                <Button Content="登录" HorizontalAlignment="Left" Height="31" Margin="233,170,0,0" VerticalAlignment="Top" Width="102" Click="Button_Click"/>
+                                <Label x:Name="MailM" Content="邮箱:" HorizontalAlignment="Left" Margin="18,93,0,0" VerticalAlignment="Top"/>
+                                <Label x:Name="MailP" Content="密码:" HorizontalAlignment="Left" Margin="18,131,0,0" VerticalAlignment="Top"/>
+                                <Button x:Name="MojangLoginButton" Content="登录" HorizontalAlignment="Left" Height="31" Margin="233,170,0,0" VerticalAlignment="Top" Width="102" Click="Button_Click"/>
 
                             </Grid>
                         </TabItem>
@@ -96,7 +95,7 @@
                                     <TranslateTransform/>
                                 </TransformGroup>
                             </TabItem.RenderTransform>
-                            <Grid>
+                            <Grid x:Name="WrGrid">
                                 <Button x:Name="XZWRZH" Content="新增账号" HorizontalAlignment="Left" Height="36" Margin="104,214,0,0" VerticalAlignment="Top" Width="147" Click="Button_Click_WR"/>
 
                                 <iconPacks:PackIconSimpleIcons Kind="Microsoft" Height="90" Width="223" Margin="66,30,0,0" Foreground="#FF9A9898"/>
@@ -113,16 +112,28 @@
                                     <TranslateTransform/>
                                 </TransformGroup>
                             </TabItem.RenderTransform>
-                            <Grid>
-                                <iconPacks:PackIconSimpleIcons Kind="Microsoft" Height="178" Width="210" Margin="-1,7,0,0">
+                            <Grid x:Name="WrGrid1">
+                                <iconPacks:PackIconSimpleIcons x:Name="WrPack" Kind="Microsoft" Height="178" Width="210" Margin="-1,7,0,0">
                                     <iconPacks:PackIconSimpleIcons.Foreground>
                                         <SolidColorBrush Color="#FFD0D0D0" Opacity="0.55"/>
                                     </iconPacks:PackIconSimpleIcons.Foreground>
                                 </iconPacks:PackIconSimpleIcons>
                                 <Image x:Name="IMW" HorizontalAlignment="Left" Height="100" Margin="126,57,0,0" VerticalAlignment="Top" Width="100"/>
                                 <Label x:Name="NNW" Content="Label" HorizontalAlignment="Left" Margin="86,187,0,0" VerticalAlignment="Top" FontSize="17" Width="181" HorizontalContentAlignment="Center"/>
-                                <Button Height="25" Width="37" Margin="10,240,0,10.2" Click="Button_Click_4">
+                                <Button x:Name="WrBack" Height="25" Width="37" Margin="10,240,0,10.2" Click="Button_Click_4">
                                     <ui:FontIcon Glyph="&#xE9AC;" Width="28" RenderTransformOrigin="0.5,0.5" Height="21" Margin="-4,-5,0,0">
+                                        <ui:FontIcon.RenderTransform>
+                                            <TransformGroup>
+                                                <ScaleTransform ScaleX="-1"/>
+                                                <SkewTransform/>
+                                                <RotateTransform/>
+                                                <TranslateTransform/>
+                                            </TransformGroup>
+                                        </ui:FontIcon.RenderTransform>
+                                    </ui:FontIcon>
+                                </Button>
+                                <Button x:Name="WRGHPF" Height="25" Width="37" Margin="307,240,0,10.2" Click="Button_Click_8">
+                                    <ui:FontIcon Glyph="&#xECA7;" Width="21" RenderTransformOrigin="0.5,0.5" Height="19" Margin="0,-2,0,0">
                                         <ui:FontIcon.RenderTransform>
                                             <TransformGroup>
                                                 <ScaleTransform ScaleX="-1"/>
@@ -148,13 +159,25 @@
                         <Label Content="离线" MouseUp="LXUP"/>
                     </StackPanel>
                 </TabItem.Header>
-                <Grid>
+                <Grid x:Name="LXGrid">
                     <Grid.Background>
                         <ImageBrush/>
                     </Grid.Background>
                     <Image x:Name="OFFLINEI" HorizontalAlignment="Left" Height="101" Margin="125,43,0,0" VerticalAlignment="Top" Width="101" Source="/FSM3;component/Image/Steve.png"/>
                     <TextBox x:Name="OfflineName" HorizontalAlignment="Left" Height="8" Margin="57,177,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="257" TextChanged="OfflineName_TextChanged"/>
                     <Label Content="ID:" HorizontalAlignment="Left" Margin="34,184,0,0" VerticalAlignment="Top"/>
+                    <Button x:Name="LXGHPF" Height="25" Width="37" Margin="307,250,0,9" Click="Button_Click_7">
+                        <ui:FontIcon Glyph="&#xECA7;" Width="21" RenderTransformOrigin="0.5,0.5" Height="19" Margin="0,-2,0,0">
+                            <ui:FontIcon.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform ScaleX="-1"/>
+                                    <SkewTransform/>
+                                    <RotateTransform/>
+                                    <TranslateTransform/>
+                                </TransformGroup>
+                            </ui:FontIcon.RenderTransform>
+                        </ui:FontIcon>
+                    </Button>
                 </Grid>
             </TabItem>
             <TabItem MouseUp="WZUP">
@@ -168,21 +191,37 @@
                     <Grid.Background>
                         <ImageBrush/>
                     </Grid.Background>
-                    <TabControl>
+                    <TabControl x:Name="WzD">
+                        <TabControl.Background>
+                            <ImageBrush/>
+                        </TabControl.Background>
                         <TabItem Height="1">
-                            <Grid>
-                                <TextBox HorizontalAlignment="Left" Height="25" Margin="69,59,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="271"/>
+                            <Grid x:Name="WzGrid">
+                                <TextBox x:Name="IP" HorizontalAlignment="Left" Height="25" Margin="69,59,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="271"/>
                                 <Label Content="服务器:" HorizontalAlignment="Left" Margin="12,66,0,0" VerticalAlignment="Top"/>
-                                <TextBox HorizontalAlignment="Left" Height="25" Margin="69,102,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="271"/>
+                                <TextBox x:Name="IDD" HorizontalAlignment="Left" Height="25" Margin="69,102,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="271"/>
                                 <Label Content="邮箱:" HorizontalAlignment="Left" Margin="10,109,0,0" VerticalAlignment="Top" Width="44" HorizontalContentAlignment="Right"/>
-                                <PasswordBox Width="271" Margin="69,145,12.8,96.2"/>
+                                <PasswordBox x:Name="IDDPassWord" Width="271" Margin="69,145,12.8,96.2"></PasswordBox>
                                 <Label Content="密码:" HorizontalAlignment="Left" Margin="10,152,0,0" VerticalAlignment="Top" Width="44" HorizontalContentAlignment="Right"/>
-                                <Button Content="登录" HorizontalAlignment="Left" Margin="246,186,0,0" VerticalAlignment="Top" Width="94"/>
+                                <Button Content="登录" HorizontalAlignment="Left" Margin="246,186,0,0" VerticalAlignment="Top" Width="94" Click="Button_Click_5"/>
 
                             </Grid>
                         </TabItem>
                         <TabItem Height="1">
-                            <Grid>
+                            <Grid x:Name="WzGrid1">
+                                <ListBox DisplayMemberPath="Name" x:Name="Ylist" HorizontalAlignment="Left" Height="232" Margin="6,4,0,0" VerticalAlignment="Top" Width="340" FontSize="16" SelectionChanged="Ylist_SelectionChanged"/>
+                                <Button Height="25" Width="37" Margin="6,245,0,5.2" Click="Button_Click_6">
+                                    <ui:FontIcon Glyph="&#xE9AC;" Width="28" RenderTransformOrigin="0.5,0.5" Height="21" Margin="-4,-5,0,0">
+                                        <ui:FontIcon.RenderTransform>
+                                            <TransformGroup>
+                                                <ScaleTransform ScaleX="-1"/>
+                                                <SkewTransform/>
+                                                <RotateTransform/>
+                                                <TranslateTransform/>
+                                            </TransformGroup>
+                                        </ui:FontIcon.RenderTransform>
+                                    </ui:FontIcon>
+                                </Button>
 
                             </Grid>
                         </TabItem>

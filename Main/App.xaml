@@ -8,7 +8,6 @@
 
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                
                 <ui:ThemeResources />
                 <ui:XamlControlsResources />
                 <ResourceDictionary Source="/ModernWpf;component/DesignTime/SystemColors.xaml" />
@@ -124,6 +123,12 @@
                     <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="{x:Static Visibility.Visible}"/>
                 </ObjectAnimationUsingKeyFrames>
                 <DoubleAnimation Storyboard.TargetProperty="Opacity" Duration="0:0:1" To="0.75"/>
+            </Storyboard>
+            <Storyboard x:Key="showMew">
+                <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility">
+                    <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="{x:Static Visibility.Visible}"/>
+                </ObjectAnimationUsingKeyFrames>
+                <DoubleAnimation Storyboard.TargetProperty="Opacity" Duration="0:0:1" To="0.78"/>
             </Storyboard>
             <Storyboard x:Key="hideMe">
                 <DoubleAnimation Storyboard.TargetProperty="Opacity" Duration="0:0:0.2" To="0.0"/>

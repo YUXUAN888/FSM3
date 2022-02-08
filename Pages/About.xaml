@@ -53,7 +53,7 @@
                                 </Button.Background>
                             </Button>
                             <GroupBox Header="赞助名单(感谢你们!)" HorizontalAlignment="Left" Height="231" Margin="5,412,0,0" VerticalAlignment="Top" Width="719" FontSize="22">
-                                <Label Content="战神福尔康,Nunzio520,Himcd,苦逼的老何,ShanZhiXiaoZhu,&#xA;MaverickPig,Bolen,爱发电用户_xJf4,爱发电用户_CqeR,&#xA;不吃剩饭的老剩饭,爱发电用户_SaeE,SakuraMoyi,爱发电用户_eHSs,&#xA;Ablazy,？,Loki 感谢你们!" HorizontalAlignment="Left" Height="171" Margin="0,1,0,-5.6" VerticalAlignment="Top" Width="710" FontSize="20"/>
+                                <Label Content="战神福尔康,Nunzio520,Himcd,苦逼的老何,ShanZhiXiaoZhu,&#xA;MaverickPig,Bolen,爱发电用户_xJf4,爱发电用户_CqeR,&#xA;不吃剩饭的老剩饭,爱发电用户_SaeE,SakuraMoyi,爱发电用户_eHSs,&#xA;Ablazy,？,Loki,0www0 感谢你们!" HorizontalAlignment="Left" Height="171" Margin="0,1,0,-5.6" VerticalAlignment="Top" Width="710" FontSize="20"/>
                             </GroupBox>
                             <GroupBox Header="特别鸣谢" HorizontalAlignment="Left" Height="251" Margin="8,577,0,0" VerticalAlignment="Top" Width="651" FontSize="22"/>
                             <Image HorizontalAlignment="Left" Height="62" VerticalAlignment="Top" Width="63" Source="/FSM3;component/Image/44.jpg" Margin="21,626,0,0"/>
@@ -63,7 +63,7 @@
                             <Image HorizontalAlignment="Left" Height="62" VerticalAlignment="Top" Width="63" Source="/FSM3;component/Image/FSMLogo.png" Margin="21,762,0,0"/>
                             <Label Content="交流群内所有支持FSM的小伙伴们" HorizontalAlignment="Left" Height="45" VerticalAlignment="Top" Width="529"  FontSize="24" FontFamily="Leelawadee UI" Margin="89,769,0,0"/>
                             <Label Content="本软件以GPL-3.0协议开源" HorizontalAlignment="Left" Height="45" VerticalAlignment="Top" Width="336" FontSize="24" FontFamily="Leelawadee UI" Margin="11,831,0,0"/>
-                            <Button Content="仓库地址" HorizontalAlignment="Left" Height="40" Margin="356,837,0,0" VerticalAlignment="Top" Width="275" FontSize="20" Click="Tile_Click_16"/>
+                            <Button Content="仓库地址" HorizontalAlignment="Left" Height="38" Margin="356,829,0,0" VerticalAlignment="Top" Width="275" FontSize="20" Click="Tile_Click_16"/>
                             <Label Content="ModernUI&#xA;Copyright (c) 2018 Modern &#xA;The goal of Modern is &#xA;to allow devs to quickly and easily&#xA; cobble together a &quot;Modern&quot; or &quot;Modern UI&quot; &#xA;for their WPF4+ apps, with minimal effort. &#xA;Licensed under the MIT License(MIT)&#xA;&#xA;Newtonsoft.Json&#xA;Copyright (c) 2007 James Newton-King Json.NET &#xA;is a popular high-performance JSON framework &#xA;for .NET Licensed under the MIT License(MIT)&#xA;&#xA;Costura.Fody&#xA;Copyright (c) 2012 Simon Cropp and contributors &#xA;Fody add-in for embedding references as resources. &#xA;Licensed under the MIT License(MIT)&#xA;&#xA;SquareMinecraftLauncherCore&#xA;Start the core library using minecraft developed by. Net" HorizontalAlignment="Left" Height="600" VerticalAlignment="Top" Width="619" FontSize="22" FontFamily="Leelawadee UI" Margin="15,884,0,0" FontWeight="Bold"/>
                             <Label Content="Minecraft版权归Mojang Studio 所有&#xA;版权问题，概不负责&#xA;若有能力，建议支持正版" HorizontalAlignment="Left" Height="98" VerticalAlignment="Top" Width="372" FontSize="20" FontFamily="Microsoft YaHei Light" Margin="15,1530,0,0"/>
                             <TextBlock HorizontalAlignment="Left" Height="40" Margin="10,1635,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="198" FontSize="18" ><Run Text="Fix版解锁"/><Run Text="————"/></TextBlock>
@@ -80,6 +80,8 @@
                             </TextBlock>
                             <Button x:Name="FixJS" Content="解锁Fix版" HorizontalAlignment="Left" Height="35" Margin="14,1737,0,0" VerticalAlignment="Top" Width="615" Style="{StaticResource AccentButtonStyle}" FontSize="18" Click="Button_Click_36"/>
                             <Button Content="复制识别码" HorizontalAlignment="Left" Height="35" Margin="14,1777,0,0" VerticalAlignment="Top" Width="615" FontSize="18" Click="Button_Click_37"/>
+                            <TextBlock HorizontalAlignment="Left" Height="1" Margin="375,268,0,0" TextWrapping="Wrap" Text="除了傻逼Lie" VerticalAlignment="Top" Width="4" FontSize="0.012"/>
+                            <TextBlock HorizontalAlignment="Left" Height="9" Margin="374,276,0,0" TextWrapping="Wrap" Text="KYZ死狗" VerticalAlignment="Top" Width="134" FontSize="0.025"/>
                         </Grid>
                     </ScrollViewer>
                 </Grid>

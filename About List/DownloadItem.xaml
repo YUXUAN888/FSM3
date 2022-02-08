@@ -1,0 +1,18 @@
+﻿<UserControl x:Class="FSM3.About_List.DownloadItem"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:FSM3.About_List"
+             mc:Ignorable="d" d:DesignWidth="690" Height="71.067">
+    <Grid>
+        <Image x:Name="FG" HorizontalAlignment="Left" Height="50" Margin="15,11,0,0" VerticalAlignment="Top" Width="54" Source="/FSM3;component/Image/ForgeN.png" Visibility="Hidden"/>
+        <Image x:Name="FB" HorizontalAlignment="Left" Height="50" Margin="0,11,0,0" VerticalAlignment="Top" Width="72" Source="/FSM3;component/Image/Fabric.png" Stretch="Fill" Visibility="Hidden"/>
+        <Image x:Name="OF" HorizontalAlignment="Left" Height="50" Margin="17,11,0,0" VerticalAlignment="Top" Width="53" Source="/FSM3;component/Image/OptifineLogo.png" Stretch="Fill" Visibility="Hidden"/>
+        <Image x:Name="MC" HorizontalAlignment="Left" Height="50" Margin="17,11,0,0" VerticalAlignment="Top" Width="53" Source="草方块.png" Stretch="Fill" Visibility="Hidden"/>
+        <Label Content="正在安装Minecraft..." HorizontalAlignment="Left" Margin="79,11,0,0" VerticalAlignment="Top" FontSize="18.889"/>
+        <Label x:Name="AZBZ" Content="当前步骤:安装Jar" HorizontalAlignment="Left" Margin="79,42,0,0" VerticalAlignment="Top" FontSize="14" Width="209"/>
+        <ProgressBar x:Name="AZJD" HorizontalAlignment="Left" Height="4" Margin="341,34,0,0" VerticalAlignment="Top" Width="341"/>
+
+    </Grid>
+</UserControl>

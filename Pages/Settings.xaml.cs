@@ -1,9 +1,12 @@
-﻿using Microsoft.Win32;
+﻿using FSMLauncher_3;
+using Gac;
+using Microsoft.Win32;
 using ModernWpf;
 using ModernWpf.Controls;
 using SquareMinecraftLauncher.Minecraft;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Management;
 using System.Runtime.InteropServices;
@@ -30,7 +33,7 @@ namespace FSM3.Pages
     public partial class Settings : System.Windows.Controls.Page
     {
         static String ZongX = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData); //获取APPDATA
-        public string UpdateD;
+        public static string UpdateD;
         static String ZongW = ZongX + @"\.fsm";
         String ZongSkin = ZongX + @"\.fsm\Skin";
         [DllImport("kernel32", CharSet = CharSet.Unicode)]
@@ -168,7 +171,7 @@ namespace FSM3.Pages
             List<JavaVersion> aa = tools.Tools.GetJavaPath();
             for (int i = 0; i < aa.Count; i++)
             {
-                java_list.Items.Add(aa[i].Version);
+                java_list.Items.Add(aa[i].Path);
             }
             try
             {
@@ -185,6 +188,24 @@ namespace FSM3.Pages
             {
                 RAMS.Value = double.Parse(IniReadValue("RAM", "RAMW"));
             }
+            if (IniReadValue("JVM", "JVMW") != "")
+            {
+                JVM.Text = IniReadValue("JVM", "JVMW");
+            }
+            if (IniReadValue("EY", "EYW") != "")
+            {
+                EY.Text = IniReadValue("EY", "EYW");
+            }
+            if(SFGX is true)
+            {
+                AZGX.Visibility = System.Windows.Visibility.Visible;
+                UpdateLabel.Content = "检测到新版本! FSM" + xdbb;
+                Update_Log.Content = "更新日志：" + GXNR;
+            }
+            else
+            {
+                AZGX.Visibility = System.Windows.Visibility.Hidden;
+            }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -192,17 +213,20 @@ namespace FSM3.Pages
             if (ThemeManager.Current.ActualApplicationTheme == ApplicationTheme.Dark)
             {
                 ThemeManager.Current.ApplicationTheme = ApplicationTheme.Light;
+                WritePrivateProfileString("Color","ZT","Light",FileS);
             }
             else
             {
                 ThemeManager.Current.ApplicationTheme = ApplicationTheme.Dark;
+                WritePrivateProfileString("Color", "ZT", "Dark", FileS);
             }
         }
         private void java_list_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             WritePrivateProfileString("Java", "List", java_list.SelectedIndex.ToString(), FileS);
+            Java_List = java_list.Text;
         }
-
+        public static string Java_List;
         private void RAMS_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             RAMXS.Content = "当前配置内存:" + (int)RAMS.Value + "MB";
@@ -234,9 +258,167 @@ namespace FSM3.Pages
                 WritePrivateProfileString("ONLINE", "Server", "GZ", FileS);
             }
         }
-
-        private void AZGX_Click(object sender, RoutedEventArgs e)
+        int wa;
+        public static Gac.DownLoadFile dlf = new DownLoadFile();
+        public static int id = 0;
+        internal int Download(string path, string ly, string url)
         {
+
+            dlf.AddDown(url, path.Replace(System.IO.Path.GetFileName(path), ""), System.IO.Path.GetFileName(path), id);//增加下载
+            dlf.StartDown(3);//开始下载
+            id++;
+            Core.xzItem xzItem = new Core.xzItem(System.IO.Path.GetFileName(path), 0, ly, "等待中", url, path);
+            DIYvar.xzItems.Add(xzItem);
+
+
+            return id - 1;
+        }
+        public void SendMsgHander(DownMsg msg)
+        {
+
+            Dispatcher.Invoke((Action)delegate ()
+            {
+                DownStatus tag = msg.Tag;
+
+                if (tag == DownStatus.Start)
+                {
+                    DIYvar.xzItems[msg.Id].xzwz = "开始下载";
+
+                    return;
+                }
+                if (tag == DownStatus.End)
+                {
+                    DIYvar.xzItems[msg.Id].xzwz = "完成";
+
+                    DIYvar.xzItems[msg.Id].Template = 100;
+
+                    return;
+                }
+                if (tag == DownStatus.Error)
+                {
+                    DIYvar.xzItems[msg.Id].xzwz = msg.ErrMessage;
+                    ContentDialog dialog = new ContentDialog()
+                    {
+                        Title = "安装遇到错误",
+                        PrimaryButtonText = "好吧",
+                        IsPrimaryButtonEnabled = true,
+                        DefaultButton = ContentDialogButton.Primary,
+                        Content = new TextBlock()
+                        {
+                            TextWrapping = TextWrapping.WrapWithOverflow,
+                            Text = msg.ErrMessage
+                        },
+
+                    };
+                    var result = dialog.ShowAsync();
+
+                    return;
+                }
+                if (tag == DownStatus.DownLoad)
+                {
+                    DIYvar.xzItems[msg.Id].xzwz = "下载中";
+
+                    DIYvar.xzItems[msg.Id].Template = msg.Progress;
+
+                    Console.WriteLine("test");
+
+                    return;
+                }
+            });
+        }
+        FSMLauncher_3.Core Core5 = new FSMLauncher_3.Core();
+        static System.Windows.Threading.DispatcherTimer UPDATEW = new System.Windows.Threading.DispatcherTimer();
+        private async void AZGX_Click(object sender, RoutedEventArgs e)
+        {
+            StackPanel panel = new StackPanel()
+            {
+                VerticalAlignment = VerticalAlignment.Stretch,
+                HorizontalAlignment = HorizontalAlignment.Stretch,
+            };
+            panel.Children.Add(new TextBlock() { Text = "正在更新启动器..." });
+            System.Windows.Controls.ProgressBar box = new System.Windows.Controls.ProgressBar();
+            box.IsIndeterminate = true;
+            panel.Children.Add(box);
+
+            ContentDialog dialog = new ContentDialog()
+            {
+                Title = "安装更新",
+                IsPrimaryButtonEnabled = true,
+                DefaultButton = ContentDialogButton.Primary,
+                Content = panel,
+            };
+            var result = dialog.ShowAsync();
+            MessageBox.Show("1");
+            String File_ = System.AppDomain.CurrentDomain.BaseDirectory + "[" + xdbb + "]FSM.exe";
+            dlf.doSendMsg += new DownLoadFile.dlgSendMsg(SendMsgHander);
+            wa = Download(File_, "", UpdateD);
+            UPDATEW = Core5.timer(UPDATEWW, 2333);
+            UPDATEW.Start();
+        }
+        private void UPDATEWW(object ob, EventArgs a)
+        {
+            try
+            {
+                string aa = DIYvar.xzItems[wa].xzwz;
+                //HttpDownloadFile(UpdateD, File_, 6, Tab1);
+                String File_ = System.AppDomain.CurrentDomain.BaseDirectory + "[" + xdbb + "]FSM.exe";
+                if (aa == "完成")
+                {
+                    OpenFile(File_);
+                    Online.CmdProcess1.Kill();
+                    Online.CmdProcess1.CancelOutputRead();
+                    System.Environment.Exit(0);
+                }
+            }
+            catch
+            {
+
+            }
+        }
+        private void OpenFile(string NewFileName)
+        {
+            Process process = new Process();
+            ProcessStartInfo processStartInfo = new ProcessStartInfo(NewFileName);
+            process.StartInfo = processStartInfo;
+            #region 下面这段被注释掉代码（可以用来全屏打开代码）
+            //建立新的系统进程
+            //System.Diagnostics.Process process = new System.Diagnostics.Process();
+            //设置文件名，此处为图片的真实路径 + 文件名（需要有后缀）    
+            //process.StartInfo.FileName = NewFileName;
+            //此为关键部分。设置进程运行参数，此时为最大化窗口显示图片。    
+            //process.StartInfo.Arguments = "rundll32.exe C://WINDOWS//system32//shimgvw.dll,ImageView_Fullscreen";
+            //此项为是否使用Shell执行程序，因系统默认为true，此项也可不设，但若设置必须为true
+            //process.StartInfo.UseShellExecute = true;
+            #endregion
+            try
+            {
+                process.Start();
+                try
+                {
+                    // process.WaitForExit();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                try
+                {
+                    if (process != null)
+                    {
+                        process.Close();
+                        process = null;
+                    }
+                }
+                catch { }
+            }
+
 
         }
 
@@ -304,7 +486,7 @@ namespace FSM3.Pages
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-
+            WritePrivateProfileString("EY", "EYW", EY.Text, FileS);
         }
         static int JavaS = 0;
         public static String FileS = System.AppDomain.CurrentDomain.BaseDirectory + @"FSM\FSM.slx";
@@ -346,50 +528,7 @@ namespace FSM3.Pages
         }
         private void GSXT_Checked(object sender, RoutedEventArgs e)
         {
-            DisHelper.DisHelper.RunOnMainThread(() =>
-            {
-                ThemeManager.Current.AccentColor = Color.FromRgb(255,140,0) ;  //橙色
-            });
-            DisHelper.DisHelper.RunOnMainThread(() =>
-            {
-                ThemeManager.Current.AccentColor = Color.FromRgb(255, 67, 67);  //鲜艳红
-            });
-            DisHelper.DisHelper.RunOnMainThread(() =>
-            {
-                ThemeManager.Current.AccentColor = Color.FromRgb(232, 17, 35);  //中国红
-            });
-            DisHelper.DisHelper.RunOnMainThread(() =>
-            {
-                ThemeManager.Current.AccentColor = Color.FromRgb(234, 0, 94);  //小马宝莉
-            });
-            DisHelper.DisHelper.RunOnMainThread(() =>
-            {
-                ThemeManager.Current.AccentColor = Color.FromRgb(142, 140, 216);  //淡紫色
-            });
-            DisHelper.DisHelper.RunOnMainThread(() =>
-            {
-                ThemeManager.Current.AccentColor = Color.FromRgb(45, 125, 154);  //青色
-            });
-            DisHelper.DisHelper.RunOnMainThread(() =>
-            {
-                ThemeManager.Current.AccentColor = Color.FromRgb(16, 124, 16);  //原谅绿
-            });
-            DisHelper.DisHelper.RunOnMainThread(() =>
-            {
-                ThemeManager.Current.AccentColor = Color.FromRgb(46, 47, 42);  //高端灰
-            });
-            DisHelper.DisHelper.RunOnMainThread(() =>
-            {
-                ThemeManager.Current.AccentColor = Color.FromRgb(0, 178, 148);  //实力青
-            });
-            DisHelper.DisHelper.RunOnMainThread(() =>
-            {
-                ThemeManager.Current.AccentColor = Color.FromRgb(0, 204, 106);  //青草绿
-            });
-            DisHelper.DisHelper.RunOnMainThread(() =>
-            {
-                ThemeManager.Current.AccentColor = Color.FromRgb(202, 80, 16);  //深度橘
-            });
+            
         }
         public class AccentColors : List<AccentColor>
         {
@@ -468,20 +607,10 @@ namespace FSM3.Pages
                 return Name;
             }
         }
-        private void GSXT_Click(object sender, RoutedEventArgs e)
-        {
-            if (GSXT.IsChecked == true)
-            {
-                QHZTS.IsEnabled = false;
-            }
-            else
-            {
-                QHZTS.IsEnabled = true;
-            }
-        }
 
         private async void Button_Click_JD(object sender, RoutedEventArgs e)
         {
+            Console.WriteLine(Get("https://www.mcmod.cn/modlist.html"));
             StackPanel panel = new StackPanel()
             {
                 VerticalAlignment = VerticalAlignment.Stretch,
@@ -602,6 +731,11 @@ namespace FSM3.Pages
                     });
                     break;
             }
+        }
+
+        private void TextBox1_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            WritePrivateProfileString("JVM", "JVMW", JVM.Text, FileS);
         }
     }
 }

@@ -18,6 +18,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Win32;
 using SquareMinecraftLauncher;
+using SquareMinecraftLauncher.Online;
 using SquareMinecraftLauncher.Core.fabricmc;
 using SquareMinecraftLauncher.Core.OAuth;
 using SquareMinecraftLauncher.Minecraft;

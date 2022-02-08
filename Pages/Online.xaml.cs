@@ -1208,5 +1208,120 @@ namespace FSM3.Pages
             }
             SC.ScrollToEnd();
         }
+
+        private async void Button_Click_66(object sender, RoutedEventArgs e)
+        {
+            StackPanel panel = new StackPanel()
+            {
+                VerticalAlignment = VerticalAlignment.Stretch,
+                HorizontalAlignment = HorizontalAlignment.Stretch,
+            };
+            panel.Children.Add(new TextBlock() { Text = "请输入你的游戏端口，以便进行联机" });
+            TextBox box3 = new TextBox();
+            box3.SetCurrentValue(ModernWpf.Controls.Primitives.ControlHelper.HeaderProperty, "游戏端口:");
+            panel.Children.Add(box3);
+            ContentDialog dialog = new ContentDialog()
+            {
+                Title = "联机信息采集",
+                PrimaryButtonText = "开始！",
+                CloseButtonText = "取消",
+                IsPrimaryButtonEnabled = true,
+                DefaultButton = ContentDialogButton.Primary,
+                Content = panel,
+            };
+            var result = await dialog.ShowAsync();
+            if (result == ContentDialogResult.Primary)
+            {
+                SquareMinecraftLauncher.Online.Server s = new SquareMinecraftLauncher.Online.Server(int.Parse(box3.Text));
+                String yqm = s.Start();
+                ContentDialog dialogw = new ContentDialog()
+                {
+                    Title = "开启成功",
+                    PrimaryButtonText = "复制邀请码",
+                    IsPrimaryButtonEnabled = true,
+                    DefaultButton = ContentDialogButton.Primary,
+                    Content = new TextBlock()
+                    {
+                        TextWrapping = TextWrapping.WrapWithOverflow,
+                        Text = "您已开房，请复制邀请码给小伙伴~"
+                    },
+
+                };
+                var resultw = await dialogw.ShowAsync();
+                if (resultw == ContentDialogResult.Primary)
+                {
+                    Clipboard.SetDataObject(yqm);
+                }
+            }
+        }
+
+        private async void Button_Click_77(object sender, RoutedEventArgs e)
+        {
+            StackPanel panel = new StackPanel()
+            {
+                VerticalAlignment = VerticalAlignment.Stretch,
+                HorizontalAlignment = HorizontalAlignment.Stretch,
+            };
+            panel.Children.Add(new TextBlock() { Text = "请输入你的邀请码，以便进行联机" });
+            TextBox box = new TextBox();
+            box.SetCurrentValue(ModernWpf.Controls.Primitives.ControlHelper.HeaderProperty, "邀请码:");
+            panel.Children.Add(box);
+            ContentDialog dialog = new ContentDialog()
+            {
+                Title = "联机信息采集",
+                PrimaryButtonText = "开始！",
+                CloseButtonText = "取消",
+                IsPrimaryButtonEnabled = true,
+                DefaultButton = ContentDialogButton.Primary,
+                Content = panel,
+            };
+            var result = await dialog.ShowAsync();
+            if (result == ContentDialogResult.Primary)
+            {
+                try
+                {
+                    SquareMinecraftLauncher.Online.Client c = new SquareMinecraftLauncher.Online.Client(box.Text);
+                    ContentDialog dialogw = new ContentDialog()
+                    {
+                        Title = "连接成功!",
+                        PrimaryButtonText = "好哒!",
+                        IsPrimaryButtonEnabled = true,
+                        DefaultButton = ContentDialogButton.Primary,
+                        Content = new TextBlock()
+                        {
+                            TextWrapping = TextWrapping.WrapWithOverflow,
+                            Text = "进入游戏后点击多人游戏，添加服务器IP为:" + c.Start()+" 以连接",
+                        },
+
+                    };
+                    var resultw = await dialogw.ShowAsync();
+                    if (resultw == ContentDialogResult.Primary)
+                    {
+
+                    }
+                }
+                catch(Exception ex)
+                {
+                    ContentDialog dialogw = new ContentDialog()
+                    {
+                        Title = "失..失败了?",
+                        PrimaryButtonText = "好吧",
+                        IsPrimaryButtonEnabled = true,
+                        DefaultButton = ContentDialogButton.Primary,
+                        Content = new TextBlock()
+                        {
+                            TextWrapping = TextWrapping.WrapWithOverflow,
+                            Text = ex.Message,
+                        },
+
+                    };
+                    var resultw = await dialogw.ShowAsync();
+                    if (resultw == ContentDialogResult.Primary)
+                    {
+
+                    }
+                }
+            }
+        }
     }
 }

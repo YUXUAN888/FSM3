@@ -24,6 +24,8 @@ using System.Drawing.Imaging;
 using System.Runtime.InteropServices;
 using SquareMinecraftLauncher.Core.OAuth;
 using System.Windows.Media.Animation;
+using System.Threading;
+using SquareMinecraftLauncher.Minecraft;
 
 namespace FSM3.Pages
 {
@@ -35,6 +37,11 @@ namespace FSM3.Pages
         public class framecontrolW
         {
             public static ModernWpf.Controls.Frame frame { get; set; }
+
+        }
+        public class NowVw
+        {
+            public static Label NowV { get; set; }
 
         }
         [DllImport("kernel32", CharSet = CharSet.Unicode)]
@@ -76,6 +83,7 @@ namespace FSM3.Pages
             int i = GetPrivateProfileString(Section, Key, "", temp, 500, ZongW + @"\Skin\SkinZ.Skin");
             return temp.ToString();
         }
+        public static string Dminecraft = System.AppDomain.CurrentDomain.BaseDirectory + @".minecraft";
         public string IniReadValueSS(string Section, string Key)
         {
             String File_ = System.AppDomain.CurrentDomain.BaseDirectory + @"FSM\FSM.slx";
@@ -83,10 +91,82 @@ namespace FSM3.Pages
             int i = GetPrivateProfileString(Section, Key, "", temp, 500, ZongW + @"\Skin\SkinN.Skin");
             return temp.ToString();
         }
-        
+        ComboBox java_list = new ComboBox();
+        int RAMW;
         public Game()
         {
             InitializeComponent();
+            NowVw.NowV = NowV;
+            NZDM[0] = "FSM的第一个内部版本发布于2021年7月3日!";
+            NZDM[1] = "FSM3的联机由初梦，Baibao提供";
+            NZDM[2] = "FSM的联机与nat无关!";
+            NZDM[3] = "把鼠标停留在一些按钮上，你可以看到它的提示";
+            NZDM[4] = "作者在启动器里藏有3+个彩蛋！";
+            NZDM[5] = "FSM的部分配置文件保存于系统AppData";
+            NZDM[6] = "FSM最早于2020年2月发布！";
+            try
+            {
+                RAMW = Settings.GetRAM;
+                if (IniReadValue("RAM", "RAMW") != "")
+                {
+                    RAMW = int.Parse(IniReadValue("RAM", "RAMW"));
+                }
+            }
+            catch
+            {
+
+            }
+            if (VerList.NowVS != null)
+            {
+                NowV.Content = VerList.NowVS;
+            }
+            try {
+                if(Yyes!="888")
+                {
+
+                }
+                else
+                {
+                    for (int i = 0; i < skin.NameItem.Length; i++)
+                    {
+                        Ylist.Items.Add(skin.NameItem[i]);
+                    }
+                    Ylist.SelectedIndex = int.Parse(IniReadValue("Y", "Ylist"));
+                    JS = skin.NameItem[Ylist.SelectedIndex].Name;
+                    Yuuid = skin.NameItem[Ylist.SelectedIndex].uuid;
+                    Yname = skin.NameItem[Ylist.SelectedIndex].Name;
+                    Ytoken = skin.accessToken;
+                }
+                
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            try
+            {
+                for (int i = 0; i < int.Parse(IniReadValue("Java", "JavaS")); ++i)
+                {
+                    java_list.Items.Add(IniReadValue("Java", i.ToString()));
+                }
+            }
+            catch
+            {
+
+            }
+            List<JavaVersion> aa = tools.Tools.GetJavaPath();
+            for (int i = 0; i < aa.Count; i++)
+            {
+                java_list.Items.Add(aa[i].Path);
+            }
+            try
+            {
+                java_list.SelectedIndex = int.Parse(IniReadValue("Java", "List"));
+            }
+            catch
+            {
+
+            }
             if (IniReadValue("Login", "LoginM") != "")
             {
                 IDTab.SelectedIndex = int.Parse(IniReadValue("Login", "LoginM"));
@@ -123,12 +203,51 @@ namespace FSM3.Pages
                             loginmode = "";
                         }
                         break;
+                    case "3":
+                        if (Yyes == "888")
+                        {
+                            loginmode = "y";
+                            WzD.SelectedIndex = 1;
+                            WritePrivateProfileString("Login", "LoginM", "3", FileS);
+                            Yyes = "888";
+                        }
+                        else
+                        {
+                            WzD.SelectedIndex = 0;
+                            loginmode = "";
+                        }
+                        break;
+                }
+                if (IniReadValue("Vlist", "Path") != "" && IniReadValue("Vlist", "Path") != null && IniReadValue("Vlist", "V") != "-1")
+                {
+                    AllTheExistingVersion[] t = new AllTheExistingVersion[0];
+                    int a = int.Parse(IniReadValue("Vlist", "Path"));
+                    String b = (a + 1).ToString();
+                    if(b is "1")
+                    {
+                        tools.Tools.SetMinecraftFilesPath(Dminecraft);
+
+                        t = tools.Tools.GetAllTheExistingVersion();
+
+
+                        NowV.Content = t[int.Parse(IniReadValue("Vlist", "V"))].version;
+                    }
+                    else
+                    {
+                        tools.Tools.SetMinecraftFilesPath(IniReadValue("VPath", b));
+
+                        t = tools.Tools.GetAllTheExistingVersion();
+
+
+                        NowV.Content = t[int.Parse(IniReadValue("Vlist", "V"))].version;
+                    }
                 }
             }
             catch
             {
 
             }
+            
         }
         public static int dw;
         public static string Mojangname;
@@ -607,20 +726,18 @@ namespace FSM3.Pages
 
         private void WZUP(object sender, MouseButtonEventArgs e)
         {
-            /*
             if (Yyes == "888")
             {
-                IDTab.SelectedIndex = 4;
-                JS.Text = Yname;
+                WzD.SelectedIndex = 1;
+                JS = Yname;
                 loginmode = "y";
                 WritePrivateProfileString("Login", "LoginM", "3", FileS);
             }
             else
             {
-                IDTab.SelectedIndex = 5;
+                WzD.SelectedIndex = 0;
                 loginmode = "";
             }
-            */
         }
         public static string offlinename;
         private void OfflineName_TextChanged(object sender, TextChangedEventArgs e)
@@ -641,7 +758,341 @@ namespace FSM3.Pages
             wruuid = "";
             wrtoken = "";
         }
+        public static Skin skin = new Skin();
+        private async void Button_Click_5(object sender, RoutedEventArgs e)
+        {
+            try
+            {
 
+                skin = tools.Tools.GetAuthlib_Injector(IP.Text, IDD.Text, IDDPassWord.Password);
+                Ylist.Items.Clear();
+                for(int i = 0; i < skin.NameItem.Length; ++i)
+                {
+                    Ylist.Items.Add(skin.NameItem[i]);
+                }
+                WzD.SelectedIndex = 1;
+                WritePrivateProfileString("wz", "IP", IP.Text, ZongW + @"\ConsoleW.qwq");
+                WritePrivateProfileString("wz", "IDD", IDD.Text, ZongW + @"\ConsoleW.qwq");
+                WritePrivateProfileString("wz", "IDDPassWord", IDDPassWord.Password, ZongW + @"\ConsoleW.qwq");
+                Yyes = "888";
+            }
+            catch (Exception ex)
+            {
+                ContentDialog dialog = new ContentDialog()
+                {
+                    Title = "登录失败",
+                    PrimaryButtonText = "好吧",
+                    IsPrimaryButtonEnabled = true,
+                    DefaultButton = ContentDialogButton.Primary,
+                    Content = new TextBlock()
+                    {
+                        TextWrapping = TextWrapping.WrapWithOverflow,
+                        Text = ex.Message
+                    },
+
+                };
+                var result = await dialog.ShowAsync();
+                if (result == ContentDialogResult.Primary)
+                {
+                }
+            }
+        }
+        public static string Ytoken;
+        public static string Yname;
+        public static string Yuuid;
+        public static string Yyes;
+
+        private void Button_Click_6(object sender, RoutedEventArgs e)
+        {
+            WritePrivateProfileString("Y", "Ylist", "", FileS);
+            WritePrivateProfileString("wz", "IDD", "", ZongW + @"\ConsoleW.qwq");
+            WzD.SelectedIndex = 0;
+            Yyes = "";
+        }
+        public static string JS;
+        private void Ylist_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+
+                JS = skin.NameItem[Ylist.SelectedIndex].Name;
+                WritePrivateProfileString("Y", "Ylist", Ylist.SelectedIndex.ToString(), FileS);
+                Yyes = "888";
+            }
+
+            catch
+            {
+
+            }
+        }
+
+        private void Button_Click_8(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Button_Click_7(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Left(object sender, MouseButtonEventArgs e)
+        {
+            
+        }
+        private void Button_Click_9(object sender, RoutedEventArgs e)
+        {
+            (FindResource("showMe") as System.Windows.Media.Animation.Storyboard).Begin(StartGamew.SM);
+            Modrinth.PurMod.GetPur();
+        }
+        public static string[] NZDM = new string[8];
+        public static String Update;
+        private void StartGameTW()
+        {
+            Application.Current.Dispatcher.Invoke(
+        async delegate
+        {
+            //Code
+            Random ra = new Random();
+            SquareMinecraftLauncher.Minecraft.Game game = new SquareMinecraftLauncher.Minecraft.Game();//声明对象
+            game.LogEvent += new SquareMinecraftLauncher.Minecraft.Game.LogDel(log);
+            game.ErrorEvent += new SquareMinecraftLauncher.Minecraft.Game.ErrorDel(error);
+            StartGamew.SM.NZDM.Content = NZDM[ra.Next(0, 7)];
+            switch (loginmode)
+            {
+                case "mojang":
+                    try
+                    {
+                        try
+                        {
+                            //var loading = await this.ShowProgressAsync("启动游戏", "正在启动游戏,请稍后\n"+"你知道吗？"+NZDM[ra.Next(0, 6)]);
+                            game.Launcher = "FSM3";
+                            await game.StartGame(NowV.Content.ToString(), java_list.Text, RAMW, Mojangname, MojangUUID, MojangToken, IniReadValue("JVM", "JVMW") + " -XX:+UseG1GC -XX:-UseAdaptiveSizePolicy -XX:-OmitStackTraceInFastThrow -Dfml.ignoreInvalidMinecraftCertificates=True -Dfml.ignorePatchDiscrepancies=True -Dlog4j2.formatMsgNoLookups=true", IniReadValue("EY", "EYW"));
+                            (FindResource("hideMe") as System.Windows.Media.Animation.Storyboard).Begin(StartGamew.SM);
+                            game.Launcher = "FSM3";
+                        }
+                        catch (Exception ex)
+                        {
+                            (FindResource("hideMe") as System.Windows.Media.Animation.Storyboard).Begin(StartGamew.SM);
+                            ContentDialog dialog = new ContentDialog()
+                            {
+                                Title = "启动失败(一般性)",
+                                PrimaryButtonText = "好吧",
+                                IsPrimaryButtonEnabled = true,
+                                DefaultButton = ContentDialogButton.Primary,
+                                Content = new TextBlock()
+                                {
+                                    TextWrapping = TextWrapping.WrapWithOverflow,
+                                    Text = "Java路径:" + java_list.Text + "\n分配内存:" + RAMW + "\nJVM:" + IniReadValue("JVM", "JVMW") + " -XX:+UseG1GC -XX:-UseAdaptiveSizePolicy -XX:-OmitStackTraceInFastThrow -Dfml.ignoreInvalidMinecraftCertificates=True -Dfml.ignorePatchDiscrepancies=True -Dlog4j2.formatMsgNoLookups=true" + "\n额外参数:" + IniReadValue("EY", "EYW") + "\n启动器版本:" + Update + "\n异常抛出信息:" + ex.Message,
+                                },
+
+                            };
+                            var result = await dialog.ShowAsync();
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+
+                    }
+                    break;
+                case "wr":
+                    try
+                    {
+                        try
+                        {
+                            //var loading = await this.ShowProgressAsync("启动游戏", "正在启动游戏,请稍后\n" + "你知道吗？" + NZDM[ra.Next(0, 6)]);
+                            game.Launcher = "FSM3";
+                            await game.StartGame(NowV.Content.ToString(), java_list.Text, RAMW, wrname, wruuid, wrtoken, IniReadValue("JVM", "JVMW") + " -XX:+UseG1GC -XX:-UseAdaptiveSizePolicy -XX:-OmitStackTraceInFastThrow -Dfml.ignoreInvalidMinecraftCertificates=True -Dfml.ignorePatchDiscrepancies=True -Dlog4j2.formatMsgNoLookups=true", IniReadValue("EY", "EYW"));
+
+                            game.Launcher = "FSM3";
+                            (FindResource("hideMe") as System.Windows.Media.Animation.Storyboard).Begin(StartGamew.SM);
+                        }
+                        catch (Exception ex)
+                        {
+                            (FindResource("hideMe") as System.Windows.Media.Animation.Storyboard).Begin(StartGamew.SM);
+
+
+                            ContentDialog dialog = new ContentDialog()
+                            {
+                                Title = "启动失败(一般性)",
+                                PrimaryButtonText = "好吧",
+                                IsPrimaryButtonEnabled = true,
+                                DefaultButton = ContentDialogButton.Primary,
+                                Content = new TextBlock()
+                                {
+                                    TextWrapping = TextWrapping.WrapWithOverflow,
+                                    Text = "Java路径:" + java_list.Text + "\n分配内存:" + RAMW + "\nJVM:" + IniReadValue("JVM", "JVMW") + " -XX:+UseG1GC -XX:-UseAdaptiveSizePolicy -XX:-OmitStackTraceInFastThrow -Dfml.ignoreInvalidMinecraftCertificates=True -Dfml.ignorePatchDiscrepancies=True -Dlog4j2.formatMsgNoLookups=true" + "\n额外参数:" + IniReadValue("EY", "EYW") + "\n启动器版本:" + Update + "\n异常抛出信息:" + ex.Message,
+                                },
+
+                            };
+                            var result = await dialog.ShowAsync();
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        (FindResource("hideMe") as System.Windows.Media.Animation.Storyboard).Begin(StartGamew.SM);
+                    }
+                    break;
+                case "offline":
+                    try
+                    {
+                        try
+                        {
+                            //var loading = await this.ShowProgressAsync("启动游戏", "正在启动游戏,请稍后\n" + "你知道吗？" + NZDM[ra.Next(0, 6)]);
+                            if (SkinUUIDMC == "" || SkinUUIDMC == null)
+                            {
+                                game.Launcher = "FSM3";
+                                await game.StartGame(NowV.Content.ToString(), java_list.Text, RAMW, OfflineName.Text, "SkinUUID", "YUXUANSHILI", IniReadValue("JVM", "JVMW") + " -XX:+UseG1GC -XX:-UseAdaptiveSizePolicy -XX:-OmitStackTraceInFastThrow -Dfml.ignoreInvalidMinecraftCertificates=True -Dfml.ignorePatchDiscrepancies=True -Dlog4j2.formatMsgNoLookups=true", IniReadValue("EY", "EYW"));
+                                game.Launcher = "FSM3";
+                            }
+                            else
+                            {
+                                game.Launcher = "FSM3";
+                                await game.StartGame(NowV.Content.ToString(), java_list.Text, RAMW, OfflineName.Text, SkinUUIDMC, "YUXUANSHILI", IniReadValue("JVM", "JVMW") + " -XX:+UseG1GC -XX:-UseAdaptiveSizePolicy -XX:-OmitStackTraceInFastThrow -Dfml.ignoreInvalidMinecraftCertificates=True -Dfml.ignorePatchDiscrepancies=True -Dlog4j2.formatMsgNoLookups=true", IniReadValue("EY", "EYW"));
+                                game.Launcher = "FSM3";
+                            }
+                            //game.ErrorEvent += new Game.ErrorDel(error);//错误事件
+                            (FindResource("hideMe") as System.Windows.Media.Animation.Storyboard).Begin(StartGamew.SM);
+                        }
+                        catch (Exception ex)
+                        {
+                            (FindResource("hideMe") as System.Windows.Media.Animation.Storyboard).Begin(StartGamew.SM);
+
+                            ContentDialog dialog = new ContentDialog()
+                            {
+                                Title = "启动失败(一般性)",
+                                PrimaryButtonText = "好吧",
+                                IsPrimaryButtonEnabled = true,
+                                DefaultButton = ContentDialogButton.Primary,
+                                Content = new TextBlock()
+                                {
+                                    TextWrapping = TextWrapping.WrapWithOverflow,
+                                    Text = "Java路径:" + java_list.Text + "\n分配内存:" + RAMW + "\nJVM:" + IniReadValue("JVM", "JVMW") + " -XX:+UseG1GC -XX:-UseAdaptiveSizePolicy -XX:-OmitStackTraceInFastThrow -Dfml.ignoreInvalidMinecraftCertificates=True -Dfml.ignorePatchDiscrepancies=True -Dlog4j2.formatMsgNoLookups=true" + "\n额外参数:" + IniReadValue("EY", "EYW") + "\n启动器版本:" + Update + "\n异常抛出信息:" + ex.Message,
+                                },
+
+                            };
+                            var result = await dialog.ShowAsync();
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        (FindResource("hideMe") as System.Windows.Media.Animation.Storyboard).Begin(StartGamew.SM);
+                    }
+                    break;
+                case "y":
+                    try
+                    {
+                        try
+                        {
+
+                            //var loading = await this.ShowProgressAsync("启动游戏", "正在启动游戏,请稍后\n" + "你知道吗？" + NZDM[ra.Next(0, 6)]);
+                            //MessageBox.Show(Y.GetValue("IP").ToString());
+                            game.Launcher = "FSM3";
+                            await game.StartGame(NowV.Content.ToString(), java_list.Text, RAMW, Yname, Yuuid, Ytoken, IniReadValueW("wz", "IP"), IniReadValue("JVM", "JVMW") + " -XX:+UseG1GC -XX:-UseAdaptiveSizePolicy -XX:-OmitStackTraceInFastThrow -Dfml.ignoreInvalidMinecraftCertificates=True -Dfml.ignorePatchDiscrepancies=True -Dlog4j2.formatMsgNoLookups=true", IniReadValue("EY", "EYW"), AuthenticationServerMode.yggdrasil);
+                            game.Launcher = "FSM3";
+                            (FindResource("hideMe") as System.Windows.Media.Animation.Storyboard).Begin(StartGamew.SM);
+                        }
+                        catch (Exception ex)
+                        {
+                            (FindResource("hideMe") as System.Windows.Media.Animation.Storyboard).Begin(StartGamew.SM);
+
+                            ContentDialog dialog = new ContentDialog()
+                            {
+                                Title = "启动失败(一般性)",
+                                PrimaryButtonText = "好吧",
+                                IsPrimaryButtonEnabled = true,
+                                DefaultButton = ContentDialogButton.Primary,
+                                Content = new TextBlock()
+                                {
+                                    TextWrapping = TextWrapping.WrapWithOverflow,
+                                    Text = "Java路径:" + java_list.Text + "\n分配内存:" + RAMW + "\nJVM:" + IniReadValue("JVM", "JVMW") + " -XX:+UseG1GC -XX:-UseAdaptiveSizePolicy -XX:-OmitStackTraceInFastThrow -Dfml.ignoreInvalidMinecraftCertificates=True -Dfml.ignorePatchDiscrepancies=True -Dlog4j2.formatMsgNoLookups=true" + "\n额外参数:" + IniReadValue("EY", "EYW") + "\n启动器版本:" + Update + "\n异常抛出信息:" + ex.Message,
+                                },
+
+                            };
+                            var result = await dialog.ShowAsync();
+                        }
+                    }
+
+
+
+                    catch (Exception ex)
+                    {
+                        (FindResource("hideMe") as System.Windows.Media.Animation.Storyboard).Begin(StartGamew.SM);
+                    }
+                    break;
+                default:
+                    (FindResource("hideMe") as System.Windows.Media.Animation.Storyboard).Begin(StartGamew.SM);
+                    try
+                    {
+                        //thick.Top = 4;
+                        //thick.Left = 5;
+                        //OSM.Margin = thick;
+                        //OSM.Visibility = Visibility.Visible;
+                        //OSM.xxbt.Text = "启动错误";
+                        //OSM.xxwb.Text = "未登录或未选择账户";
+                        ////string a = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData); //获取APPDATA
+
+                        //OSM.BeginAnimation(WidthProperty, OSMessage(0, 336, 0.8));
+
+                        ////Thread.Sleep(888);
+                        //await Task.Run(() =>
+                        //{
+                        //    Thread.Sleep(1898);
+                        //});
+
+                        //OSM.BeginAnimation(WidthProperty, OSMessage(336, 0, 0.8));
+                    }
+                    catch
+                    {
+
+                    }
+                    break;
+            }
+            //game.ErrorEvent += new Game.ErrorDel(error);//错误事件
+        });
+        }
+        private void Button_Click_Start(object sender, RoutedEventArgs e)
+        {
+            (FindResource("showMe") as System.Windows.Media.Animation.Storyboard).Begin(StartGamew.SM);
+            Thread StartGameT = new Thread(StartGameTW);
+            StartGameT.Start();
+        }
+        //(FindResource("showMew") as System.Windows.Media.Animation.Storyboard).Begin(StartGamew.SM);
+        //StartGame.IsEnabled = false;
+        internal static string logs = null;
+        public static String SkinUUIDMC;
+        public void error(SquareMinecraftLauncher.Minecraft.Game.Error error)
+        {
+            Dispatcher.Invoke((Action)async delegate ()
+            {
+                if (error.SeriousError != null)
+                {
+                    ContentDialog dialog = new ContentDialog()
+                    {
+                        Title = "启动失败(灾难性)",
+                        PrimaryButtonText = "好吧",
+                        IsPrimaryButtonEnabled = true,
+                        DefaultButton = ContentDialogButton.Primary,
+                        Content = new TextBlock()
+                        {
+                            TextWrapping = TextWrapping.WrapWithOverflow,
+                            Text = error.SeriousError,
+                        },
+
+                    };
+                    var result = await dialog.ShowAsync();
+                    if (result == ContentDialogResult.Primary)
+                    {
+
+                    }
+                }
+            });
+        }
+        private void log(SquareMinecraftLauncher.Minecraft.Game.Log log)
+        {
+            logs += log.Message + "\n";
+            Console.WriteLine(log.Message);
+        }
         private void Button_Click_3(object sender, RoutedEventArgs e)
         {
             if (FSM3.framecontrol.frame != null)
@@ -670,7 +1121,7 @@ namespace FSM3.Pages
                     {
 
                     }
-
+                        
                 }
                 else
                 {
