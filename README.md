@@ -1,5 +1,5 @@
 <p align="center">
-<img src="https://s3.bmp.ovh/imgs/2022/03/5d57fc4bffc101e7.jpg"/>
+<img src="https://s3.bmp.ovh/imgs/2022/03/9a6750b87f7d33ca.png"/>
 </p>
 
 <div align="center">
