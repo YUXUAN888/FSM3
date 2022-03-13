@@ -98,12 +98,13 @@ https://github.com/icsharpcode/SharpZipLib/blob/master/LICENSE.txt
 
 https://github.com/CmlLib/MojangAPI
 Copyright 2021 CmlLib  
-.NET Library for Mojang API、 Mojang Authentication and Microsoft Xbox Authentication
+.NET Library for Mojang API、
+Mojang Authentication and Microsoft Xbox Authentication
 
 ## SquareMinecraftLauncherCore
 
 https://github.com/baibao132/SquareMinecraftLauncherCore
 Copyright (c) 2022 BaibaoStudio
 使用.NET开发的MinecraftCore库
-Licensed under the MIT License(MIT);  
+Licensed under the MIT License(MIT);
 https://github.com/baibao132/SquareMinecraftLauncherCore/blob/master/LICENSE
