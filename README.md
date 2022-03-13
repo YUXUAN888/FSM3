@@ -1,17 +1,24 @@
+<p align="center">
+<img src="https://s1.ax1x.com/2022/03/13/bq1Mm4.png"/>
+</p>
+
+<div align="center">
+  
 # FSM Launcher 3
+
+[![Discord](https://img.shields.io/discord/935789562322632735.svg?label=&logo=discord&logoColor=ffffff&color=7389D8&labelColor=6A7EC2)](https://discord.gg/Xj9pGPcRHr)
+<a href="https://github.com/YUXUAN888/FSM3/blob/master/LICENSE"><img alt="GitHub license" src="https://img.shields.io/github/license/YUXUAN888/FSM3"></a>
+<a href="https://github.com/YUXUAN888/FSM3/issues"><img alt="GitHub issues" src="https://img.shields.io/github/issues/YUXUAN888/FSM3"></a>
+<a href="https://github.com/YUXUAN888/FSM3/stargazers"><img alt="GitHub stars" src="https://img.shields.io/github/stars/YUXUAN888/FSM3"></a>
+<a href="https://github.com/YUXUAN888/FSM3/network"><img alt="GitHub forks" src="https://img.shields.io/github/forks/YUXUAN888/FSM3"></a>
+ 
 A Minecraft Launcher！
 
 此项目开源目的在于学习，错误排查，公开安全策略  
 作者：宇轩Yu_Xuan
 请注意该项目遵循GNU GPL3.0开源协议  
 
-[![Discord](https://img.shields.io/discord/935789562322632735.svg?label=&logo=discord&logoColor=ffffff&color=7389D8&labelColor=6A7EC2)](https://discord.gg/Xj9pGPcRHr)
-
-<a href="https://github.com/YUXUAN888/FSM3/blob/master/LICENSE"><img alt="GitHub license" src="https://img.shields.io/github/license/YUXUAN888/FSM3"></a>
-<a href="https://github.com/YUXUAN888/FSM3/issues"><img alt="GitHub issues" src="https://img.shields.io/github/issues/YUXUAN888/FSM3"></a>
-<a href="https://github.com/YUXUAN888/FSM3/stargazers"><img alt="GitHub stars" src="https://img.shields.io/github/stars/YUXUAN888/FSM3"></a>
-<a href="https://github.com/YUXUAN888/FSM3/network"><img alt="GitHub forks" src="https://img.shields.io/github/forks/YUXUAN888/FSM3"></a>
-
+</div>
   
 ## 使用组件：
 
