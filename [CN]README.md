@@ -12,7 +12,7 @@
 <a href="https://github.com/YUXUAN888/FSM3/stargazers"><img alt="GitHub stars" src="https://img.shields.io/github/stars/YUXUAN888/FSM3"></a>
 <a href="https://github.com/YUXUAN888/FSM3/network"><img alt="GitHub forks" src="https://img.shields.io/github/forks/YUXUAN888/FSM3"></a>
 
-简体中文 | [English]("https://github.com/YUXUAN888/FSM3/README.md")
+简体中文 | [English](https://github.com/YUXUAN888/FSM3/README.md)
   
 A Minecraft Launcher！
 
