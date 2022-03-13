@@ -11,21 +11,23 @@
 <a href="https://github.com/YUXUAN888/FSM3/issues"><img alt="GitHub issues" src="https://img.shields.io/github/issues/YUXUAN888/FSM3"></a>
 <a href="https://github.com/YUXUAN888/FSM3/stargazers"><img alt="GitHub stars" src="https://img.shields.io/github/stars/YUXUAN888/FSM3"></a>
 <a href="https://github.com/YUXUAN888/FSM3/network"><img alt="GitHub forks" src="https://img.shields.io/github/forks/YUXUAN888/FSM3"></a>
- 
+
+[简体中文](https://github.com/YUXUAN888/FSM3/blob/master/%5BCN%5DREADME.md) | English
+  
 A Minecraft Launcher！
 
-此项目开源目的在于学习，错误排查，公开安全策略  
-作者：宇轩Yu_Xuan
-请注意该项目遵循GNU GPL3.0开源协议  
+The open source purpose of this project is to learn, troubleshoot and disclose security strategies
+Author: 宇轩Yu_Xuan
+Please note that this project follows GNU GPL3.0 open source agreement
 
 </div>
   
-## 使用组件：
+## Using components：
 
 #### BMCLAPI
 bangbang93's minecraft launcher api  
 https://bmclapidoc.bangbang93.com/  
-> 关于  
+> About  
 BMCLAPI是@bangbang93开发的BMCL的一部分，用于解决国内线路对Forge和Minecraft官方使用的Amazon S3 速度缓慢的问题。BMCLAPI是对外开放的，所有需要Minecraft资源的启动器均可调用。  
 协议  
 BMCLAPI下的所有文件，除BMCLAPI本身的源码之外，归源站点所有  
@@ -34,24 +36,24 @@ BMCLAPI和BMCL不同，属于非开源项目
 所有使用BMCLAPI的程序必需在下载界面或其他可视部分标明来源  
 禁止在BMCLAPI上二次封装其他协议  
 捐助  
-服务器的开销是有费用的，若你觉得BMCLAPI对你有帮助，欢迎捐助，支付宝：bangbang93@bangbang93.com服务器的开销是有费用的，若你觉得BMCLAPI对你有帮助，欢迎捐助，支付宝：bangbang93@bangbang93.com  
+服务器的开销是有费用的，若你觉得BMCLAPI对你有帮助，欢迎捐助，支付宝：bangbang93@bangbang93.com  
 
 ------------
 
 #### 2018k
 http://2018k.cn
-> 关于  
-简单, 快速。
-一个软件更新平台
+> About  
+Simple and fast.
+A software update platform.
 
 ------------
 
 #### TencentTXC
 https://txc.qq.com/
-> 关于  
-超过 10000 款产品正在使用的反馈互动社区
+> About  
+Feedback interactive community with more than 10000 products in use.
   
-# 开源代码许可  
+# Open source license  
 
 ## MahApps.Metro.IconPacks  
 
@@ -112,6 +114,6 @@ Mojang Authentication and Microsoft Xbox Authentication
 
 https://github.com/baibao132/SquareMinecraftLauncherCore
 Copyright (c) 2022 BaibaoStudio
-使用.NET开发的MinecraftCore库
+Minecraft core library developed by .NET
 Licensed under the MIT License(MIT);
 https://github.com/baibao132/SquareMinecraftLauncherCore/blob/master/LICENSE
