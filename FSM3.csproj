@@ -57,9 +57,6 @@
     <Reference Include="ICSharpCode.SharpZipLib, Version=1.3.3.11, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
       <HintPath>packages\SharpZipLib.1.3.3\lib\net45\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
-    <Reference Include="KMCCC.Pro">
-      <HintPath>..\..\..\KMCCC-master\KMCCC-master\bin\Debug\KMCCC.Pro.dll</HintPath>
-    </Reference>
     <Reference Include="MahApps.Metro.IconPacks.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=0c0d510f9915137a, processorArchitecture=MSIL">
       <HintPath>packages\MahApps.Metro.IconPacks.SimpleIcons.4.11.0\lib\net45\MahApps.Metro.IconPacks.Core.dll</HintPath>
     </Reference>
@@ -78,9 +75,6 @@
     <Reference Include="NSoup, Version=0.8.0.0, Culture=neutral, PublicKeyToken=6d44e53f0a65e802, processorArchitecture=MSIL">
       <HintPath>packages\NSoup.0.8.0\lib\net40\NSoup.dll</HintPath>
     </Reference>
-    <Reference Include="P2PSocket.Core">
-      <HintPath>C:\Users\26903\Desktop\P2PSocket.Core.dll</HintPath>
-    </Reference>
     <Reference Include="SharpGL, Version=3.1.1.0, Culture=neutral, PublicKeyToken=27fc851303210b27, processorArchitecture=MSIL">
       <HintPath>packages\SharpGL.3.1.1\lib\net45\SharpGL.dll</HintPath>
     </Reference>
@@ -93,11 +87,8 @@
     <Reference Include="SharpGL.WPF, Version=3.1.1.0, Culture=neutral, PublicKeyToken=27fc851303210b27, processorArchitecture=MSIL">
       <HintPath>packages\SharpGL.WPF.3.1.1\lib\net45\SharpGL.WPF.dll</HintPath>
     </Reference>
-    <Reference Include="SquareMinecraftLauncherCore">
-      <HintPath>C:\Users\26903\Desktop\SquareMinecraftLauncherCore.dll</HintPath>
-    </Reference>
-    <Reference Include="SquareMinecraftLauncherSkin">
-      <HintPath>C:\Users\26903\Desktop\SquareMinecraftLauncherSkin.dll</HintPath>
+    <Reference Include="SquareMinecraftLauncherSkin, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\SquareMinecraftLauncher.Skin.2.0.0\lib\net452\SquareMinecraftLauncherSkin.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
@@ -223,6 +214,8 @@
     <Compile Include="About List\SkinList.xaml.cs">
       <DependentUpon>SkinList.xaml</DependentUpon>
     </Compile>
+    <Compile Include="cs\Download.cs" />
+    <Compile Include="cs\Var.cs" />
     <Compile Include="Dialogs\StartGame.xaml.cs">
       <DependentUpon>StartGame.xaml</DependentUpon>
     </Compile>
@@ -456,6 +449,12 @@
   <ItemGroup>
     <Folder Include="FSMCore\Download\" />
     <Folder Include="FSMCore\Login\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="E:\wd\bf\2019\2019备份\SquareMinecraftLauncherCore\SquareMinecraftLauncherCore\SquareMinecraftLauncherCore.csproj">
+      <Project>{f97010a9-5d34-4ca8-8696-4ed3f2fb0ab5}</Project>
+      <Name>SquareMinecraftLauncherCore</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

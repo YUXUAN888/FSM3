@@ -1496,7 +1496,10 @@ namespace FSM3.Pages
                                 //var loading = await this.ShowProgressAsync("启动游戏", "正在启动游戏,请稍后\n"+"你知道吗？"+NZDM[ra.Next(0, 6)]);
                                 game.Launcher = "FSM3";
                                 SquareMinecraftLauncher.Minecraft.Game.Online = false;
-                                await game.StartGame(NowV.Content.ToString(), java_list.Text, RAMW, Mojangname, MojangUUID, MojangToken, IniReadValue("JVM", "JVMW") + " -XX:+UseG1GC -XX:-UseAdaptiveSizePolicy -XX:-OmitStackTraceInFastThrow -Dfml.ignoreInvalidMinecraftCertificates=True -Dfml.ignorePatchDiscrepancies=True -Dlog4j2.formatMsgNoLookups=true", IniReadValue("EY", "EYW"));
+                                string java = "";
+                                if (java_list.SelectedIndex == -1) java = java_list.Items[0].ToString();
+                                else java = java_list.SelectedItem.ToString();
+                                await game.StartGame(NowV.Content.ToString(), java, RAMW, Mojangname, MojangUUID, MojangToken, IniReadValue("JVM", "JVMW") + " -XX:+UseG1GC -XX:-UseAdaptiveSizePolicy -XX:-OmitStackTraceInFastThrow -Dfml.ignoreInvalidMinecraftCertificates=True -Dfml.ignorePatchDiscrepancies=True -Dlog4j2.formatMsgNoLookups=true", IniReadValue("EY", "EYW"));
                                 (FindResource("hideMe") as System.Windows.Media.Animation.Storyboard).Begin(StartGamew.SM);
                                 game.Launcher = "FSM3";
                             }
@@ -1532,7 +1535,10 @@ namespace FSM3.Pages
                                 SquareMinecraftLauncher.Minecraft.Game.Online = false;
                                 //var loading = await this.ShowProgressAsync("启动游戏", "正在启动游戏,请稍后\n" + "你知道吗？" + NZDM[ra.Next(0, 6)]);
                                 game.Launcher = "FSM3";
-                                await game.StartGame(NowV.Content.ToString(), java_list.Text, RAMW, wrname, wruuid, wrtoken, IniReadValue("JVM", "JVMW") + " -XX:+UseG1GC -XX:-UseAdaptiveSizePolicy -XX:-OmitStackTraceInFastThrow -Dfml.ignoreInvalidMinecraftCertificates=True -Dfml.ignorePatchDiscrepancies=True -Dlog4j2.formatMsgNoLookups=true", IniReadValue("EY", "EYW"));
+                                string java = "";
+                                if (java_list.SelectedIndex == -1) java = java_list.Items[0].ToString();
+                                else java = java_list.SelectedItem.ToString();
+                                await game.StartGame(NowV.Content.ToString(), java, RAMW, wrname, wruuid, wrtoken, IniReadValue("JVM", "JVMW") + " -XX:+UseG1GC -XX:-UseAdaptiveSizePolicy -XX:-OmitStackTraceInFastThrow -Dfml.ignoreInvalidMinecraftCertificates=True -Dfml.ignorePatchDiscrepancies=True -Dlog4j2.formatMsgNoLookups=true", IniReadValue("EY", "EYW"));
 
                                 game.Launcher = "FSM3";
                                 (FindResource("hideMe") as System.Windows.Media.Animation.Storyboard).Begin(StartGamew.SM);
@@ -1573,13 +1579,19 @@ namespace FSM3.Pages
                                 if (SkinUUIDMC == "" || SkinUUIDMC == null)
                                 {
                                     game.Launcher = "FSM3";
-                                    await game.StartGame(NowV.Content.ToString(), java_list.Text, RAMW, OfflineName.Text, "SkinUUID", "YUXUANSHILI", IniReadValue("JVM", "JVMW") + " -XX:+UseG1GC -XX:-UseAdaptiveSizePolicy -XX:-OmitStackTraceInFastThrow -Dfml.ignoreInvalidMinecraftCertificates=True -Dfml.ignorePatchDiscrepancies=True -Dlog4j2.formatMsgNoLookups=true", IniReadValue("EY", "EYW"));
+                                    string java = "";
+                                    if (java_list.SelectedIndex == -1) java = java_list.Items[0].ToString();
+                                    else java = java_list.SelectedItem.ToString();
+                                    await game.StartGame(NowV.Content.ToString(), java, RAMW, OfflineName.Text, "SkinUUID", "YUXUANSHILI", IniReadValue("JVM", "JVMW") + " -XX:+UseG1GC -XX:-UseAdaptiveSizePolicy -XX:-OmitStackTraceInFastThrow -Dfml.ignoreInvalidMinecraftCertificates=True -Dfml.ignorePatchDiscrepancies=True -Dlog4j2.formatMsgNoLookups=true", IniReadValue("EY", "EYW"));
                                     game.Launcher = "FSM3";
                                 }
                                 else
                                 {
                                     game.Launcher = "FSM3";
-                                    await game.StartGame(NowV.Content.ToString(), java_list.Text, RAMW, OfflineName.Text, SkinUUIDMC, "YUXUANSHILI", IniReadValue("JVM", "JVMW") + " -XX:+UseG1GC -XX:-UseAdaptiveSizePolicy -XX:-OmitStackTraceInFastThrow -Dfml.ignoreInvalidMinecraftCertificates=True -Dfml.ignorePatchDiscrepancies=True -Dlog4j2.formatMsgNoLookups=true", IniReadValue("EY", "EYW"));
+                                    string java = "";
+                                    if (java_list.SelectedIndex == -1) java = java_list.Items[0].ToString();
+                                    else java = java_list.SelectedItem.ToString();
+                                    await game.StartGame(NowV.Content.ToString(), java, RAMW, OfflineName.Text, SkinUUIDMC, "YUXUANSHILI", IniReadValue("JVM", "JVMW") + " -XX:+UseG1GC -XX:-UseAdaptiveSizePolicy -XX:-OmitStackTraceInFastThrow -Dfml.ignoreInvalidMinecraftCertificates=True -Dfml.ignorePatchDiscrepancies=True -Dlog4j2.formatMsgNoLookups=true", IniReadValue("EY", "EYW"));
                                     game.Launcher = "FSM3";
                                 }
                                 //game.ErrorEvent += new Game.ErrorDel(error);//错误事件
@@ -1619,7 +1631,10 @@ namespace FSM3.Pages
                                 //var loading = await this.ShowProgressAsync("启动游戏", "正在启动游戏,请稍后\n" + "你知道吗？" + NZDM[ra.Next(0, 6)]);
                                 //MessageBox.Show(Y.GetValue("IP").ToString());
                                 game.Launcher = "FSM3";
-                                await game.StartGame(NowV.Content.ToString(), java_list.Text, RAMW, Yname, Yuuid, Ytoken, IniReadValueW("wz", "IP"), IniReadValue("JVM", "JVMW") + " -XX:+UseG1GC -XX:-UseAdaptiveSizePolicy -XX:-OmitStackTraceInFastThrow -Dfml.ignoreInvalidMinecraftCertificates=True -Dfml.ignorePatchDiscrepancies=True -Dlog4j2.formatMsgNoLookups=true", IniReadValue("EY", "EYW"), AuthenticationServerMode.yggdrasil);
+                                string java = "";
+                                if (java_list.SelectedIndex == -1) java = java_list.Items[0].ToString();
+                                else java = java_list.SelectedItem.ToString();
+                                await game.StartGame(NowV.Content.ToString(), java, RAMW, Yname, Yuuid, Ytoken, IniReadValueW("wz", "IP"), IniReadValue("JVM", "JVMW") + " -XX:+UseG1GC -XX:-UseAdaptiveSizePolicy -XX:-OmitStackTraceInFastThrow -Dfml.ignoreInvalidMinecraftCertificates=True -Dfml.ignorePatchDiscrepancies=True -Dlog4j2.formatMsgNoLookups=true", IniReadValue("EY", "EYW"), AuthenticationServerMode.yggdrasil);
                                 game.Launcher = "FSM3";
                                 (FindResource("hideMe") as System.Windows.Media.Animation.Storyboard).Begin(StartGamew.SM);
                             }

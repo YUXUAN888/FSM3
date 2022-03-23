@@ -287,60 +287,6 @@ namespace FSM3
             InitializeComponent();
             ServicePointManager.DefaultConnectionLimit = 512;
             Update = "Beta24";
-            if (!Directory.Exists(ZongX + @"\.fsm"))
-            {
-                //System.IO.Directory.CreateDirectory(ZongX + ".fsm");
-                Directory.CreateDirectory(ZongX + @"\.fsm");
-            }
-            if (!Directory.Exists(ZongX + @"\.fsm\Skin\SkinN"))
-            {
-                //System.IO.Directory.CreateDirectory(ZongX + ".fsm");
-                Directory.CreateDirectory(ZongX + @"\.fsm\Skin\SkinN");
-            }
-            this.ResizeMode = ResizeMode.CanMinimize;
-            framecontrol.frame = ZFrame;
-            NV.NVW = nvSample;
-            StartGamew.SM = G;
-            BDD.PDD = BD;
-            (FindResource("hideMe") as System.Windows.Media.Animation.Storyboard).Begin(StartGamew.SM);
-            tools.Tools = Toolsw;
-            ZWindoww.Zwindow = ZWindow;
-            ZBt.zbt = ZBT;
-            Directory.CreateDirectory(System.AppDomain.CurrentDomain.BaseDirectory + @"FSM");
-            try
-            { 
-                try
-                {
-                    if (IniReadValueW("wz", "IDD") == null || IniReadValueW("wz", "IDD") == "")
-                    {
-                        ///////////////////////////////////////////////////
-                    }
-                    else
-                    {
-                        string yip = IniReadValueW("wz", "IP");
-                        string yidd = IniReadValueW("wz", "IDD");
-                        string yiddp = IniReadValueW("wz", "IDDPassWord");
-                        Pages.Game.skin = tools.Tools.GetAuthlib_Injector(yip, yidd, yiddp);
-                        //IDTab.SelectedIndex = 4;
-                        Pages.Game.Yyes = "888";
-                    }
-
-                }
-                catch
-                {
-
-                }
-                if (FSM3.framecontrol.frame != null)
-                {
-                    Thread WRDF3 = new Thread(F3);
-                    WRDF3.Start();
-                }
-            (FindResource("hideMe") as System.Windows.Media.Animation.Storyboard).Begin(FSMLogo);
-            }
-            catch
-            {
-
-            }
         }
         public static string retString;
         String[] after;
@@ -501,129 +447,28 @@ namespace FSM3
         }
         private async void Load(object sender, RoutedEventArgs e)
         {
-                try
-                {
-                    if (IniReadValue("ONLINE", "TCPP2P") == "" || IniReadValue("ONLINE", "TCPP2P") == null)
-                    {
-                        WritePrivateProfileString("ONLINE", "TCPP2P", "stcp", FileS);
-                    }
-                    if (IniReadValueW("Mojang", "Mail") == null || IniReadValueW("Mojang", "Mail") == "")
-                    {
-
-                    }
-                    else
-                    {
-                        try
-                        {
-                            var login = tools.Tools.MinecraftLogin(IniReadValueW("Mojang", "Mail"), IniReadValueW("Mojang", "PassWord"));
-                            Pages.Game.Mojangname = login.name;
-                            Pages.Game.MojangUUID = login.uuid;
-                            Pages.Game.MojangToken = login.token;
-                            loginmode = "mojang";
-                            mojangyes = "888";
-                            Download(System.AppDomain.CurrentDomain.BaseDirectory + @"FSM\Skin\Skin.png", "", tools.Tools.GetMinecraftSkin(Pages.Game.MojangUUID));
-                            System.Drawing.Point point = new System.Drawing.Point(8, 8);
-                            System.Drawing.Size size = new System.Drawing.Size(8, 8);
-                            Bitmap bitmap = new Bitmap(System.AppDomain.CurrentDomain.BaseDirectory + @"FSM\Skin\Skin.png");
-                            var i = crop(bitmap, new System.Drawing.Point(8, 8), new System.Drawing.Size(8, 8));
-                            Zoom(i, 258, 258, out i, ZoomType.NearestNeighborInterpolation);
-
-                            //i.Save(System.AppDomain.CurrentDomain.BaseDirectory + @"FSM\Skin\steven.png");
-                            System.Drawing.Image img = i;
-
-
-
-                        }
-                        catch
-                        {
-
-                        }
-
-
-                    }
-                    if (IniReadValueW("wr", "Atoken") == null || IniReadValueW("wr", "Atoken") == "")
-                    {
-
-                    }
-                    else
-                    {
-                        String Minecraft_Token;
-                        try
-                        {
-                            MicrosoftLogin microsoftLogin = new MicrosoftLogin();
-                            Xbox XboxLogin = new Xbox();
-                            Minecraft_Token = new MinecraftLogin().GetToken(XboxLogin.XSTSLogin(XboxLogin.GetToken(microsoftLogin.RefreshingTokens(IniReadValueW("wr", "Atoken")))));
-                            MinecraftLogin minecraftlogin = new MinecraftLogin();
-                            var Minecraft = minecraftlogin.GetMincraftuuid(Minecraft_Token);
-                            wruuid = Minecraft.uuid;
-                            wrname = Minecraft.name;
-                            wrtoken = Minecraft_Token;
-                            loginmode = "wr";
-                            wryes = "888";
-                            System.Drawing.Point point = new System.Drawing.Point(8, 8);
-                            System.Drawing.Size size = new System.Drawing.Size(8, 8);
-                            Bitmap bitmap = new Bitmap(System.AppDomain.CurrentDomain.BaseDirectory + @"FSM\Skin\Skin.png");
-                            var i = crop(bitmap, new System.Drawing.Point(8, 8), new System.Drawing.Size(8, 8));
-                            Zoom(i, 258, 258, out i, ZoomType.NearestNeighborInterpolation);
-                            i.Save(System.AppDomain.CurrentDomain.BaseDirectory + @"FSM\Skin\steven.png");
-                            System.Drawing.Image img = i;
-                            BitmapImage bi = new BitmapImage();
-                            // BitmapImage.UriSource must be in a BeginInit/EndInit block.  
-                            wryes = "888";
-
-                        }
-                        catch
-                        {
-
-                        }
-                    }
-                }
-                catch
-                {
-
-                }
-            if (IniReadValueW("Read", "ReadW") == null || IniReadValueW("Read", "ReadW") == "")
+            framecontrol.frame = ZFrame;
+            NV.NVW = nvSample;
+            StartGamew.SM = G;
+            BDD.PDD = BD;
+            tools.Tools = Toolsw;
+            ZWindoww.Zwindow = ZWindow;
+            ZBt.zbt = ZBT;
+            (FindResource("hideMe") as System.Windows.Media.Animation.Storyboard).Begin(StartGamew.SM);
+            (FindResource("hideMe") as System.Windows.Media.Animation.Storyboard).Begin(FSMLogo);
+            try
             {
-                ContentDialog dialog = new ContentDialog()
-                {
-                    Title = "用户协议与免责声明",
-                    PrimaryButtonText = "同意",
-                    SecondaryButtonText = "拒绝",
-                    CloseButtonText = "阅读用户协议与免责申明",
-                    IsPrimaryButtonEnabled = true,
-                    DefaultButton = ContentDialogButton.Primary,
-                    Content = new TextBlock()
-                    {
-                        TextWrapping = TextWrapping.WrapWithOverflow,
-                        Text = "同意 FSM3 用户协议与免责申明以使用本软件  "
-                    },
 
-                };
-                var result = await dialog.ShowAsync();
-                if (result == ContentDialogResult.Primary)
-                {
-                    WritePrivateProfileString("Read", "ReadW", "w", ZongW + @"\ConsoleW.qwq");
-                }
-                else if (result == ContentDialogResult.Secondary)
-                {
-                    Close();
-                }
-                else
-                {
-                    A();
-                }
+                String ww = Get("http://api.2018k.cn/getExample?id=acdbe11aceff42a599113997cbb74103&data=notice");
+                string ggxx = IniReadValue("GG", "DQGG");
             }
-            if (!File.Exists(ZongW+@"\Creeper.ico"))
+            catch
             {
-                Download(ZongW + @"\Creeper.ico", "", "http://fsm.ft2.club/IMG_4306.ico");
-            }
-            if (!File.Exists(ZongW + @"\Fix.wav"))
-            {
-                Download(ZongW + @"\Fix.wav", "", "http://fsm.ft2.club/Music/challenge_complete.wav");
+
             }
             if (IniReadValue("Color", "ZT") != "" || IniReadValue("Color", "ZT") != null)
             {
-                if(IniReadValue("Color", "ZT") is "Dark")
+                if (IniReadValue("Color", "ZT") is "Dark")
                 {
                     ThemeManager.Current.ApplicationTheme = ApplicationTheme.Dark;
                 }
@@ -632,73 +477,246 @@ namespace FSM3
                     ThemeManager.Current.ApplicationTheme = ApplicationTheme.Light;
                 }
             }
-            try
+            await Task.Run(() =>
             {
-                String gx1 = Get("http://2018k.cn/api/checkVersion?id=acdbe11aceff42a599113997cbb74103&version=" + Update);
-                after = gx1.Split(new char[] { '|' });
-                String gx2 = Get("http://2018k.cn/api/getExample?id=acdbe11aceff42a599113997cbb74103&data=force");
-                String gx3 = Get("http://2018k.cn/api/getExample?id=acdbe11aceff42a599113997cbb74103&data=version");
-                String gx4 = Get("http://2018k.cn/api/getExample?id=acdbe11aceff42a599113997cbb74103&data=remark|notice");
-                String gx5 = Get("http://2018k.cn/api/getExample?id=acdbe11aceff42a599113997cbb74103&data=url");
-                UpLog_and_GG = gx4.Split(new char[] { '|' });
-                UpdateD = gx5;
-                if (gx2 == "true" && gx3 != Update)
+                Dispatcher.Invoke(new Action(async () =>
                 {
-                    SFGX = true;
-                    xdbb = after[4];
-                    GXNR = UpLog_and_GG[0];
-                    ContentDialog dialog = new ContentDialog()
+                    if (!Directory.Exists(ZongX + @"\.fsm"))
                     {
-                        Title = "检测到启动器有新的版本!",
-                        PrimaryButtonText = "去更新!",
-                        IsPrimaryButtonEnabled = true,
-                        DefaultButton = ContentDialogButton.Primary,
-                        Content = new TextBlock()
-                        {
-                            TextWrapping = TextWrapping.WrapWithOverflow,
-                            Text = "新版本为:" + after[4] + "\n请到 设置-软件更新 进行更新!"
-                        },
-
-                    };
-                    var result = await dialog.ShowAsync();
-                }
-                try
-                {
-
-                    String ww = Get("http://api.2018k.cn/getExample?id=acdbe11aceff42a599113997cbb74103&data=notice");
-                    string ggxx = IniReadValue("GG", "DQGG");
-                    if (ggxx == ww)
-                    {
-
+                            //System.IO.Directory.CreateDirectory(ZongX + ".fsm");
+                            Directory.CreateDirectory(ZongX + @"\.fsm");
                     }
-                    else
+                    if (!Directory.Exists(ZongX + @"\.fsm\Skin\SkinN"))
                     {
-                        ContentDialog dialogw = new ContentDialog()
-                        {
-                            Title = "新公告",
-                            PrimaryButtonText = "好哒!",
-                            IsPrimaryButtonEnabled = true,
-                            DefaultButton = ContentDialogButton.Primary,
-                            Content = new TextBlock()
+                            //System.IO.Directory.CreateDirectory(ZongX + ".fsm");
+                            Directory.CreateDirectory(ZongX + @"\.fsm\Skin\SkinN");
+                    }
+                    this.ResizeMode = ResizeMode.CanMinimize;
+                            Directory.CreateDirectory(System.AppDomain.CurrentDomain.BaseDirectory + @"FSM");
+                            if (IniReadValueW("Read", "ReadW") == null || IniReadValueW("Read", "ReadW") == "")
                             {
-                                TextWrapping = TextWrapping.WrapWithOverflow,
-                                Text = "公告内容:" + ww,
-                            },
+                                ContentDialog dialog = new ContentDialog()
+                                {
+                                    Title = "用户协议与免责声明",
+                                    PrimaryButtonText = "同意",
+                                    SecondaryButtonText = "拒绝",
+                                    CloseButtonText = "阅读用户协议与免责申明",
+                                    IsPrimaryButtonEnabled = true,
+                                    DefaultButton = ContentDialogButton.Primary,
+                                    Content = new TextBlock()
+                                    {
+                                        TextWrapping = TextWrapping.WrapWithOverflow,
+                                        Text = "同意 FSM3 用户协议与免责申明以使用本软件  "
+                                    },
 
-                        };
-                        var resultw = await dialogw.ShowAsync();
-                        WritePrivateProfileString("GG", "DQGG", ww, FileS);
+                                };
+                                var result = await dialog.ShowAsync();
+                                if (result == ContentDialogResult.Primary)
+                                {
+                                    WritePrivateProfileString("Read", "ReadW", "w", ZongW + @"\ConsoleW.qwq");
+                                }
+                                else if (result == ContentDialogResult.Secondary)
+                                {
+                                    Close();
+                                }
+                                else
+                                {
+                                    A();
+                                }
+
+                            }
+                    if (!File.Exists(ZongW + @"\Creeper.ico"))
+                    {
+                        Download(ZongW + @"\Creeper.ico", "", "http://fsm.ft2.club/IMG_4306.ico");
                     }
-                }
-                catch
-                {
+                    if (!File.Exists(ZongW + @"\Fix.wav"))
+                    {
+                        Download(ZongW + @"\Fix.wav", "", "http://fsm.ft2.club/Music/challenge_complete.wav");
+                    }
+                    try
+                    {
+                            String gx1 = Get("http://2018k.cn/api/checkVersion?id=acdbe11aceff42a599113997cbb74103&version=" + Update);
+                            after = gx1.Split(new char[] { '|' });
+                            String gx2 = Get("http://2018k.cn/api/getExample?id=acdbe11aceff42a599113997cbb74103&data=force");
+                            String gx3 = Get("http://2018k.cn/api/getExample?id=acdbe11aceff42a599113997cbb74103&data=version");
+                            String gx4 = Get("http://2018k.cn/api/getExample?id=acdbe11aceff42a599113997cbb74103&data=remark|notice");
+                            String gx5 = Get("http://2018k.cn/api/getExample?id=acdbe11aceff42a599113997cbb74103&data=url");
+                            UpLog_and_GG = gx4.Split(new char[] { '|' });
+                            UpdateD = gx5;
+                            if (gx2 == "true" && gx3 != Update)
+                            {
+                                SFGX = true;
+                                xdbb = after[4];
+                                GXNR = UpLog_and_GG[0];
+                                ContentDialog dialog = new ContentDialog()
+                                {
+                                    Title = "检测到启动器有新的版本!",
+                                    PrimaryButtonText = "去更新!",
+                                    IsPrimaryButtonEnabled = true,
+                                    DefaultButton = ContentDialogButton.Primary,
+                                    Content = new TextBlock()
+                                    {
+                                        TextWrapping = TextWrapping.WrapWithOverflow,
+                                        Text = "新版本为:" + after[4] + "\n请到 设置-软件更新 进行更新!"
+                                    },
 
-                }
-            }
-            catch
-            {
+                                };
+                                var result = await dialog.ShowAsync();
+                            }
+                            try
+                            {
 
-            }
+                                String ww = Get("http://api.2018k.cn/getExample?id=acdbe11aceff42a599113997cbb74103&data=notice");
+                                string ggxx = IniReadValue("GG", "DQGG");
+                                if (ggxx == ww)
+                                {
+
+                                }
+                                else
+                                {
+                                    ContentDialog dialogw = new ContentDialog()
+                                    {
+                                        Title = "新公告",
+                                        PrimaryButtonText = "好哒!",
+                                        IsPrimaryButtonEnabled = true,
+                                        DefaultButton = ContentDialogButton.Primary,
+                                        Content = new TextBlock()
+                                        {
+                                            TextWrapping = TextWrapping.WrapWithOverflow,
+                                            Text = "公告内容:" + ww,
+                                        },
+
+                                    };
+                                    var resultw = await dialogw.ShowAsync();
+                                    WritePrivateProfileString("GG", "DQGG", ww, FileS);
+                                }
+                            }
+                            catch
+                            {
+
+                            }
+                            try
+                            {
+                                if (IniReadValue("ONLINE", "TCPP2P") == "" || IniReadValue("ONLINE", "TCPP2P") == null)
+                                {
+                                    WritePrivateProfileString("ONLINE", "TCPP2P", "stcp", FileS);
+                                }
+                                if (IniReadValueW("Mojang", "Mail") == null || IniReadValueW("Mojang", "Mail") == "")
+                                {
+
+                                }
+                                else
+                                {
+                                    try
+                                    {
+                                        var login = tools.Tools.MinecraftLogin(IniReadValueW("Mojang", "Mail"), IniReadValueW("Mojang", "PassWord"));
+                                        Pages.Game.Mojangname = login.name;
+                                        Pages.Game.MojangUUID = login.uuid;
+                                        Pages.Game.MojangToken = login.token;
+                                        loginmode = "mojang";
+                                        mojangyes = "888";
+                                        Download(System.AppDomain.CurrentDomain.BaseDirectory + @"FSM\Skin\Skin.png", "", tools.Tools.GetMinecraftSkin(Pages.Game.MojangUUID));
+                                        System.Drawing.Point point = new System.Drawing.Point(8, 8);
+                                        System.Drawing.Size size = new System.Drawing.Size(8, 8);
+                                        Bitmap bitmap = new Bitmap(System.AppDomain.CurrentDomain.BaseDirectory + @"FSM\Skin\Skin.png");
+                                        var i = crop(bitmap, new System.Drawing.Point(8, 8), new System.Drawing.Size(8, 8));
+                                        Zoom(i, 258, 258, out i, ZoomType.NearestNeighborInterpolation);
+
+                                        //i.Save(System.AppDomain.CurrentDomain.BaseDirectory + @"FSM\Skin\steven.png");
+                                        System.Drawing.Image img = i;
+
+
+
+                                    }
+                                    catch
+                                    {
+
+                                    }
+
+
+                                }
+                                try
+                                {
+                                    try
+                                    {
+                                        if (IniReadValueW("wz", "IDD") == null || IniReadValueW("wz", "IDD") == "")
+                                        {
+                                            ///////////////////////////////////////////////////
+                                        }
+                                        else
+                                        {
+                                            string yip = IniReadValueW("wz", "IP");
+                                            string yidd = IniReadValueW("wz", "IDD");
+                                            string yiddp = IniReadValueW("wz", "IDDPassWord");
+                                            Pages.Game.skin = tools.Tools.GetAuthlib_Injector(yip, yidd, yiddp);
+                                            //IDTab.SelectedIndex = 4;
+                                            Pages.Game.Yyes = "888";
+                                        }
+
+                                    }
+                                    catch
+                                    {
+
+                                    }
+                                    if (FSM3.framecontrol.frame != null)
+                                    {
+                                        Thread WRDF3 = new Thread(F3);
+                                        WRDF3.Start();
+                                    }
+                                }
+                                catch
+                                {
+
+                                }
+                                if (IniReadValueW("wr", "Atoken") == null || IniReadValueW("wr", "Atoken") == "")
+                                {
+
+                                }
+                                else
+                                {
+                                    String Minecraft_Token;
+                                    try
+                                    {
+                                        MicrosoftLogin microsoftLogin = new MicrosoftLogin();
+                                        Xbox XboxLogin = new Xbox();
+                                        Minecraft_Token = new MinecraftLogin().GetToken(XboxLogin.XSTSLogin(XboxLogin.GetToken(microsoftLogin.RefreshingTokens(IniReadValueW("wr", "Atoken")))));
+                                        MinecraftLogin minecraftlogin = new MinecraftLogin();
+                                        var Minecraft = minecraftlogin.GetMincraftuuid(Minecraft_Token);
+                                        wruuid = Minecraft.uuid;
+                                        wrname = Minecraft.name;
+                                        wrtoken = Minecraft_Token;
+                                        loginmode = "wr";
+                                        wryes = "888";
+                                        System.Drawing.Point point = new System.Drawing.Point(8, 8);
+                                        System.Drawing.Size size = new System.Drawing.Size(8, 8);
+                                        Bitmap bitmap = new Bitmap(System.AppDomain.CurrentDomain.BaseDirectory + @"FSM\Skin\Skin.png");
+                                        var i = crop(bitmap, new System.Drawing.Point(8, 8), new System.Drawing.Size(8, 8));
+                                        Zoom(i, 258, 258, out i, ZoomType.NearestNeighborInterpolation);
+                                        i.Save(System.AppDomain.CurrentDomain.BaseDirectory + @"FSM\Skin\steven.png");
+                                        System.Drawing.Image img = i;
+                                        BitmapImage bi = new BitmapImage();
+                                        // BitmapImage.UriSource must be in a BeginInit/EndInit block.  
+                                        wryes = "888";
+
+                                    }
+                                    catch
+                                    {
+
+                                    }
+                                }
+                            }
+                            catch
+                            {
+
+                            }
+                    }
+                    catch
+                    {
+
+                    }
+                }));
+            });
+            Var.Frame = ZFrame;
         }
         public string[] UpLog_and_GG;
         public static bool SFGX;

@@ -14,7 +14,7 @@
                 <ImageBrush/>
             </ListBox.Background>
         </ListBox>
-        <ListBox x:Name="vlist" HorizontalAlignment="Left" Height="380" Margin="375,8,0,0" VerticalAlignment="Top" Width="375" SelectionChanged="vlist_SelectionChanged">
+        <ListBox x:Name="vlist" HorizontalAlignment="Left" Height="380" Margin="375,8,0,0" VerticalAlignment="Top" Width="375" SelectionChanged="vlist_SelectionChanged" PreviewMouseLeftButtonDown="vlist_PreviewMouseLeftButtonDown">
             <ListBox.Background>
                 <ImageBrush/>
             </ListBox.Background>

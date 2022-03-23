@@ -121,7 +121,7 @@ namespace FSM3.Pages
             {
                 //statistics = KMCCC.Pro.Modules.MojangAPI.MojangAPI.GetStatistics();
                 //MessageBox.Show(statistics.getTotal().ToString());
-                SkinUUID = KMCCC.Pro.Modules.MojangAPI.MojangAPI.NameToUUID(inputSkinName).ToString();
+                //SkinUUID = KMCCC.Pro.Modules.MojangAPI.MojangAPI.NameToUUID(inputSkinName).ToString();
                 Directory.CreateDirectory(Game.ZongSkin + @"\" + inputSkinName);
                 if (System.IO.File.Exists(Game.ZongSkin + @"\SkinZ.Skin"))
                 {

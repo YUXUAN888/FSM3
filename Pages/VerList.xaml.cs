@@ -83,9 +83,9 @@ namespace FSM3.Pages
                 {
                     AllTheExistingVersion[] t = new AllTheExistingVersion[0];
                     pathlist.SelectedIndex = int.Parse(IniReadValue("Vlist", "Path"));
-                    //tools.SetMinecraftFilesPath(IniReadValue("VPath", IniReadValue("Vlist", "Path")));
+                    tools.Tools.SetMinecraftFilesPath(IniReadValue("VPath", IniReadValue("Vlist", "Path")));
 
-                    //t = tools.GetAllTheExistingVersion();
+                    t = tools.Tools.GetAllTheExistingVersion();
 
 
                     vlist.SelectedIndex = int.Parse(IniReadValue("Vlist", "V"));
@@ -156,7 +156,11 @@ namespace FSM3.Pages
 
             try
             {
-                vlist.SelectedIndex = int.Parse(IniReadValue("Vlist", "V"));
+                try
+                {
+                    vlist.SelectedIndex = int.Parse(IniReadValue("Vlist", "V"));
+                }
+                catch { }
                 if (pathlist.SelectedIndex == 0)
                 {
                     Game.WritePrivateProfileString("Vlist", "Path", pathlist.SelectedIndex.ToString(), File_);
@@ -431,7 +435,10 @@ namespace FSM3.Pages
 
                 }
                 // string mcPath = (sender as ListBox).SelectedItem.ToString();
-                vlist.SelectedIndex = int.Parse(IniReadValue("Vlist", "V"));
+                try
+                {
+                    vlist.SelectedIndex = int.Parse(IniReadValue("Vlist", "V"));
+                }catch { }
             }
             catch (Exception ex)
             {
@@ -471,8 +478,7 @@ namespace FSM3.Pages
         public static string NowVS;
         private void vlist_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            try
-            {
+            if (pathlist.SelectedIndex == -1) return;
                 if (pathlist.SelectedIndex == 0)
                 {
                     MinecraftDownload minecraft = new MinecraftDownload();
@@ -499,11 +505,6 @@ namespace FSM3.Pages
                     NowVS = t[vlist.SelectedIndex].version;
                     NowVw.NowV.Content = t[vlist.SelectedIndex].version;
                 }
-            }
-            catch
-            {
-
-            }
         }
 
         private void MouseUp(object sender, MouseButtonEventArgs e)
@@ -802,6 +803,12 @@ namespace FSM3.Pages
         private void Load(object sender, RoutedEventArgs e)
         {
             
+        }
+
+
+        private void vlist_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if(vlist.SelectedIndex != -1) Var.Frame.Navigate(dyuri("/Pages/Game.xaml"));
         }
     }
 }

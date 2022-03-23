@@ -367,101 +367,12 @@ namespace FSM3.Pages
         static System.Windows.Threading.DispatcherTimer Jarw = new System.Windows.Threading.DispatcherTimer();
         static int JarID, JsonID;
         MinecraftDownload MinecraftDownload = new MinecraftDownload();
-        public static Gac.DownLoadFile dlf = new DownLoadFile();
-        public static int id = 0;
-        internal int Downloadw(string path, string ly, string url)
+        DownloadFile dlf = new DownloadFile();
+        internal void Downloadw(string path, string url)
         {
-
-            dlf.AddDown(url, path.Replace(System.IO.Path.GetFileName(path), ""), System.IO.Path.GetFileName(path), id);//增加下载
-            dlf.StartDown(3);//开始下载
-            id++;
-            Core.xzItem xzItem = new Core.xzItem(System.IO.Path.GetFileName(path), 0, ly, "等待中", url, path);
-            DIYvar.xzItems.Add(xzItem);
-
-
-            return id - 1;
-        }
-        public void SendMsgHander(DownMsg msg)
-        {
-
-            Dispatcher.Invoke((Action)delegate ()
-            {
-                DownStatus tag = msg.Tag;
-
-                if (tag == DownStatus.Start)
-                {
-                    DIYvar.xzItems[msg.Id].xzwz = "开始下载";
-
-                    return;
-                }
-                if (tag == DownStatus.End)
-                {
-                    DIYvar.xzItems[msg.Id].xzwz = "完成";
-
-                    DIYvar.xzItems[msg.Id].Template = 100;
-
-                    return;
-                }
-                if (tag == DownStatus.Error)
-                {
-                    DIYvar.xzItems[msg.Id].xzwz = msg.ErrMessage;
-                    Console.WriteLine("-----------------\n"+msg.ErrMessage+ "\n-----------------");
-
-                    return;
-                }
-                if (tag == DownStatus.DownLoad)
-                {
-                    DIYvar.xzItems[msg.Id].xzwz = "下载中";
-
-                    DIYvar.xzItems[msg.Id].Template = msg.Progress;
-
-                    Console.WriteLine("test");
-
-                    return;
-                }
-            });
+            dlf.Start(path,url);//增加下载
         }
         public double liba;
-        public void SendMsgHanderS(DownMsg msg)
-        {
-
-            Dispatcher.Invoke((Action)delegate ()
-            {
-                DownStatus tag = msg.Tag;
-
-                if (tag == DownStatus.Start)
-                {
-                    DIYvar.xzItems[msg.Id].xzwz = "开始下载";
-
-                    return;
-                }
-                if (tag == DownStatus.End)
-                {
-                    DIYvar.xzItems[msg.Id].xzwz = "完成";
-
-                    DIYvar.xzItems[msg.Id].Template = 100;
-
-                    return;
-                }
-                if (tag == DownStatus.Error)
-                {
-                    DIYvar.xzItems[msg.Id].xzwz = msg.ErrMessage;
-                    Console.WriteLine("-----------------\n" + msg.ErrMessage + "\n-----------------");
-
-                    return;
-                }
-                if (tag == DownStatus.DownLoad)
-                {
-                    DIYvar.xzItems[msg.Id].xzwz = "下载中";
-                    DIYvar.xzItems[msg.Id].Template = msg.Progress;
-                    liba = msg.Progress;
-                    Console.WriteLine(msg.Progress);
-                    Console.WriteLine("test");
-
-                    return;
-                }
-            });
-        }
         public static bool IfDown;
         public static int DownloadInt = 0;
         public static String DownloadBZ;
@@ -560,25 +471,24 @@ namespace FSM3.Pages
                     storyboard.Begin();//播放此动画
                     tools.Tools.DownloadSourceInitialization(DownloadSource.MCBBSSource);
                     MCDownload download = MinecraftDownload.MCjarDownload(mcVersionLists[MCV.SelectedIndex].version);
-                    if(Game.IniReadValue("Vlist", "Path") is "0")
+                    if(Game.IniReadValue("Vlist", "Path") == "" || Game.IniReadValue("Vlist", "Path") == "0")
                     {
-                        JarID = Downloadw(Game.Dminecraft + @"\versions\" + DownloadMCName + @"\" + DownloadMCName + ".jar", "", download.Url);
+                        Downloadw(Game.Dminecraft + @"\versions\" + DownloadMCName + @"\" + DownloadMCName + ".jar", download.Url);
                     }
                     else
                     {
-                        JarID = Downloadw(Game.IniReadValue("VPath", int.Parse(Game.IniReadValue("Vlist", "Path") + 2).ToString()) + @"\versions\" + DownloadMCName + @"\" + DownloadMCName + ".jar", "", download.Url);
+                        Downloadw(Game.IniReadValue("VPath", int.Parse(Game.IniReadValue("Vlist", "Path") + 2).ToString()) + @"\versions\" + DownloadMCName + @"\" + DownloadMCName + ".jar", download.Url);
                     }
                     download = MinecraftDownload.MCjsonDownload(mcVersionLists[MCV.SelectedIndex].version);
-                    if (Game.IniReadValue("Vlist", "Path") is "0")
+                    if (Game.IniReadValue("Vlist", "Path") == "" || Game.IniReadValue("Vlist", "Path") == "0")
                     {
-                        JsonID = Downloadw(Game.Dminecraft + @"\versions\" + DownloadMCName + @"\" + DownloadMCName + ".json", "", download.Url);
+                        Downloadw(Game.Dminecraft + @"\versions\" + DownloadMCName + @"\" + DownloadMCName + ".json", download.Url);
                     }
                     else
                     {
-                        JsonID = Downloadw(Game.IniReadValue("VPath", int.Parse(Game.IniReadValue("Vlist", "Path") + 2).ToString()) + @"\versions\" + DownloadMCName + @"\" + DownloadMCName + ".json", "", download.Url);
+                        Downloadw(Game.IniReadValue("VPath", int.Parse(Game.IniReadValue("Vlist", "Path") + 2).ToString()) + @"\versions\" + DownloadMCName + @"\" + DownloadMCName + ".json", download.Url);
                     }
-                    dlf.doSendMsg += new DownLoadFile.dlgSendMsg(SendMsgHander);
-                    Jarw = Core5.timer(MCjarInstall, 5555);
+                    Jarw = Core5.timer(MCjarInstall, 500);
                     Jarw.Start();
                     JarTimerBool = true;
                 }
@@ -598,7 +508,7 @@ namespace FSM3.Pages
         MCDownload ddd;
         public async void OptifineI(object ob, EventArgs a)
         {
-            if (DIYvar.xzItems[bbb].xzwz == "完成")
+            if (dlf.EndDownload())
             {
                 UPDATEW.Stop();
                 UPDATEW.Stop();
@@ -618,7 +528,7 @@ namespace FSM3.Pages
         static System.Windows.Threading.DispatcherTimer UPDATEW = new System.Windows.Threading.DispatcherTimer();
         public async void ForgeI(object ob, EventArgs a)
         {
-            if (DIYvar.xzItems[bbb].xzwz == "完成")
+            if (dlf.EndDownload())
             {
                 UPDATEW.Stop();
                 var j = tools.Tools.GetJavaPath();
@@ -634,7 +544,7 @@ namespace FSM3.Pages
         }
         public async void OptifineandForgeI(object ob, EventArgs a)
         {
-            if (DIYvar.xzItems[bbb].xzwz == "完成")
+            if (dlf.EndDownload())
             {
                 UPDATEW.Stop();
                 user.AZBZ.Content = "当前步骤:安装Optifine";
@@ -642,42 +552,50 @@ namespace FSM3.Pages
                 var j = tools.Tools.GetJavaPath();
                 await tools.Tools.ForgeInstallation(ddd.path, DownloadMCName, j[0].Path);
                 ddd = mcd.DownloadOptifine(DownloadMCName, OptVer);
-                if (Game.IniReadValue("Vlist", "Path") is "0")
+                dlf.Close();
+                if (Game.IniReadValue("Vlist", "Path") == "")
                 {
                     Directory.CreateDirectory(Game.Dminecraft + @"\versions\" + DownloadMCName + @"\" + DownloadMCName + @"\mods");
-                    bbb = Downloadw(Game.Dminecraft + @"\versions\" + DownloadMCName + @"\" + DownloadMCName + @"\mods\" + OptVer + "", "Optifine", ddd.Url);
+                    Downloadw(Game.Dminecraft + @"\versions\" + DownloadMCName + @"\" + DownloadMCName + @"\mods\" + OptVer + "", ddd.Url);
                 }
                 else
                 {
                     Directory.CreateDirectory(Game.IniReadValue("VPath", int.Parse(Game.IniReadValue("Vlist", "Path") + 2).ToString()) + @"\versions\" + DownloadMCName + @"\" + DownloadMCName + @"\mods");
-                    bbb = Downloadw(Game.IniReadValue("VPath", int.Parse(Game.IniReadValue("Vlist", "Path") + 2).ToString()) + @"\versions\" + DownloadMCName + @"\" + DownloadMCName + @"\mods\" + OptVer + "", "Optifine", ddd.Url);
+                    Downloadw(Game.IniReadValue("VPath", int.Parse(Game.IniReadValue("Vlist", "Path") + 2).ToString()) + @"\versions\" + DownloadMCName + @"\" + DownloadMCName + @"\mods\" + OptVer + "", ddd.Url);
                 }
                 //bbb = Downloadw(Game.IniReadValue("VPath", int.Parse(Game.IniReadValue("Vlist", "Path") + 1).ToString()) + @"\mods\" + OptVer + "", "Optifine", ddd.Url);
                 /// await Lod.CloseAsync();
+                await Task.Run(() =>
+                {
+                    while (!dlf.EndDownload()) ;
+                });
+                await tools.Tools.OptifineInstall(DownloadMCName, optpatch, j[0].Path);
                 UPDATEW = Core5.timer(Cree, 5555);
                 UPDATEW.Start();
             }
         }
         public async void Cree(object ob, EventArgs a)
         {
-            if (DIYvar.xzItems[bbb].xzwz == "完成")
+            if (dlf.EndDownload())
             {
                 UPDATEW.Stop();
                 AssetDownload assetDownload = new AssetDownload();//asset下载类
                 assetDownload.DownloadProgressChanged += AssetDownload_DownloadProgressChanged;//事件
 
                 await libraries(DownloadMCName);
-
-                await assetDownload.BuildAssetDownload(1000, DownloadMCName);//构建下载
+                Thread thread = new Thread(async() =>
+                {
+                    await assetDownload.BuildAssetDownload(1000, DownloadMCName);//构建下载
+                });
+                thread.IsBackground = true;
+                thread.Start();
             }
         }
         private async void MCjarInstall(object ob, EventArgs a)
         {
             //MessageBox.Show(DIYvar.xzItems[JsonID].xzwz);
-            string aa = DIYvar.xzItems[JarID].xzwz;
-            string bb = DIYvar.xzItems[JsonID].xzwz;
 
-            if (aa == "完成" && bb == "完成")
+            if (dlf.EndDownload())
             {
 
                 DoF.InstallJar.IsChecked = true;
@@ -695,8 +613,8 @@ namespace FSM3.Pages
                             user.AZBZ.Content = "当前步骤:安装Forge";
                             DownloadBZ = "当前步骤:安装Forge";
                             ddd = mcd.ForgeDownload(DownloadMCName, ForgeVer);
-
-                            bbb = Downloadw(ddd.path, "Forge", ddd.Url);
+                            dlf.Close();
+                            Downloadw(ddd.path, ddd.Url);
                             UPDATEW = Core5.timer(OptifineandForgeI, 5555);
                             UPDATEW.Start();
 
@@ -710,8 +628,8 @@ namespace FSM3.Pages
                             ddd = mcd.ForgeDownload(DownloadMCName, ForgeVer);
                             user.AZBZ.Content = "当前步骤:安装Forge";
                             DownloadBZ = "当前步骤:安装Forge";
-                            await tools.Tools.ForgeInstallation(ddd.path, DownloadMCName, Settings.Java_List);
-                            bbb = Downloadw(ddd.path, "Forge", ddd.Url);
+                            dlf.Close();
+                            Downloadw(ddd.path, ddd.Url);
                             UPDATEW = Core5.timer(ForgeI, 5555);
                             UPDATEW.Start();
 
@@ -806,19 +724,32 @@ namespace FSM3.Pages
             try
             {
                 //  tools.DownloadSourceInitialization(DownloadSource.MCBBSSource);
-                dlf.doSendMsg += new DownLoadFile.dlgSendMsg(SendMsgHanderS);
                 //libraries1 = mcVersionLists[MCV.SelectedIndex].version;
                 MCDownload[] File = tools.Tools.GetMissingFile(version);
                 if (File.Length != 0)
                 {
                     foreach (var i in File)
                     {
-                        int aa = Downloadw(i.path, "补全", i.Url);
-                        user.AZBZ.Content = "当前步骤:补全游戏文件";
-                        DownloadBZ = "当前步骤:补全游戏文件";
+                        Downloadw(i.path, i.Url);
+
                     }
+                    user.AZBZ.Content = "当前步骤:补全游戏文件";
+                    DownloadBZ = "当前步骤:补全游戏文件";
+                    bool result = false;
+                    await Task.Run(() =>
+                    {
+                        while(true)
+                        {
+                            if(dlf.EndDownload())
+                            {
+                                if (dlf.error > 0) result = false;
+                                else result = true;
+                                break;
+                            }
+                        }
+                    });
                     //libraries2 = sz.id;
-                    return false;
+                    return result;
                 }
 
 
@@ -1132,12 +1063,15 @@ namespace FSM3.Pages
         String optpatch;
         private void OptifineList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            DTB.SelectedIndex = 0;
-            //OptiFineList[] op = new OptiFineList[0];
-            OptifineB.Content = "Optifine\n" + OptifineList.SelectedItem;
-            OptVer = OptifineList.SelectedItem.ToString();
-            optpatch = opp[OptifineList.SelectedIndex].patch;
-            inopt = 1;
+            if (OptifineList.SelectedIndex != -1)
+            {
+                DTB.SelectedIndex = 0;
+                //OptiFineList[] op = new OptiFineList[0];
+                OptifineB.Content = "Optifine\n" + OptifineList.SelectedItem;
+                OptVer = OptifineList.SelectedItem.ToString();
+                optpatch = opp[OptifineList.SelectedIndex].patch;
+                inopt = 1;
+            }
         }
 
         private void XZJC_SelectionChanged(object sender, SelectionChangedEventArgs e)
