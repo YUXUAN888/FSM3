@@ -1281,23 +1281,25 @@ namespace FSM3.Pages
                 try
                 {
                     SquareMinecraftLauncher.Online.Client c = new SquareMinecraftLauncher.Online.Client(box.Text);
+                    string s = c.Start();
                     ContentDialog dialogw = new ContentDialog()
                     {
                         Title = "连接成功!",
-                        PrimaryButtonText = "好哒!",
+                        PrimaryButtonText = "复制地址",
                         IsPrimaryButtonEnabled = true,
+                        IsSecondaryButtonEnabled = true,
                         DefaultButton = ContentDialogButton.Primary,
                         Content = new TextBlock()
                         {
                             TextWrapping = TextWrapping.WrapWithOverflow,
-                            Text = "进入游戏后点击多人游戏，添加服务器IP为:" + c.Start()+" 以连接",
+                            Text = "进入游戏后点击多人游戏，添加服务器地址为:" + s+" 以连接",
                         },
 
                     };
                     var resultw = await dialogw.ShowAsync();
                     if (resultw == ContentDialogResult.Primary)
                     {
-
+                        Clipboard.SetDataObject(s);
                     }
                 }
                 catch(Exception ex)

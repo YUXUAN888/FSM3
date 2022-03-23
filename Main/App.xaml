@@ -67,6 +67,58 @@
                     </Setter.Value>
                 </Setter>
             </Style>
+            <Style x:Key="RoundedGelButtonS" TargetType="Button">
+                <Setter Property="Width" Value="100" />
+                <Setter Property="Height" Value="100" />
+                <Setter Property="Foreground" Value="White" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Grid>
+                                <Ellipse Name="GelBackground" StrokeThickness="0.5" Fill="#ff7e7e7e">
+                                    <Ellipse.Stroke>
+                                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                            <GradientStop Offset="0" Color="#ff7e7e7e" />
+                                            <GradientStop Offset="1" Color="#ff7e7e7e" />
+                                        </LinearGradientBrush>
+                                    </Ellipse.Stroke>
+                                </Ellipse>
+                                <Ellipse Margin="15,5,15,50">
+                                    <Ellipse.Fill>
+                                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                            <GradientStop Offset="0" Color="#aaffffff" />
+                                            <GradientStop Offset="1" Color="#ff7e7e7e" />
+                                        </LinearGradientBrush>
+                                    </Ellipse.Fill>
+                                </Ellipse>
+                                <ContentPresenter Name="GelButtonContent" VerticalAlignment="Center" HorizontalAlignment="Center" Content="{TemplateBinding Content}" />
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Ellipse.Fill" TargetName="GelBackground">
+                                        <Setter.Value>
+                                            <RadialGradientBrush>
+                                                <GradientStop Offset="0" Color="#ff7e7e7e" />
+                                                <GradientStop Offset="1" Color="#ff7e7e7e" />
+                                            </RadialGradientBrush>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Trigger>
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter Property="Ellipse.Fill" TargetName="GelBackground">
+                                        <Setter.Value>
+                                            <RadialGradientBrush>
+                                                <GradientStop Offset="0" Color="#ff7e7e7e" />
+                                                <GradientStop Offset="1" Color="#ff7e7e7e" />
+                                            </RadialGradientBrush>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
             <Style x:Key="RoundedGelButtonw" TargetType="Button">
                 <Setter Property="Width" Value="100" />
                 <Setter Property="Height" Value="100" />
@@ -123,6 +175,12 @@
                     <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="{x:Static Visibility.Visible}"/>
                 </ObjectAnimationUsingKeyFrames>
                 <DoubleAnimation Storyboard.TargetProperty="Opacity" Duration="0:0:1" To="0.75"/>
+            </Storyboard>
+            <Storyboard x:Key="showMef">
+                <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility">
+                    <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="{x:Static Visibility.Visible}"/>
+                </ObjectAnimationUsingKeyFrames>
+                <DoubleAnimation Storyboard.TargetProperty="Opacity" Duration="0:0:1" To="0.72"/>
             </Storyboard>
             <Storyboard x:Key="showMew">
                 <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility">

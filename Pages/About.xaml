@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:FSM3.Pages" xmlns:ui="http://schemas.modernwpf.com/2019" xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
       mc:Ignorable="d" d:DesignWidth="800"
-      Title="About" Width="752.8" Height="905.65">
+      Title="About" Width="752.8" Height="1900.05">
 
     <Grid>
         <TabControl>
@@ -23,7 +23,6 @@
                             <Label Content="反馈" Margin="173.5,-17,14.8,0" FontSize="20"/>
                         </StackPanel>
                     </Button>
-                    <Button Content="？？？？？？？？？？？" HorizontalAlignment="Left" Margin="256,18,0,0" VerticalAlignment="Top" Width="217" Height="83" Background="Red" Foreground="White" Click="Button_Click_6"/>
 
                 </Grid>
             </TabItem>
@@ -35,53 +34,99 @@
                     </StackPanel>
                 </TabItem.Header>
                 <Grid>
-                    <ScrollViewer Margin="0,0,-0.2,484.6">
+                    <ScrollViewer Margin="0,0,-0.2,1473">
                         <Grid Height="1850">
-                            <Image HorizontalAlignment="Left" Height="130" Margin="140,23,0,0" VerticalAlignment="Top" Width="139" Source="/FSM3;component/Image/FSMLogo.png"/>
-                            <Label Content="FSM Launcher|Beta" HorizontalAlignment="Left" Margin="278,60,0,0" VerticalAlignment="Top" Width="400" FontSize="34"/>
-                            <Image HorizontalAlignment="Left" Height="62" VerticalAlignment="Top" Width="63" Source="/FSM3;component/Image/22.jpg" Margin="9,167,0,0"/>
-                            <Image HorizontalAlignment="Left" Height="62" VerticalAlignment="Top" Width="63" Source="/FSM3;component/Image/33.jpg" Margin="9,236,0,0"/>
-                            <Label Content="开发者:宇轩Yu_Xuan" HorizontalAlignment="Left" Margin="81,184,0,0" VerticalAlignment="Top" Width="198" FontSize="22"/>
-                            <Label Content="联机服务:初梦和她的小伙伴们" HorizontalAlignment="Left" Margin="81,253,0,0" VerticalAlignment="Top" Width="293" FontSize="22"/>
-                            <Label Content="Core支持:Baibao132" HorizontalAlignment="Left" Margin="81,323,0,0" VerticalAlignment="Top" Width="293" FontSize="22"/>
-                            <Button Content="赞助作者" HorizontalAlignment="Left" Margin="630,183,0,0" VerticalAlignment="Top" Width="92" Click="Button_Click"/>
-                            <Button Content="Blog" HorizontalAlignment="Left" Margin="630,252,0,0" VerticalAlignment="Top" Width="92" Click="Button_Click_1"/>
-                            <Button Content="赞助他" HorizontalAlignment="Left" Margin="630,323,0,0" VerticalAlignment="Top" Width="92" Click="Button_Click_2"/>
-                            <Button HorizontalAlignment="Left" Height="62" VerticalAlignment="Top" Width="63" Margin="9,306,0,0" Click="Button_Click_4">
-                                <Button.Background>
-                                    <ImageBrush ImageSource="../Image/ss.png"/>
-                                </Button.Background>
-                            </Button>
-                            <GroupBox Header="赞助名单(感谢你们!)" HorizontalAlignment="Left" Height="231" Margin="5,412,0,0" VerticalAlignment="Top" Width="719" FontSize="22">
-                                <Label Content="战神福尔康,Nunzio520,Himcd,苦逼的老何,ShanZhiXiaoZhu,&#xA;MaverickPig,Bolen,爱发电用户_xJf4,爱发电用户_CqeR,&#xA;不吃剩饭的老剩饭,爱发电用户_SaeE,SakuraMoyi,爱发电用户_eHSs,&#xA;Ablazy,？,Loki,0www0 感谢你们!" HorizontalAlignment="Left" Height="171" Margin="0,1,0,-5.6" VerticalAlignment="Top" Width="710" FontSize="20"/>
-                            </GroupBox>
-                            <GroupBox Header="特别鸣谢" HorizontalAlignment="Left" Height="251" Margin="8,577,0,0" VerticalAlignment="Top" Width="651" FontSize="22"/>
-                            <Image HorizontalAlignment="Left" Height="62" VerticalAlignment="Top" Width="63" Source="/FSM3;component/Image/44.jpg" Margin="21,626,0,0"/>
-                            <Label Content="FanSh(提供了FSM网络服务)" HorizontalAlignment="Left" Height="45" VerticalAlignment="Top" Width="529" FontSize="24" FontFamily="Leelawadee UI" Margin="89,633,0,0" Background="{x:Null}"/>
-                            <Image HorizontalAlignment="Left" Height="62" VerticalAlignment="Top" Width="63" Source="/FSM3;component/Image/55.jpg" Margin="21,694,0,0"/>
-                            <Label Content="犹太郎(暑期的 好 管理)" HorizontalAlignment="Left" Height="45" VerticalAlignment="Top" Width="529"  FontSize="24" FontFamily="Leelawadee UI" Margin="89,701,0,0" Background="{x:Null}"/>
-                            <Image HorizontalAlignment="Left" Height="62" VerticalAlignment="Top" Width="63" Source="/FSM3;component/Image/FSMLogo.png" Margin="21,762,0,0"/>
-                            <Label Content="交流群内所有支持FSM的小伙伴们" HorizontalAlignment="Left" Height="45" VerticalAlignment="Top" Width="529"  FontSize="24" FontFamily="Leelawadee UI" Margin="89,769,0,0"/>
-                            <Label Content="本软件以GPL-3.0协议开源" HorizontalAlignment="Left" Height="45" VerticalAlignment="Top" Width="336" FontSize="24" FontFamily="Leelawadee UI" Margin="11,831,0,0"/>
-                            <Button Content="仓库地址" HorizontalAlignment="Left" Height="38" Margin="356,829,0,0" VerticalAlignment="Top" Width="275" FontSize="20" Click="Tile_Click_16"/>
-                            <Label Content="ModernUI&#xA;Copyright (c) 2018 Modern &#xA;The goal of Modern is &#xA;to allow devs to quickly and easily&#xA; cobble together a &quot;Modern&quot; or &quot;Modern UI&quot; &#xA;for their WPF4+ apps, with minimal effort. &#xA;Licensed under the MIT License(MIT)&#xA;&#xA;Newtonsoft.Json&#xA;Copyright (c) 2007 James Newton-King Json.NET &#xA;is a popular high-performance JSON framework &#xA;for .NET Licensed under the MIT License(MIT)&#xA;&#xA;Costura.Fody&#xA;Copyright (c) 2012 Simon Cropp and contributors &#xA;Fody add-in for embedding references as resources. &#xA;Licensed under the MIT License(MIT)&#xA;&#xA;SquareMinecraftLauncherCore&#xA;Start the core library using minecraft developed by. Net" HorizontalAlignment="Left" Height="600" VerticalAlignment="Top" Width="619" FontSize="22" FontFamily="Leelawadee UI" Margin="15,884,0,0" FontWeight="Bold"/>
-                            <Label Content="Minecraft版权归Mojang Studio 所有&#xA;版权问题，概不负责&#xA;若有能力，建议支持正版" HorizontalAlignment="Left" Height="98" VerticalAlignment="Top" Width="372" FontSize="20" FontFamily="Microsoft YaHei Light" Margin="15,1530,0,0"/>
-                            <TextBlock HorizontalAlignment="Left" Height="40" Margin="10,1635,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="198" FontSize="18" ><Run Text="Fix版解锁"/><Run Text="————"/></TextBlock>
-                            <TextBox x:Name="JS1" HorizontalAlignment="Left" Height="37" Margin="90,1686,0,0" VerticalAlignment="Top" Width="535"/>
-                            <TextBlock HorizontalAlignment="Left" Height="22" Margin="13,1694,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="58"  Text="解锁码:" RenderTransformOrigin="0.5,0.5" FontSize="17">
-                                <TextBlock.RenderTransform>
-                                    <TransformGroup>
-                                        <ScaleTransform/>
-                                        <SkewTransform AngleX="2.433"/>
-                                        <RotateTransform Angle="1.051"/>
-                                        <TranslateTransform X="-0.765" Y="-0.014"/>
-                                    </TransformGroup>
-                                </TextBlock.RenderTransform>
-                            </TextBlock>
-                            <Button x:Name="FixJS" Content="解锁Fix版" HorizontalAlignment="Left" Height="35" Margin="14,1737,0,0" VerticalAlignment="Top" Width="615" Style="{StaticResource AccentButtonStyle}" FontSize="18" Click="Button_Click_36"/>
-                            <Button Content="复制识别码" HorizontalAlignment="Left" Height="35" Margin="14,1777,0,0" VerticalAlignment="Top" Width="615" FontSize="18" Click="Button_Click_37"/>
+                            <Border CornerRadius="7,7,7,7" BorderBrush="#FF323232" BorderThickness="1" HorizontalAlignment="Left" Height="311" Margin="11,168,0,0" VerticalAlignment="Top" Width="710">
+                                <Grid Margin="0.2,0.2,-0.4,0.2">
+                                    <Label Content="特别鸣谢" HorizontalAlignment="Left" Margin="16,10,0,0" VerticalAlignment="Top" Height="24" Width="76" FontSize="18"/>
+                                    <Border HorizontalAlignment="Left"  Margin="15,92,0,0" VerticalAlignment="Top" CornerRadius="6" Width="42" Height="42">
+                                        <Border.Background>
+                                            <ImageBrush ImageSource="/FSM3;component/Image/33.jpg"></ImageBrush>
+                                        </Border.Background>
+                                    </Border>
+                                    <Label Content="初梦和她的小伙伴们" HorizontalAlignment="Left" Margin="70,93,0,0" VerticalAlignment="Top" Width="293" FontSize="18"/>
+                                    <Label Content="Baibao132" HorizontalAlignment="Left" Margin="70,42,0,0" VerticalAlignment="Top" Width="293" FontSize="18"/>
+                                    <Button HorizontalAlignment="Left" Height="42" VerticalAlignment="Top" Width="42"  Margin="15,40,0,0" Click="Button_Click_4">
+                                        <Button.Background>
+                                            <ImageBrush ImageSource="../Image/ss.png"/>
+                                        </Button.Background>
+                                    </Button>
+                                    <Button Content="Blog" HorizontalAlignment="Left" Margin="601,98,0,0" VerticalAlignment="Top" Width="92" Click="Button_Click_1"/>
+                                    <Button Content="赞助他" HorizontalAlignment="Left" Margin="601,44,0,0" VerticalAlignment="Top" Width="92" Click="Button_Click_2"/>
+                                    <Border HorizontalAlignment="Left" Margin="15,147,0,0" VerticalAlignment="Top" CornerRadius="6" Width="42" Height="42">
+                                        <Border.Background>
+                                            <ImageBrush ImageSource="/FSM3;component/Image/44.jpg"></ImageBrush>
+                                        </Border.Background>
+                                    </Border>
+                                    <Border HorizontalAlignment="Left" Margin="15,202,0,0" VerticalAlignment="Top" CornerRadius="6" Width="42" Height="42">
+                                        <Border.Background>
+                                            <ImageBrush ImageSource="/FSM3;component/Image/55.jpg"></ImageBrush>
+                                        </Border.Background>
+                                    </Border>
+                                    <Border HorizontalAlignment="Left" Margin="16,256,0,0" VerticalAlignment="Top" CornerRadius="6" Width="42" Height="42">
+                                        <Border.Background>
+                                            <ImageBrush ImageSource="/FSM3;component/Image/FSMQQ.jpg"></ImageBrush>
+                                        </Border.Background>
+                                    </Border>
+                                    <Label Content="FanSh" HorizontalAlignment="Left" Height="25" VerticalAlignment="Top" Width="196" FontSize="18" Margin="70,148,0,0" Background="{x:Null}"/>
+                                    <Label Content="犹太郎" HorizontalAlignment="Left" Height="23" VerticalAlignment="Top" Width="529"  FontSize="18" Margin="70,202,0,0" Background="{x:Null}"/>
+                                    <Label Content="交流群内所有支持FSM的小伙伴们" HorizontalAlignment="Left" Height="24" VerticalAlignment="Top" Width="284"  FontSize="18" Margin="70,257,0,0"/>
+                                    <Label Content="提供了 Core 和 BaibaoSkin 联机方式" HorizontalAlignment="Left" Margin="71,67,0,0" VerticalAlignment="Top" Width="400" FontSize="12" Foreground="#FF868686"/>
+                                    <Label Content="提供了两种 Frp 联机方式" HorizontalAlignment="Left" Margin="71,118,0,0" VerticalAlignment="Top" Width="400" FontSize="12" Foreground="#FF868686"/>
+                                    <Label Content="提供了 FSM 的版本更新直链下载" HorizontalAlignment="Left" Margin="71,171,0,0" VerticalAlignment="Top" Width="400" FontSize="12" Foreground="#FF868686"/>
+                                    <Label Content="一开始就支持我制作 FSM 的小伙伴，给我了动力" HorizontalAlignment="Left" Margin="71,227,0,0" VerticalAlignment="Top" Width="400" FontSize="12" Foreground="#FF868686"/>
+                                    <Label Content="感谢你们测试 FSM 历代版本和 Beta ，对 FSM 的支持" HorizontalAlignment="Left" Margin="71,280,0,0" VerticalAlignment="Top" Width="400" FontSize="12" Foreground="#FF868686"/>
+                                </Grid>
+                            </Border>
+                            <Border CornerRadius="7,7,7,7" BorderBrush="#FF323232" BorderThickness="1" HorizontalAlignment="Left" Height="148" Margin="11,11,0,0" VerticalAlignment="Top" Width="710">
+                                <Grid Margin="0.2,0.2,-0.4,0.2">
+                                    <Label Content="信息" HorizontalAlignment="Left" Margin="16,10,0,0" VerticalAlignment="Top" Height="24" Width="49" FontSize="18"/>
+                                    <Label Content="FSM Launcher 3" HorizontalAlignment="Left" Margin="69,42,0,0" VerticalAlignment="Top" Width="400" FontSize="18"/>
+                                    <Image HorizontalAlignment="Left" Height="48" Margin="5,40,0,0" VerticalAlignment="Top" Width="53" Source="/FSM3;component/Image/FSMLogo.png"/>
+                                    <Border HorizontalAlignment="Left" Margin="12,91,0,0" VerticalAlignment="Top" CornerRadius="6" Width="42" Height="42">
+                                        <Border.Background>
+                                            <ImageBrush ImageSource="/FSM3;component/Image/IMG_5145(20220228-195827).JPG"></ImageBrush>
+                                        </Border.Background>
+                                    </Border>
+                                    <Label Content="作者:宇轩Yu_Xuan" HorizontalAlignment="Left" Margin="66,100,0,0" VerticalAlignment="Top" Width="198" FontSize="18"/>
+                                    <Button Content="赞助作者" HorizontalAlignment="Left" Margin="603,97,0,0" VerticalAlignment="Top" Width="92" Click="Button_Click"/>
+                                    <Label Content="当前版本: Beta24" HorizontalAlignment="Left" Margin="69,66,0,0" VerticalAlignment="Top" Width="400" FontSize="12" Foreground="#FF868686"/>
+                                </Grid>
+                            </Border>
+                            <Border CornerRadius="7,7,7,7" BorderBrush="#FF323232" BorderThickness="1" HorizontalAlignment="Left" Margin="11,490,0,0" VerticalAlignment="Top" Width="710">
+                                <Grid Margin="0.2,0.2,-0.4,0.2">
+                                    <Label Content="赞助名单" HorizontalAlignment="Left" Margin="16,10,0,0" VerticalAlignment="Top" Height="24" Width="85" FontSize="18"/>
+                                    <Label Content="战神福尔康,Nunzio520,Himcd,苦逼的老何,ShanZhiXiaoZhu,MaverickPig,Bolen,&#xD;&#xA;爱发电用户_xJf4,爱发电用户_CqeR,不吃剩饭的老剩饭,爱发电用户_SaeE,SakuraMoyi,&#xD;&#xA;爱发电用户_eHSs,Ablazy,?,Loki,0www0,玖月,[IPv1]ICU-Regedit 感谢你们!" HorizontalAlignment="Left" Height="79" Margin="15,39,0,0" VerticalAlignment="Top" Width="684" FontSize="17.65"/>
+                                </Grid>
+                            </Border>
                             <TextBlock HorizontalAlignment="Left" Height="1" Margin="375,268,0,0" TextWrapping="Wrap" Text="除了傻逼Lie" VerticalAlignment="Top" Width="4" FontSize="0.012"/>
                             <TextBlock HorizontalAlignment="Left" Height="9" Margin="374,276,0,0" TextWrapping="Wrap" Text="KYZ死狗" VerticalAlignment="Top" Width="134" FontSize="0.025"/>
+                            <Border CornerRadius="7,7,7,7" BorderBrush="#FF323232" BorderThickness="1" HorizontalAlignment="Left" Margin="11,619,0,0" VerticalAlignment="Top" Width="710" Height="958">
+                                <Grid Margin="0.2,0.2,-0.4,0.2">
+                                    <Label Content="开源代码许可(GPL-3.0)" HorizontalAlignment="Left" Margin="16,10,0,0" VerticalAlignment="Top" Height="24" Width="199" FontSize="18"/>
+                                    <Button Content="打开仓库" HorizontalAlignment="Left" Margin="609,8,0,0" VerticalAlignment="Top" Click="Tile_Click_16" Width="90"/>
+                                    <Label Content="MahApps.Metro.IconPacks&#xD;&#xA;https://github.com/MahApps/MahApps.Metro.IconPacks&#xD;&#xA;Copyright (c) 2016-2018 MahApps, Jan Karger&#xD;&#xA;IconPacks for stylish awesome WPF or UWP apps.&#xD;&#xA;Licensed under the MIT License(MIT);&#xD;&#xA;https://github.com/MahApps/MahApps.Metro.IconPacks/blob/master/LICENSE&#xD;&#xA;&#xD;&#xA;Newtonsoft.Json&#xD;&#xA;https://www.newtonsoft.com/json&#xD;&#xA;https://github.com/JamesNK/Newtonsoft.Json&#xD;&#xA;Copyright (c) 2007 James Newton-King&#xD;&#xA;Json.NET is a popular high-performance JSON framework for .NET&#xD;&#xA;Licensed under the MIT License(MIT);&#xD;&#xA;https://github.com/JamesNK/Newtonsoft.Json/blob/master/LICENSE.md&#xD;&#xA;&#xD;&#xA;Fody&#xD;&#xA;https://github.com/Fody/Fody&#xD;&#xA;Copyright (c) Simon Cropp and contributors&#xD;&#xA;Extensible tool for weaving .net assemblies.&#xD;&#xA;Licensed under the MIT License(MIT);&#xD;&#xA;https://github.com/Fody/Fody/blob/master/License.txt&#xD;&#xA;&#xD;&#xA;Costura.Fody&#xD;&#xA;https://github.com/Fody/Costura&#xD;&#xA;Copyright (c) 2012 Simon Cropp and contributors&#xD;&#xA;Fody add-in for embedding references as resources.&#xD;&#xA;Licensed under the MIT License(MIT);&#xD;&#xA;https://github.com/Fody/Costura/blob/master/license.txt&#xD;&#xA;&#xD;&#xA;ModernWpf&#xD;&#xA;https://github.com/Kinnara/ModernWpf/ Brings the &#xD;&#xA;new Modern UI alias Metro UI of&#xD;&#xA;Windows 8/10 to .NET Windows Forms applications. Licensed under the MIT License(MIT);&#xD;&#xA;https://github.com/Kinnara/ModernWpf/blob/master/LICENSE&#xD;&#xA;&#xD;&#xA;SharpZipLib&#xD;&#xA;https://github.com/icsharpcode/SharpZipLib&#xD;&#xA;Copyright © 2000-2018 SharpZipLib Contributors&#xD;&#xA;SharpZipLib (#ziplib, formerly NZipLib) is a &#xD;&#xA;compression library for Zip, GZip, BZip2, and Tar written entirely in &#xD;&#xA;C# for .NET. It is implemented as an assembly (installable in the GAC), &#xD;&#xA;and thus can easily be incorporated into other projects (in any .NET language)&#xD;&#xA;Licensed under the MIT License(MIT);&#xD;&#xA;https://github.com/icsharpcode/SharpZipLib/blob/master/LICENSE.txt&#xD;&#xA;&#xD;&#xA;MojangAPI&#xD;&#xA;https://github.com/CmlLib/MojangAPI Copyright 2021 CmlLib&#xD;&#xA;.NET Library for Mojang API、&#xD;&#xA; Mojang Authentication and Microsoft Xbox Authentication&#xD;&#xA;&#xD;&#xA;SquareMinecraftLauncherCore&#xD;&#xA;https://github.com/baibao132/SquareMinecraftLauncherCore&#xD;&#xA; Copyright (c) 2022 BaibaoStudio 使用.NET开发的MinecraftCore库&#xD;&#xA; Licensed under the MIT License(MIT);&#xD;&#xA;https://github.com/baibao132/SquareMinecraftLauncherCore/blob/master/LICENSE" HorizontalAlignment="Left" Margin="17,37,0,0" VerticalAlignment="Top" Width="572" FontSize="13"/>
+                                </Grid>
+                            </Border>
+                            <Border CornerRadius="7,7,7,7" BorderBrush="#FF323232" BorderThickness="1" HorizontalAlignment="Left" Margin="11,1588,0,0" VerticalAlignment="Top" Width="710" Height="186">
+                                <Grid Margin="0.2,0.2,-0.4,0.2">
+                                    <Label Content="解锁Fix版" HorizontalAlignment="Left" Margin="16,10,0,0" VerticalAlignment="Top" Height="24" Width="85" FontSize="18"/>
+                                    <TextBox x:Name="JS1" HorizontalAlignment="Left" Height="31" Margin="83,50,0,0" VerticalAlignment="Top" Width="604" VerticalContentAlignment="Center"/>
+                                    <TextBlock HorizontalAlignment="Left" Height="22" Margin="20,53,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="58"  Text="解锁码:" RenderTransformOrigin="0.5,0.5" FontSize="17">
+                                        <TextBlock.RenderTransform>
+                                            <TransformGroup>
+                                                <ScaleTransform/>
+                                                <SkewTransform AngleX="2.433"/>
+                                                <RotateTransform Angle="1.051"/>
+                                                <TranslateTransform X="-0.765" Y="-0.014"/>
+                                            </TransformGroup>
+                                        </TextBlock.RenderTransform>
+                                    </TextBlock>
+                                    <Button x:Name="FixJS" Content="解锁Fix版" HorizontalAlignment="Left" Margin="21,96,0,0" VerticalAlignment="Top" Width="666" Style="{StaticResource AccentButtonStyle}" Click="FixJS_Click"/>
+                                    <Button Content="复制识别码" HorizontalAlignment="Left" Margin="21,132,0,0" VerticalAlignment="Top" Width="666" Click="Button_Click_sbm"/>
+                                </Grid>
+                            </Border>
+                            <Label Content="Minecraft版权归Mojang Studio 所有，版权问题，概不负责，若有能力，建议支持正版" HorizontalAlignment="Left" Height="22" VerticalAlignment="Top" Width="565" Margin="12,1780,0,0"/>
                         </Grid>
                     </ScrollViewer>
                 </Grid>

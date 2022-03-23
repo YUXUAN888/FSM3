@@ -10,9 +10,9 @@
         <Image x:Name="FB" HorizontalAlignment="Left" Height="50" Margin="0,11,0,0" VerticalAlignment="Top" Width="72" Source="/FSM3;component/Image/Fabric.png" Stretch="Fill" Visibility="Hidden"/>
         <Image x:Name="OF" HorizontalAlignment="Left" Height="50" Margin="17,11,0,0" VerticalAlignment="Top" Width="53" Source="/FSM3;component/Image/OptifineLogo.png" Stretch="Fill" Visibility="Hidden"/>
         <Image x:Name="MC" HorizontalAlignment="Left" Height="50" Margin="17,11,0,0" VerticalAlignment="Top" Width="53" Source="草方块.png" Stretch="Fill" Visibility="Hidden"/>
-        <Label Content="正在安装Minecraft..." HorizontalAlignment="Left" Margin="79,11,0,0" VerticalAlignment="Top" FontSize="18.889"/>
+        <Label Content="安装Minecraft..." HorizontalAlignment="Left" Margin="79,11,0,0" VerticalAlignment="Top" FontSize="18.889"/>
         <Label x:Name="AZBZ" Content="当前步骤:安装Jar" HorizontalAlignment="Left" Margin="79,42,0,0" VerticalAlignment="Top" FontSize="14" Width="209"/>
-        <ProgressBar x:Name="AZJD" HorizontalAlignment="Left" Height="4" Margin="341,34,0,0" VerticalAlignment="Top" Width="341"/>
+        <ProgressBar x:Name="AZJD" HorizontalAlignment="Left" Height="4" Margin="322,34,0,0" VerticalAlignment="Top" Width="355" Maximum="200"/>
 
     </Grid>
 </UserControl>

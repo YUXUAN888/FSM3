@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace FSM3.Login_Pages
+namespace FSM3.About_List
 {
     /// <summary>
-    /// LX.xaml 的交互逻辑
+    /// SkinList.xaml 的交互逻辑
     /// </summary>
-    public partial class LX : Page
+    public partial class SkinList : UserControl
     {
-        public LX()
+        public SkinList()
         {
             InitializeComponent();
         }

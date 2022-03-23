@@ -4,7 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:FSM3.Pages" xmlns:ui="http://schemas.modernwpf.com/2019" xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
-      xmlns:System="clr-namespace:System;assembly=mscorlib" xmlns:About_List="clr-namespace:FSMLauncher_3.About_List" x:Class="FSM3.Pages.Download"
+      xmlns:System="clr-namespace:System;assembly=mscorlib" xmlns:About_List="clr-namespace:FSMLauncher_3.About_List" xmlns:About_List1="clr-namespace:FSM3.About_List" xmlns:Download_Pages="clr-namespace:FSM3.Download_Pages" x:Class="FSM3.Pages.Download"
       mc:Ignorable="d" 
       d:DesignHeight="444" d:DesignWidth="788"
       Title="Download" Width="752.8" Loaded="Load">
@@ -25,24 +25,25 @@
                 <Grid>
 
 
-                    <ListView x:Name="MCV" Width="541" VerticalAlignment="Top" SelectionChanged="MCV_SelectionChanged" Margin="208,36,0,0" Height="326" HorizontalAlignment="Left">
-                    </ListView>
-                    <Button x:Name="ForgeB" Width="149" VerticalAlignment="Top" Margin="51,85,0,0" Height="43" HorizontalContentAlignment="Left" HorizontalAlignment="Left" FontSize="12" Content="Forge(主流加载器)&#xA;当前未选择" Click="Tile_Click_25"/>
-                    <Button x:Name="FabricB" Width="149" VerticalAlignment="Top" Margin="51,136,0,0" Height="43" HorizontalContentAlignment="Left" HorizontalAlignment="Left" FontSize="12" Content="Fabric(轻量加载器)&#xA;当前未选择" Click="Tile_Click_26"/>
-                    <Button x:Name="OptifineB" Width="149" VerticalAlignment="Top" Margin="51,186,0,0" Height="43" HorizontalContentAlignment="Left" HorizontalAlignment="Left" FontSize="12" Content="Optifine(高清修复)&#xA;当前未选择" Click="Tile_Click_17"/>
-                    <Button x:Name="LiteB" Width="149" VerticalAlignment="Top" ToolTip="选择要安装的LiteLoader" Margin="51,237,0,0" Height="43" HorizontalContentAlignment="Left" HorizontalAlignment="Left" FontSize="12" Content="LiteLoader(轻量加载器)&#xA;当前未选择" Click="Tile_Click_X"/>
-                    <Image HorizontalAlignment="Left" Height="34" Margin="9,191,0,0" VerticalAlignment="Top" Width="36" Source="/FSM3;component/Image/OptifineLogo.png"/>
-                    <Image HorizontalAlignment="Left" Height="34" Margin="0,141,0,0" VerticalAlignment="Top" Width="54" Source="/FSM3;component/Image/Fabric.png" StretchDirection="DownOnly"/>
-                    <Image HorizontalAlignment="Left" Height="34" Margin="13,90,0,0" VerticalAlignment="Top" Width="34" Source="/FSM3;component/Image/ForgeN.png" StretchDirection="DownOnly"/>
-                    <Image HorizontalAlignment="Left" Height="34" Margin="15,243,0,0" VerticalAlignment="Top" Width="28" Source="/FSM3;component/Image/LiteLoader.png"/>
-                    <ComboBox x:Name="yxlx" HorizontalAlignment="Left" Margin="11,37,0,0" VerticalAlignment="Top" Width="189" Height="35" SelectedIndex="0" FontSize="15" SelectionChanged="ComboBox_SelectionChanged">
+                    <ListView x:Name="MCV" Width="541" VerticalAlignment="Top" SelectionChanged="MCV_SelectionChanged" Margin="208,36,0,0" Height="326" HorizontalAlignment="Left"/>
+                    <Button x:Name="ForgeB" Width="191" VerticalAlignment="Top" Margin="11,85,0,0" Height="43" HorizontalContentAlignment="Center" HorizontalAlignment="Left" FontSize="12" Content="Forge(主流加载器)&#xA;当前未选择" Click="Tile_Click_25"/>
+                    <Button x:Name="FabricB" Width="191" VerticalAlignment="Top" Margin="11,136,0,0" Height="43" HorizontalContentAlignment="Center" HorizontalAlignment="Left" FontSize="12" Content="Fabric(轻量加载器)&#xA;当前未选择" Click="Tile_Click_26"/>
+                    <Button x:Name="OptifineB" Width="191" VerticalAlignment="Top" Margin="11,186,0,0" Height="43" HorizontalContentAlignment="Center" HorizontalAlignment="Left" FontSize="12" Content="Optifine(高清修复)&#xA;当前未选择" Click="Tile_Click_17"/>
+                    <Button x:Name="LiteB" Width="190" VerticalAlignment="Top" ToolTip="选择要安装的LiteLoader" Margin="11,237,0,0" Height="43" HorizontalContentAlignment="Center" HorizontalAlignment="Left" FontSize="12" Content="LiteLoader(轻量加载器)&#xA;当前未选择" Click="Tile_Click_X"/>
+                    <Image HorizontalAlignment="Left" Height="28" Margin="17,194,0,0" VerticalAlignment="Top" Width="30" Source="/FSM3;component/Image/0E867560.PNG"/>
+                    <Image HorizontalAlignment="Left" Height="34" Margin="2,141,0,0" VerticalAlignment="Top" Width="54" Source="/FSM3;component/Image/Fabric.png" StretchDirection="DownOnly"/>
+                    <Image HorizontalAlignment="Left" Height="34" Margin="15,90,0,0" VerticalAlignment="Top" Width="34" Source="/FSM3;component/Image/ForgeN.png" StretchDirection="DownOnly"/>
+                    <Image HorizontalAlignment="Left" Height="34" Margin="14,243,0,0" VerticalAlignment="Top" Width="27" Source="/FSM3;component/Image/LiteLoader.png"/>
+                    <ComboBox x:Name="yxlx" HorizontalAlignment="Left" Margin="11,37,0,0" VerticalAlignment="Top" Width="191" Height="35" SelectedIndex="0" FontSize="15" SelectionChanged="ComboBox_SelectionChanged">
                         <ComboBoxItem Content="正式版"/>
                         <ComboBoxItem Content="快照版"/>
                         <ComboBoxItem Content="早期测试版"/>
                         <ComboBoxItem Content="远古版"/>
                         <ComboBoxItem Content="愚人节版本"/>
                     </ComboBox>
-                    <Button Content="开始安装" HorizontalAlignment="Left" Margin="12,299,0,0" Style="{StaticResource AccentButtonStyle}" VerticalAlignment="Top" Width="188" Height="60" FontSize="17.11" Click="Button_Click"/>
+                    <Button Content="开始安装" HorizontalAlignment="Left" Margin="11,299,0,0" Style="{StaticResource AccentButtonStyle}" VerticalAlignment="Top" Width="191" Height="60" FontSize="17.11" Click="Button_Click"/>
+
+                    <Download_Pages:DownFly x:Name="DoF" Margin="4,303,1.8,2.4" Visibility="Hidden"/>
 
                 </Grid>
             </TabItem>
@@ -53,7 +54,9 @@
                         <Label Content="资源下载"/>
                     </StackPanel>
                 </TabItem.Header>
-                <Grid/>
+                <Grid>
+                    <Label Content="呜..资源下载还在施工中" HorizontalAlignment="Left" Margin="302,173,0,0" VerticalAlignment="Top"/>
+                </Grid>
             </TabItem>
             <TabItem>
                 <TabItem.Header>
@@ -63,10 +66,10 @@
                     </StackPanel>
                 </TabItem.Header>
                 <Grid>
-                    <Border CornerRadius="7,7,7,7" BorderBrush="#FF323232" BorderThickness="1" HorizontalAlignment="Left" Height="364" Margin="17,13,0,0" VerticalAlignment="Top" Width="713">
+                    <Border CornerRadius="7,7,7,7" BorderBrush="#FF323232" BorderThickness="1" HorizontalAlignment="Left" Height="364" Margin="18,13,0,0" VerticalAlignment="Top" Width="713">
                         <Grid>
                             <Label x:Name="SFYXZJC" Style="{StaticResource DefaultLabelStyle}" Content="当前无下载进程" HorizontalAlignment="Left" Margin="16,13,0,0" VerticalAlignment="Top" FontSize="21"/>
-                            <ListBox x:Name="XZJC" HorizontalAlignment="Left" Height="303" Margin="11,46,0,0" VerticalAlignment="Top" Width="690" SelectionChanged="XZJC_SelectionChanged"/>
+                            <About_List1:DownloadItem x:Name="user" HorizontalAlignment="Left" Margin="13,52,0,0" VerticalAlignment="Top" Height="71" Visibility="Hidden"/>
                         </Grid>
                     </Border>
                 </Grid>
@@ -78,13 +81,13 @@
 
                 </Grid>
             </TabItem>
-            <TabItem Height="1" RenderTransformOrigin="0.5,0.5">
+            <TabItem Height="1" RenderTransformOrigin="0.5,0.5" Visibility="Hidden">
 
                 <Grid>
                     <ListBox x:Name="OptifineList" HorizontalAlignment="Left"  Height="326" Margin="166,37,0,0" VerticalAlignment="Top" Width="417" SelectionChanged="OptifineList_SelectionChanged"/>
                 </Grid>
             </TabItem>
-            <TabItem Height="1" RenderTransformOrigin="0.5,0.5">
+            <TabItem Height="1" RenderTransformOrigin="0.5,0.5" Visibility="Hidden">
 
                 <Grid>
                     <ListBox x:Name="FabList"  HorizontalAlignment="Left"  Height="326" Margin="166,37,0,0" VerticalAlignment="Top" Width="417" SelectionChanged="FabList_SelectionChanged"/>

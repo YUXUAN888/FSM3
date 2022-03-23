@@ -7,7 +7,7 @@
       xmlns:ui="http://schemas.modernwpf.com/2019"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="Settings" Width="752.8">
+      Title="Settings" Width="752.8" Loaded="Load">
 
     <Grid>
         <TabControl HorizontalAlignment="Left" Height="437" VerticalAlignment="Top" Width="742" Style="{StaticResource DefaultTabControlStyle}">
@@ -26,8 +26,8 @@
                         <Grid>
                             <Label Content="Java路径" HorizontalAlignment="Left" Margin="16,10,0,0" VerticalAlignment="Top" Height="24" Width="77" FontSize="18"/>
                             <Label Content="从1.17以上开始,必须使用Java16以上版本&#xA;建议勾选&quot;让FSM为您选择Java&quot;" HorizontalAlignment="Left" Margin="16,36,0,0" VerticalAlignment="Top" Height="24" Width="193" FontSize="10"/>
-                            <ComboBox x:Name="java_list" HorizontalAlignment="Left" Height="33" Margin="289,9,0,0" VerticalAlignment="Top" Width="328" SelectionChanged="java_list_SelectionChanged" FontSize="13"/>
-                            <CheckBox x:Name="AutoJava" Content="让FSM自动为您选择Java" HorizontalAlignment="Left" Margin="517,42,0,0" VerticalAlignment="Top" FontSize="13" Height="11" Click="AutoJava_c" Width="180"/>
+                            <ComboBox x:Name="Java_list" HorizontalAlignment="Left" Height="33" Margin="289,9,0,0" VerticalAlignment="Top" Width="328" SelectionChanged="java_list_SelectionChanged" FontSize="13"/>
+                            <CheckBox x:Name="AutoJava" Content="让FSM自动为您选择Java" HorizontalAlignment="Left" Margin="517,42,0,0" VerticalAlignment="Top" FontSize="13" Height="11" Click="AutoJava_c" Width="180" IsEnabled="False"/>
                             <Button Content="手动选择" HorizontalAlignment="Left" Margin="620,10,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_4"/>
 
                         </Grid>
@@ -40,12 +40,13 @@
                             <Slider x:Name="RAMS" HorizontalAlignment="Left" Margin="369,32,0,0" VerticalAlignment="Top" Width="328" Minimum="10" Maximum="4096" Value="10" Style="{StaticResource DefaultSliderStyle}" TickFrequency="512" ValueChanged="RAMS_ValueChanged" MouseRightButtonUp="MouseUP"/>
                         </Grid>
                     </Border>
-                    <Border CornerRadius="7,7,7,7" BorderBrush="#FF323232" BorderThickness="1" HorizontalAlignment="Left" Height="143" Margin="17,176,0,0" VerticalAlignment="Top" Width="713">
+                    <Border CornerRadius="7,7,7,7" BorderBrush="#FF323232" BorderThickness="1" HorizontalAlignment="Left" Height="168" Margin="17,176,0,0" VerticalAlignment="Top" Width="713">
                         <Grid>
                             <Label Content="游戏高级设置(一般无需设置)" HorizontalAlignment="Left" Margin="16,10,0,0" VerticalAlignment="Top" Height="24" Width="233" FontSize="18"/>
                             <Label Content="额外参数:&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;JVM参数:" HorizontalAlignment="Left" Margin="15,44,0,0" VerticalAlignment="Top" Height="83" Width="146" FontSize="15"/>
                             <TextBox x:Name="EY" HorizontalAlignment="Left" Height="23" Margin="167,40,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="529" TextChanged="TextBox_TextChanged"/>
                             <TextBox x:Name="JVM" HorizontalAlignment="Left" Height="23" Margin="167,96,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="528" TextChanged="TextBox1_TextChanged"/>
+                            <CheckBox Content="关闭启动前补全" HorizontalAlignment="Left" Height="0" Margin="568,131,0,0" VerticalAlignment="Top" Width="137" RenderTransformOrigin="0.565,0.306" IsEnabled="False"/>
                         </Grid>
                     </Border>
                 </Grid>
@@ -64,7 +65,7 @@
                     <Border CornerRadius="7,7,7,7" BorderBrush="#FF323232" BorderThickness="1" HorizontalAlignment="Left" Height="114" Margin="17,11,0,0" VerticalAlignment="Top" Width="713">
                         <Grid>
                             <Label Content="联机模式" HorizontalAlignment="Left" Margin="16,10,0,0" VerticalAlignment="Top" Height="30" Width="102" FontSize="24"/>
-                            <Label Content="仅适用于普通联机,若距离广州较近推荐开启广州服务&#xA;加入方需跟房主一样配置" HorizontalAlignment="Left" Margin="16,58,0,0" VerticalAlignment="Top" Height="38" Width="334" FontSize="14"/>
+                            <Label Content="仅适用于备用联机,若距离广州较近推荐开启广州服务&#xA;加入方必须与房主同配置" HorizontalAlignment="Left" Margin="16,59,0,0" VerticalAlignment="Top" Height="38" Width="334" FontSize="14"/>
                             <CheckBox x:Name="GZJDXZ" Content="启用广州联机服务(距离广州近可开启)" HorizontalAlignment="Left" Height="37" VerticalAlignment="Top" Width="271" Checked="CheckBox_Checked_1" Click="Ch" Margin="434,71,0,0"/>
                             <RadioButton x:Name="STCP" Content="传输网络(成功率高,延迟稍高 推荐)" HorizontalAlignment="Left" VerticalAlignment="Top" Height="29" Width="251" Checked="RadioButton_Checked_2" Margin="434,5,0,0"/>
                             <RadioButton x:Name="XTCP" Content="对等网络(成功率低,延迟稍低)" HorizontalAlignment="Left" VerticalAlignment="Top" Height="30" Width="245" Checked="RadioButton_Checked_3" Margin="434,39,0,0"/>
@@ -84,9 +85,13 @@
                     <Grid.Background>
                         <ImageBrush/>
                     </Grid.Background>
-                    <Label x:Name="UpdateLabel" Content="你使用的启动器是最新版本" HorizontalAlignment="Left" Margin="234,31,0,0" VerticalAlignment="Top" FontSize="21.889"/>
-                    <Label x:Name="Update_Log" Content="" HorizontalAlignment="Left" Height="237" Margin="64,71,0,0" VerticalAlignment="Top" Width="608" HorizontalContentAlignment="Center"/>
-                    <Button x:Name="AZGX" ToolTip="安装启动器的更新"  Content="安装更新" HorizontalAlignment="Left" Margin="270,327,0,0" VerticalAlignment="Top" Width="192" Height="53" FontSize="17" BorderBrush="#FF246DFF" Click="AZGX_Click"/>
+                    <Border CornerRadius="7,7,7,7" BorderBrush="#FF323232" BorderThickness="1" HorizontalAlignment="Left" Height="370" Margin="17,9,0,0" VerticalAlignment="Top" Width="713">
+                        <Grid>
+                            <Label x:Name="UpdateLabel" Content="你使用的启动器是最新版本" HorizontalAlignment="Left" Margin="14,10,0,0" VerticalAlignment="Top" FontSize="21.889"/>
+                            <Label x:Name="Update_Log" Content="" HorizontalAlignment="Left" Height="311" Margin="14,44,0,0" VerticalAlignment="Top" Width="580"/>
+                            <Button x:Name="AZGX" ToolTip="安装启动器的更新"  Content="安装更新" HorizontalAlignment="Left" Margin="627,11,0,0" VerticalAlignment="Top" BorderBrush="#FF246DFF" Click="AZGX_Click"/>
+                        </Grid>
+                    </Border>
                 </Grid>
             </TabItem>
             <TabItem>
@@ -107,15 +112,7 @@
                             <Button x:Name="QHZTS" Content="切换模式" HorizontalAlignment="Left" Height="29" Margin="570,23,0,0" VerticalAlignment="Top" Width="113" Click="Button_Click" MouseDown="Caidan"/>
                         </Grid>
                     </Border>
-                    <Border CornerRadius="7,7,7,7" BorderBrush="#FF323232" BorderThickness="1" HorizontalAlignment="Left" Height="76" Margin="17,95,0,0" VerticalAlignment="Top" Width="713">
-                        <Grid>
-                            <Label Content="自定义主页" HorizontalAlignment="Left" Margin="16,10,0,0" VerticalAlignment="Top" Height="24" Width="105" FontSize="18"/>
-                            <Label Content="自定义您的FSM!&#xD;&#xA;为它添加各种功能" HorizontalAlignment="Left" Margin="16,36,0,0" VerticalAlignment="Top" Height="31" Width="193" FontSize="10"/>
-                            <Button Content="浏览文档" HorizontalAlignment="Left" Height="29" Margin="570,23,0,0" VerticalAlignment="Top" Width="113" Click="Button_Click_3"/>
-
-                        </Grid>
-                    </Border>
-                    <Border CornerRadius="7,7,7,7" BorderBrush="#FF323232" BorderThickness="1" HorizontalAlignment="Left" Height="76" Margin="17,179,0,0" VerticalAlignment="Top" Width="713">
+                    <Border CornerRadius="7,7,7,7" BorderBrush="#FF323232" BorderThickness="1" HorizontalAlignment="Left" Height="76" Margin="17,94,0,0" VerticalAlignment="Top" Width="713">
                         <Grid>
                             <Label Content="主题色" HorizontalAlignment="Left" Margin="16,10,0,0" VerticalAlignment="Top" Height="24" Width="105" FontSize="18"/>
                             <Label Content="众多RGB颜色&#xD;&#xA;更改启动器显示的主题色" HorizontalAlignment="Left" Margin="16,36,0,0" VerticalAlignment="Top" Height="33" Width="193" FontSize="10"/>
@@ -152,6 +149,9 @@
                     <Button Content="TC1" HorizontalAlignment="Left" Height="29" Margin="22,14,0,0" VerticalAlignment="Top" Width="98" Click="Button_Click_1"/>
                     <Button Content="TC2" HorizontalAlignment="Left" Height="29" Margin="132,14,0,0" VerticalAlignment="Top" Width="98" Click="Button_Click_2"/>
                     <Button Content="TC3" HorizontalAlignment="Left" Height="29" Margin="241,14,0,0" VerticalAlignment="Top" Width="98" Click="Button_Click_JD"/>
+                    <Border CornerRadius="7,7,7,7" BorderBrush="#FF323232" BorderThickness="1" HorizontalAlignment="Left" Height="76" Margin="17,47,0,0" VerticalAlignment="Top" Width="713">
+                        <Grid/>
+                    </Border>
                 </Grid>
             </TabItem>
         </TabControl>

@@ -5,11 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FSM3"
         mc:Ignorable="d"
-        xmlns:ui="http://schemas.modernwpf.com/2019" xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks" xmlns:dialogs="clr-namespace:FSM3.Dialogs"
+        xmlns:ui="http://schemas.modernwpf.com/2019" xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks" xmlns:dialogs="clr-namespace:FSM3.Dialogs" xmlns:download_pages="clr-namespace:FSM3.Download_Pages"
         ui:WindowHelper.UseModernWindowStyle="False"
         ui:ThemeManager.IsThemeAware="True"
 
-    Title="FSM3 Restructure" Height="474" Width="794.4" AllowsTransparency="True" WindowStyle="None" Background="{DynamicResource SystemControlPageBackgroundAltHighBrush}"  Foreground="{DynamicResource SystemControlPageTextBaseHighBrush}" WindowStartupLocation="CenterScreen" Loaded="Load" SizeChanged="Size">
+    Title="FSM Launcher 3" Height="474" Width="794.4" AllowsTransparency="True" WindowStyle="None" Background="{DynamicResource SystemControlPageBackgroundAltHighBrush}"  Foreground="{DynamicResource SystemControlPageTextBaseHighBrush}" WindowStartupLocation="CenterScreen" Loaded="Load" SizeChanged="Size">
     <Grid>
         <dialogs:StartGame x:Name="G" Margin="200,188,203.4,205.6"></dialogs:StartGame>
         <Image x:Name="FSMLogo" HorizontalAlignment="Left" Height="130" Margin="327,164,0,0" VerticalAlignment="Top" Width="130" Source="/FSM3;component/Image/FSMLogo.png"/>
@@ -28,15 +28,19 @@
                     </ui:NavigationViewItem.Icon>
                 </ui:NavigationViewItem>
             </ui:NavigationView.MenuItems>
-
             <ui:Frame x:Name="ZFrame" NavigationUIVisibility="Hidden" Navigated="Frame_Navigated" Source="/FSM3;component/Download_Pages/Fabric.xaml"/>
         </ui:NavigationView>
+        <Border x:Name="BD" Margin="-1,37,752.4,0.6" Visibility="Hidden">
+            <Border.Background>
+                <ImageBrush/>
+            </Border.Background>
+        </Border>
         <Grid HorizontalAlignment="Left" Height="34" Margin="1,1,0,0" VerticalAlignment="Top" Width="793" MouseLeftButtonDown="MouseWin">
             <Grid.Background>
                 <ImageBrush/>
             </Grid.Background>
             <Border CornerRadius="12.8888888888888888888" BorderBrush="#FF838383" BorderThickness="1" HorizontalAlignment="Left" Height="30" Margin="723,3,0,0" VerticalAlignment="Top" Width="64"/>
-            <Button HorizontalAlignment="Left" Margin="761,0,0,7" Style="{StaticResource RoundedGelButton}" VerticalAlignment="Bottom" Width="18" Height="18" Click="Button_Click_1" RenderTransformOrigin="0.5,0.522">
+            <Button HorizontalAlignment="Left" Margin="760,9,0,5" Style="{StaticResource RoundedGelButton}" Width="19" Height="Auto" Click="Button_Click_1" RenderTransformOrigin="0.5,0.51">
                 <Button.Background>
                     <SolidColorBrush Color="#FFFF5E5A" Opacity="0.88"/>
                 </Button.Background>
@@ -44,7 +48,7 @@
                     <ImageBrush/>
                 </Button.Foreground>
             </Button>
-            <Button HorizontalAlignment="Left" Margin="732,9,0,0" VerticalAlignment="Top" Width="18" Height="18" Style="{StaticResource RoundedGelButtonw}" Click="Button_Click_2">
+            <Button HorizontalAlignment="Left" Margin="732,9,0,0" VerticalAlignment="Top" Width="19" Height="19" Style="{StaticResource RoundedGelButtonw}" Click="Button_Click_2">
                 <Button.Background>
                     <SolidColorBrush Color="#FFFFBC28" Opacity="0.77"/>
                 </Button.Background>
@@ -52,12 +56,10 @@
                     <ImageBrush/>
                 </Button.Foreground>
             </Button>
-            <Label x:Name="ZBT" Content="FSM Launcher" HorizontalAlignment="Left" Margin="34,8,0,0" VerticalAlignment="Top" Height="18" Width="234" FontSize="15"/>
-            <Image HorizontalAlignment="Left" Height="30" Margin="1,4,0,0" VerticalAlignment="Top" Width="32" Source="/FSM3;component/Image/FSMLogo.png"/>
+            <Label x:Name="ZBT" Content="FSM Launcher 3" HorizontalAlignment="Left" Margin="34,8,0,0" VerticalAlignment="Top" Height="18" Width="234" FontSize="15"/>
+            <Image x:Name="ZLogo" HorizontalAlignment="Left" Height="30" Margin="1,4,0,0" VerticalAlignment="Top" Width="32" Source="/FSM3;component/Image/FSMLogo.png"/>
             <TextBlock Height="17" Margin="317,8,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="178" FontSize="14" FontWeight="Bold" Foreground="Red" HorizontalAlignment="Left"/>
         </Grid>
-
-
     </Grid>
     <Window.Effect>
         <DropShadowEffect BlurRadius="13" Opacity="0.3"  Direction="90" ShadowDepth="3"/>

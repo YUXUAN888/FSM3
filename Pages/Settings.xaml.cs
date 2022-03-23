@@ -32,10 +32,10 @@ namespace FSM3.Pages
     /// </summary>
     public partial class Settings : System.Windows.Controls.Page
     {
-        static String ZongX = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData); //获取APPDATA
+        public static String ZongX = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData); //获取APPDATA
         public static string UpdateD;
         static String ZongW = ZongX + @"\.fsm";
-        String ZongSkin = ZongX + @"\.fsm\Skin";
+        public static String ZongSkin = ZongX + @"\.fsm\Skin";
         [DllImport("kernel32", CharSet = CharSet.Unicode)]
 
         public static extern long WritePrivateProfileString(string section, string key, string value, string filepath);
@@ -139,6 +139,11 @@ namespace FSM3.Pages
                 GZJDXZ.IsChecked = true;
             }
             STCP.IsChecked = false;
+            if(About.YJS is true)
+            {
+                ColorCombobox.IsEnabled = true;
+            }
+            try { ColorCombobox.SelectedIndex = int.Parse(Game.IniReadValue("JSM", "Color")); } catch { }
             XTCP.IsChecked = false;
             if (IniReadValue("ONLINE", "TCPP2P") == "" || IniReadValue("ONLINE", "TCPP2P") == null)
             {
@@ -160,7 +165,7 @@ namespace FSM3.Pages
             {
                 for (int i = 0; i < int.Parse(IniReadValue("Java", "JavaS")); ++i)
                 {
-                    java_list.Items.Add(IniReadValue("Java", i.ToString()));
+                    Java_list.Items.Add(IniReadValue("Java", i.ToString()));
                 }
                 JavaS = int.Parse(IniReadValue("Java", "JavaS"));
             }
@@ -171,15 +176,7 @@ namespace FSM3.Pages
             List<JavaVersion> aa = tools.Tools.GetJavaPath();
             for (int i = 0; i < aa.Count; i++)
             {
-                java_list.Items.Add(aa[i].Path);
-            }
-            try
-            {
-                java_list.SelectedIndex = int.Parse(IniReadValue("Java", "List"));
-            }
-            catch
-            {
-
+                Java_list.Items.Add(aa[i].Path);
             }
             RAMS.AddHandler(Slider.MouseUpEvent, new MouseButtonEventHandler(MouseUP), true);
             RAMS.Maximum = MemoryAvailable / 1024 / 1024;
@@ -206,8 +203,19 @@ namespace FSM3.Pages
             {
                 AZGX.Visibility = System.Windows.Visibility.Hidden;
             }
-        }
+            try
+            {
+                Java_list.SelectedIndex = int.Parse(Settings.IniReadValue("JavaList", "Path"));
+            }
+            catch
+            {
 
+            }
+            if(Java_list.SelectedIndex is -1)
+            {
+                Java_list.SelectedIndex = 0;
+            }
+        }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             if (ThemeManager.Current.ActualApplicationTheme == ApplicationTheme.Dark)
@@ -220,11 +228,107 @@ namespace FSM3.Pages
                 ThemeManager.Current.ApplicationTheme = ApplicationTheme.Dark;
                 WritePrivateProfileString("Color", "ZT", "Dark", FileS);
             }
+            try
+            {
+                string aaw = About.DecryptDES(IniReadValue("JSM", "JSM"), "87654321");
+                // MessageBox.Show(DecryptDES("ODliMzdkNWNmOTBhOTViNQ==", "8765432w"));
+                string code = null;
+                SelectQuery query = new SelectQuery("select * from Win32_ComputerSystemProduct");
+                using (ManagementObjectSearcher searcher = new ManagementObjectSearcher(query))
+                {
+                    foreach (var item in searcher.Get())
+                    {
+                        using (item) code = item["UUID"].ToString();
+                    }
+
+                }
+                if (aaw == code)
+                {
+                    About.YJS = true;
+                    switch (int.Parse(IniReadValue("JSM", "Color")))
+                    {
+                        case 0:
+                            DisHelper.DisHelper.RunOnMainThread(() =>
+                            {
+                                ThemeManager.Current.AccentColor = System.Windows.Media.Color.FromRgb(255, 140, 0);  //橙色
+                                WritePrivateProfileString("JSM", "Color", "0", FileS);
+                            });
+                            break;
+                        case 1:
+                            DisHelper.DisHelper.RunOnMainThread(() =>
+                            {
+                                ThemeManager.Current.AccentColor = System.Windows.Media.Color.FromRgb(255, 67, 67);  //鲜艳红
+                                WritePrivateProfileString("JSM", "Color", "1", FileS);
+                            });
+                            break;
+                        case 2:
+                            DisHelper.DisHelper.RunOnMainThread(() =>
+                            {
+                                ThemeManager.Current.AccentColor = System.Windows.Media.Color.FromRgb(232, 17, 35);  //中国红
+                                WritePrivateProfileString("JSM", "Color", "2", FileS);
+                            });
+                            break;
+                        case 3:
+                            DisHelper.DisHelper.RunOnMainThread(() =>
+                            {
+                                ThemeManager.Current.AccentColor = System.Windows.Media.Color.FromRgb(234, 0, 94);  //小马宝莉
+                                WritePrivateProfileString("JSM", "Color", "3", FileS);
+                            });
+                            break;
+                        case 4:
+                            DisHelper.DisHelper.RunOnMainThread(() =>
+                            {
+                                ThemeManager.Current.AccentColor = System.Windows.Media.Color.FromRgb(142, 140, 216);  //淡紫色
+                                WritePrivateProfileString("JSM", "Color", "4", FileS);
+                            });
+                            break;
+                        case 5:
+                            DisHelper.DisHelper.RunOnMainThread(() =>
+                            {
+                                ThemeManager.Current.AccentColor = System.Windows.Media.Color.FromRgb(45, 125, 154);  //青色
+                                WritePrivateProfileString("JSM", "Color", "5", FileS);
+                            });
+                            break;
+                        case 6:
+                            DisHelper.DisHelper.RunOnMainThread(() =>
+                            {
+                                ThemeManager.Current.AccentColor = System.Windows.Media.Color.FromRgb(16, 124, 16);  //原谅绿
+                                WritePrivateProfileString("JSM", "Color", "6", FileS);
+                            });
+                            break;
+                        case 7:
+                            DisHelper.DisHelper.RunOnMainThread(() =>
+                            {
+                                ThemeManager.Current.AccentColor = System.Windows.Media.Color.FromRgb(46, 47, 42);  //高端灰
+                                WritePrivateProfileString("JSM", "Color", "7", FileS);
+                            });
+                            break;
+                        case 8:
+                            DisHelper.DisHelper.RunOnMainThread(() =>
+                            {
+                                ThemeManager.Current.AccentColor = System.Windows.Media.Color.FromRgb(0, 204, 106);  //青草绿
+                                WritePrivateProfileString("JSM", "Color", "8", FileS);
+                            });
+                            break;
+                        case 9:
+                            DisHelper.DisHelper.RunOnMainThread(() =>
+                            {
+                                ThemeManager.Current.AccentColor = System.Windows.Media.Color.FromRgb(202, 80, 16);  //深度橘
+                                WritePrivateProfileString("JSM", "Color", "9", FileS);
+                            });
+                            break;
+                    }
+                }
+            }
+            catch
+            {
+
+            }
         }
         private void java_list_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            WritePrivateProfileString("Java", "List", java_list.SelectedIndex.ToString(), FileS);
-            Java_List = java_list.Text;
+            WritePrivateProfileString("JavaList", "Path", Java_list.SelectedIndex.ToString(), FileS);
+            Java_List = Java_list.Text;
         }
         public static string Java_List;
         private void RAMS_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
@@ -330,32 +434,40 @@ namespace FSM3.Pages
         static System.Windows.Threading.DispatcherTimer UPDATEW = new System.Windows.Threading.DispatcherTimer();
         private async void AZGX_Click(object sender, RoutedEventArgs e)
         {
-            StackPanel panel = new StackPanel()
+            try
             {
-                VerticalAlignment = VerticalAlignment.Stretch,
-                HorizontalAlignment = HorizontalAlignment.Stretch,
-            };
-            panel.Children.Add(new TextBlock() { Text = "正在更新启动器..." });
-            System.Windows.Controls.ProgressBar box = new System.Windows.Controls.ProgressBar();
-            box.IsIndeterminate = true;
-            panel.Children.Add(box);
+                StackPanel panel = new StackPanel()
+                {
+                    VerticalAlignment = VerticalAlignment.Stretch,
+                    HorizontalAlignment = HorizontalAlignment.Stretch,
+                };
+                panel.Children.Add(new TextBlock() { Text = "正在更新启动器..." });
+                System.Windows.Controls.ProgressBar box = new System.Windows.Controls.ProgressBar();
+                box.IsIndeterminate = true;
+                panel.Children.Add(box);
 
-            ContentDialog dialog = new ContentDialog()
+                ContentDialog dialog = new ContentDialog()
+                {
+                    Title = "安装更新",
+                    IsPrimaryButtonEnabled = true,
+                    DefaultButton = ContentDialogButton.Primary,
+                    Content = panel,
+                };
+                var result = dialog.ShowAsync();
+                String File_ = System.AppDomain.CurrentDomain.BaseDirectory + "[" + xdbb + "]FSM.exe";
+                dlf.doSendMsg += new DownLoadFile.dlgSendMsg(SendMsgHander);
+                wa = Download(File_, "", UpdateD);
+                UPDATEW = Core5.timer(UPDATEWW, 2333);
+                UPDATEW.Start();
+                Online.CmdProcess1.Kill();
+                Online.CmdProcess1.CancelOutputRead();
+            }
+            catch
             {
-                Title = "安装更新",
-                IsPrimaryButtonEnabled = true,
-                DefaultButton = ContentDialogButton.Primary,
-                Content = panel,
-            };
-            var result = dialog.ShowAsync();
-            MessageBox.Show("1");
-            String File_ = System.AppDomain.CurrentDomain.BaseDirectory + "[" + xdbb + "]FSM.exe";
-            dlf.doSendMsg += new DownLoadFile.dlgSendMsg(SendMsgHander);
-            wa = Download(File_, "", UpdateD);
-            UPDATEW = Core5.timer(UPDATEWW, 2333);
-            UPDATEW.Start();
+
+            }
         }
-        private void UPDATEWW(object ob, EventArgs a)
+        private async void UPDATEWW(object ob, EventArgs a)
         {
             try
             {
@@ -364,9 +476,20 @@ namespace FSM3.Pages
                 String File_ = System.AppDomain.CurrentDomain.BaseDirectory + "[" + xdbb + "]FSM.exe";
                 if (aa == "完成")
                 {
+                    UPDATEW.Stop();
+                    System.Windows.Forms.NotifyIcon fyIcon = new System.Windows.Forms.NotifyIcon();
+                    fyIcon.Icon = new System.Drawing.Icon(ZongW + @"\Creeper.ico");/*找一个ico图标将其拷贝到 debug 目录下*/
+                    fyIcon.BalloonTipText = "开始安装更新";/*必填提示内容*/
+                    fyIcon.BalloonTipTitle = "FSM Core";
+                    //fyIcon.Icon = new Icon(@"D:\下载文件夹\PCL1-master\PCL1-master\Plain Craft Launcher\Images\icon.ico");/*找一个ico图标将其拷贝到 debug 目录下*/
+                    fyIcon.Visible = true;/*必须设置显隐，因为默认值是 false 不显示通知*/
+                    fyIcon.ShowBalloonTip(0);
+                    (FindResource("hideMe") as System.Windows.Media.Animation.Storyboard).Begin(this);
+                    await Task.Run(() =>
+                    {
+                        Thread.Sleep(1222);
+                    });
                     OpenFile(File_);
-                    Online.CmdProcess1.Kill();
-                    Online.CmdProcess1.CancelOutputRead();
                     System.Environment.Exit(0);
                 }
             }
@@ -499,7 +622,7 @@ namespace FSM3.Pages
             {
                 //fileDialog.FileName.ToString()
                 //listBoxSS.DataContext = this;
-                java_list.Items.Add(fileDialog.FileName.ToString());
+                Java_list.Items.Add(fileDialog.FileName.ToString());
                 //MessageBox.Show(fileDialog.FileName.ToString());
                 ++JavaS;
                 WritePrivateProfileString("Java", "JavaS", JavaS.ToString(), FileS);
@@ -519,11 +642,11 @@ namespace FSM3.Pages
         {
             if (AutoJava.IsChecked == true)
             {
-                java_list.IsEnabled = false;
+                Java_list.IsEnabled = false;
             }
             else
             {
-                java_list.IsEnabled = true;
+                Java_list.IsEnabled = true;
             }
         }
         private void GSXT_Checked(object sender, RoutedEventArgs e)
@@ -674,60 +797,70 @@ namespace FSM3.Pages
                     DisHelper.DisHelper.RunOnMainThread(() =>
                     {
                         ThemeManager.Current.AccentColor = Color.FromRgb(255, 140, 0);  //橙色
+                        Game.WritePrivateProfileString("JSM", "Color", "0", Game.FileS);
                     });
                     break;
                 case 1:
                     DisHelper.DisHelper.RunOnMainThread(() =>
                     {
                         ThemeManager.Current.AccentColor = Color.FromRgb(255, 67, 67);  //鲜艳红
+                        Game.WritePrivateProfileString("JSM", "Color", "1", Game.FileS);
                     });
                     break;
                 case 2:
                     DisHelper.DisHelper.RunOnMainThread(() =>
                     {
                         ThemeManager.Current.AccentColor = Color.FromRgb(232, 17, 35);  //中国红
+                        Game.WritePrivateProfileString("JSM", "Color", "2", Game.FileS);
                     });
                     break;
                 case 3:
                     DisHelper.DisHelper.RunOnMainThread(() =>
                     {
                         ThemeManager.Current.AccentColor = Color.FromRgb(234, 0, 94);  //小马宝莉
+                        Game.WritePrivateProfileString("JSM", "Color", "3", Game.FileS);
                     });
                     break;
                 case 4:
                     DisHelper.DisHelper.RunOnMainThread(() =>
                     {
                         ThemeManager.Current.AccentColor = Color.FromRgb(142, 140, 216);  //淡紫色
+                        Game.WritePrivateProfileString("JSM", "Color", "4", Game.FileS);
                     });
                     break;
                 case 5:
                     DisHelper.DisHelper.RunOnMainThread(() =>
                     {
                         ThemeManager.Current.AccentColor = Color.FromRgb(45, 125, 154);  //青色
+                        Game.WritePrivateProfileString("JSM", "Color", "5", Game.FileS);
                     });
                     break;
                 case 6:
                     DisHelper.DisHelper.RunOnMainThread(() =>
                     {
                         ThemeManager.Current.AccentColor = Color.FromRgb(16, 124, 16);  //原谅绿
+                        Game.WritePrivateProfileString("JSM", "Color", "6", Game.FileS);
                     });
                     break;
                 case 7:
                     DisHelper.DisHelper.RunOnMainThread(() =>
                     {
                         ThemeManager.Current.AccentColor = Color.FromRgb(46, 47, 42);  //高端灰
+                        Game.WritePrivateProfileString("JSM", "Color", "7", Game.FileS);
                     });
                     break;
                 case 8:
                     DisHelper.DisHelper.RunOnMainThread(() =>
                     {
                         ThemeManager.Current.AccentColor = Color.FromRgb(0, 204, 106);  //青草绿
+                        Game.WritePrivateProfileString("JSM", "Color", "8", Game.FileS);
                     });
                     break;
                 case 9:
                     DisHelper.DisHelper.RunOnMainThread(() =>
                     {
                         ThemeManager.Current.AccentColor = Color.FromRgb(202, 80, 16);  //深度橘
+                        Game.WritePrivateProfileString("JSM", "Color", "9", Game.FileS);
                     });
                     break;
             }
@@ -736,6 +869,11 @@ namespace FSM3.Pages
         private void TextBox1_TextChanged(object sender, TextChangedEventArgs e)
         {
             WritePrivateProfileString("JVM", "JVMW", JVM.Text, FileS);
+        }
+
+        private void Load(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

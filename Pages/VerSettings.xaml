@@ -1,0 +1,69 @@
+﻿<Page
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:FSM3.Pages" xmlns:ui="http://schemas.modernwpf.com/2019"
+      xmlns:About_List="clr-namespace:FSMLauncher_3.About_List" x:Class="FSM3.Pages.VerSettings"
+      mc:Ignorable="d" 
+      d:DesignHeight="436.8" d:DesignWidth="754.4"
+      Title="VerSettings">
+
+    <Grid>
+        <TabControl Style="{DynamicResource ResourceKey=DefaultTabControlStyle}">
+            <TabItem>
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <ui:FontIcon Glyph="&#xF158;" Margin="0,0,4,0"/>
+                        <Label Content="通用"/>
+                    </StackPanel>
+                </TabItem.Header>
+                <Grid>
+                    <Grid.Background>
+                        <ImageBrush/>
+                    </Grid.Background>
+                    <Border CornerRadius="7,7,7,7" BorderBrush="#FF323232" BorderThickness="1" HorizontalAlignment="Left" Height="176" Margin="17,13,0,0" VerticalAlignment="Top" Width="713">
+                        <Grid>
+                            <Label Content="个性化" HorizontalAlignment="Left" Margin="16,10,0,0" VerticalAlignment="Top" Height="24" Width="77" FontSize="18"/>
+                            <About_List:DoItem x:Name="QWQ" HorizontalAlignment="Left" Margin="12,41,0,0" VerticalAlignment="Top" Height="43" Width="329" Loaded="QWQ_Loaded"/>
+                            <ComboBox HorizontalAlignment="Left" Margin="55,87,0,0" VerticalAlignment="Top" Width="302" SelectionChanged="ComboBox_SelectionChanged" SelectedIndex="0">
+                                <ComboBoxItem Content="自动"/>
+                                <ComboBoxItem Content="草方块"/>
+                                <ComboBoxItem Content="玻璃"/>
+                                <ComboBoxItem Content="铁砧"/>
+                                <ComboBoxItem Content="织布"/>
+                                <ComboBoxItem Content="原石"/>
+                            </ComboBox>
+                            <Label Content="图标:" HorizontalAlignment="Left" Margin="16,94,0,0" VerticalAlignment="Top"/>
+                            <Button Content="更改描述" HorizontalAlignment="Left" Margin="17,130,0,0" VerticalAlignment="Top" Width="161" Height="34" Click="Button_Click_1"/>
+
+                        </Grid>
+                    </Border>
+                    <Border CornerRadius="7,7,7,7" BorderBrush="#FF323232" BorderThickness="1" HorizontalAlignment="Left" Height="98" Margin="17,206,0,0" VerticalAlignment="Top" Width="713">
+                        <Grid>
+                            <Label Content="高级" HorizontalAlignment="Left" Margin="16,10,0,0" VerticalAlignment="Top" Height="24" Width="77" FontSize="18"/>
+                            <Button Content="打开版本文件夹" HorizontalAlignment="Left" Margin="15,48,0,0" VerticalAlignment="Top" Width="161" Height="34"/>
+                            <Button Content="删除此版本" HorizontalAlignment="Left" Margin="195,48,0,0" VerticalAlignment="Top" Width="161" Height="34" BorderBrush="Red"/>
+
+                        </Grid>
+                    </Border>
+                    <Label Content="呜..版本设置还在施工,用不了哦" HorizontalAlignment="Left" Margin="286,353,0,0" VerticalAlignment="Top"/>
+                </Grid>
+            </TabItem>
+            <TabItem>
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <ui:FontIcon Glyph="&#xECE9;" Margin="0,0,4,0"/>
+                        <Label Content="Mod 管理"/>
+                    </StackPanel>
+                </TabItem.Header>
+                <Grid>
+                    <Grid.Background>
+                        <ImageBrush/>
+                    </Grid.Background>
+                    <Label Content="呜..mod管理还在施工,用不了哦" HorizontalAlignment="Left" Margin="286,353,0,0" VerticalAlignment="Top"/>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Page>

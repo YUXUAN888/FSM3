@@ -7,13 +7,19 @@
       xmlns:Home_API="clr-namespace:FSM3.Home_API" xmlns:ThreadedUI="clr-namespace:ModernWpf.SampleApp.ThreadedUI" x:Class="FSM3.Main.HomePage"
       mc:Ignorable="d" 
       d:DesignHeight="417" d:DesignWidth="354"
-      Title="HomePage">
+      Title="HomePage" Loaded="Load">
 
     <Grid>
-        <Border CornerRadius="7"  BorderBrush="#FF4E4E4E" BorderThickness="1" HorizontalAlignment="Left" Height="101" Margin="18,28,0,0" VerticalAlignment="Top" Width="318">
+        <Border CornerRadius="7"  BorderBrush="#FF4E4E4E" BorderThickness="1" HorizontalAlignment="Left" Height="77" Margin="15,28,0,0" VerticalAlignment="Top" Width="324">
             <Grid>
-                <Label Content="这是自定义主页" HorizontalAlignment="Left" Margin="107,6,0,0" VerticalAlignment="Top" Width="100" Height="19"/>
-                <Label Content="你可以在这里添加想要添加的内容,详见设置-个性化-自定义主页&#xA;当然,这都基于xaml,所以你在其他软件写的xaml做点适配也可以拿来&#xA;用(但是不推荐)&#xA;如果你熟练掌握WPF控件编写,你能把FSM主页弄得特好看,这超酷的!&#xA;感谢您使用FSM启动器啦" HorizontalAlignment="Left" Margin="8,29,0,0" VerticalAlignment="Top" Width="304" FontSize="10" Height="65"/>
+                <Label Content="欢迎您使用FSM3启动器" HorizontalAlignment="Left" Margin="6,6,0,0" VerticalAlignment="Top" Height="19" Width="251"/>
+                <Label Content="巴拉拉小魔仙全身变！&#xD;&#xA;全新的开始，不一样的体验&#xD;&#xA;当前启动器为beta版，若有bug可以反馈哦&#xD;&#xA;" HorizontalAlignment="Left" Margin="5,30,0,0" VerticalAlignment="Top" Width="314" FontSize="10" Height="39"/>
+            </Grid>
+        </Border>
+        <Border CornerRadius="7"  BorderBrush="#FF4E4E4E" BorderThickness="1" HorizontalAlignment="Left" Height="65" Margin="15,111,0,0" VerticalAlignment="Top" Width="159">
+            <Grid>
+                <Label Content="今日人品" HorizontalAlignment="Left" Margin="6,6,0,0" VerticalAlignment="Top" Height="19" Width="136"/>
+                <Label x:Name="RP" Content="100！！！&#xD;&#xA;人品爆棚！快带上好基友出去玩" HorizontalAlignment="Left" Margin="6,28,0,0" VerticalAlignment="Top" Width="147" FontSize="10" Height="32"/>
             </Grid>
         </Border>
     </Grid>

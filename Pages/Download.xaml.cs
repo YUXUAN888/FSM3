@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -34,7 +35,42 @@ namespace FSM3.Pages
         public Download()
         {
             InitializeComponent();
-            
+            ContentDialog dialog = new ContentDialog()
+            {
+                Title = "提示",
+                PrimaryButtonText = "好哒!",
+                IsPrimaryButtonEnabled = true,
+                DefaultButton = ContentDialogButton.Primary,
+                Content = new TextBlock()
+                {
+                    TextWrapping = TextWrapping.WrapWithOverflow,
+                    Text = "FSM3的下载有一点小问题，将会在未来的迭代更新中修复，目前尽量别使用哦，谢谢您的支持!"
+                },
+
+            };
+            var result = dialog.ShowAsync();
+            if (IfDown is true)
+            {
+                SFYXZJC.Content = "正在下载中...";
+                if (inforge == 1)
+                {
+                    user.FG.Visibility = Visibility.Visible;
+                }
+                else if (inopt == 1)
+                {
+                    user.OF.Visibility = Visibility.Visible;
+                }
+                else if (infab == 1)
+                {
+                    user.FB.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    user.MC.Visibility = Visibility.Visible;
+                }
+                user.AZBZ.Content = DownloadBZ;
+                user.Visibility = Visibility.Visible;
+            }
         }
 
         private void MCV_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -46,6 +82,26 @@ namespace FSM3.Pages
         public short infab;
         public short inlite;
         TextBlock AZForgeV = new TextBlock();
+        Storyboard storyboard = new Storyboard();//实例化故事板
+        Storyboard storyboard1 = new Storyboard();//实例化故事板
+        Storyboard storyboard2 = new Storyboard();//实例化故事板
+        Storyboard storyboard3 = new Storyboard();//实例化故事板
+        Storyboard storyboard4 = new Storyboard();//实例化故事板
+        public async Task<string> Huandong()
+        {
+            #region 缓动动画*进
+            //await Task.Run(() => { Thread.Sleep(100); });
+            DoubleAnimation yd5 = new DoubleAnimation(110, 0, new Duration(TimeSpan.FromSeconds(0.88)));//浮点动画定义了开始值和起始值
+            ForgeList.RenderTransform = new TranslateTransform();//在二维x-y坐标系统内平移(移动)对象
+            yd5.EasingFunction = new CubicEase() { EasingMode = EasingMode.EaseOut };
+            // yd5.RepeatBehavior = RepeatBehavior.Forever;//设置循环播放
+            Storyboard.SetTarget(yd5, ForgeList);//绑定动画为这个按钮执行的浮点动画
+            Storyboard.SetTargetProperty(yd5, new PropertyPath("RenderTransform.Y"));//依赖的属性
+            storyboard.Children.Add(yd5);//向故事板中加入此浮点动画
+            storyboard.Begin();//播放此动画
+            return "";
+            #endregion
+        }
         private async void Tile_Click_25(object sender, RoutedEventArgs e)
         {
             if (infab == 1 || inlite == 1)
@@ -98,12 +154,24 @@ namespace FSM3.Pages
                     da.To = 0;
                     da.Duration = duration;
                     //开始进行动画处理
-                    tt.BeginAnimation(TranslateTransform.XProperty, da);
+                    await Huandong();
                     aa.BeginAnimation(TranslateTransform.YProperty, da);
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message);
+                    ContentDialog dialog = new ContentDialog()
+                    {
+                        Title = ex.Message,
+                        PrimaryButtonText = "好吧",
+                        IsPrimaryButtonEnabled = true,
+                        DefaultButton = ContentDialogButton.Primary,
+                        Content = new TextBlock()
+                        {
+                            TextWrapping = TextWrapping.WrapWithOverflow,
+                            Text = "出现错误"
+                        },
+                    };
+                    var result = await dialog.ShowAsync();
                 }
             }
         }
@@ -165,12 +233,32 @@ namespace FSM3.Pages
                     da.To = 0;
                     da.Duration = duration;
                     //开始进行动画处理
-                    tt.BeginAnimation(TranslateTransform.YProperty, da);
+                    //tt.BeginAnimation(TranslateTransform.YProperty, da);
+                    DoubleAnimation yd5 = new DoubleAnimation(110, 0, new Duration(TimeSpan.FromSeconds(0.88)));//浮点动画定义了开始值和起始值
+                    FabList.RenderTransform = new TranslateTransform();//在二维x-y坐标系统内平移(移动)对象
+                    yd5.EasingFunction = new CubicEase() { EasingMode = EasingMode.EaseOut };
+                    // yd5.RepeatBehavior = RepeatBehavior.Forever;//设置循环播放
+                    Storyboard.SetTarget(yd5, FabList);//绑定动画为这个按钮执行的浮点动画
+                    Storyboard.SetTargetProperty(yd5, new PropertyPath("RenderTransform.Y"));//依赖的属性
+                    storyboard.Children.Add(yd5);//向故事板中加入此浮点动画
+                    storyboard.Begin();//播放此动画
                     //aa.BeginAnimation(TranslateTransform.YProperty, da);
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message);
+                    ContentDialog dialog = new ContentDialog()
+                    {
+                        Title = ex.Message,
+                        PrimaryButtonText = "好吧",
+                        IsPrimaryButtonEnabled = true,
+                        DefaultButton = ContentDialogButton.Primary,
+                        Content = new TextBlock()
+                        {
+                            TextWrapping = TextWrapping.WrapWithOverflow,
+                            Text = "出现错误"
+                        },
+                    };
+                    var result = await dialog.ShowAsync();
                 }
             }
         }
@@ -227,12 +315,32 @@ namespace FSM3.Pages
                     da.To = 0;
                     da.Duration = duration;
                     //开始进行动画处理
-                    tt.BeginAnimation(TranslateTransform.YProperty, da);
+                    //tt.BeginAnimation(TranslateTransform.YProperty, da);
                     //aa.BeginAnimation(TranslateTransform.YProperty, da);
+                    DoubleAnimation yd5 = new DoubleAnimation(110, 0, new Duration(TimeSpan.FromSeconds(0.88)));//浮点动画定义了开始值和起始值
+                    OptifineList.RenderTransform = new TranslateTransform();//在二维x-y坐标系统内平移(移动)对象
+                    yd5.EasingFunction = new CubicEase() { EasingMode = EasingMode.EaseOut };
+                    // yd5.RepeatBehavior = RepeatBehavior.Forever;//设置循环播放
+                    Storyboard.SetTarget(yd5, OptifineList);//绑定动画为这个按钮执行的浮点动画
+                    Storyboard.SetTargetProperty(yd5, new PropertyPath("RenderTransform.Y"));//依赖的属性
+                    storyboard.Children.Add(yd5);//向故事板中加入此浮点动画
+                    storyboard.Begin();//播放此动画
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message);
+                    ContentDialog dialog = new ContentDialog()
+                    {
+                        Title = ex.Message,
+                        PrimaryButtonText = "好吧",
+                        IsPrimaryButtonEnabled = true,
+                        DefaultButton = ContentDialogButton.Primary,
+                        Content = new TextBlock()
+                        {
+                            TextWrapping = TextWrapping.WrapWithOverflow,
+                            Text = "出现错误"
+                        },
+                    };
+                    var result = await dialog.ShowAsync();
                 }
             }
         }
@@ -297,20 +405,7 @@ namespace FSM3.Pages
                 if (tag == DownStatus.Error)
                 {
                     DIYvar.xzItems[msg.Id].xzwz = msg.ErrMessage;
-                    ContentDialog dialog = new ContentDialog()
-                    {
-                        Title = "安装遇到错误",
-                        PrimaryButtonText = "好吧",
-                        IsPrimaryButtonEnabled = true,
-                        DefaultButton = ContentDialogButton.Primary,
-                        Content = new TextBlock()
-                        {
-                            TextWrapping = TextWrapping.WrapWithOverflow,
-                            Text = msg.ErrMessage
-                        },
-
-                    };
-                    var result = dialog.ShowAsync();
+                    Console.WriteLine("-----------------\n"+msg.ErrMessage+ "\n-----------------");
 
                     return;
                 }
@@ -326,63 +421,168 @@ namespace FSM3.Pages
                 }
             });
         }
-        DownloadItem user = new DownloadItem();
+        public double liba;
+        public void SendMsgHanderS(DownMsg msg)
+        {
+
+            Dispatcher.Invoke((Action)delegate ()
+            {
+                DownStatus tag = msg.Tag;
+
+                if (tag == DownStatus.Start)
+                {
+                    DIYvar.xzItems[msg.Id].xzwz = "开始下载";
+
+                    return;
+                }
+                if (tag == DownStatus.End)
+                {
+                    DIYvar.xzItems[msg.Id].xzwz = "完成";
+
+                    DIYvar.xzItems[msg.Id].Template = 100;
+
+                    return;
+                }
+                if (tag == DownStatus.Error)
+                {
+                    DIYvar.xzItems[msg.Id].xzwz = msg.ErrMessage;
+                    Console.WriteLine("-----------------\n" + msg.ErrMessage + "\n-----------------");
+
+                    return;
+                }
+                if (tag == DownStatus.DownLoad)
+                {
+                    DIYvar.xzItems[msg.Id].xzwz = "下载中";
+                    DIYvar.xzItems[msg.Id].Template = msg.Progress;
+                    liba = msg.Progress;
+                    Console.WriteLine(msg.Progress);
+                    Console.WriteLine("test");
+
+                    return;
+                }
+            });
+        }
+        public static bool IfDown;
+        public static int DownloadInt = 0;
+        public static String DownloadBZ;
+        string DownloadMCName;
+        public static int bl;
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                ContentDialog dialog = new ContentDialog()
+                StackPanel panel = new StackPanel()
                 {
-                    Title = "开始下载",
-                    PrimaryButtonText = "好哒!",
+                    VerticalAlignment = VerticalAlignment.Stretch,
+                    HorizontalAlignment = HorizontalAlignment.Stretch,
+                };
+                panel.Children.Add(new TextBlock() { Text = "显示的版本名字" });
+                TextBox box = new TextBox();
+                box.SetCurrentValue(ModernWpf.Controls.Primitives.ControlHelper.HeaderProperty, "后期可以更改,但不能跟其他版本重复");
+                panel.Children.Add(box);
+
+                ContentDialog dialogs = new ContentDialog()
+                {
+                    Title = "请输入安装版本名",
+                    PrimaryButtonText = "OK!",
                     IsPrimaryButtonEnabled = true,
                     DefaultButton = ContentDialogButton.Primary,
-                    Content = new TextBlock()
-                    {
-                        TextWrapping = TextWrapping.WrapWithOverflow,
-                        Text = "已经开始下载Minecraft啦!\n仅需亿杯咖啡的时间,即可体验游戏快乐!"
-                    },
-
+                    Content = panel,
                 };
-                var result = await dialog.ShowAsync();
-                if (result == ContentDialogResult.Primary)
+                var results = await dialogs.ShowAsync();
+                if (results == ContentDialogResult.Primary)
                 {
-                    DTB.SelectedIndex = 2;
-                    NV.NVW.IsEnabled = false;
+                    DownloadMCName = box.Text;
+                    AllTheExistingVersion[] a = new AllTheExistingVersion[0];
+                    a = tools.Tools.GetAllTheExistingVersion();
+                    if (box.Text != "")
+                    {
+                        for(int i = 0; i < a.Length; i++)
+                        {
+                            if (a[i].path.Contains(box.Text))
+                            {
+                                bl = 1;
+                            }
+                        }
+                    }
                 }
-                SFYXZJC.Content = "正在下载中...";
-                user.AZBZ.Content = "当前步骤:安装Jar";
-                XZJC.Items.Add(user);
-                if (inforge == 1)
+                if (bl is 1)
                 {
-                    user.FG.Visibility = Visibility.Visible;
-                }
-                else if (inopt == 1)
-                {
-                    user.OF.Visibility = Visibility.Visible;
-                }
-                else if (infab == 1)
-                {
-                    user.FB.Visibility = Visibility.Visible;
+                    ContentDialog dialog = new ContentDialog()
+                    {
+                        Title = "不能安装Minecraft",
+                        PrimaryButtonText = "好吧",
+                        IsPrimaryButtonEnabled = true,
+                        DefaultButton = ContentDialogButton.Primary,
+                        Content = new TextBlock()
+                        {
+                            TextWrapping = TextWrapping.WrapWithOverflow,
+                            Text = "你的版本名字重复啦！更换一个名字再试试吧！"
+                        },
+
+                    };
+                    var result = await dialog.ShowAsync();
+                    bl = 0;
                 }
                 else
                 {
-                    user.MC.Visibility = Visibility.Visible;
+                    ForgeB.Content = "Forge(主流加载器)\n" + "当前未选择";
+                    OptifineB.Content = "Optifine(高清修复)\n" + "当前未选择";
+                    FabricB.Content = "Fabric(轻量加载器)\n" + "当前未选择";
+                    LiteB.Content = "LiteLoader(轻量加载器)\n" + "当前未选择";
+                    ContentDialog dialog = new ContentDialog()
+                    {
+                        Title = "开始下载",
+                        PrimaryButtonText = "好哒!",
+                        IsPrimaryButtonEnabled = true,
+                        DefaultButton = ContentDialogButton.Primary,
+                        Content = new TextBlock()
+                        {
+                            TextWrapping = TextWrapping.WrapWithOverflow,
+                            Text = "已经开始下载Minecraft啦!\n仅需亿杯咖啡的时间,即可体验游戏快乐!"
+                        },
+
+                    };
+                    var result = await dialog.ShowAsync();
+                    IfDown = true;
+                    SFYXZJC.Content = "正在下载中...";
+                    user.AZBZ.Content = "当前步骤:安装Jar";
+                    DownloadBZ = "当前步骤:安装Jar";
+                    DoF.Visibility = Visibility.Visible;
+                    BDD.PDD.Visibility = Visibility.Visible;
+                    DoubleAnimation yd5 = new DoubleAnimation(55, 0, new Duration(TimeSpan.FromSeconds(0.58)));//浮点动画定义了开始值和起始值
+                    DoF.RenderTransform = new TranslateTransform();//在二维x-y坐标系统内平移(移动)对象
+                    yd5.EasingFunction = new CubicEase() { EasingMode = EasingMode.EaseOut };
+                    // yd5.RepeatBehavior = RepeatBehavior.Forever;//设置循环播放
+                    Storyboard.SetTarget(yd5, DoF);//绑定动画为这个按钮执行的浮点动画
+                    Storyboard.SetTargetProperty(yd5, new PropertyPath("RenderTransform.Y"));//依赖的属性
+                    storyboard.Children.Add(yd5);//向故事板中加入此浮点动画
+                    storyboard.Begin();//播放此动画
+                    tools.Tools.DownloadSourceInitialization(DownloadSource.MCBBSSource);
+                    MCDownload download = MinecraftDownload.MCjarDownload(mcVersionLists[MCV.SelectedIndex].version);
+                    if(Game.IniReadValue("Vlist", "Path") is "0")
+                    {
+                        JarID = Downloadw(Game.Dminecraft + @"\versions\" + DownloadMCName + @"\" + DownloadMCName + ".jar", "", download.Url);
+                    }
+                    else
+                    {
+                        JarID = Downloadw(Game.IniReadValue("VPath", int.Parse(Game.IniReadValue("Vlist", "Path") + 2).ToString()) + @"\versions\" + DownloadMCName + @"\" + DownloadMCName + ".jar", "", download.Url);
+                    }
+                    download = MinecraftDownload.MCjsonDownload(mcVersionLists[MCV.SelectedIndex].version);
+                    if (Game.IniReadValue("Vlist", "Path") is "0")
+                    {
+                        JsonID = Downloadw(Game.Dminecraft + @"\versions\" + DownloadMCName + @"\" + DownloadMCName + ".json", "", download.Url);
+                    }
+                    else
+                    {
+                        JsonID = Downloadw(Game.IniReadValue("VPath", int.Parse(Game.IniReadValue("Vlist", "Path") + 2).ToString()) + @"\versions\" + DownloadMCName + @"\" + DownloadMCName + ".json", "", download.Url);
+                    }
+                    dlf.doSendMsg += new DownLoadFile.dlgSendMsg(SendMsgHander);
+                    Jarw = Core5.timer(MCjarInstall, 5555);
+                    Jarw.Start();
+                    JarTimerBool = true;
                 }
-                tools.Tools.DownloadSourceInitialization(QJDown);
-                MCDownload download = MinecraftDownload.MCjarDownload(mcVersionLists[MCV.SelectedIndex].version);
-                JarID = Downloadw(download.path, "", download.Url);
-                download = MinecraftDownload.MCjsonDownload(mcVersionLists[MCV.SelectedIndex].version);
-                JsonID = Downloadw(download.path, "", download.Url);
-                dlf.doSendMsg += new DownLoadFile.dlgSendMsg(SendMsgHander);
-                Jarw = Core5.timer(MCjarInstall, 5555);
-                Jarw.Start();
-                JarTimerBool = true;
-
-
-
                 ///以上是Asset补全
-
                 //var loading = await this.ShowProgressAsync("提示", "正在补全中...");
                 //loading.SetIndeterminate();
                 //await lib(loading);
@@ -402,14 +602,15 @@ namespace FSM3.Pages
             {
                 UPDATEW.Stop();
                 UPDATEW.Stop();
-                if (await tools.Tools.OptifineInstall(mcVersionLists[MCV.SelectedIndex].version, optpatch, Settings.Java_List))
+                var j = tools.Tools.GetJavaPath();
+                if (await tools.Tools.OptifineInstall(mcVersionLists[MCV.SelectedIndex].version, optpatch, j[0].Path))
                 {
                     AssetDownload assetDownload = new AssetDownload();//asset下载类
                     assetDownload.DownloadProgressChanged += AssetDownload_DownloadProgressChanged;//事件
 
                     await libraries(mcVersionLists[MCV.SelectedIndex].version);
 
-                    await assetDownload.BuildAssetDownload(8, mcVersionLists[MCV.SelectedIndex].version);//构建下载
+                    await assetDownload.BuildAssetDownload(1000, mcVersionLists[MCV.SelectedIndex].version);//构建下载
                 }
 
             }
@@ -420,14 +621,15 @@ namespace FSM3.Pages
             if (DIYvar.xzItems[bbb].xzwz == "完成")
             {
                 UPDATEW.Stop();
-                await tools.Tools.ForgeInstallation(ddd.path, mcVersionLists[MCV.SelectedIndex].version, Settings.Java_List);
+                var j = tools.Tools.GetJavaPath();
+                await tools.Tools.ForgeInstallation(ddd.path, DownloadMCName, j[0].Path);
                 //   await Lod.CloseAsync();
                 AssetDownload assetDownload = new AssetDownload();//asset下载类
                 assetDownload.DownloadProgressChanged += AssetDownload_DownloadProgressChanged;//事件
 
-                await libraries(mcVersionLists[MCV.SelectedIndex].version);
+                await libraries(DownloadMCName);
 
-                await assetDownload.BuildAssetDownload(8, mcVersionLists[MCV.SelectedIndex].version);//构建下载
+                await assetDownload.BuildAssetDownload(1000, DownloadMCName);//构建下载
             }
         }
         public async void OptifineandForgeI(object ob, EventArgs a)
@@ -436,10 +638,21 @@ namespace FSM3.Pages
             {
                 UPDATEW.Stop();
                 user.AZBZ.Content = "当前步骤:安装Optifine";
-                await tools.Tools.ForgeInstallation(ddd.path, mcVersionLists[MCV.SelectedIndex].version, Settings.Java_List);
-                ddd = mcd.DownloadOptifine(mcVersionLists[MCV.SelectedIndex].version, OptVer);
-                Directory.CreateDirectory(Game.IniReadValue("VPath", int.Parse(Game.IniReadValue("Vlist", "Path") + 1).ToString()) + @"\mods");
-                bbb = Downloadw(Game.IniReadValue("VPath", int.Parse(Game.IniReadValue("Vlist", "Path") + 1).ToString()) + @"\mods\" + OptVer + "", "Optifine", ddd.Url);
+                DownloadBZ = "当前步骤:安装Optifine";
+                var j = tools.Tools.GetJavaPath();
+                await tools.Tools.ForgeInstallation(ddd.path, DownloadMCName, j[0].Path);
+                ddd = mcd.DownloadOptifine(DownloadMCName, OptVer);
+                if (Game.IniReadValue("Vlist", "Path") is "0")
+                {
+                    Directory.CreateDirectory(Game.Dminecraft + @"\versions\" + DownloadMCName + @"\" + DownloadMCName + @"\mods");
+                    bbb = Downloadw(Game.Dminecraft + @"\versions\" + DownloadMCName + @"\" + DownloadMCName + @"\mods\" + OptVer + "", "Optifine", ddd.Url);
+                }
+                else
+                {
+                    Directory.CreateDirectory(Game.IniReadValue("VPath", int.Parse(Game.IniReadValue("Vlist", "Path") + 2).ToString()) + @"\versions\" + DownloadMCName + @"\" + DownloadMCName + @"\mods");
+                    bbb = Downloadw(Game.IniReadValue("VPath", int.Parse(Game.IniReadValue("Vlist", "Path") + 2).ToString()) + @"\versions\" + DownloadMCName + @"\" + DownloadMCName + @"\mods\" + OptVer + "", "Optifine", ddd.Url);
+                }
+                //bbb = Downloadw(Game.IniReadValue("VPath", int.Parse(Game.IniReadValue("Vlist", "Path") + 1).ToString()) + @"\mods\" + OptVer + "", "Optifine", ddd.Url);
                 /// await Lod.CloseAsync();
                 UPDATEW = Core5.timer(Cree, 5555);
                 UPDATEW.Start();
@@ -453,9 +666,9 @@ namespace FSM3.Pages
                 AssetDownload assetDownload = new AssetDownload();//asset下载类
                 assetDownload.DownloadProgressChanged += AssetDownload_DownloadProgressChanged;//事件
 
-                await libraries(mcVersionLists[MCV.SelectedIndex].version);
+                await libraries(DownloadMCName);
 
-                await assetDownload.BuildAssetDownload(8, mcVersionLists[MCV.SelectedIndex].version);//构建下载
+                await assetDownload.BuildAssetDownload(1000, DownloadMCName);//构建下载
             }
         }
         private async void MCjarInstall(object ob, EventArgs a)
@@ -467,10 +680,8 @@ namespace FSM3.Pages
             if (aa == "完成" && bb == "完成")
             {
 
-
+                DoF.InstallJar.IsChecked = true;
                 JarTimerBool = false;
-
-
                 Jarw.Stop();
                 try
                 {
@@ -482,7 +693,8 @@ namespace FSM3.Pages
                             ///Lod.SetIndeterminate();
                             //安装optifine和Forge
                             user.AZBZ.Content = "当前步骤:安装Forge";
-                            ddd = mcd.ForgeDownload(mcVersionLists[MCV.SelectedIndex].version, ForgeVer);
+                            DownloadBZ = "当前步骤:安装Forge";
+                            ddd = mcd.ForgeDownload(DownloadMCName, ForgeVer);
 
                             bbb = Downloadw(ddd.path, "Forge", ddd.Url);
                             UPDATEW = Core5.timer(OptifineandForgeI, 5555);
@@ -495,9 +707,10 @@ namespace FSM3.Pages
                             Jarw.Stop();
                             //安装Forge
                             ///   Lod.SetIndeterminate();
-                            ddd = mcd.ForgeDownload(mcVersionLists[MCV.SelectedIndex].version, ForgeVer);
+                            ddd = mcd.ForgeDownload(DownloadMCName, ForgeVer);
                             user.AZBZ.Content = "当前步骤:安装Forge";
-                            await tools.Tools.ForgeInstallation(ddd.path, mcVersionLists[MCV.SelectedIndex].version, Settings.Java_List);
+                            DownloadBZ = "当前步骤:安装Forge";
+                            await tools.Tools.ForgeInstallation(ddd.path, DownloadMCName, Settings.Java_List);
                             bbb = Downloadw(ddd.path, "Forge", ddd.Url);
                             UPDATEW = Core5.timer(ForgeI, 5555);
                             UPDATEW.Start();
@@ -509,13 +722,14 @@ namespace FSM3.Pages
                         Jarw.Stop();
                         //安装Fabric
                         user.AZBZ.Content = "当前步骤:安装Fabric";
-                        await fabricmc.FabricmcVersionInstall(mcVersionLists[MCV.SelectedIndex].version, FabVer);
+                        DownloadBZ = "当前步骤:安装Fabric";
+                        await fabricmc.FabricmcVersionInstall(DownloadMCName, FabVer);
                         AssetDownload assetDownload = new AssetDownload();//asset下载类
                         assetDownload.DownloadProgressChanged += AssetDownload_DownloadProgressChanged;//事件
 
-                        await libraries(mcVersionLists[MCV.SelectedIndex].version);
+                        await libraries(DownloadMCName);
 
-                        await assetDownload.BuildAssetDownload(8, mcVersionLists[MCV.SelectedIndex].version);//构建下载
+                        await assetDownload.BuildAssetDownload(1000, DownloadMCName);//构建下载
                     }
                     else if (inlite == 1)
                     {
@@ -538,23 +752,17 @@ namespace FSM3.Pages
                         //bbb = Download(System.AppDomain.CurrentDomain.BaseDirectory + @"SquareMinecraftLauncher\OptiFine\"+ OptifineList.SelectedItem.ToString(), "Optifine", ddd.Url);
                         //UPDATEW = Core5.timer(OptifineI, 5555);
                         //UPDATEW.Start();
-                        ///AZBZ.Content = "当前步骤:安装Optifine";
-                        if (await tools.Tools.OptifineInstall(mcVersionLists[MCV.SelectedIndex].version, optpatch, Settings.Java_List))
+                        user.AZBZ.Content = "当前步骤:安装Optifine";
+                        var j = tools.Tools.GetJavaPath();
+                        if (await tools.Tools.OptifineInstall(DownloadMCName, optpatch, j[0].Path))
                         {
                             AssetDownload assetDownload = new AssetDownload();//asset下载类
                             assetDownload.DownloadProgressChanged += AssetDownload_DownloadProgressChanged;//事件
 
-                            await libraries(mcVersionLists[MCV.SelectedIndex].version);
+                            await libraries(DownloadMCName);
 
-                            await assetDownload.BuildAssetDownload(8, mcVersionLists[MCV.SelectedIndex].version);//构建下载
+                            await assetDownload.BuildAssetDownload(1000, DownloadMCName);//构建下载
                         }
-
-
-
-
-
-
-
                     }
                     else
                     {
@@ -563,9 +771,9 @@ namespace FSM3.Pages
                         AssetDownload assetDownload = new AssetDownload();//asset下载类
                         assetDownload.DownloadProgressChanged += AssetDownload_DownloadProgressChanged;//事件
 
-                        await libraries(mcVersionLists[MCV.SelectedIndex].version);
+                        await libraries(DownloadMCName);
 
-                        await assetDownload.BuildAssetDownload(8, mcVersionLists[MCV.SelectedIndex].version);//构建下载
+                        await assetDownload.BuildAssetDownload(1000, DownloadMCName);//构建下载
                     }
                     //tools.DownloadSourceInitialization(DownloadSource.MCBBSSource);
 
@@ -573,7 +781,19 @@ namespace FSM3.Pages
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message);
+                    ContentDialog dialog = new ContentDialog()
+                    {
+                        Title = ex.Message,
+                        PrimaryButtonText = "好吧",
+                        IsPrimaryButtonEnabled = true,
+                        DefaultButton = ContentDialogButton.Primary,
+                        Content = new TextBlock()
+                        {
+                            TextWrapping = TextWrapping.WrapWithOverflow,
+                            Text = "出现错误"
+                        },
+                    };
+                    var result = await dialog.ShowAsync();
                 }
 
             }
@@ -586,7 +806,7 @@ namespace FSM3.Pages
             try
             {
                 //  tools.DownloadSourceInitialization(DownloadSource.MCBBSSource);
-                dlf.doSendMsg += new DownLoadFile.dlgSendMsg(SendMsgHander);
+                dlf.doSendMsg += new DownLoadFile.dlgSendMsg(SendMsgHanderS);
                 //libraries1 = mcVersionLists[MCV.SelectedIndex].version;
                 MCDownload[] File = tools.Tools.GetMissingFile(version);
                 if (File.Length != 0)
@@ -595,6 +815,7 @@ namespace FSM3.Pages
                     {
                         int aa = Downloadw(i.path, "补全", i.Url);
                         user.AZBZ.Content = "当前步骤:补全游戏文件";
+                        DownloadBZ = "当前步骤:补全游戏文件";
                     }
                     //libraries2 = sz.id;
                     return false;
@@ -604,12 +825,37 @@ namespace FSM3.Pages
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                ContentDialog dialog = new ContentDialog()
+                {
+                    Title = ex.Message,
+                    PrimaryButtonText = "好吧",
+                    IsPrimaryButtonEnabled = true,
+                    DefaultButton = ContentDialogButton.Primary,
+                    Content = new TextBlock()
+                    {
+                        TextWrapping = TextWrapping.WrapWithOverflow,
+                        Text = "出现错误"
+                    },
+                };
+                var result = await dialog.ShowAsync();
             }
             return true;
 
         }
         int bbb;
+        ContentDialog DG = new ContentDialog()
+        {
+            Title = "下载完成",
+            PrimaryButtonText = "好哒!",
+            IsPrimaryButtonEnabled = true,
+            DefaultButton = ContentDialogButton.Primary,
+            Content = new TextBlock()
+            {
+                TextWrapping = TextWrapping.WrapWithOverflow,
+                Text = "开始您的游戏吧!"
+            },
+
+        };
         /// <summary>
         /// 事件
         /// </summary>
@@ -617,13 +863,28 @@ namespace FSM3.Pages
         public void AssetDownload_DownloadProgressChanged(AssetDownload.DownloadIntermation Log)
         {
             // MessageBox.Show("2");
-            Console.WriteLine(Log.FinishFile + "/" + Log.AllFile + "  " + Log.Progress + "  " + Log.Speed);
-            this.Dispatcher.Invoke(new Action(delegate { user.AZJD.Value = Log.Progress; }));
+            Console.WriteLine(Log.Progress + "  " + Log.Speed);
+            this.Dispatcher.Invoke(new Action(delegate {DoF.InstallLib.IsChecked = true; }));
+            this.Dispatcher.Invoke(new Action(delegate { DoF.ZJD.Value = Log.Progress; }));
             if (Log.Progress == 100)
-            {
-                XZJC.Items.RemoveAt(0);
-                NV.NVW.IsEnabled = true;
+            { 
+                this.Dispatcher.Invoke(new Action(delegate { DG.ShowAsync(); }));
+                this.Dispatcher.Invoke(new Action(delegate { DoF.InstallAssets.IsChecked = true; }));
+                this.Dispatcher.Invoke(new Action(delegate { WC(); }));
+                this.Dispatcher.Invoke(new Action(delegate { BDD.PDD.Visibility = Visibility.Hidden; }));
             }
+        }
+        public void WC()
+        {
+            DoubleAnimation yd5 = new DoubleAnimation(0, 55, new Duration(TimeSpan.FromSeconds(0.58)));//浮点动画定义了开始值和起始值
+            DoF.RenderTransform = new TranslateTransform();//在二维x-y坐标系统内平移(移动)对象
+            yd5.EasingFunction = new CubicEase() { EasingMode = EasingMode.EaseOut };
+            // yd5.RepeatBehavior = RepeatBehavior.Forever;//设置循环播放
+            Storyboard.SetTarget(yd5, DoF);//绑定动画为这个按钮执行的浮点动画
+            Storyboard.SetTargetProperty(yd5, new PropertyPath("RenderTransform.Y"));//依赖的属性
+            storyboard.Children.Add(yd5);//向故事板中加入此浮点动画
+            storyboard.Begin();//播放此动画
+            DoF.Visibility = Visibility.Hidden;
         }
         private async void Load(object sender, RoutedEventArgs e)
         {
@@ -648,41 +909,33 @@ namespace FSM3.Pages
                     },
 
                 };
-                var result = await dialog.ShowAsync();
-                if (result == ContentDialogResult.Primary)
-                {
-                    return;
-                }
-                else if (result == ContentDialogResult.None)
-                {
-                    
-                } 
+                await dialog.ShowAsync();
             }
             foreach (var i in mc)
             {
                 switch (i.type)
                 {
                     case "正式版":
-                        McVersionList a = new McVersionList(i.id, i.type);
+                        McVersionList a = new McVersionList(i.id, i.type,i.releaseTime);
                         FSMLauncher_3.DIYvar.minecraft1.Add(a);
                         break;
                     case "快照版":
-                        McVersionList b = new McVersionList(i.id, i.type);
+                        McVersionList b = new McVersionList(i.id, i.type, i.releaseTime);
                         FSMLauncher_3.DIYvar.minecraft2.Add(b);
                         break;
                     case "基岩版":
-                        McVersionList c = new McVersionList(i.id, "早期测试");
+                        McVersionList c = new McVersionList(i.id, "早期测试", i.releaseTime);
                         FSMLauncher_3.DIYvar.minecraft3.Add(c);
                         break;
                     case "远古版":
-                        McVersionList d = new McVersionList(i.id, i.type);
+                        McVersionList d = new McVersionList(i.id, i.type, i.releaseTime);
                         FSMLauncher_3.DIYvar.minecraft4.Add(d);
                         break;
                 }
                 var DT = DateTime.Parse(i.releaseTime);
                 if (DT.ToString("MM-dd") == "04-01")
                 {
-                    McVersionList s = new McVersionList(i.id, "愚人节版本");
+                    McVersionList s = new McVersionList(i.id, "愚人节版本", i.releaseTime);
                     FSMLauncher_3.DIYvar.minecraft5.Add(s);
                 }
 
@@ -695,6 +948,7 @@ namespace FSM3.Pages
             {
                 Item item = new Item();
                 item.Dver.Text = mcVersionLists[i].version;
+                item.TIME.Text = mcVersionLists[i].tsw;
                 item1.Add(item);
             }
             //DIYvar.l = item1;
@@ -721,6 +975,7 @@ namespace FSM3.Pages
                             {
                                 Item item = new Item();
                                 item.Dver.Text = mcVersionLists[i].version;
+                                item.TIME.Text = mcVersionLists[i].tsw;
                                 BitmapImage bi = new BitmapImage();
                                 // BitmapImage.UriSource must be in a BeginInit/EndInit block.  
                                 bi.BeginInit();
@@ -742,6 +997,7 @@ namespace FSM3.Pages
                             {
                                 Item item = new Item();
                                 item.Dver.Text = mcVersionLists[i].version;
+                                item.TIME.Text = mcVersionLists[i].tsw;
                                 item.Dimage.Source = new BitmapImage(new Uri("pack://application:,,,/Image/0E8348D8.PNG"));
                                 BitmapImage bi = new BitmapImage();
                                 // BitmapImage.UriSource must be in a BeginInit/EndInit block.  
@@ -764,6 +1020,7 @@ namespace FSM3.Pages
                             {
                                 Item item = new Item();
                                 item.Dver.Text = mcVersionLists[i].version;
+                                item.TIME.Text = mcVersionLists[i].tsw;
                                 BitmapImage bi = new BitmapImage();
                                 // BitmapImage.UriSource must be in a BeginInit/EndInit block.  
                                 bi.BeginInit();
@@ -786,6 +1043,7 @@ namespace FSM3.Pages
                             {
                                 Item item = new Item();
                                 item.Dver.Text = mcVersionLists[i].version;
+                                item.TIME.Text = mcVersionLists[i].tsw;
                                 BitmapImage bi = new BitmapImage();
                                 // BitmapImage.UriSource must be in a BeginInit/EndInit block.  
                                 bi.BeginInit();
@@ -808,6 +1066,7 @@ namespace FSM3.Pages
                             {
                                 Item item = new Item();
                                 item.Dver.Text = mcVersionLists[i].version;
+                                item.TIME.Text = mcVersionLists[i].tsw;
                                 BitmapImage bi = new BitmapImage();
                                 // BitmapImage.UriSource must be in a BeginInit/EndInit block.  
                                 bi.BeginInit();
@@ -830,6 +1089,7 @@ namespace FSM3.Pages
                         {
                             Item item = new Item();
                             item.Dver.Text = mcVersionLists[i].version;
+                            item.TIME.Text = mcVersionLists[i].tsw;
                             BitmapImage bi = new BitmapImage();
                             // BitmapImage.UriSource must be in a BeginInit/EndInit block.  
                             bi.BeginInit();
@@ -859,13 +1119,13 @@ namespace FSM3.Pages
             var b = await tools.Tools.GetMaxForge(AZForgeV.Text);
             inforge = 1;
             ForgeVer = b.ForgeVersion;
-            ForgeB.Content = "安装Forge\n" + "Forge - " + b.ForgeVersion;
+            ForgeB.Content = "Forge\n" + "Forge - " + b.ForgeVersion;
         }
 
         private void ForgeList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             DTB.SelectedIndex = 0;
-            ForgeB.Content = "安装Forge\n" + ForgeList.SelectedItem;
+            ForgeB.Content = "Forge\n" + ForgeList.SelectedItem;
             ForgeVer = ForgeList.SelectedItem.ToString();
             inforge = 1;
         }
@@ -874,7 +1134,7 @@ namespace FSM3.Pages
         {
             DTB.SelectedIndex = 0;
             //OptiFineList[] op = new OptiFineList[0];
-            OptifineB.Content = "安装Optifine\n" + OptifineList.SelectedItem;
+            OptifineB.Content = "Optifine\n" + OptifineList.SelectedItem;
             OptVer = OptifineList.SelectedItem.ToString();
             optpatch = opp[OptifineList.SelectedIndex].patch;
             inopt = 1;
@@ -885,10 +1145,15 @@ namespace FSM3.Pages
 
         }
 
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+
+        }
+
         private void FabList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             DTB.SelectedIndex = 0;
-            FabricB.Content = "安装Fabric\n" + FabList.SelectedItem;
+            FabricB.Content = "Fabric\n" + FabList.SelectedItem;
             FabVer = FabList.SelectedItem.ToString();
             infab = 1;
         }

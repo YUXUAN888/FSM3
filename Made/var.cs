@@ -61,13 +61,15 @@ namespace FSMLauncher_3
     internal class McVersionList : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
-        string _version, _time;
+        string _version, _time,_tsw;
         public string version { get { return _version; } set { _version = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("version")); } }
         public string time { get { return _time; } set { _time = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("time")); } }
-        internal McVersionList(string version, string time)
+        public string tsw { get { return _tsw; } set { _tsw = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("time")); } }
+        internal McVersionList(string version, string time,string tsw)
         {
             this._version = version;
             this._time = time;
+            this._tsw = tsw;
         }
 
     }

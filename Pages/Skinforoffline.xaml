@@ -4,11 +4,16 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:FSM3.Pages"
+      xmlns:squareminecraftlauncherskin="clr-namespace:SquareMinecraftLauncherSkin;assembly=SquareMinecraftLauncherSkin"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="436.8" d:DesignWidth="754.4"
       Title="Skinforoffline">
 
     <Grid>
-        
+        <Label Content="皮肤库(离线)" FontSize="28" Margin="21,13,564.4,383.8"/>
+        <Button x:Name="Add_Skin" Content="新增一个皮肤" Margin="20,348,0,52.8" Width="219" Height="36" Click="Add_Skin_Click" BorderBrush="#FF007AFF"/>
+        <Button x:Name="Delete_Skin" Content="删除一个皮肤" Margin="20,389,0,11.8" Width="219" Height="36" BorderBrush="Red"/>
+        <ListBox x:Name="OffLineSkinList" HorizontalAlignment="Left" Height="406" Margin="256,15,0,0" VerticalAlignment="Top" Width="489" SelectionChanged="OnlineSkinList_SelectionChanged"/>
+        <!--<squareminecraftlauncherskin:WPFSkin x:Name="Skin" Margin="27,62,530.4,111.8"/>-->
     </Grid>
 </Page>
