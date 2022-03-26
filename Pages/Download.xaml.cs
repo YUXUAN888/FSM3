@@ -35,20 +35,6 @@ namespace FSM3.Pages
         public Download()
         {
             InitializeComponent();
-            ContentDialog dialog = new ContentDialog()
-            {
-                Title = "提示",
-                PrimaryButtonText = "好哒!",
-                IsPrimaryButtonEnabled = true,
-                DefaultButton = ContentDialogButton.Primary,
-                Content = new TextBlock()
-                {
-                    TextWrapping = TextWrapping.WrapWithOverflow,
-                    Text = "FSM3的下载有一点小问题，将会在未来的迭代更新中修复，目前尽量别使用哦，谢谢您的支持!"
-                },
-
-            };
-            var result = dialog.ShowAsync();
             if (IfDown is true)
             {
                 SFYXZJC.Content = "正在下载中...";
@@ -348,7 +334,8 @@ namespace FSM3.Pages
 
         private void Tile_Click_X(object sender, RoutedEventArgs e)
         {
-
+            SquareMinecraftLauncher.Core.wiki a = new SquareMinecraftLauncher.Core.wiki();
+            MessageBox.Show(a.Search("jei"));
         }
 
         private void Button_Click_20(object sender, RoutedEventArgs e)
@@ -441,20 +428,6 @@ namespace FSM3.Pages
                     OptifineB.Content = "Optifine(高清修复)\n" + "当前未选择";
                     FabricB.Content = "Fabric(轻量加载器)\n" + "当前未选择";
                     LiteB.Content = "LiteLoader(轻量加载器)\n" + "当前未选择";
-                    ContentDialog dialog = new ContentDialog()
-                    {
-                        Title = "开始下载",
-                        PrimaryButtonText = "好哒!",
-                        IsPrimaryButtonEnabled = true,
-                        DefaultButton = ContentDialogButton.Primary,
-                        Content = new TextBlock()
-                        {
-                            TextWrapping = TextWrapping.WrapWithOverflow,
-                            Text = "已经开始下载Minecraft啦!\n仅需亿杯咖啡的时间,即可体验游戏快乐!"
-                        },
-
-                    };
-                    var result = await dialog.ShowAsync();
                     IfDown = true;
                     SFYXZJC.Content = "正在下载中...";
                     user.AZBZ.Content = "当前步骤:安装Jar";
@@ -477,7 +450,10 @@ namespace FSM3.Pages
                     }
                     else
                     {
-                        Downloadw(Game.IniReadValue("VPath", int.Parse(Game.IniReadValue("Vlist", "Path") + 2).ToString()) + @"\versions\" + DownloadMCName + @"\" + DownloadMCName + ".jar", download.Url);
+                        string a = Game.IniReadValue("Vlist", "Path");
+                        int s = int.Parse(a);
+                        int ss = s + 1;
+                        Downloadw(Game.IniReadValue("VPath", ss.ToString()) + @"\versions\" + DownloadMCName + @"\" + DownloadMCName + ".jar", download.Url);
                     }
                     download = MinecraftDownload.MCjsonDownload(mcVersionLists[MCV.SelectedIndex].version);
                     if (Game.IniReadValue("Vlist", "Path") == "" || Game.IniReadValue("Vlist", "Path") == "0")
@@ -486,7 +462,10 @@ namespace FSM3.Pages
                     }
                     else
                     {
-                        Downloadw(Game.IniReadValue("VPath", int.Parse(Game.IniReadValue("Vlist", "Path") + 2).ToString()) + @"\versions\" + DownloadMCName + @"\" + DownloadMCName + ".json", download.Url);
+                        string a = Game.IniReadValue("Vlist", "Path");
+                        int s = int.Parse(a);
+                        int ss = s + 1;
+                        Downloadw(Game.IniReadValue("VPath", ss.ToString()) + @"\versions\" + DownloadMCName + @"\" + DownloadMCName + ".json", download.Url);
                     }
                     Jarw = Core5.timer(MCjarInstall, 500);
                     Jarw.Start();
@@ -569,7 +548,7 @@ namespace FSM3.Pages
                 {
                     while (!dlf.EndDownload()) ;
                 });
-                await tools.Tools.OptifineInstall(DownloadMCName, optpatch, j[0].Path);
+                //await tools.Tools.OptifineInstall(DownloadMCName, optpatch, j[0].Path);
                 UPDATEW = Core5.timer(Cree, 5555);
                 UPDATEW.Start();
             }
@@ -711,6 +690,7 @@ namespace FSM3.Pages
                             Text = "出现错误"
                         },
                     };
+                    
                     var result = await dialog.ShowAsync();
                 }
 

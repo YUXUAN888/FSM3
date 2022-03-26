@@ -87,8 +87,11 @@
     <Reference Include="SharpGL.WPF, Version=3.1.1.0, Culture=neutral, PublicKeyToken=27fc851303210b27, processorArchitecture=MSIL">
       <HintPath>packages\SharpGL.WPF.3.1.1\lib\net45\SharpGL.WPF.dll</HintPath>
     </Reference>
-    <Reference Include="SquareMinecraftLauncherSkin, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\SquareMinecraftLauncher.Skin.2.0.0\lib\net452\SquareMinecraftLauncherSkin.dll</HintPath>
+    <Reference Include="SquareMinecraftLauncherCore">
+      <HintPath>C:\Users\26903\Desktop\SquareMinecraftLauncherCore.dll</HintPath>
+    </Reference>
+    <Reference Include="SquareMinecraftLauncherSkin">
+      <HintPath>C:\Users\26903\Desktop\SquareMinecraftLauncherSkin.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
@@ -279,6 +282,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\Help.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\Online.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -348,6 +355,9 @@
     </Compile>
     <Compile Include="Pages\Game.xaml.cs">
       <DependentUpon>Game.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Help.xaml.cs">
+      <DependentUpon>Help.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Online.xaml.cs">
       <DependentUpon>Online.xaml</DependentUpon>
@@ -449,12 +459,6 @@
   <ItemGroup>
     <Folder Include="FSMCore\Download\" />
     <Folder Include="FSMCore\Login\" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="E:\wd\bf\2019\2019备份\SquareMinecraftLauncherCore\SquareMinecraftLauncherCore\SquareMinecraftLauncherCore.csproj">
-      <Project>{f97010a9-5d34-4ca8-8696-4ed3f2fb0ab5}</Project>
-      <Name>SquareMinecraftLauncherCore</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

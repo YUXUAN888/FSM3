@@ -1232,25 +1232,45 @@ namespace FSM3.Pages
             var result = await dialog.ShowAsync();
             if (result == ContentDialogResult.Primary)
             {
-                SquareMinecraftLauncher.Online.Server s = new SquareMinecraftLauncher.Online.Server(int.Parse(box3.Text));
-                String yqm = s.Start();
-                ContentDialog dialogw = new ContentDialog()
+                try
                 {
-                    Title = "开启成功",
-                    PrimaryButtonText = "复制邀请码",
-                    IsPrimaryButtonEnabled = true,
-                    DefaultButton = ContentDialogButton.Primary,
-                    Content = new TextBlock()
+                    SquareMinecraftLauncher.Online.Server s = new SquareMinecraftLauncher.Online.Server(int.Parse(box3.Text));
+                    String yqm = s.Start();
+                    ContentDialog dialogw = new ContentDialog()
                     {
-                        TextWrapping = TextWrapping.WrapWithOverflow,
-                        Text = "您已开房，请复制邀请码给小伙伴~"
-                    },
+                        Title = "开启成功",
+                        PrimaryButtonText = "复制邀请码",
+                        IsPrimaryButtonEnabled = true,
+                        DefaultButton = ContentDialogButton.Primary,
+                        Content = new TextBlock()
+                        {
+                            TextWrapping = TextWrapping.WrapWithOverflow,
+                            Text = "您已开房，请复制邀请码给小伙伴~"
+                        },
 
-                };
-                var resultw = await dialogw.ShowAsync();
-                if (resultw == ContentDialogResult.Primary)
+                    };
+                    var resultw = await dialogw.ShowAsync();
+                    if (resultw == ContentDialogResult.Primary)
+                    {
+                        Clipboard.SetDataObject(yqm);
+                    }
+                }
+                catch(Exception ex)
                 {
-                    Clipboard.SetDataObject(yqm);
+                    ContentDialog dialogw = new ContentDialog()
+                    {
+                        Title = "遇到错误了",
+                        PrimaryButtonText = "好吧",
+                        IsPrimaryButtonEnabled = true,
+                        DefaultButton = ContentDialogButton.Primary,
+                        Content = new TextBlock()
+                        {
+                            TextWrapping = TextWrapping.WrapWithOverflow,
+                            Text = ex.Message,
+                        },
+
+                    };
+                    var resultw = await dialogw.ShowAsync();
                 }
             }
         }

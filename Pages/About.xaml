@@ -23,6 +23,12 @@
                             <Label Content="反馈" Margin="173.5,-17,14.8,0" FontSize="20"/>
                         </StackPanel>
                     </Button>
+                    <Button HorizontalAlignment="Left" Height="85" Margin="259,17,0,0" VerticalAlignment="Top" Width="231" Click="Button_Click_Help">
+                        <StackPanel Height="76" Width="237">
+                            <iconPacks:PackIconSimpleIcons Kind="HelpDesk" Margin="0,5,0,0" Height="60" Width="87"/>
+                            <Label Content="帮助" Margin="173.5,-17,14.8,0" FontSize="20"/>
+                        </StackPanel>
+                    </Button>
 
                 </Grid>
             </TabItem>
@@ -52,7 +58,7 @@
                                         </Button.Background>
                                     </Button>
                                     <Button Content="Blog" HorizontalAlignment="Left" Margin="601,98,0,0" VerticalAlignment="Top" Width="92" Click="Button_Click_1"/>
-                                    <Button Content="赞助他" HorizontalAlignment="Left" Margin="601,44,0,0" VerticalAlignment="Top" Width="92" Click="Button_Click_2"/>
+                                    <Button Content="Github" HorizontalAlignment="Left" Margin="601,44,0,0" VerticalAlignment="Top" Width="92" Click="Button_Click_2"/>
                                     <Border HorizontalAlignment="Left" Margin="15,147,0,0" VerticalAlignment="Top" CornerRadius="6" Width="42" Height="42">
                                         <Border.Background>
                                             <ImageBrush ImageSource="/FSM3;component/Image/44.jpg"></ImageBrush>
@@ -71,7 +77,7 @@
                                     <Label Content="FanSh" HorizontalAlignment="Left" Height="25" VerticalAlignment="Top" Width="196" FontSize="18" Margin="70,148,0,0" Background="{x:Null}"/>
                                     <Label Content="犹太郎" HorizontalAlignment="Left" Height="23" VerticalAlignment="Top" Width="529"  FontSize="18" Margin="70,202,0,0" Background="{x:Null}"/>
                                     <Label Content="交流群内所有支持FSM的小伙伴们" HorizontalAlignment="Left" Height="24" VerticalAlignment="Top" Width="284"  FontSize="18" Margin="70,257,0,0"/>
-                                    <Label Content="提供了 Core 和 BaibaoSkin 联机方式" HorizontalAlignment="Left" Margin="71,67,0,0" VerticalAlignment="Top" Width="400" FontSize="12" Foreground="#FF868686"/>
+                                    <Label Content="提供了 Core 和 BaibaoSkin 联机方式，还帮我修了亿点bug" HorizontalAlignment="Left" Margin="71,67,0,0" VerticalAlignment="Top" Width="400" FontSize="12" Foreground="#FF868686"/>
                                     <Label Content="提供了两种 Frp 联机方式" HorizontalAlignment="Left" Margin="71,118,0,0" VerticalAlignment="Top" Width="400" FontSize="12" Foreground="#FF868686"/>
                                     <Label Content="提供了 FSM 的版本更新直链下载" HorizontalAlignment="Left" Margin="71,171,0,0" VerticalAlignment="Top" Width="400" FontSize="12" Foreground="#FF868686"/>
                                     <Label Content="一开始就支持我制作 FSM 的小伙伴，给我了动力" HorizontalAlignment="Left" Margin="71,227,0,0" VerticalAlignment="Top" Width="400" FontSize="12" Foreground="#FF868686"/>
@@ -90,7 +96,7 @@
                                     </Border>
                                     <Label Content="作者:宇轩Yu_Xuan" HorizontalAlignment="Left" Margin="66,100,0,0" VerticalAlignment="Top" Width="198" FontSize="18"/>
                                     <Button Content="赞助作者" HorizontalAlignment="Left" Margin="603,97,0,0" VerticalAlignment="Top" Width="92" Click="Button_Click"/>
-                                    <Label Content="当前版本: Beta24" HorizontalAlignment="Left" Margin="69,66,0,0" VerticalAlignment="Top" Width="400" FontSize="12" Foreground="#FF868686"/>
+                                    <Label Content="当前版本: Beta25" HorizontalAlignment="Left" Margin="69,66,0,0" VerticalAlignment="Top" Width="400" FontSize="12" Foreground="#FF868686"/>
                                 </Grid>
                             </Border>
                             <Border CornerRadius="7,7,7,7" BorderBrush="#FF323232" BorderThickness="1" HorizontalAlignment="Left" Margin="11,490,0,0" VerticalAlignment="Top" Width="710">

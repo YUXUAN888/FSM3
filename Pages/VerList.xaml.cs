@@ -156,11 +156,6 @@ namespace FSM3.Pages
 
             try
             {
-                try
-                {
-                    vlist.SelectedIndex = int.Parse(IniReadValue("Vlist", "V"));
-                }
-                catch { }
                 if (pathlist.SelectedIndex == 0)
                 {
                     Game.WritePrivateProfileString("Vlist", "Path", pathlist.SelectedIndex.ToString(), File_);
@@ -435,14 +430,10 @@ namespace FSM3.Pages
 
                 }
                 // string mcPath = (sender as ListBox).SelectedItem.ToString();
-                try
-                {
-                    vlist.SelectedIndex = int.Parse(IniReadValue("Vlist", "V"));
-                }catch { }
             }
             catch (Exception ex)
             {
-                vlist.ItemsSource = "";
+                MessageBox.Show(ex.Message);
             }
         }
         String File_ = System.AppDomain.CurrentDomain.BaseDirectory + @"FSM\FSM.slx";
@@ -517,7 +508,6 @@ namespace FSM3.Pages
 
             try
             {
-                vlist.SelectedIndex = int.Parse(IniReadValue("Vlist", "V"));
                 if (pathlist.SelectedIndex == 0)
                 {
                     Game.WritePrivateProfileString("Vlist", "Path", pathlist.SelectedIndex.ToString(), File_);
@@ -655,7 +645,7 @@ namespace FSM3.Pages
                 }
                 else
                 {
-                   
+
                     Game.WritePrivateProfileString("Vlist", "Path", pathlist.SelectedIndex.ToString(), File_);
                     string mcPath = (pathlist.SelectedItem as PathItem).Path.Content.ToString();
                     if (mcPath == "")
@@ -792,11 +782,10 @@ namespace FSM3.Pages
 
                 }
                 // string mcPath = (sender as ListBox).SelectedItem.ToString();
-                vlist.SelectedIndex = int.Parse(IniReadValue("Vlist", "V"));
             }
             catch (Exception ex)
             {
-                vlist.ItemsSource = "";
+                MessageBox.Show(ex.Message);
             }
         }
 

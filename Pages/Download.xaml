@@ -43,7 +43,7 @@
                     </ComboBox>
                     <Button Content="开始安装" HorizontalAlignment="Left" Margin="11,299,0,0" Style="{StaticResource AccentButtonStyle}" VerticalAlignment="Top" Width="191" Height="60" FontSize="17.11" Click="Button_Click"/>
 
-                    <Download_Pages:DownFly x:Name="DoF" Margin="4,303,1.8,2.4" Visibility="Hidden"/>
+                    <Download_Pages:DownFly x:Name="DoF" Margin="4,297,1.8,11.4" Visibility="Hidden"/>
 
                 </Grid>
             </TabItem>
@@ -55,10 +55,10 @@
                     </StackPanel>
                 </TabItem.Header>
                 <Grid>
-                    <Label Content="呜..资源下载还在施工中" HorizontalAlignment="Left" Margin="302,173,0,0" VerticalAlignment="Top"/>
+                    <Label Content="呜..资源下载还在施工中" HorizontalAlignment="Left" Margin="302,173,0,0" VerticalAlignment="Top" Height="20" Width="154"/>
                 </Grid>
             </TabItem>
-            <TabItem>
+            <TabItem Visibility="Hidden">
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal" Margin="0,0,9.2,0">
                         <iconPacks:PackIconSimpleIcons Kind="Uploaded" Margin="0,2,5,0"/>

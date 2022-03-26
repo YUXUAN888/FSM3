@@ -10,6 +10,7 @@ namespace FSM3
 {
     internal class DownloadFile
     {
+        //这里是baibao写的，感谢baibao
         Gac.DownLoadFile downLoadFile = new Gac.DownLoadFile();
         public int All = 0;
         public int Left = 0;

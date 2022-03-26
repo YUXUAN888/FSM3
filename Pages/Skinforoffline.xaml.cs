@@ -2,11 +2,14 @@
 using FSMLauncher_3;
 using Gac;
 using ModernWpf.Controls;
+using MojangAPI;
+using MojangAPI.Model;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -121,7 +124,11 @@ namespace FSM3.Pages
             {
                 //statistics = KMCCC.Pro.Modules.MojangAPI.MojangAPI.GetStatistics();
                 //MessageBox.Show(statistics.getTotal().ToString());
-                //SkinUUID = KMCCC.Pro.Modules.MojangAPI.MojangAPI.NameToUUID(inputSkinName).ToString();
+                HttpClient httpClient = new HttpClient();
+                Mojang mojang = new Mojang(httpClient);
+                PlayerUUID uuid = await mojang.GetUUID(inputSkinName);
+                SkinUUID = uuid.UUID;
+                ///SkinUUID = KMCCC.Pro.Modules.MojangAPI.MojangAPI.NameToUUID(inputSkinName).ToString();
                 Directory.CreateDirectory(Game.ZongSkin + @"\" + inputSkinName);
                 if (System.IO.File.Exists(Game.ZongSkin + @"\SkinZ.Skin"))
                 {

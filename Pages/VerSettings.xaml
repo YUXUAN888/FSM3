@@ -43,7 +43,7 @@
                         <Grid>
                             <Label Content="高级" HorizontalAlignment="Left" Margin="16,10,0,0" VerticalAlignment="Top" Height="24" Width="77" FontSize="18"/>
                             <Button Content="打开版本文件夹" HorizontalAlignment="Left" Margin="15,48,0,0" VerticalAlignment="Top" Width="161" Height="34"/>
-                            <Button Content="删除此版本" HorizontalAlignment="Left" Margin="195,48,0,0" VerticalAlignment="Top" Width="161" Height="34" BorderBrush="Red"/>
+                            <Button Content="删除此版本" HorizontalAlignment="Left" Margin="195,48,0,0" VerticalAlignment="Top" Width="161" Height="34" BorderBrush="Red" Click="Button_Click_2"/>
 
                         </Grid>
                     </Border>
