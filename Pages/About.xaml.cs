@@ -430,30 +430,7 @@ namespace FSM3.Pages
 
         private async void Button_Click_sbm(object sender, RoutedEventArgs e)
         {
-            string code = null;
-            SelectQuery query = new SelectQuery("select * from Win32_ComputerSystemProduct");
-            using (ManagementObjectSearcher searcher = new ManagementObjectSearcher(query))
-            {
-                foreach (var item in searcher.Get())
-                {
-                    using (item) code = item["UUID"].ToString();
-                }
-            }
-            Clipboard.SetDataObject(code);
-            ContentDialog dialog = new ContentDialog()
-            {
-                Title = "已复制识别码",
-                PrimaryButtonText = "好哒!",
-                IsPrimaryButtonEnabled = true,
-                DefaultButton = ContentDialogButton.Primary,
-                Content = new TextBlock()
-                {
-                    TextWrapping = TextWrapping.WrapWithOverflow,
-                    Text = "请到内群解锁"
-                },
-
-            };
-            await dialog.ShowAsync();
+            
         }
         public static string jiema(string s)
         {
@@ -547,63 +524,7 @@ namespace FSM3.Pages
         }
         private void FixJS_Click(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                String JS = JS1.Text;
-                string code = null;
-                SelectQuery query = new SelectQuery("select * from Win32_ComputerSystemProduct");
-                using (ManagementObjectSearcher searcher = new ManagementObjectSearcher(query))
-                {
-                    foreach (var item in searcher.Get())
-                    {
-                        using (item) code = item["UUID"].ToString();
-                    }
-                }
-                string zz = DecryptDES(JS,"87654321");
-                if (zz == code + "SHILI")
-                {
-                    Game.WritePrivateProfileString("JSM", "JSM", EncryptDES(code, "87654321"), Game.FileS);
-                    SoundPlayer player = new SoundPlayer();
-                    player.SoundLocation = ZongW + @"\Fix.wav";
-                    player.Play();
-                    YJS = true;
-                    ContentDialog dialog = new ContentDialog()
-                    {
-                        Title = "解锁成功",
-                        PrimaryButtonText = "好哒!",
-                        IsPrimaryButtonEnabled = true,
-                        DefaultButton = ContentDialogButton.Primary,
-                        Content = new TextBlock()
-                        {
-                            TextWrapping = TextWrapping.WrapWithOverflow,
-                            Text = "感谢您使用FSM启动器,付费功能已解锁"
-                        },
-
-                    };
-                    dialog.ShowAsync();
-                }
-                else
-                {
-                    ContentDialog dialog = new ContentDialog()
-                    {
-                        Title = "解锁失败",
-                        PrimaryButtonText = "好吧",
-                        IsPrimaryButtonEnabled = true,
-                        DefaultButton = ContentDialogButton.Primary,
-                        Content = new TextBlock()
-                        {
-                            TextWrapping = TextWrapping.WrapWithOverflow,
-                            Text = "可能是解锁码错误了"
-                        },
-
-                    };
-                    dialog.ShowAsync();
-                }
-            }
-            catch
-            {
-
-            }
+            
         }
 
         private void Button_Click_Help(object sender, RoutedEventArgs e)

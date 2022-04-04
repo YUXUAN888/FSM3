@@ -164,7 +164,7 @@
                     <Grid.Background>
                         <ImageBrush/>
                     </Grid.Background>
-                    <Image x:Name="OFFLINEI" HorizontalAlignment="Left" Height="101" Margin="125,43,0,0" VerticalAlignment="Top" Width="101" Source="/FSM3;component/Image/Steve.png"/>
+                    <Image x:Name="OFFLINEI" HorizontalAlignment="Left" Height="101" Margin="126,43,0,0" VerticalAlignment="Top" Width="101" Source="/FSM3;component/Image/Steve.png"/>
                     <TextBox x:Name="OfflineName" HorizontalAlignment="Left" Height="8" Margin="57,177,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="257" TextChanged="OfflineName_TextChanged"/>
                     <Label Content="ID:" HorizontalAlignment="Left" Margin="34,184,0,0" VerticalAlignment="Top"/>
                     <Button x:Name="LXGHPF" Height="25" Width="37" Margin="307,250,0,9" Click="Button_Click_7">

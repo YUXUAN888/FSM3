@@ -74,7 +74,7 @@ namespace FSM3.Pages
                 ONLINEW.Stop();
                 ONLINEW.Stop();
                 ZWindoww.Zwindow.IsEnabled = true;
-                ZBt.zbt.Content = "FSM Launcher";
+                ZBt.zbt.Content = "FSM Launcher 3";
                 ONLINEW.Stop();
             }
 
