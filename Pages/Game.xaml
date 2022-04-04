@@ -1,4 +1,4 @@
-﻿<Page x:Class="FSM3.Pages.Game"
+﻿<Page
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -6,6 +6,7 @@
       xmlns:local="clr-namespace:FSM3.Pages" xmlns:ui="http://schemas.modernwpf.com/2019"
       xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
       xmlns:squareminecraftlauncherskin="clr-namespace:SquareMinecraftLauncherSkin;assembly=SquareMinecraftLauncherSkin" xmlns:dialogs="clr-namespace:FSM3.Dialogs"
+      xmlns:About_List="clr-namespace:FSM3.About_List" x:Class="FSM3.Pages.Game"
       mc:Ignorable="d" 
       d:DesignHeight="444"
       Title="Game" Width="752.8">
@@ -82,6 +83,9 @@
                     </StackPanel>
                 </TabItem.Header>
                 <Grid>
+                    <Grid.Background>
+                        <ImageBrush/>
+                    </Grid.Background>
                     <TabControl x:Name="WrD">
                         <TabControl.Background>
                             <ImageBrush/>
@@ -147,9 +151,6 @@
                             </Grid>
                         </TabItem>
                     </TabControl>
-                    <Grid.Background>
-                        <ImageBrush/>
-                    </Grid.Background>
                 </Grid>
             </TabItem>
             <TabItem Width="75">
@@ -201,7 +202,7 @@
                                 <Label Content="服务器:" HorizontalAlignment="Left" Margin="12,66,0,0" VerticalAlignment="Top"/>
                                 <TextBox x:Name="IDD" HorizontalAlignment="Left" Height="25" Margin="69,102,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="271"/>
                                 <Label Content="邮箱:" HorizontalAlignment="Left" Margin="10,109,0,0" VerticalAlignment="Top" Width="44" HorizontalContentAlignment="Right"/>
-                                <PasswordBox x:Name="IDDPassWord" Width="271" Margin="69,145,12.8,96.2"></PasswordBox>
+                                <PasswordBox x:Name="IDDPassWord" Width="271" Margin="69,145,12.8,96.2"/>
                                 <Label Content="密码:" HorizontalAlignment="Left" Margin="10,152,0,0" VerticalAlignment="Top" Width="44" HorizontalContentAlignment="Right"/>
                                 <Button Content="登录" HorizontalAlignment="Left" Margin="246,186,0,0" VerticalAlignment="Top" Width="94" Click="Button_Click_5"/>
 
@@ -230,5 +231,6 @@
             </TabItem>
         </TabControl>
         <Frame x:Name="HomePage" Content="" HorizontalAlignment="Left" Height="417" Margin="9,13,0,0" VerticalAlignment="Top" Width="354"/>
+        <dialogs:StartGame x:Name="START" HorizontalAlignment="Left" Margin="91,6,0,0" VerticalAlignment="Top" Height="80" Width="570" Visibility="Hidden"/>
     </Grid>
 </Page>

@@ -2,6 +2,8 @@
 using FSMLauncher_3;
 using Gac;
 using ModernWpf.Controls;
+using ModernWpf.Media.Animation;
+using Newtonsoft.Json;
 using SquareMinecraftLauncher;
 using SquareMinecraftLauncher.Core.fabricmc;
 using SquareMinecraftLauncher.Minecraft;
@@ -9,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -122,7 +125,7 @@ namespace FSM3.Pages
                     }
                     var b = await tools.Tools.GetMaxForge(AZForgeV.Text);
                     MaxForge.Content = "建议的Forge版本:" + b.ForgeVersion + " (点击选择)";
-                    DTB.SelectedIndex = 3;
+                    DTB.SelectedIndex = 4;
 
                     TranslateTransform tt = new TranslateTransform();
                     TranslateTransform aa = new TranslateTransform();
@@ -203,7 +206,7 @@ namespace FSM3.Pages
                     }
 
                     //MessageBox.Show(a[i]);
-                    DTB.SelectedIndex = 5;
+                    DTB.SelectedIndex = 6;
                     TranslateTransform tt = new TranslateTransform();
                     TranslateTransform aa = new TranslateTransform();
                     //创建一个一个对象，对两个值在时间线上进行动画处理（移动距离，移动到的位置）
@@ -285,7 +288,7 @@ namespace FSM3.Pages
                         OptifineList.Items.Add(i.filename);
                     }
 
-                    DTB.SelectedIndex = 4;
+                    DTB.SelectedIndex = 5;
                     TranslateTransform tt = new TranslateTransform();
                     TranslateTransform aa = new TranslateTransform();
                     //创建一个一个对象，对两个值在时间线上进行动画处理（移动距离，移动到的位置）
@@ -332,17 +335,17 @@ namespace FSM3.Pages
         }
         OptiFineList[] opp = new OptiFineList[0];
 
-        private void Tile_Click_X(object sender, RoutedEventArgs e)
+        private async void Tile_Click_X(object sender, RoutedEventArgs e)
         {
             SquareMinecraftLauncher.Core.wiki a = new SquareMinecraftLauncher.Core.wiki();
-            MessageBox.Show(a.Search("jei"));
+            MessageBox.Show(await a.Search("jei"));
         }
 
         private void Button_Click_20(object sender, RoutedEventArgs e)
         {
 
         }
-
+        string[] modrinthW;
         private void yxlx_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
@@ -849,6 +852,11 @@ namespace FSM3.Pages
                     McVersionList s = new McVersionList(i.id, "愚人节版本", i.releaseTime);
                     FSMLauncher_3.DIYvar.minecraft5.Add(s);
                 }
+                if(i.id is "22w13oneblockatatime")
+                {
+                    McVersionList s = new McVersionList(i.id, "愚人节版本", i.releaseTime);
+                    FSMLauncher_3.DIYvar.minecraft5.Add(s);
+                }
 
             }
             mcVersionLists = FSMLauncher_3.DIYvar.minecraft1.ToArray();
@@ -864,9 +872,73 @@ namespace FSM3.Pages
             }
             //DIYvar.l = item1;
             MCV.ItemsSource = item1.ToArray();
+            WebClient wc = new WebClient();
+            string str;
+            str = await HQ("https://api.modrinth.com/v2/search");
+            Modrinth.Root rb = JsonConvert.DeserializeObject<Modrinth.Root>(str);
+            List<modlist> itemx = new List<modlist>();
+            for (int i = 0; i < rb.hits.Count; ++i)
+            {
+                Console.WriteLine(rb.hits[i].title + "  " + rb.hits[i].versions[0]);
+                modlist itemy = new modlist();
+                //modrinthW[i] = rb.hits[i].project_id;
+                try
+                {
+                    itemy.ModLogo.Background = new ImageBrush
+                    {
+                        ImageSource = new BitmapImage(new Uri(rb.hits[i].icon_url))
+                    };
+                }
+                catch
+                {
+
+                }
+                string a = await wiki.Search(rb.hits[i].title);
+                if (a is null)
+                {
+                    itemy.ModName.Content = rb.hits[i].title;
+                    itemy.NameZ.Content= rb.hits[i].title+"|"+rb.hits[i].project_id;
+                    FSMCore.Modrinth.Modpublic.modzname = itemy.ModName.Content.ToString();
+                    string rby = null;
+                    for (int b = 0; b < rb.hits[i].categories.Count; b++)
+                    {
+                        rby = rb.hits[i].categories[b];
+                    }
+                    itemy.ModBio.Content = rb.hits[i].description + "\n最高支持:" + rb.hits[i].latest_version + "  加载器:" + rby;
+                    ModrinthList.Items.Add(itemy);
+                }
+                else
+                {
+                    var b = await wiki.SearchInformation(a);
+                    string rby = null;
+                    for (int bx = 0; bx < rb.hits[i].categories.Count; bx++)
+                    {
+                        rby = rb.hits[i].categories[bx];
+                    }
+                    if(rb.hits[i].title is "Sodium") { itemy.ModName.Content = "钠 (Sodium)"; } else { itemy.ModName.Content = b.Title + " (" + rb.hits[i].title + ")"; }
+                    itemy.ModBio.Content = rb.hits[i].description + "\n最高支持:" + rb.hits[i].latest_version + "  加载器:" + rby;
+                    itemy.NameZ.Content = rb.hits[i].title + "|" + rb.hits[i].project_id;
+                    FSMCore.Modrinth.Modpublic.modzname = itemy.ModName.Content.ToString();
+                    ModrinthList.Items.Add(itemy);
+                }
+            }
         }
         internal static McVersionList[] mcVersionLists = new McVersionList[0];
-
+        SquareMinecraftLauncher.Core.wiki wiki = new SquareMinecraftLauncher.Core.wiki();
+        string B;
+        public async Task<string> HQ(string a)
+        {
+            WebClient wc = new WebClient();
+            string str;
+            str = wc.DownloadString(a);
+            return str;
+        }
+        public async Task<string> HQ()
+        {
+            WebClient wc = new WebClient();
+            await Task.Run(() => { B = wc.DownloadString("https://api.modrinth.com/v2/search"); });
+            return B;
+        } 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             try
@@ -1062,6 +1134,197 @@ namespace FSM3.Pages
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
 
+        }
+        public string GetEN(string EN)
+        {
+            string a = null;
+            switch (EN)
+            {
+                case "adventure":
+                    a = "奇遇";
+                    break;
+                case "cursed":
+                    a = "诅咒";
+                    break;
+                case "decoration":
+                    a = "装饰";
+                    break;
+                case "equipment":
+                    a = "设备";
+                    break;
+                case "food":
+                    a = "食物";
+                    break;
+                case "library":
+                    a = "图书馆";
+                    break;
+                case "magic":
+                    a = "魔法";
+                    break;
+                case "misc":
+                    a = "杂项";
+                    break;
+                case "optimization":
+                    a = "优化";
+                    break;
+                case "storage":
+                    a = "存储";
+                    break;
+                case "technology":
+                    a = "科技";
+                    break;
+                case "utility":
+                    a = "效用";
+                    break;
+                case "worldgen":
+                    a = "世源";
+                    break;
+            }
+            return a;
+        }
+        public string GetZH(string zh)
+        {
+            string a = null;
+            switch (zh)
+            {
+                case "奇遇":
+                    a= "adventure";
+                    break;
+                case "诅咒":
+                    a = "cursed";
+                    break;
+                case "装饰":
+                    a = "decoration";
+                    break;
+                case "设备":
+                    a = "equipment";
+                    break;
+                case "食物":
+                    a = "food";
+                    break;
+                case "图书馆":
+                    a = "library";
+                    break;
+                case "魔法":
+                    a = "magic";
+                    break;
+                case "杂项":
+                    a = "misc";
+                    break;
+                case "优化":
+                    a = "optimization";
+                    break;
+                case "存储":
+                    a = "storage";
+                    break;
+                case "科技":
+                    a = "technology";
+                    break;
+                case "效用":
+                    a = "utility";
+                    break;
+                case "世源":
+                    a = "worldgen";
+                    break;
+            }
+            return a;
+        }
+        private async void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            WebClient wc = new WebClient();
+            string str = null;
+            try
+            {
+                ModrinthList.Items.Clear();
+                if (ModrinthVer.Text is "全部" && ModrinthJZQ.Text is "全部" && ModrinthLB.Text is "全部")
+                {
+                    str = wc.DownloadString("https://api.modrinth.com/v2/search?query=" + ModrinthText.Text);     
+                }
+                else if (ModrinthVer.Text != "全部" && ModrinthJZQ.Text is "全部" && ModrinthLB.Text is "全部")
+                {
+                    str = wc.DownloadString("https://api.modrinth.com/v2/search?query="+ModrinthText.Text+"&limit=20&index=relevance&facets=[[%22versions:"+ModrinthVer.Text+"%22]]");
+                }
+                else if (ModrinthVer.Text is "全部" && ModrinthJZQ.Text != "全部" && ModrinthLB.Text is "全部")
+                {
+                    str = wc.DownloadString("https://api.modrinth.com/v2/search?query=" + ModrinthText.Text + "&limit=20&index=relevance&facets=[[%22categories:" + ModrinthJZQ.Text + "%22]]");
+                }
+                else if (ModrinthVer.Text is "全部" && ModrinthJZQ.Text is "全部" && ModrinthLB.Text != "全部")
+                {
+                    str = wc.DownloadString("https://api.modrinth.com/v2/search?query=" + ModrinthText.Text + "&limit=20&index=relevance&facets=[[%22categories:" + GetZH(ModrinthLB.Text) + "%22]]");
+                }
+                else if (ModrinthVer.Text != "全部" && ModrinthJZQ.Text != "全部" && ModrinthLB.Text != "全部")
+                {
+                    str = wc.DownloadString("https://api.modrinth.com/v2/search?query=" + ModrinthText.Text + "&limit=20&index=relevance&facets=[[%22categories:" + GetZH(ModrinthLB.Text) + "%22],[%22categories:" + ModrinthJZQ.Text + "%22],[%22versions:" + ModrinthVer.Text + "%22]]");
+                }
+                else if (ModrinthVer.Text is "全部" && ModrinthJZQ.Text != "全部" && ModrinthLB.Text != "全部")
+                {
+                    str = wc.DownloadString("https://api.modrinth.com/v2/search?query=" + ModrinthText.Text + "&limit=20&index=relevance&facets=[[%22categories:" + GetZH(ModrinthLB.Text) + "%22],[%22categories:" + ModrinthJZQ.Text + "%22]]");
+                }
+                Modrinth.Root rb = JsonConvert.DeserializeObject<Modrinth.Root>(str);
+                List<modlist> itemx = new List<modlist>();
+                for (int i = 0; i < rb.hits.Count; ++i)
+                {
+                    Console.WriteLine(rb.hits[i].title + "  " + rb.hits[i].versions[0]);
+                    modlist itemy = new modlist();
+                    //modrinthW[i] = rb.hits[i].project_id;
+                    itemy.ModLogo.Background = new ImageBrush
+                    {
+                        ImageSource = new BitmapImage(new Uri(rb.hits[i].icon_url))
+                    };
+                    string a = await wiki.Search(rb.hits[i].title);
+                    if (a is null)
+                    {
+                        itemy.ModName.Content = rb.hits[i].title;
+                        itemy.NameZ.Content = rb.hits[i].title + "|" + rb.hits[i].project_id;
+                        FSMCore.Modrinth.Modpublic.modzname = itemy.ModName.Content.ToString();
+                        string rby = null;
+                        for (int b = 0; b < rb.hits[i].categories.Count; b++)
+                        {
+                            rby = rb.hits[i].categories[b];
+                        }
+                        itemy.ModBio.Content = rb.hits[i].description + "\n最高支持:" + rb.hits[i].latest_version + "  加载器:" + rby;
+                        ModrinthList.Items.Add(itemy);
+                    }
+                    else
+                    {
+                        var b = await wiki.SearchInformation(a);
+                        string rby = null;
+                        for (int bx = 0; bx < rb.hits[i].categories.Count; bx++)
+                        {
+                            rby = rb.hits[i].categories[bx];
+                        }
+                        if (rb.hits[i].title is "Sodium") { itemy.ModName.Content = "钠 (Sodium)"; } else { itemy.ModName.Content = b.Title + " (" + rb.hits[i].title + ")"; }
+                        itemy.ModBio.Content = rb.hits[i].description + "\n最高支持:" + rb.hits[i].latest_version + "  加载器:" + rby;
+                        itemy.NameZ.Content = rb.hits[i].title + "|" + rb.hits[i].project_id;
+                        FSMCore.Modrinth.Modpublic.modzname = itemy.ModName.Content.ToString();
+                        ModrinthList.Items.Add(itemy);
+                    }
+                }
+            }
+            catch(Exception ex)
+            {
+                ContentDialog dialog = new ContentDialog()
+                {
+                    Title = "搜索失败",
+                    PrimaryButtonText = "好吧",
+                    IsPrimaryButtonEnabled = true,
+                    DefaultButton = ContentDialogButton.Primary,
+                    Content = new TextBlock()
+                    {
+                        TextWrapping = TextWrapping.WrapWithOverflow,
+                        Text = ex.Message,
+                    },
+                };
+                var result = dialog.ShowAsync();
+            }
+        }
+        private NavigationTransitionInfo _transitionInfo = null;
+        private void ModrinthList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            FSMCore.Modrinth.Modpublic.modname = (ModrinthList.SelectedItem as modlist).NameZ.Content.ToString();
+            //MessageBox.Show(FSMCore.Modrinth.Modpublic.modname);
+            _transitionInfo = new DrillInNavigationTransitionInfo();
+            FSM3.framecontrol.frame.Navigate(dyuri("/Pages/Modbio.xaml"), null, _transitionInfo);
         }
 
         private void FabList_SelectionChanged(object sender, SelectionChangedEventArgs e)

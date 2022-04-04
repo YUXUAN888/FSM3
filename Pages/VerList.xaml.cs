@@ -433,7 +433,7 @@ namespace FSM3.Pages
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                
             }
         }
         String File_ = System.AppDomain.CurrentDomain.BaseDirectory + @"FSM\FSM.slx";
@@ -785,7 +785,7 @@ namespace FSM3.Pages
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                
             }
         }
 

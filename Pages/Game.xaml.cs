@@ -99,7 +99,102 @@ namespace FSM3.Pages
         {
             InitializeComponent();
             NowVw.NowV = NowV;
-            
+            try
+            {
+                string aaw = About.DecryptDES(IniReadValue("JSM", "JSM"), "87654321");
+                // MessageBox.Show(DecryptDES("ODliMzdkNWNmOTBhOTViNQ==", "8765432w"));
+                string code = null;
+                SelectQuery query = new SelectQuery("select * from Win32_ComputerSystemProduct");
+                using (ManagementObjectSearcher searcher = new ManagementObjectSearcher(query))
+                {
+                    foreach (var item in searcher.Get())
+                    {
+                        using (item) code = item["UUID"].ToString();
+                    }
+
+                }
+                if (aaw == code)
+                {
+                    About.YJS = true;
+                    switch (int.Parse(IniReadValue("JSM", "Color")))
+                    {
+                        case 0:
+                            DisHelper.DisHelper.RunOnMainThread(() =>
+                            {
+                                ThemeManager.Current.AccentColor = System.Windows.Media.Color.FromRgb(255, 140, 0);  //橙色
+                                WritePrivateProfileString("JSM", "Color", "0", FileS);
+                            });
+                            break;
+                        case 1:
+                            DisHelper.DisHelper.RunOnMainThread(() =>
+                            {
+                                ThemeManager.Current.AccentColor = System.Windows.Media.Color.FromRgb(255, 67, 67);  //鲜艳红
+                                WritePrivateProfileString("JSM", "Color", "1", FileS);
+                            });
+                            break;
+                        case 2:
+                            DisHelper.DisHelper.RunOnMainThread(() =>
+                            {
+                                ThemeManager.Current.AccentColor = System.Windows.Media.Color.FromRgb(232, 17, 35);  //中国红
+                                WritePrivateProfileString("JSM", "Color", "2", FileS);
+                            });
+                            break;
+                        case 3:
+                            DisHelper.DisHelper.RunOnMainThread(() =>
+                            {
+                                ThemeManager.Current.AccentColor = System.Windows.Media.Color.FromRgb(234, 0, 94);  //小马宝莉
+                                WritePrivateProfileString("JSM", "Color", "3", FileS);
+                            });
+                            break;
+                        case 4:
+                            DisHelper.DisHelper.RunOnMainThread(() =>
+                            {
+                                ThemeManager.Current.AccentColor = System.Windows.Media.Color.FromRgb(142, 140, 216);  //淡紫色
+                                WritePrivateProfileString("JSM", "Color", "4", FileS);
+                            });
+                            break;
+                        case 5:
+                            DisHelper.DisHelper.RunOnMainThread(() =>
+                            {
+                                ThemeManager.Current.AccentColor = System.Windows.Media.Color.FromRgb(45, 125, 154);  //青色
+                                WritePrivateProfileString("JSM", "Color", "5", FileS);
+                            });
+                            break;
+                        case 6:
+                            DisHelper.DisHelper.RunOnMainThread(() =>
+                            {
+                                ThemeManager.Current.AccentColor = System.Windows.Media.Color.FromRgb(16, 124, 16);  //原谅绿
+                                WritePrivateProfileString("JSM", "Color", "6", FileS);
+                            });
+                            break;
+                        case 7:
+                            DisHelper.DisHelper.RunOnMainThread(() =>
+                            {
+                                ThemeManager.Current.AccentColor = System.Windows.Media.Color.FromRgb(46, 47, 42);  //高端灰
+                                WritePrivateProfileString("JSM", "Color", "7", FileS);
+                            });
+                            break;
+                        case 8:
+                            DisHelper.DisHelper.RunOnMainThread(() =>
+                            {
+                                ThemeManager.Current.AccentColor = System.Windows.Media.Color.FromRgb(0, 204, 106);  //青草绿
+                                WritePrivateProfileString("JSM", "Color", "8", FileS);
+                            });
+                            break;
+                        case 9:
+                            DisHelper.DisHelper.RunOnMainThread(() =>
+                            {
+                                ThemeManager.Current.AccentColor = System.Windows.Media.Color.FromRgb(202, 80, 16);  //深度橘
+                                WritePrivateProfileString("JSM", "Color", "9", FileS);
+                            });
+                            break;
+                    }
+                }
+            }
+            catch
+            {
+
+            }
             if (Game.IniReadValueW("OffLine", "Skin") == "" || Game.IniReadValueW("OffLine", "Skin") == null)
             {
 
@@ -919,12 +1014,28 @@ namespace FSM3.Pages
                                 //var loading = await this.ShowProgressAsync("启动游戏", "正在启动游戏,请稍后\n"+"你知道吗？"+NZDM[ra.Next(0, 6)]);
                                 game.Launcher = "FSM3";
                                 await game.StartGame(NowV.Content.ToString(), java_list.Text, RAMW, Mojangname, MojangUUID, MojangToken, IniReadValue("JVM", "JVMW") + " -XX:+UseG1GC -XX:-UseAdaptiveSizePolicy -XX:-OmitStackTraceInFastThrow -Dfml.ignoreInvalidMinecraftCertificates=True -Dfml.ignorePatchDiscrepancies=True -Dlog4j2.formatMsgNoLookups=true", IniReadValue("EY", "EYW"));
-                                (FindResource("hideMe") as System.Windows.Media.Animation.Storyboard).Begin(StartGamew.SM);
+                                START.Visibility = Visibility.Visible;
+                                DoubleAnimation animation = new DoubleAnimation(-100, 0, new Duration(TimeSpan.FromSeconds(0.58)));//浮点动画定义了开始值和起始值
+                                START.RenderTransform = new TranslateTransform();//在二维x-y坐标系统内平移(移动)对象
+                                animation.EasingFunction = new CubicEase() { EasingMode = EasingMode.EaseOut };
+                                // yd5.RepeatBehavior = RepeatBehavior.Forever;//设置循环播放
+                                Storyboard.SetTarget(animation, START);//绑定动画为这个按钮执行的浮点动画
+                                Storyboard.SetTargetProperty(animation, new PropertyPath("RenderTransform.Y"));//依赖的属性
+                                storyboard.Children.Add(animation);//向故事板中加入此浮点动画
+                                storyboard.Begin();//播放此动画
                                 game.Launcher = "FSM3";
                             }
                             catch (Exception ex)
                             {
-                                (FindResource("hideMe") as System.Windows.Media.Animation.Storyboard).Begin(StartGamew.SM);
+                                START.Visibility = Visibility.Hidden;
+                                DoubleAnimation animation = new DoubleAnimation(-100, 0, new Duration(TimeSpan.FromSeconds(0.58)));//浮点动画定义了开始值和起始值
+                                START.RenderTransform = new TranslateTransform();//在二维x-y坐标系统内平移(移动)对象
+                                animation.EasingFunction = new CubicEase() { EasingMode = EasingMode.EaseOut };
+                                // yd5.RepeatBehavior = RepeatBehavior.Forever;//设置循环播放
+                                Storyboard.SetTarget(animation, START);//绑定动画为这个按钮执行的浮点动画
+                                Storyboard.SetTargetProperty(animation, new PropertyPath("RenderTransform.Y"));//依赖的属性
+                                storyboard.Children.Add(animation);//向故事板中加入此浮点动画
+                                storyboard.Begin();//播放此动画
                                 ContentDialog dialog = new ContentDialog()
                                 {
                                     Title = "启动失败(一般性)",
@@ -957,11 +1068,27 @@ namespace FSM3.Pages
                                 await game.StartGame(NowV.Content.ToString(), java_list.Text, RAMW, wrname, wruuid, wrtoken, IniReadValue("JVM", "JVMW") + " -XX:+UseG1GC -XX:-UseAdaptiveSizePolicy -XX:-OmitStackTraceInFastThrow -Dfml.ignoreInvalidMinecraftCertificates=True -Dfml.ignorePatchDiscrepancies=True -Dlog4j2.formatMsgNoLookups=true", IniReadValue("EY", "EYW"));
 
                                 game.Launcher = "FSM3";
-                                (FindResource("hideMe") as System.Windows.Media.Animation.Storyboard).Begin(StartGamew.SM);
+                                START.Visibility = Visibility.Hidden;
+                                DoubleAnimation yd5s = new DoubleAnimation(-100, 0, new Duration(TimeSpan.FromSeconds(0.58)));//浮点动画定义了开始值和起始值
+                                START.RenderTransform = new TranslateTransform();//在二维x-y坐标系统内平移(移动)对象
+                                yd5s.EasingFunction = new CubicEase() { EasingMode = EasingMode.EaseOut };
+                                // yd5.RepeatBehavior = RepeatBehavior.Forever;//设置循环播放
+                                Storyboard.SetTarget(yd5s, START);//绑定动画为这个按钮执行的浮点动画
+                                Storyboard.SetTargetProperty(yd5s, new PropertyPath("RenderTransform.Y"));//依赖的属性
+                                storyboard.Children.Add(yd5s);//向故事板中加入此浮点动画
+                                storyboard.Begin();//播放此动画
                             }
                             catch (Exception ex)
                             {
-                                (FindResource("hideMe") as System.Windows.Media.Animation.Storyboard).Begin(StartGamew.SM);
+                                START.Visibility = Visibility.Hidden;
+                                DoubleAnimation yd5s = new DoubleAnimation(-100, 0, new Duration(TimeSpan.FromSeconds(0.58)));//浮点动画定义了开始值和起始值
+                                START.RenderTransform = new TranslateTransform();//在二维x-y坐标系统内平移(移动)对象
+                                yd5s.EasingFunction = new CubicEase() { EasingMode = EasingMode.EaseOut };
+                                // yd5.RepeatBehavior = RepeatBehavior.Forever;//设置循环播放
+                                Storyboard.SetTarget(yd5s, START);//绑定动画为这个按钮执行的浮点动画
+                                Storyboard.SetTargetProperty(yd5s, new PropertyPath("RenderTransform.Y"));//依赖的属性
+                                storyboard.Children.Add(yd5s);//向故事板中加入此浮点动画
+                                storyboard.Begin();//播放此动画
 
 
                                 ContentDialog dialog = new ContentDialog()
@@ -982,7 +1109,15 @@ namespace FSM3.Pages
                         }
                         catch (Exception ex)
                         {
-                            (FindResource("hideMe") as System.Windows.Media.Animation.Storyboard).Begin(StartGamew.SM);
+                            START.Visibility = Visibility.Hidden;
+                            DoubleAnimation yd5s = new DoubleAnimation(-100, 0, new Duration(TimeSpan.FromSeconds(0.58)));//浮点动画定义了开始值和起始值
+                            START.RenderTransform = new TranslateTransform();//在二维x-y坐标系统内平移(移动)对象
+                            yd5s.EasingFunction = new CubicEase() { EasingMode = EasingMode.EaseOut };
+                            // yd5.RepeatBehavior = RepeatBehavior.Forever;//设置循环播放
+                            Storyboard.SetTarget(yd5s, START);//绑定动画为这个按钮执行的浮点动画
+                            Storyboard.SetTargetProperty(yd5s, new PropertyPath("RenderTransform.Y"));//依赖的属性
+                            storyboard.Children.Add(yd5s);//向故事板中加入此浮点动画
+                            storyboard.Begin();//播放此动画
                         }
                         break;
                     case "offline":
@@ -1005,11 +1140,27 @@ namespace FSM3.Pages
                                     game.Launcher = "FSM3";
                                 }
                                 //game.ErrorEvent += new Game.ErrorDel(error);//错误事件
-                                (FindResource("hideMe") as System.Windows.Media.Animation.Storyboard).Begin(StartGamew.SM);
+                                START.Visibility = Visibility.Hidden;
+                                DoubleAnimation animation = new DoubleAnimation(-100, 0, new Duration(TimeSpan.FromSeconds(0.58)));//浮点动画定义了开始值和起始值
+                                START.RenderTransform = new TranslateTransform();//在二维x-y坐标系统内平移(移动)对象
+                                animation.EasingFunction = new CubicEase() { EasingMode = EasingMode.EaseOut };
+                                // yd5.RepeatBehavior = RepeatBehavior.Forever;//设置循环播放
+                                Storyboard.SetTarget(animation, START);//绑定动画为这个按钮执行的浮点动画
+                                Storyboard.SetTargetProperty(animation, new PropertyPath("RenderTransform.Y"));//依赖的属性
+                                storyboard.Children.Add(animation);//向故事板中加入此浮点动画
+                                storyboard.Begin();//播放此动画
                             }
                             catch (Exception ex)
                             {
-                                (FindResource("hideMe") as System.Windows.Media.Animation.Storyboard).Begin(StartGamew.SM);
+                                START.Visibility = Visibility.Hidden;
+                                DoubleAnimation yd56 = new DoubleAnimation(-100, 0, new Duration(TimeSpan.FromSeconds(0.58)));//浮点动画定义了开始值和起始值
+                                START.RenderTransform = new TranslateTransform();//在二维x-y坐标系统内平移(移动)对象
+                                yd56.EasingFunction = new CubicEase() { EasingMode = EasingMode.EaseOut };
+                                // yd5.RepeatBehavior = RepeatBehavior.Forever;//设置循环播放
+                                Storyboard.SetTarget(yd56, START);//绑定动画为这个按钮执行的浮点动画
+                                Storyboard.SetTargetProperty(yd56, new PropertyPath("RenderTransform.Y"));//依赖的属性
+                                storyboard.Children.Add(yd56);//向故事板中加入此浮点动画
+                                storyboard.Begin();//播放此动画
 
                                 ContentDialog dialog = new ContentDialog()
                                 {
@@ -1029,7 +1180,15 @@ namespace FSM3.Pages
                         }
                         catch (Exception ex)
                         {
-                            (FindResource("hideMe") as System.Windows.Media.Animation.Storyboard).Begin(StartGamew.SM);
+                            START.Visibility = Visibility.Hidden;
+                            DoubleAnimation yd5a = new DoubleAnimation(-100, 0, new Duration(TimeSpan.FromSeconds(0.58)));//浮点动画定义了开始值和起始值
+                            START.RenderTransform = new TranslateTransform();//在二维x-y坐标系统内平移(移动)对象
+                            yd5a.EasingFunction = new CubicEase() { EasingMode = EasingMode.EaseOut };
+                            // yd5.RepeatBehavior = RepeatBehavior.Forever;//设置循环播放
+                            Storyboard.SetTarget(yd5a, START);//绑定动画为这个按钮执行的浮点动画
+                            Storyboard.SetTargetProperty(yd5a, new PropertyPath("RenderTransform.Y"));//依赖的属性
+                            storyboard.Children.Add(yd5a);//向故事板中加入此浮点动画
+                            storyboard.Begin();//播放此动画
                         }
                         break;
                     case "y":
@@ -1043,11 +1202,27 @@ namespace FSM3.Pages
                                 game.Launcher = "FSM3";
                                 await game.StartGame(NowV.Content.ToString(), java_list.Text, RAMW, Yname, Yuuid, Ytoken, IniReadValueW("wz", "IP"), IniReadValue("JVM", "JVMW") + " -XX:+UseG1GC -XX:-UseAdaptiveSizePolicy -XX:-OmitStackTraceInFastThrow -Dfml.ignoreInvalidMinecraftCertificates=True -Dfml.ignorePatchDiscrepancies=True -Dlog4j2.formatMsgNoLookups=true", IniReadValue("EY", "EYW"), AuthenticationServerMode.yggdrasil);
                                 game.Launcher = "FSM3";
-                                (FindResource("hideMe") as System.Windows.Media.Animation.Storyboard).Begin(StartGamew.SM);
+                                START.Visibility = Visibility.Hidden;
+                                DoubleAnimation yd5w = new DoubleAnimation(-100, 0, new Duration(TimeSpan.FromSeconds(0.58)));//浮点动画定义了开始值和起始值
+                                START.RenderTransform = new TranslateTransform();//在二维x-y坐标系统内平移(移动)对象
+                                yd5w.EasingFunction = new CubicEase() { EasingMode = EasingMode.EaseOut };
+                                // yd5.RepeatBehavior = RepeatBehavior.Forever;//设置循环播放
+                                Storyboard.SetTarget(yd5w, START);//绑定动画为这个按钮执行的浮点动画
+                                Storyboard.SetTargetProperty(yd5w, new PropertyPath("RenderTransform.Y"));//依赖的属性
+                                storyboard.Children.Add(yd5w);//向故事板中加入此浮点动画
+                                storyboard.Begin();//播放此动画
                             }
                             catch (Exception ex)
                             {
-                                (FindResource("hideMe") as System.Windows.Media.Animation.Storyboard).Begin(StartGamew.SM);
+                                START.Visibility = Visibility.Hidden;
+                                DoubleAnimation yd5x = new DoubleAnimation(-100, 0, new Duration(TimeSpan.FromSeconds(0.58)));//浮点动画定义了开始值和起始值
+                                START.RenderTransform = new TranslateTransform();//在二维x-y坐标系统内平移(移动)对象
+                                yd5x.EasingFunction = new CubicEase() { EasingMode = EasingMode.EaseOut };
+                                // yd5.RepeatBehavior = RepeatBehavior.Forever;//设置循环播放
+                                Storyboard.SetTarget(yd5x, START);//绑定动画为这个按钮执行的浮点动画
+                                Storyboard.SetTargetProperty(yd5x, new PropertyPath("RenderTransform.Y"));//依赖的属性
+                                storyboard.Children.Add(yd5x);//向故事板中加入此浮点动画
+                                storyboard.Begin();//播放此动画
 
                                 ContentDialog dialog = new ContentDialog()
                                 {
@@ -1070,11 +1245,27 @@ namespace FSM3.Pages
 
                         catch (Exception ex)
                         {
-                            (FindResource("hideMe") as System.Windows.Media.Animation.Storyboard).Begin(StartGamew.SM);
+                            START.Visibility = Visibility.Hidden;
+                            DoubleAnimation yd5s = new DoubleAnimation(-100, 0, new Duration(TimeSpan.FromSeconds(0.58)));//浮点动画定义了开始值和起始值
+                            START.RenderTransform = new TranslateTransform();//在二维x-y坐标系统内平移(移动)对象
+                            yd5s.EasingFunction = new CubicEase() { EasingMode = EasingMode.EaseOut };
+                            // yd5.RepeatBehavior = RepeatBehavior.Forever;//设置循环播放
+                            Storyboard.SetTarget(yd5s, START);//绑定动画为这个按钮执行的浮点动画
+                            Storyboard.SetTargetProperty(yd5s, new PropertyPath("RenderTransform.Y"));//依赖的属性
+                            storyboard.Children.Add(yd5s);//向故事板中加入此浮点动画
+                            storyboard.Begin();//播放此动画
                         }
                         break;
                     default:
-                        (FindResource("hideMe") as System.Windows.Media.Animation.Storyboard).Begin(StartGamew.SM);
+                        START.Visibility = Visibility.Hidden;
+                        DoubleAnimation yd5 = new DoubleAnimation(-100, 0, new Duration(TimeSpan.FromSeconds(0.58)));//浮点动画定义了开始值和起始值
+                        START.RenderTransform = new TranslateTransform();//在二维x-y坐标系统内平移(移动)对象
+                        yd5.EasingFunction = new CubicEase() { EasingMode = EasingMode.EaseOut };
+                        // yd5.RepeatBehavior = RepeatBehavior.Forever;//设置循环播放
+                        Storyboard.SetTarget(yd5, START);//绑定动画为这个按钮执行的浮点动画
+                        Storyboard.SetTargetProperty(yd5, new PropertyPath("RenderTransform.Y"));//依赖的属性
+                        storyboard.Children.Add(yd5);//向故事板中加入此浮点动画
+                        storyboard.Begin();//播放此动画
                         try
                         {
                             //thick.Top = 4;
@@ -1124,12 +1315,28 @@ namespace FSM3.Pages
                                 //var loading = await this.ShowProgressAsync("启动游戏", "正在启动游戏,请稍后\n"+"你知道吗？"+NZDM[ra.Next(0, 6)]);
                                 game.Launcher = "FSM3";
                                 await game.StartGame(NowV.Content.ToString(), java_list.Text, RAMW, Mojangname, MojangUUID, MojangToken, IniReadValue("JVM", "JVMW") + " -XX:+UseG1GC -XX:-UseAdaptiveSizePolicy -XX:-OmitStackTraceInFastThrow -Dfml.ignoreInvalidMinecraftCertificates=True -Dfml.ignorePatchDiscrepancies=True -Dlog4j2.formatMsgNoLookups=true", IniReadValue("EY", "EYW"));
-                                (FindResource("hideMe") as System.Windows.Media.Animation.Storyboard).Begin(StartGamew.SM);
+                                START.Visibility = Visibility.Hidden;
+                                DoubleAnimation x = new DoubleAnimation(-100, 0, new Duration(TimeSpan.FromSeconds(0.58)));//浮点动画定义了开始值和起始值
+                                START.RenderTransform = new TranslateTransform();//在二维x-y坐标系统内平移(移动)对象
+                                x.EasingFunction = new CubicEase() { EasingMode = EasingMode.EaseOut };
+                                // yd5.RepeatBehavior = RepeatBehavior.Forever;//设置循环播放
+                                Storyboard.SetTarget(x, START);//绑定动画为这个按钮执行的浮点动画
+                                Storyboard.SetTargetProperty(x, new PropertyPath("RenderTransform.Y"));//依赖的属性
+                                storyboard.Children.Add(x);//向故事板中加入此浮点动画
+                                storyboard.Begin();//播放此动画
                                 game.Launcher = "FSM3";
                             }
                             catch (Exception ex)
                             {
-                                (FindResource("hideMe") as System.Windows.Media.Animation.Storyboard).Begin(StartGamew.SM);
+                                START.Visibility = Visibility.Hidden;
+                                DoubleAnimation s = new DoubleAnimation(-100, 0, new Duration(TimeSpan.FromSeconds(0.58)));//浮点动画定义了开始值和起始值
+                                START.RenderTransform = new TranslateTransform();//在二维x-y坐标系统内平移(移动)对象
+                                s.EasingFunction = new CubicEase() { EasingMode = EasingMode.EaseOut };
+                                // yd5.RepeatBehavior = RepeatBehavior.Forever;//设置循环播放
+                                Storyboard.SetTarget(s, START);//绑定动画为这个按钮执行的浮点动画
+                                Storyboard.SetTargetProperty(s, new PropertyPath("RenderTransform.Y"));//依赖的属性
+                                storyboard.Children.Add(s);//向故事板中加入此浮点动画
+                                storyboard.Begin();//播放此动画
                                 ContentDialog dialog = new ContentDialog()
                                 {
                                     Title = "启动失败(一般性)",
@@ -1161,11 +1368,27 @@ namespace FSM3.Pages
                                 await game.StartGame(NowV.Content.ToString(), java_list.Text, RAMW, wrname, wruuid, wrtoken, IniReadValue("JVM", "JVMW") + " -XX:+UseG1GC -XX:-UseAdaptiveSizePolicy -XX:-OmitStackTraceInFastThrow -Dfml.ignoreInvalidMinecraftCertificates=True -Dfml.ignorePatchDiscrepancies=True -Dlog4j2.formatMsgNoLookups=true", IniReadValue("EY", "EYW"));
 
                                 game.Launcher = "FSM3";
-                                (FindResource("hideMe") as System.Windows.Media.Animation.Storyboard).Begin(StartGamew.SM);
+                                START.Visibility = Visibility.Hidden;
+                                DoubleAnimation yd56 = new DoubleAnimation(-100, 0, new Duration(TimeSpan.FromSeconds(0.58)));//浮点动画定义了开始值和起始值
+                                START.RenderTransform = new TranslateTransform();//在二维x-y坐标系统内平移(移动)对象
+                                yd56.EasingFunction = new CubicEase() { EasingMode = EasingMode.EaseOut };
+                                // yd5.RepeatBehavior = RepeatBehavior.Forever;//设置循环播放
+                                Storyboard.SetTarget(yd56, START);//绑定动画为这个按钮执行的浮点动画
+                                Storyboard.SetTargetProperty(yd56, new PropertyPath("RenderTransform.Y"));//依赖的属性
+                                storyboard.Children.Add(yd56);//向故事板中加入此浮点动画
+                                storyboard.Begin();//播放此动画
                             }
                             catch (Exception ex)
                             {
-                                (FindResource("hideMe") as System.Windows.Media.Animation.Storyboard).Begin(StartGamew.SM);
+                                START.Visibility = Visibility.Hidden;
+                                DoubleAnimation yd54 = new DoubleAnimation(-100, 0, new Duration(TimeSpan.FromSeconds(0.58)));//浮点动画定义了开始值和起始值
+                                START.RenderTransform = new TranslateTransform();//在二维x-y坐标系统内平移(移动)对象
+                                yd54.EasingFunction = new CubicEase() { EasingMode = EasingMode.EaseOut };
+                                // yd5.RepeatBehavior = RepeatBehavior.Forever;//设置循环播放
+                                Storyboard.SetTarget(yd54, START);//绑定动画为这个按钮执行的浮点动画
+                                Storyboard.SetTargetProperty(yd54, new PropertyPath("RenderTransform.Y"));//依赖的属性
+                                storyboard.Children.Add(yd54);//向故事板中加入此浮点动画
+                                storyboard.Begin();//播放此动画
 
 
                                 ContentDialog dialog = new ContentDialog()
@@ -1186,7 +1409,15 @@ namespace FSM3.Pages
                         }
                         catch (Exception ex)
                         {
-                            (FindResource("hideMe") as System.Windows.Media.Animation.Storyboard).Begin(StartGamew.SM);
+                            START.Visibility = Visibility.Hidden;
+                            DoubleAnimation yd52 = new DoubleAnimation(-100, 0, new Duration(TimeSpan.FromSeconds(0.58)));//浮点动画定义了开始值和起始值
+                            START.RenderTransform = new TranslateTransform();//在二维x-y坐标系统内平移(移动)对象
+                            yd52.EasingFunction = new CubicEase() { EasingMode = EasingMode.EaseOut };
+                            // yd5.RepeatBehavior = RepeatBehavior.Forever;//设置循环播放
+                            Storyboard.SetTarget(yd52, START);//绑定动画为这个按钮执行的浮点动画
+                            Storyboard.SetTargetProperty(yd52, new PropertyPath("RenderTransform.Y"));//依赖的属性
+                            storyboard.Children.Add(yd52);//向故事板中加入此浮点动画
+                            storyboard.Begin();//播放此动画
                         }
                         break;
                     case "offline":
@@ -1208,11 +1439,27 @@ namespace FSM3.Pages
                                     game.Launcher = "FSM3";
                                 }
                                 //game.ErrorEvent += new Game.ErrorDel(error);//错误事件
-                                (FindResource("hideMe") as System.Windows.Media.Animation.Storyboard).Begin(StartGamew.SM);
+                                START.Visibility = Visibility.Hidden;
+                                DoubleAnimation w = new DoubleAnimation(-100, 0, new Duration(TimeSpan.FromSeconds(0.58)));//浮点动画定义了开始值和起始值
+                                START.RenderTransform = new TranslateTransform();//在二维x-y坐标系统内平移(移动)对象
+                                w.EasingFunction = new CubicEase() { EasingMode = EasingMode.EaseOut };
+                                // yd5.RepeatBehavior = RepeatBehavior.Forever;//设置循环播放
+                                Storyboard.SetTarget(w, START);//绑定动画为这个按钮执行的浮点动画
+                                Storyboard.SetTargetProperty(w, new PropertyPath("RenderTransform.Y"));//依赖的属性
+                                storyboard.Children.Add(w);//向故事板中加入此浮点动画
+                                storyboard.Begin();//播放此动画
                             }
                             catch (Exception ex)
                             {
-                                (FindResource("hideMe") as System.Windows.Media.Animation.Storyboard).Begin(StartGamew.SM);
+                                START.Visibility = Visibility.Hidden;
+                                DoubleAnimation s = new DoubleAnimation(-100, 0, new Duration(TimeSpan.FromSeconds(0.58)));//浮点动画定义了开始值和起始值
+                                START.RenderTransform = new TranslateTransform();//在二维x-y坐标系统内平移(移动)对象
+                                s.EasingFunction = new CubicEase() { EasingMode = EasingMode.EaseOut };
+                                // yd5.RepeatBehavior = RepeatBehavior.Forever;//设置循环播放
+                                Storyboard.SetTarget(s, START);//绑定动画为这个按钮执行的浮点动画
+                                Storyboard.SetTargetProperty(s, new PropertyPath("RenderTransform.Y"));//依赖的属性
+                                storyboard.Children.Add(s);//向故事板中加入此浮点动画
+                                storyboard.Begin();//播放此动画
 
                                 ContentDialog dialog = new ContentDialog()
                                 {
@@ -1232,7 +1479,15 @@ namespace FSM3.Pages
                         }
                         catch (Exception ex)
                         {
-                            (FindResource("hideMe") as System.Windows.Media.Animation.Storyboard).Begin(StartGamew.SM);
+                            START.Visibility = Visibility.Hidden;
+                            DoubleAnimation animation = new DoubleAnimation(-100, 0, new Duration(TimeSpan.FromSeconds(0.58)));//浮点动画定义了开始值和起始值
+                            START.RenderTransform = new TranslateTransform();//在二维x-y坐标系统内平移(移动)对象
+                            animation.EasingFunction = new CubicEase() { EasingMode = EasingMode.EaseOut };
+                            // yd5.RepeatBehavior = RepeatBehavior.Forever;//设置循环播放
+                            Storyboard.SetTarget(animation, START);//绑定动画为这个按钮执行的浮点动画
+                            Storyboard.SetTargetProperty(animation, new PropertyPath("RenderTransform.Y"));//依赖的属性
+                            storyboard.Children.Add(animation);//向故事板中加入此浮点动画
+                            storyboard.Begin();//播放此动画
                         }
                         break;
                     case "y":
@@ -1246,11 +1501,27 @@ namespace FSM3.Pages
                                 game.Launcher = "FSM3";
                                 await game.StartGame(NowV.Content.ToString(), java_list.Text, RAMW, Yname, Yuuid, Ytoken, IniReadValueW("wz", "IP"), IniReadValue("JVM", "JVMW") + " -XX:+UseG1GC -XX:-UseAdaptiveSizePolicy -XX:-OmitStackTraceInFastThrow -Dfml.ignoreInvalidMinecraftCertificates=True -Dfml.ignorePatchDiscrepancies=True -Dlog4j2.formatMsgNoLookups=true", IniReadValue("EY", "EYW"), AuthenticationServerMode.yggdrasil);
                                 game.Launcher = "FSM3";
-                                (FindResource("hideMe") as System.Windows.Media.Animation.Storyboard).Begin(StartGamew.SM);
+                                START.Visibility = Visibility.Hidden;
+                                DoubleAnimation animation = new DoubleAnimation(-100, 0, new Duration(TimeSpan.FromSeconds(0.58)));//浮点动画定义了开始值和起始值
+                                START.RenderTransform = new TranslateTransform();//在二维x-y坐标系统内平移(移动)对象
+                                animation.EasingFunction = new CubicEase() { EasingMode = EasingMode.EaseOut };
+                                // yd5.RepeatBehavior = RepeatBehavior.Forever;//设置循环播放
+                                Storyboard.SetTarget(animation, START);//绑定动画为这个按钮执行的浮点动画
+                                Storyboard.SetTargetProperty(animation, new PropertyPath("RenderTransform.Y"));//依赖的属性
+                                storyboard.Children.Add(animation);//向故事板中加入此浮点动画
+                                storyboard.Begin();//播放此动画
                             }
                             catch (Exception ex)
                             {
-                                (FindResource("hideMe") as System.Windows.Media.Animation.Storyboard).Begin(StartGamew.SM);
+                                START.Visibility = Visibility.Hidden;
+                                DoubleAnimation s = new DoubleAnimation(-100, 0, new Duration(TimeSpan.FromSeconds(0.58)));//浮点动画定义了开始值和起始值
+                                START.RenderTransform = new TranslateTransform();//在二维x-y坐标系统内平移(移动)对象
+                                s.EasingFunction = new CubicEase() { EasingMode = EasingMode.EaseOut };
+                                // yd5.RepeatBehavior = RepeatBehavior.Forever;//设置循环播放
+                                Storyboard.SetTarget(s, START);//绑定动画为这个按钮执行的浮点动画
+                                Storyboard.SetTargetProperty(s, new PropertyPath("RenderTransform.Y"));//依赖的属性
+                                storyboard.Children.Add(s);//向故事板中加入此浮点动画
+                                storyboard.Begin();//播放此动画
 
                                 ContentDialog dialog = new ContentDialog()
                                 {
@@ -1273,11 +1544,27 @@ namespace FSM3.Pages
 
                         catch (Exception ex)
                         {
-                            (FindResource("hideMe") as System.Windows.Media.Animation.Storyboard).Begin(StartGamew.SM);
+                            START.Visibility = Visibility.Hidden;
+                            DoubleAnimation yd5x = new DoubleAnimation(-100, 0, new Duration(TimeSpan.FromSeconds(0.58)));//浮点动画定义了开始值和起始值
+                            START.RenderTransform = new TranslateTransform();//在二维x-y坐标系统内平移(移动)对象
+                            yd5x.EasingFunction = new CubicEase() { EasingMode = EasingMode.EaseOut };
+                            // yd5.RepeatBehavior = RepeatBehavior.Forever;//设置循环播放
+                            Storyboard.SetTarget(yd5x, START);//绑定动画为这个按钮执行的浮点动画
+                            Storyboard.SetTargetProperty(yd5x, new PropertyPath("RenderTransform.Y"));//依赖的属性
+                            storyboard.Children.Add(yd5x);//向故事板中加入此浮点动画
+                            storyboard.Begin();//播放此动画
                         }
                         break;
                     default:
-                        (FindResource("hideMe") as System.Windows.Media.Animation.Storyboard).Begin(StartGamew.SM);
+                        START.Visibility = Visibility.Hidden;
+                        DoubleAnimation yd5 = new DoubleAnimation(-100, 0, new Duration(TimeSpan.FromSeconds(0.58)));//浮点动画定义了开始值和起始值
+                        START.RenderTransform = new TranslateTransform();//在二维x-y坐标系统内平移(移动)对象
+                        yd5.EasingFunction = new CubicEase() { EasingMode = EasingMode.EaseOut };
+                        // yd5.RepeatBehavior = RepeatBehavior.Forever;//设置循环播放
+                        Storyboard.SetTarget(yd5, START);//绑定动画为这个按钮执行的浮点动画
+                        Storyboard.SetTargetProperty(yd5, new PropertyPath("RenderTransform.Y"));//依赖的属性
+                        storyboard.Children.Add(yd5);//向故事板中加入此浮点动画
+                        storyboard.Begin();//播放此动画
                         try
                         {
                             //thick.Top = 4;
@@ -1338,6 +1625,325 @@ namespace FSM3.Pages
         }
         public double inta;
         public double intb;
+        private void StartGameW()
+        {
+            Application.Current.Dispatcher.Invoke(
+        async delegate
+        {
+            //Code
+            Random ra = new Random();
+            tools.Tools.DownloadSourceInitialization(DownloadSource.MCBBSSource);
+            SquareMinecraftLauncher.Minecraft.Game game = new SquareMinecraftLauncher.Minecraft.Game();//声明对象
+            game.LogEvent += new SquareMinecraftLauncher.Minecraft.Game.LogDel(log);
+            game.ErrorEvent += new SquareMinecraftLauncher.Minecraft.Game.ErrorDel(error);
+            StartGamew.SM.NZDM.Content = NZDM[ra.Next(0, 7)];
+            switch (loginmode)
+            {
+                case "mojang":
+                    try
+                    {
+                        try
+                        {
+                            //var loading = await this.ShowProgressAsync("启动游戏", "正在启动游戏,请稍后\n"+"你知道吗？"+NZDM[ra.Next(0, 6)]);
+                            game.Launcher = "FSM3";
+                            SquareMinecraftLauncher.Minecraft.Game.Online = false;
+                            string java = "";
+                            if (java_list.SelectedIndex == -1) java = java_list.Items[0].ToString();
+                            else java = java_list.SelectedItem.ToString();
+                            await game.StartGame(NowV.Content.ToString(), java, RAMW, Mojangname, MojangUUID, MojangToken, IniReadValue("JVM", "JVMW") + " -XX:+UseG1GC -XX:-UseAdaptiveSizePolicy -XX:-OmitStackTraceInFastThrow -Dfml.ignoreInvalidMinecraftCertificates=True -Dfml.ignorePatchDiscrepancies=True -Dlog4j2.formatMsgNoLookups=true", IniReadValue("EY", "EYW"));
+                            START.Visibility = Visibility.Hidden;
+                            DoubleAnimation g = new DoubleAnimation(-100, 0, new Duration(TimeSpan.FromSeconds(0.58)));//浮点动画定义了开始值和起始值
+                            START.RenderTransform = new TranslateTransform();//在二维x-y坐标系统内平移(移动)对象
+                            g.EasingFunction = new CubicEase() { EasingMode = EasingMode.EaseOut };
+                            // yd5.RepeatBehavior = RepeatBehavior.Forever;//设置循环播放
+                            Storyboard.SetTarget(g, START);//绑定动画为这个按钮执行的浮点动画
+                            Storyboard.SetTargetProperty(g, new PropertyPath("RenderTransform.Y"));//依赖的属性
+                            storyboard.Children.Add(g);//向故事板中加入此浮点动画
+                            storyboard.Begin();//播放此动画
+                            game.Launcher = "FSM3";
+                        }
+                        catch (Exception ex)
+                        {
+                            START.Visibility = Visibility.Hidden;
+                            DoubleAnimation a = new DoubleAnimation(-100, 0, new Duration(TimeSpan.FromSeconds(0.58)));//浮点动画定义了开始值和起始值
+                            START.RenderTransform = new TranslateTransform();//在二维x-y坐标系统内平移(移动)对象
+                            a.EasingFunction = new CubicEase() { EasingMode = EasingMode.EaseOut };
+                            // yd5.RepeatBehavior = RepeatBehavior.Forever;//设置循环播放
+                            Storyboard.SetTarget(a, START);//绑定动画为这个按钮执行的浮点动画
+                            Storyboard.SetTargetProperty(a, new PropertyPath("RenderTransform.Y"));//依赖的属性
+                            storyboard.Children.Add(a);//向故事板中加入此浮点动画
+                            storyboard.Begin();//播放此动画
+                            ContentDialog dialog = new ContentDialog()
+                            {
+                                Title = "启动失败(一般性)",
+                                PrimaryButtonText = "好吧",
+                                IsPrimaryButtonEnabled = true,
+                                DefaultButton = ContentDialogButton.Primary,
+                                Content = new TextBlock()
+                                {
+                                    TextWrapping = TextWrapping.WrapWithOverflow,
+                                    Text = "Java路径:" + java_list.Text + "\n分配内存:" + RAMW + "\nJVM:" + IniReadValue("JVM", "JVMW") + " -XX:+UseG1GC -XX:-UseAdaptiveSizePolicy -XX:-OmitStackTraceInFastThrow -Dfml.ignoreInvalidMinecraftCertificates=True -Dfml.ignorePatchDiscrepancies=True -Dlog4j2.formatMsgNoLookups=true" + "\n额外参数:" + IniReadValue("EY", "EYW") + "\n启动器版本:" + Update + "\n异常抛出信息:" + ex.Message,
+                                },
+
+                            };
+                            var result = await dialog.ShowAsync();
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+
+                    }
+                    break;
+                case "wr":
+                    try
+                    {
+                        try
+                        {
+                            SquareMinecraftLauncher.Minecraft.Game.Online = false;
+                            //var loading = await this.ShowProgressAsync("启动游戏", "正在启动游戏,请稍后\n" + "你知道吗？" + NZDM[ra.Next(0, 6)]);
+                            game.Launcher = "FSM3";
+                            string java = "";
+                            if (java_list.SelectedIndex == -1) java = java_list.Items[0].ToString();
+                            else java = java_list.SelectedItem.ToString();
+                            await game.StartGame(NowV.Content.ToString(), java, RAMW, wrname, wruuid, wrtoken, IniReadValue("JVM", "JVMW") + " -XX:+UseG1GC -XX:-UseAdaptiveSizePolicy -XX:-OmitStackTraceInFastThrow -Dfml.ignoreInvalidMinecraftCertificates=True -Dfml.ignorePatchDiscrepancies=True -Dlog4j2.formatMsgNoLookups=true", IniReadValue("EY", "EYW"));
+
+                            game.Launcher = "FSM3";
+                            START.Visibility = Visibility.Hidden;
+                            DoubleAnimation d = new DoubleAnimation(-100, 0, new Duration(TimeSpan.FromSeconds(0.58)));//浮点动画定义了开始值和起始值
+                            START.RenderTransform = new TranslateTransform();//在二维x-y坐标系统内平移(移动)对象
+                            d.EasingFunction = new CubicEase() { EasingMode = EasingMode.EaseOut };
+                            // yd5.RepeatBehavior = RepeatBehavior.Forever;//设置循环播放
+                            Storyboard.SetTarget(d, START);//绑定动画为这个按钮执行的浮点动画
+                            Storyboard.SetTargetProperty(d, new PropertyPath("RenderTransform.Y"));//依赖的属性
+                            storyboard.Children.Add(d);//向故事板中加入此浮点动画
+                            storyboard.Begin();//播放此动画
+                        }
+                        catch (Exception ex)
+                        {
+                            START.Visibility = Visibility.Hidden;
+                            DoubleAnimation w = new DoubleAnimation(-100, 0, new Duration(TimeSpan.FromSeconds(0.58)));//浮点动画定义了开始值和起始值
+                            START.RenderTransform = new TranslateTransform();//在二维x-y坐标系统内平移(移动)对象
+                            w.EasingFunction = new CubicEase() { EasingMode = EasingMode.EaseOut };
+                            // yd5.RepeatBehavior = RepeatBehavior.Forever;//设置循环播放
+                            Storyboard.SetTarget(w, START);//绑定动画为这个按钮执行的浮点动画
+                            Storyboard.SetTargetProperty(w, new PropertyPath("RenderTransform.Y"));//依赖的属性
+                            storyboard.Children.Add(w);//向故事板中加入此浮点动画
+                            storyboard.Begin();//播放此动画
+
+
+                            ContentDialog dialog = new ContentDialog()
+                            {
+                                Title = "启动失败(一般性)",
+                                PrimaryButtonText = "好吧",
+                                IsPrimaryButtonEnabled = true,
+                                DefaultButton = ContentDialogButton.Primary,
+                                Content = new TextBlock()
+                                {
+                                    TextWrapping = TextWrapping.WrapWithOverflow,
+                                    Text = "Java路径:" + java_list.Text + "\n分配内存:" + RAMW + "\nJVM:" + IniReadValue("JVM", "JVMW") + " -XX:+UseG1GC -XX:-UseAdaptiveSizePolicy -XX:-OmitStackTraceInFastThrow -Dfml.ignoreInvalidMinecraftCertificates=True -Dfml.ignorePatchDiscrepancies=True -Dlog4j2.formatMsgNoLookups=true" + "\n额外参数:" + IniReadValue("EY", "EYW") + "\n启动器版本:" + Update + "\n异常抛出信息:" + ex.Message,
+                                },
+
+                            };
+                            var result = await dialog.ShowAsync();
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        START.Visibility = Visibility.Hidden;
+                        DoubleAnimation j = new DoubleAnimation(-100, 0, new Duration(TimeSpan.FromSeconds(0.58)));//浮点动画定义了开始值和起始值
+                        START.RenderTransform = new TranslateTransform();//在二维x-y坐标系统内平移(移动)对象
+                        j.EasingFunction = new CubicEase() { EasingMode = EasingMode.EaseOut };
+                        // yd5.RepeatBehavior = RepeatBehavior.Forever;//设置循环播放
+                        Storyboard.SetTarget(j, START);//绑定动画为这个按钮执行的浮点动画
+                        Storyboard.SetTargetProperty(j, new PropertyPath("RenderTransform.Y"));//依赖的属性
+                        storyboard.Children.Add(j);//向故事板中加入此浮点动画
+                        storyboard.Begin();//播放此动画
+                    }
+                    break;
+                case "offline":
+                    try
+                    {
+                        try
+                        {
+                            SquareMinecraftLauncher.Minecraft.Game.Online = true;
+                            //var loading = await this.ShowProgressAsync("启动游戏", "正在启动游戏,请稍后\n" + "你知道吗？" + NZDM[ra.Next(0, 6)]);
+                            if (SkinUUIDMC == "" || SkinUUIDMC == null)
+                            {
+                                game.Launcher = "FSM3";
+                                string java = "";
+                                if (java_list.SelectedIndex == -1) java = java_list.Items[0].ToString();
+                                else java = java_list.SelectedItem.ToString();
+                                await game.StartGame(NowV.Content.ToString(), java, RAMW, OfflineName.Text, "SkinUUID", "YUXUANSHILI", IniReadValue("JVM", "JVMW") + " -XX:+UseG1GC -XX:-UseAdaptiveSizePolicy -XX:-OmitStackTraceInFastThrow -Dfml.ignoreInvalidMinecraftCertificates=True -Dfml.ignorePatchDiscrepancies=True -Dlog4j2.formatMsgNoLookups=true", IniReadValue("EY", "EYW"));
+                                game.Launcher = "FSM3";
+                            }
+                            else
+                            {
+                                game.Launcher = "FSM3";
+                                string java = "";
+                                if (java_list.SelectedIndex == -1) java = java_list.Items[0].ToString();
+                                else java = java_list.SelectedItem.ToString();
+                                await game.StartGame(NowV.Content.ToString(), java, RAMW, OfflineName.Text, SkinUUIDMC, "YUXUANSHILI", IniReadValue("JVM", "JVMW") + " -XX:+UseG1GC -XX:-UseAdaptiveSizePolicy -XX:-OmitStackTraceInFastThrow -Dfml.ignoreInvalidMinecraftCertificates=True -Dfml.ignorePatchDiscrepancies=True -Dlog4j2.formatMsgNoLookups=true", IniReadValue("EY", "EYW"));
+                                game.Launcher = "FSM3";
+                            }
+                            //game.ErrorEvent += new Game.ErrorDel(error);//错误事件
+                            START.Visibility = Visibility.Hidden;
+                            DoubleAnimation c = new DoubleAnimation(-100, 0, new Duration(TimeSpan.FromSeconds(0.58)));//浮点动画定义了开始值和起始值
+                            START.RenderTransform = new TranslateTransform();//在二维x-y坐标系统内平移(移动)对象
+                            c.EasingFunction = new CubicEase() { EasingMode = EasingMode.EaseOut };
+                            // yd5.RepeatBehavior = RepeatBehavior.Forever;//设置循环播放
+                            Storyboard.SetTarget(c, START);//绑定动画为这个按钮执行的浮点动画
+                            Storyboard.SetTargetProperty(c, new PropertyPath("RenderTransform.Y"));//依赖的属性
+                            storyboard.Children.Add(c);//向故事板中加入此浮点动画
+                            storyboard.Begin();//播放此动画
+                        }
+                        catch (Exception ex)
+                        {
+                            START.Visibility = Visibility.Hidden;
+                            DoubleAnimation animation = new DoubleAnimation(-100, 0, new Duration(TimeSpan.FromSeconds(0.58)));//浮点动画定义了开始值和起始值
+                            START.RenderTransform = new TranslateTransform();//在二维x-y坐标系统内平移(移动)对象
+                            animation.EasingFunction = new CubicEase() { EasingMode = EasingMode.EaseOut };
+                            // yd5.RepeatBehavior = RepeatBehavior.Forever;//设置循环播放
+                            Storyboard.SetTarget(animation, START);//绑定动画为这个按钮执行的浮点动画
+                            Storyboard.SetTargetProperty(animation ,new PropertyPath("RenderTransform.Y"));//依赖的属性
+                            storyboard.Children.Add(animation);//向故事板中加入此浮点动画
+                            storyboard.Begin();//播放此动画
+
+                            ContentDialog dialog = new ContentDialog()
+                            {
+                                Title = "启动失败(一般性)",
+                                PrimaryButtonText = "好吧",
+                                IsPrimaryButtonEnabled = true,
+                                DefaultButton = ContentDialogButton.Primary,
+                                Content = new TextBlock()
+                                {
+                                    TextWrapping = TextWrapping.WrapWithOverflow,
+                                    Text = "Java路径:" + java_list.Text + "\n分配内存:" + RAMW + "\nJVM:" + IniReadValue("JVM", "JVMW") + " -XX:+UseG1GC -XX:-UseAdaptiveSizePolicy -XX:-OmitStackTraceInFastThrow -Dfml.ignoreInvalidMinecraftCertificates=True -Dfml.ignorePatchDiscrepancies=True -Dlog4j2.formatMsgNoLookups=true" + "\n额外参数:" + IniReadValue("EY", "EYW") + "\n启动器版本:" + Update + "\n异常抛出信息:" + ex.Message,
+                                },
+
+                            };
+                            var result = await dialog.ShowAsync();
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        START.Visibility = Visibility.Hidden;
+                        DoubleAnimation animation = new DoubleAnimation(-100, 0, new Duration(TimeSpan.FromSeconds(0.58)));//浮点动画定义了开始值和起始值
+                        START.RenderTransform = new TranslateTransform();//在二维x-y坐标系统内平移(移动)对象
+                        animation.EasingFunction = new CubicEase() { EasingMode = EasingMode.EaseOut };
+                        // yd5.RepeatBehavior = RepeatBehavior.Forever;//设置循环播放
+                        Storyboard.SetTarget(animation, START);//绑定动画为这个按钮执行的浮点动画
+                        Storyboard.SetTargetProperty(animation, new PropertyPath("RenderTransform.Y"));//依赖的属性
+                        storyboard.Children.Add(animation);//向故事板中加入此浮点动画
+                        storyboard.Begin();//播放此动画
+                    }
+                    break;
+                case "y":
+                    try
+                    {
+                        try
+                        {
+
+                            //var loading = await this.ShowProgressAsync("启动游戏", "正在启动游戏,请稍后\n" + "你知道吗？" + NZDM[ra.Next(0, 6)]);
+                            //MessageBox.Show(Y.GetValue("IP").ToString());
+                            game.Launcher = "FSM3";
+                            string java = "";
+                            if (java_list.SelectedIndex == -1) java = java_list.Items[0].ToString();
+                            else java = java_list.SelectedItem.ToString();
+                            await game.StartGame(NowV.Content.ToString(), java, RAMW, Yname, Yuuid, Ytoken, IniReadValueW("wz", "IP"), IniReadValue("JVM", "JVMW") + " -XX:+UseG1GC -XX:-UseAdaptiveSizePolicy -XX:-OmitStackTraceInFastThrow -Dfml.ignoreInvalidMinecraftCertificates=True -Dfml.ignorePatchDiscrepancies=True -Dlog4j2.formatMsgNoLookups=true", IniReadValue("EY", "EYW"), AuthenticationServerMode.yggdrasil);
+                            game.Launcher = "FSM3";
+                            START.Visibility = Visibility.Hidden;
+                            DoubleAnimation animation = new DoubleAnimation(-100, 0, new Duration(TimeSpan.FromSeconds(0.58)));//浮点动画定义了开始值和起始值
+                            START.RenderTransform = new TranslateTransform();//在二维x-y坐标系统内平移(移动)对象
+                            animation.EasingFunction = new CubicEase() { EasingMode = EasingMode.EaseOut };
+                            // yd5.RepeatBehavior = RepeatBehavior.Forever;//设置循环播放
+                            Storyboard.SetTarget(animation, START);//绑定动画为这个按钮执行的浮点动画
+                            Storyboard.SetTargetProperty(animation, new PropertyPath("RenderTransform.Y"));//依赖的属性
+                            storyboard.Children.Add(animation);//向故事板中加入此浮点动画
+                            storyboard.Begin();//播放此动画
+                        }
+                        catch (Exception ex)
+                        {
+                            START.Visibility = Visibility.Hidden;
+                            DoubleAnimation animation = new DoubleAnimation(-100, 0, new Duration(TimeSpan.FromSeconds(0.58)));//浮点动画定义了开始值和起始值
+                            START.RenderTransform = new TranslateTransform();//在二维x-y坐标系统内平移(移动)对象
+                            animation.EasingFunction = new CubicEase() { EasingMode = EasingMode.EaseOut };
+                            // yd5.RepeatBehavior = RepeatBehavior.Forever;//设置循环播放
+                            Storyboard.SetTarget(animation, START);//绑定动画为这个按钮执行的浮点动画
+                            Storyboard.SetTargetProperty(animation, new PropertyPath("RenderTransform.Y"));//依赖的属性
+                            storyboard.Children.Add(animation);//向故事板中加入此浮点动画
+                            storyboard.Begin();//播放此动画
+
+                            ContentDialog dialog = new ContentDialog()
+                            {
+                                Title = "启动失败(一般性)",
+                                PrimaryButtonText = "好吧",
+                                IsPrimaryButtonEnabled = true,
+                                DefaultButton = ContentDialogButton.Primary,
+                                Content = new TextBlock()
+                                {
+                                    TextWrapping = TextWrapping.WrapWithOverflow,
+                                    Text = "Java路径:" + java_list.Text + "\n分配内存:" + RAMW + "\nJVM:" + IniReadValue("JVM", "JVMW") + " -XX:+UseG1GC -XX:-UseAdaptiveSizePolicy -XX:-OmitStackTraceInFastThrow -Dfml.ignoreInvalidMinecraftCertificates=True -Dfml.ignorePatchDiscrepancies=True -Dlog4j2.formatMsgNoLookups=true" + "\n额外参数:" + IniReadValue("EY", "EYW") + "\n启动器版本:" + Update + "\n异常抛出信息:" + ex.Message,
+                                },
+
+                            };
+                            var result = await dialog.ShowAsync();
+                        }
+                    }
+
+
+
+                    catch (Exception ex)
+                    {
+                        START.Visibility = Visibility.Hidden;
+                        DoubleAnimation yd5s = new DoubleAnimation(-100, 0, new Duration(TimeSpan.FromSeconds(0.58)));//浮点动画定义了开始值和起始值
+                        START.RenderTransform = new TranslateTransform();//在二维x-y坐标系统内平移(移动)对象
+                        yd5s.EasingFunction = new CubicEase() { EasingMode = EasingMode.EaseOut };
+                        // yd5.RepeatBehavior = RepeatBehavior.Forever;//设置循环播放
+                        Storyboard.SetTarget(yd5s, START);//绑定动画为这个按钮执行的浮点动画
+                        Storyboard.SetTargetProperty(yd5s, new PropertyPath("RenderTransform.Y"));//依赖的属性
+                        storyboard.Children.Add(yd5s);//向故事板中加入此浮点动画
+                        storyboard.Begin();//播放此动画
+                    }
+                    break;
+                default:
+                    START.Visibility = Visibility.Hidden;
+                    DoubleAnimation yd5 = new DoubleAnimation(-100, 0, new Duration(TimeSpan.FromSeconds(0.58)));//浮点动画定义了开始值和起始值
+                    START.RenderTransform = new TranslateTransform();//在二维x-y坐标系统内平移(移动)对象
+                    yd5.EasingFunction = new CubicEase() { EasingMode = EasingMode.EaseOut };
+                    // yd5.RepeatBehavior = RepeatBehavior.Forever;//设置循环播放
+                    Storyboard.SetTarget(yd5, START);//绑定动画为这个按钮执行的浮点动画
+                    Storyboard.SetTargetProperty(yd5, new PropertyPath("RenderTransform.Y"));//依赖的属性
+                    storyboard.Children.Add(yd5);//向故事板中加入此浮点动画
+                    storyboard.Begin();//播放此动画
+                    try
+                    {
+                        //thick.Top = 4;
+                        //thick.Left = 5;
+                        //OSM.Margin = thick;
+                        //OSM.Visibility = Visibility.Visible;
+                        //OSM.xxbt.Text = "启动错误";
+                        //OSM.xxwb.Text = "未登录或未选择账户";
+                        ////string a = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData); //获取APPDATA
+
+                        //OSM.BeginAnimation(WidthProperty, OSMessage(0, 336, 0.8));
+
+                        ////Thread.Sleep(888);
+                        //await Task.Run(() =>
+                        //{
+                        //    Thread.Sleep(1898);
+                        //});
+
+                        //OSM.BeginAnimation(WidthProperty, OSMessage(336, 0, 0.8));
+                    }
+                    catch
+                    {
+
+                    }
+                    break;
+            }
+            //game.ErrorEvent += new Game.ErrorDel(error);//错误事件
+        });
+        }
         private void StartGameTW()
         {
             Application.Current.Dispatcher.Invoke(
@@ -1425,12 +2031,28 @@ namespace FSM3.Pages
                                 if (java_list.SelectedIndex == -1) java = java_list.Items[0].ToString();
                                 else java = java_list.SelectedItem.ToString();
                                 await game.StartGame(NowV.Content.ToString(), java, RAMW, Mojangname, MojangUUID, MojangToken, IniReadValue("JVM", "JVMW") + " -XX:+UseG1GC -XX:-UseAdaptiveSizePolicy -XX:-OmitStackTraceInFastThrow -Dfml.ignoreInvalidMinecraftCertificates=True -Dfml.ignorePatchDiscrepancies=True -Dlog4j2.formatMsgNoLookups=true", IniReadValue("EY", "EYW"));
-                                (FindResource("hideMe") as System.Windows.Media.Animation.Storyboard).Begin(StartGamew.SM);
+                                START.Visibility = Visibility.Hidden;
+                                DoubleAnimation animation = new DoubleAnimation(0, -100, new Duration(TimeSpan.FromSeconds(0.58)));//浮点动画定义了开始值和起始值
+                                START.RenderTransform = new TranslateTransform();//在二维x-y坐标系统内平移(移动)对象
+                                animation.EasingFunction = new CubicEase() { EasingMode = EasingMode.EaseOut };
+                                // yd5.RepeatBehavior = RepeatBehavior.Forever;//设置循环播放
+                                Storyboard.SetTarget(animation, START);//绑定动画为这个按钮执行的浮点动画
+                                Storyboard.SetTargetProperty(animation, new PropertyPath("RenderTransform.Y"));//依赖的属性
+                                storyboard.Children.Add(animation);//向故事板中加入此浮点动画
+                                storyboard.Begin();//播放此动画
                                 game.Launcher = "FSM3";
                             }
                             catch (Exception ex)
                             {
-                                (FindResource("hideMe") as System.Windows.Media.Animation.Storyboard).Begin(StartGamew.SM);
+                                START.Visibility = Visibility.Hidden;
+                                DoubleAnimation animation = new DoubleAnimation(-100, 0, new Duration(TimeSpan.FromSeconds(0.58)));//浮点动画定义了开始值和起始值
+                                START.RenderTransform = new TranslateTransform();//在二维x-y坐标系统内平移(移动)对象
+                                animation.EasingFunction = new CubicEase() { EasingMode = EasingMode.EaseOut };
+                                // yd5.RepeatBehavior = RepeatBehavior.Forever;//设置循环播放
+                                Storyboard.SetTarget(animation, START);//绑定动画为这个按钮执行的浮点动画
+                                Storyboard.SetTargetProperty(animation, new PropertyPath("RenderTransform.Y"));//依赖的属性
+                                storyboard.Children.Add(animation);//向故事板中加入此浮点动画
+                                storyboard.Begin();//播放此动画
                                 ContentDialog dialog = new ContentDialog()
                                 {
                                     Title = "启动失败(一般性)",
@@ -1466,11 +2088,27 @@ namespace FSM3.Pages
                                 await game.StartGame(NowV.Content.ToString(), java, RAMW, wrname, wruuid, wrtoken, IniReadValue("JVM", "JVMW") + " -XX:+UseG1GC -XX:-UseAdaptiveSizePolicy -XX:-OmitStackTraceInFastThrow -Dfml.ignoreInvalidMinecraftCertificates=True -Dfml.ignorePatchDiscrepancies=True -Dlog4j2.formatMsgNoLookups=true", IniReadValue("EY", "EYW"));
 
                                 game.Launcher = "FSM3";
-                                (FindResource("hideMe") as System.Windows.Media.Animation.Storyboard).Begin(StartGamew.SM);
+                                START.Visibility = Visibility.Hidden;
+                                DoubleAnimation animation = new DoubleAnimation(-100, 0, new Duration(TimeSpan.FromSeconds(0.58)));//浮点动画定义了开始值和起始值
+                                START.RenderTransform = new TranslateTransform();//在二维x-y坐标系统内平移(移动)对象
+                                animation.EasingFunction = new CubicEase() { EasingMode = EasingMode.EaseOut };
+                                // yd5.RepeatBehavior = RepeatBehavior.Forever;//设置循环播放
+                                Storyboard.SetTarget(animation, START);//绑定动画为这个按钮执行的浮点动画
+                                Storyboard.SetTargetProperty(animation, new PropertyPath("RenderTransform.Y"));//依赖的属性
+                                storyboard.Children.Add(animation);//向故事板中加入此浮点动画
+                                storyboard.Begin();//播放此动画
                             }
                             catch (Exception ex)
                             {
-                                (FindResource("hideMe") as System.Windows.Media.Animation.Storyboard).Begin(StartGamew.SM);
+                                START.Visibility = Visibility.Hidden;
+                                DoubleAnimation animation = new DoubleAnimation(-100, 0, new Duration(TimeSpan.FromSeconds(0.58)));//浮点动画定义了开始值和起始值
+                                START.RenderTransform = new TranslateTransform();//在二维x-y坐标系统内平移(移动)对象
+                                animation.EasingFunction = new CubicEase() { EasingMode = EasingMode.EaseOut };
+                                // yd5.RepeatBehavior = RepeatBehavior.Forever;//设置循环播放
+                                Storyboard.SetTarget(animation, START);//绑定动画为这个按钮执行的浮点动画
+                                Storyboard.SetTargetProperty(animation, new PropertyPath("RenderTransform.Y"));//依赖的属性
+                                storyboard.Children.Add(animation);//向故事板中加入此浮点动画
+                                storyboard.Begin();//播放此动画
 
 
                                 ContentDialog dialog = new ContentDialog()
@@ -1491,7 +2129,15 @@ namespace FSM3.Pages
                         }
                         catch (Exception ex)
                         {
-                            (FindResource("hideMe") as System.Windows.Media.Animation.Storyboard).Begin(StartGamew.SM);
+                            START.Visibility = Visibility.Hidden;
+                            DoubleAnimation animation = new DoubleAnimation(-100, 0, new Duration(TimeSpan.FromSeconds(0.58)));//浮点动画定义了开始值和起始值
+                            START.RenderTransform = new TranslateTransform();//在二维x-y坐标系统内平移(移动)对象
+                            animation.EasingFunction = new CubicEase() { EasingMode = EasingMode.EaseOut };
+                            // yd5.RepeatBehavior = RepeatBehavior.Forever;//设置循环播放
+                            Storyboard.SetTarget(animation, START);//绑定动画为这个按钮执行的浮点动画
+                            Storyboard.SetTargetProperty(animation, new PropertyPath("RenderTransform.Y"));//依赖的属性
+                            storyboard.Children.Add(animation);//向故事板中加入此浮点动画
+                            storyboard.Begin();//播放此动画
                         }
                         break;
                     case "offline":
@@ -1520,11 +2166,27 @@ namespace FSM3.Pages
                                     game.Launcher = "FSM3";
                                 }
                                 //game.ErrorEvent += new Game.ErrorDel(error);//错误事件
-                                (FindResource("hideMe") as System.Windows.Media.Animation.Storyboard).Begin(StartGamew.SM);
+                                START.Visibility = Visibility.Hidden;
+                                DoubleAnimation animation = new DoubleAnimation(-100, 0, new Duration(TimeSpan.FromSeconds(0.58)));//浮点动画定义了开始值和起始值
+                                START.RenderTransform = new TranslateTransform();//在二维x-y坐标系统内平移(移动)对象
+                                animation.EasingFunction = new CubicEase() { EasingMode = EasingMode.EaseOut };
+                                // yd5.RepeatBehavior = RepeatBehavior.Forever;//设置循环播放
+                                Storyboard.SetTarget(animation, START);//绑定动画为这个按钮执行的浮点动画
+                                Storyboard.SetTargetProperty(animation, new PropertyPath("RenderTransform.Y"));//依赖的属性
+                                storyboard.Children.Add(animation);//向故事板中加入此浮点动画
+                                storyboard.Begin();//播放此动画
                             }
                             catch (Exception ex)
                             {
-                                (FindResource("hideMe") as System.Windows.Media.Animation.Storyboard).Begin(StartGamew.SM);
+                                START.Visibility = Visibility.Hidden;
+                                DoubleAnimation animation = new DoubleAnimation(-100, 0, new Duration(TimeSpan.FromSeconds(0.58)));//浮点动画定义了开始值和起始值
+                                START.RenderTransform = new TranslateTransform();//在二维x-y坐标系统内平移(移动)对象
+                                animation.EasingFunction = new CubicEase() { EasingMode = EasingMode.EaseOut };
+                                // yd5.RepeatBehavior = RepeatBehavior.Forever;//设置循环播放
+                                Storyboard.SetTarget(animation, START);//绑定动画为这个按钮执行的浮点动画
+                                Storyboard.SetTargetProperty(animation, new PropertyPath("RenderTransform.Y"));//依赖的属性
+                                storyboard.Children.Add(animation);//向故事板中加入此浮点动画
+                                storyboard.Begin();//播放此动画
 
                                 ContentDialog dialog = new ContentDialog()
                                 {
@@ -1544,7 +2206,15 @@ namespace FSM3.Pages
                         }
                         catch (Exception ex)
                         {
-                            (FindResource("hideMe") as System.Windows.Media.Animation.Storyboard).Begin(StartGamew.SM);
+                            START.Visibility = Visibility.Hidden;
+                            DoubleAnimation animation = new DoubleAnimation(-100, 0, new Duration(TimeSpan.FromSeconds(0.58)));//浮点动画定义了开始值和起始值
+                            START.RenderTransform = new TranslateTransform();//在二维x-y坐标系统内平移(移动)对象
+                            animation.EasingFunction = new CubicEase() { EasingMode = EasingMode.EaseOut };
+                            // yd5.RepeatBehavior = RepeatBehavior.Forever;//设置循环播放
+                            Storyboard.SetTarget(animation, START);//绑定动画为这个按钮执行的浮点动画
+                            Storyboard.SetTargetProperty(animation, new PropertyPath("RenderTransform.Y"));//依赖的属性
+                            storyboard.Children.Add(animation);//向故事板中加入此浮点动画
+                            storyboard.Begin();//播放此动画
                         }
                         break;
                     case "y":
@@ -1561,11 +2231,27 @@ namespace FSM3.Pages
                                 else java = java_list.SelectedItem.ToString();
                                 await game.StartGame(NowV.Content.ToString(), java, RAMW, Yname, Yuuid, Ytoken, IniReadValueW("wz", "IP"), IniReadValue("JVM", "JVMW") + " -XX:+UseG1GC -XX:-UseAdaptiveSizePolicy -XX:-OmitStackTraceInFastThrow -Dfml.ignoreInvalidMinecraftCertificates=True -Dfml.ignorePatchDiscrepancies=True -Dlog4j2.formatMsgNoLookups=true", IniReadValue("EY", "EYW"), AuthenticationServerMode.yggdrasil);
                                 game.Launcher = "FSM3";
-                                (FindResource("hideMe") as System.Windows.Media.Animation.Storyboard).Begin(StartGamew.SM);
+                                START.Visibility = Visibility.Hidden;
+                                DoubleAnimation animation = new DoubleAnimation(-100, 0, new Duration(TimeSpan.FromSeconds(0.58)));//浮点动画定义了开始值和起始值
+                                START.RenderTransform = new TranslateTransform();//在二维x-y坐标系统内平移(移动)对象
+                                animation.EasingFunction = new CubicEase() { EasingMode = EasingMode.EaseOut };
+                                // yd5.RepeatBehavior = RepeatBehavior.Forever;//设置循环播放
+                                Storyboard.SetTarget(animation, START);//绑定动画为这个按钮执行的浮点动画
+                                Storyboard.SetTargetProperty(animation, new PropertyPath("RenderTransform.Y"));//依赖的属性
+                                storyboard.Children.Add(animation);//向故事板中加入此浮点动画
+                                storyboard.Begin();//播放此动画
                             }
                             catch (Exception ex)
                             {
-                                (FindResource("hideMe") as System.Windows.Media.Animation.Storyboard).Begin(StartGamew.SM);
+                                START.Visibility = Visibility.Hidden;
+                                DoubleAnimation animation = new DoubleAnimation(-100, 0, new Duration(TimeSpan.FromSeconds(0.58)));//浮点动画定义了开始值和起始值
+                                START.RenderTransform = new TranslateTransform();//在二维x-y坐标系统内平移(移动)对象
+                                animation.EasingFunction = new CubicEase() { EasingMode = EasingMode.EaseOut };
+                                // yd5.RepeatBehavior = RepeatBehavior.Forever;//设置循环播放
+                                Storyboard.SetTarget(animation, START);//绑定动画为这个按钮执行的浮点动画
+                                Storyboard.SetTargetProperty(animation, new PropertyPath("RenderTransform.Y"));//依赖的属性
+                                storyboard.Children.Add(animation);//向故事板中加入此浮点动画
+                                storyboard.Begin();//播放此动画
 
                                 ContentDialog dialog = new ContentDialog()
                                 {
@@ -1588,11 +2274,27 @@ namespace FSM3.Pages
 
                         catch (Exception ex)
                         {
-                            (FindResource("hideMe") as System.Windows.Media.Animation.Storyboard).Begin(StartGamew.SM);
+                            START.Visibility = Visibility.Hidden;
+                            DoubleAnimation yd5w = new DoubleAnimation(-100, 0, new Duration(TimeSpan.FromSeconds(0.58)));//浮点动画定义了开始值和起始值
+                            START.RenderTransform = new TranslateTransform();//在二维x-y坐标系统内平移(移动)对象
+                            yd5w.EasingFunction = new CubicEase() { EasingMode = EasingMode.EaseOut };
+                            // yd5.RepeatBehavior = RepeatBehavior.Forever;//设置循环播放
+                            Storyboard.SetTarget(yd5w, START);//绑定动画为这个按钮执行的浮点动画
+                            Storyboard.SetTargetProperty(yd5w, new PropertyPath("RenderTransform.Y"));//依赖的属性
+                            storyboard.Children.Add(yd5w);//向故事板中加入此浮点动画
+                            storyboard.Begin();//播放此动画
                         }
                         break;
                     default:
-                        (FindResource("hideMe") as System.Windows.Media.Animation.Storyboard).Begin(StartGamew.SM);
+                        START.Visibility = Visibility.Hidden;
+                        DoubleAnimation yd5 = new DoubleAnimation(-100, 0, new Duration(TimeSpan.FromSeconds(0.58)));//浮点动画定义了开始值和起始值
+                        START.RenderTransform = new TranslateTransform();//在二维x-y坐标系统内平移(移动)对象
+                        yd5.EasingFunction = new CubicEase() { EasingMode = EasingMode.EaseOut };
+                        // yd5.RepeatBehavior = RepeatBehavior.Forever;//设置循环播放
+                        Storyboard.SetTarget(yd5, START);//绑定动画为这个按钮执行的浮点动画
+                        Storyboard.SetTargetProperty(yd5, new PropertyPath("RenderTransform.Y"));//依赖的属性
+                        storyboard.Children.Add(yd5);//向故事板中加入此浮点动画
+                        storyboard.Begin();//播放此动画
                         try
                         {
                             //thick.Top = 4;
@@ -1623,11 +2325,29 @@ namespace FSM3.Pages
             }
         });
         }
-        private void Button_Click_Start(object sender, RoutedEventArgs e)
+        private async void Button_Click_Start(object sender, RoutedEventArgs e)
         {
-            (FindResource("showMe") as System.Windows.Media.Animation.Storyboard).Begin(StartGamew.SM);
-            Thread StartGameT = new Thread(StartGameTW);
-            StartGameT.Start();
+            //(FindResource("showMe") as System.Windows.Media.Animation.Storyboard).Begin(StartGamew.SM);
+            DoubleAnimation yd5 = new DoubleAnimation(-100, 0, new Duration(TimeSpan.FromSeconds(0.55)));//浮点动画定义了开始值和起始值
+            START.RenderTransform = new TranslateTransform();//在二维x-y坐标系统内平移(移动)对象
+            yd5.EasingFunction = new CubicEase() { EasingMode = EasingMode.EaseOut };
+            // yd5.RepeatBehavior = RepeatBehavior.Forever;//设置循环播放
+            Storyboard.SetTarget(yd5, START);//绑定动画为这个按钮执行的浮点动画
+            Storyboard.SetTargetProperty(yd5, new PropertyPath("RenderTransform.Y"));//依赖的属性
+            storyboard.Children.Add(yd5);//向故事板中加入此浮点动画
+            storyboard.Begin();//播放此动画
+            START.Visibility = Visibility.Visible;
+            await Task.Run(() => { Thread.Sleep(325); });
+            if (IniReadValue("QDBQ", "QDBQ") is "Yes")
+            {
+                Thread StartGameW = new Thread(StartGameTW);
+                StartGameW.Start();
+            }
+            else
+            {
+                Thread StartGameT = new Thread(StartGameTW);
+                StartGameT.Start();
+            }
         }
         //(FindResource("showMew") as System.Windows.Media.Animation.Storyboard).Begin(StartGamew.SM);
         //StartGame.IsEnabled = false;

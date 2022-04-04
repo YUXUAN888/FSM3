@@ -96,7 +96,7 @@
                                     </Border>
                                     <Label Content="作者:宇轩Yu_Xuan" HorizontalAlignment="Left" Margin="66,100,0,0" VerticalAlignment="Top" Width="198" FontSize="18"/>
                                     <Button Content="赞助作者" HorizontalAlignment="Left" Margin="603,97,0,0" VerticalAlignment="Top" Width="92" Click="Button_Click"/>
-                                    <Label Content="当前版本: Beta25" HorizontalAlignment="Left" Margin="69,66,0,0" VerticalAlignment="Top" Width="400" FontSize="12" Foreground="#FF868686"/>
+                                    <Label Content="当前版本: Beta27" HorizontalAlignment="Left" Margin="69,66,0,0" VerticalAlignment="Top" Width="400" FontSize="12" Foreground="#FF868686"/>
                                 </Grid>
                             </Border>
                             <Border CornerRadius="7,7,7,7" BorderBrush="#FF323232" BorderThickness="1" HorizontalAlignment="Left" Margin="11,490,0,0" VerticalAlignment="Top" Width="710">

@@ -1,0 +1,19 @@
+﻿<UserControl x:Class="FSM3.About_List.modlist"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:FSM3.About_List"
+             mc:Ignorable="d" 
+             Height="65.42" Width="463">
+    <Grid>
+        <Border x:Name="ModLogo" HorizontalAlignment="Left" Margin="4,9,0,0" VerticalAlignment="Top" CornerRadius="6" Width="50" Height="50">
+            <Border.Background>
+                <ImageBrush ImageSource="/FSM3;component/Image/IMG_5145(20220228-195827).JPG"></ImageBrush>
+            </Border.Background>
+        </Border>
+        <Label Content="模组名" x:Name="ModName" HorizontalAlignment="Left" Margin="60,11,0,0" VerticalAlignment="Top" Width="396"/>
+        <Label Content="描述" x:Name="ModBio" HorizontalAlignment="Left" Margin="60,30,0,0" VerticalAlignment="Top" Width="396" FontSize="10"/>
+        <Label Content="" Visibility="Hidden" x:Name="NameZ"></Label>
+    </Grid>
+</UserControl>

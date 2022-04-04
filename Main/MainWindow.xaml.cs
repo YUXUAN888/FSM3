@@ -286,7 +286,7 @@ namespace FSM3
         {
             InitializeComponent();
             ServicePointManager.DefaultConnectionLimit = 512;
-            Update = "Beta25";
+            Update = "Beta27";
         }
         public static string retString;
         String[] after;

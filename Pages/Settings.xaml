@@ -37,7 +37,7 @@
                             <Label Content="游戏分配内存" HorizontalAlignment="Left" Margin="16,10,0,0" VerticalAlignment="Top" Height="24" Width="109" FontSize="18"/>
                             <Label Content="资源包等扩展会消耗大量内存&#xD;&#xA;若您的物理内存较大,建议分配更多给游戏,可提升流畅度" HorizontalAlignment="Left" Margin="16,36,0,0" VerticalAlignment="Top" Height="24" Width="249" FontSize="10"/>
                             <Label x:Name="RAMXS" Margin="433,14,67.2,38.4" HorizontalContentAlignment="Center" />
-                            <Slider x:Name="RAMS" HorizontalAlignment="Left" Margin="369,32,0,0" VerticalAlignment="Top" Width="328" Minimum="10" Maximum="4096" Value="10" Style="{StaticResource DefaultSliderStyle}" TickFrequency="512" ValueChanged="RAMS_ValueChanged" MouseRightButtonUp="MouseUP"/>
+                            <Slider x:Name="RAMS" HorizontalAlignment="Left" Margin="369,33,0,0" VerticalAlignment="Top" Width="328" Minimum="10" Maximum="4096" Value="10" Style="{StaticResource DefaultSliderStyle}" TickFrequency="512" ValueChanged="RAMS_ValueChanged" MouseRightButtonUp="MouseUP"/>
                         </Grid>
                     </Border>
                     <Border CornerRadius="7,7,7,7" BorderBrush="#FF323232" BorderThickness="1" HorizontalAlignment="Left" Height="168" Margin="17,176,0,0" VerticalAlignment="Top" Width="713">
@@ -46,7 +46,7 @@
                             <Label Content="额外参数:&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;JVM参数:" HorizontalAlignment="Left" Margin="15,44,0,0" VerticalAlignment="Top" Height="83" Width="146" FontSize="15"/>
                             <TextBox x:Name="EY" HorizontalAlignment="Left" Height="23" Margin="167,40,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="529" TextChanged="TextBox_TextChanged"/>
                             <TextBox x:Name="JVM" HorizontalAlignment="Left" Height="23" Margin="167,96,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="528" TextChanged="TextBox1_TextChanged"/>
-                            <CheckBox Content="关闭启动前补全" HorizontalAlignment="Left" Height="0" Margin="568,131,0,0" VerticalAlignment="Top" Width="137" RenderTransformOrigin="0.565,0.306" IsEnabled="False"/>
+                            <CheckBox x:Name="BQQD" Content="关闭启动前检查补全" HorizontalAlignment="Left" Height="0" Margin="540,131,0,0" VerticalAlignment="Top" Width="165" RenderTransformOrigin="0.565,0.306" Checked="CheckBox_Checked" Click="CheckBox_Check"/>
                         </Grid>
                     </Border>
                 </Grid>
@@ -108,14 +108,14 @@
                     <Border CornerRadius="7,7,7,7" BorderBrush="#FF323232" BorderThickness="1" HorizontalAlignment="Left" Height="76" Margin="17,13,0,0" VerticalAlignment="Top" Width="713">
                         <Grid>
                             <Label Content="颜色模式" HorizontalAlignment="Left" Margin="16,10,0,0" VerticalAlignment="Top" Height="24" Width="143" FontSize="18"/>
-                            <Label Content="拥有深色和浅色模式&#xA;更改启动器的颜色模式" HorizontalAlignment="Left" Margin="16,36,0,0" VerticalAlignment="Top" Height="33" Width="193" FontSize="10"/>
+                            <Label Content="拥有深色和浅色模式&#xA;更改启动器的颜色模式" HorizontalAlignment="Left" Margin="16,37,0,0" VerticalAlignment="Top" Height="33" Width="193" FontSize="10"/>
                             <Button x:Name="QHZTS" Content="切换模式" HorizontalAlignment="Left" Height="29" Margin="570,23,0,0" VerticalAlignment="Top" Width="113" Click="Button_Click" MouseDown="Caidan"/>
                         </Grid>
                     </Border>
                     <Border CornerRadius="7,7,7,7" BorderBrush="#FF323232" BorderThickness="1" HorizontalAlignment="Left" Height="76" Margin="17,94,0,0" VerticalAlignment="Top" Width="713">
                         <Grid>
                             <Label Content="主题色" HorizontalAlignment="Left" Margin="16,10,0,0" VerticalAlignment="Top" Height="24" Width="105" FontSize="18"/>
-                            <Label Content="众多RGB颜色&#xD;&#xA;更改启动器显示的主题色" HorizontalAlignment="Left" Margin="16,36,0,0" VerticalAlignment="Top" Height="33" Width="193" FontSize="10"/>
+                            <Label Content="众多RGB颜色&#xD;&#xA;更改启动器显示的主题色" HorizontalAlignment="Left" Margin="16,37,0,0" VerticalAlignment="Top" Height="33" Width="193" FontSize="10"/>
                             <ComboBox x:Name="ColorCombobox" HorizontalAlignment="Left" Margin="533,21,0,0" VerticalAlignment="Top" Width="151" Height="32" SelectionChanged="ComboBox_SelectionChanged" SelectedIndex="11" IsEnabled="False">
                                 <ComboBoxItem Content="橙色"/>
                                 <ComboBoxItem Content="鲜艳红"/>
@@ -135,7 +135,7 @@
                     </Border>
                 </Grid>
             </TabItem>
-            <TabItem>
+            <TabItem Visibility="Hidden">
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
                         <ui:FontIcon Glyph="&#xE774;" Margin="0,0,4,0"/>

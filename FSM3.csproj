@@ -143,6 +143,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="About List\modlist.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="About List\PathItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -211,6 +215,9 @@
     <Compile Include="About List\Item.xaml.cs">
       <DependentUpon>Item.xaml</DependentUpon>
     </Compile>
+    <Compile Include="About List\modlist.xaml.cs">
+      <DependentUpon>modlist.xaml</DependentUpon>
+    </Compile>
     <Compile Include="About List\PathItem.xaml.cs">
       <DependentUpon>PathItem.xaml</DependentUpon>
     </Compile>
@@ -237,6 +244,9 @@
     <Compile Include="Download_Pages\Fabric.xaml.cs">
       <DependentUpon>Fabric.xaml</DependentUpon>
     </Compile>
+    <Compile Include="FSMCore\Modrinth\APICBD.cs" />
+    <Compile Include="FSMCore\Modrinth\APICCC.cs" />
+    <Compile Include="FSMCore\Modrinth\Modpublic.cs" />
     <Compile Include="FSMCore\Start\StartGameClass.cs" />
     <Compile Include="Home_API\MojangAPI.xaml.cs">
       <DependentUpon>MojangAPI.xaml</DependentUpon>
@@ -283,6 +293,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\Help.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Modbio.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -358,6 +372,9 @@
     </Compile>
     <Compile Include="Pages\Help.xaml.cs">
       <DependentUpon>Help.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Modbio.xaml.cs">
+      <DependentUpon>Modbio.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Online.xaml.cs">
       <DependentUpon>Online.xaml</DependentUpon>
@@ -457,6 +474,7 @@
     <Content Include="Made\com.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="FSMCore\CurseForge\" />
     <Folder Include="FSMCore\Download\" />
     <Folder Include="FSMCore\Login\" />
   </ItemGroup>

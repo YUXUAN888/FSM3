@@ -51,7 +51,88 @@
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal" Margin="0,0,9.2,0">
                         <iconPacks:PackIconSimpleIcons Kind="Modx" Margin="0,2,5,0"/>
-                        <Label Content="资源下载"/>
+                        <Label Content="资源下载(Modrinth)"/>
+                    </StackPanel>
+                </TabItem.Header>
+                <Grid>
+                    <TextBox x:Name="ModrinthText" HorizontalAlignment="Left" Height="23" Margin="12,31,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="214"/>
+                    <Label Content="搜索" HorizontalAlignment="Left" Margin="9,9,0,0" VerticalAlignment="Top" Width="255" HorizontalContentAlignment="Center"/>
+                    <Button Style="{StaticResource AccentButtonStyle}" Content="🔍" HorizontalAlignment="Left" Margin="228,32,0,0" VerticalAlignment="Top" Width="41" Height="30" Click="Button_Click_2"/>
+                    <ListBox x:Name="ModrinthList" HorizontalAlignment="Left" Height="370" Margin="278,12,0,0" VerticalAlignment="Top" Width="464" SelectionChanged="ModrinthList_SelectionChanged"/>
+                    <ComboBox x:Name="ModrinthVer" HorizontalAlignment="Left" Margin="80,74,0,0" VerticalAlignment="Top" Width="183" Height="30" SelectedIndex="0">
+                        <ComboBoxItem Content="全部"/>
+                        <ComboBoxItem Content="1.18.2"/>
+                        <ComboBoxItem Content="1.18.1"/>
+                        <ComboBoxItem Content="1.18"/>
+                        <ComboBoxItem Content="1.17.1"/>
+                        <ComboBoxItem Content="1.17"/>
+                        <ComboBoxItem Content="1.16.5"/>
+                        <ComboBoxItem Content="1.16.4"/>
+                        <ComboBoxItem Content="1.16.3"/>
+                        <ComboBoxItem Content="1.16.2"/>
+                        <ComboBoxItem Content="1.16.1"/>
+                        <ComboBoxItem Content="1.16"/>
+                        <ComboBoxItem Content="1.15.2"/>
+                        <ComboBoxItem Content="1.15.1"/>
+                        <ComboBoxItem Content="1.15"/>
+                        <ComboBoxItem Content="1.14.4"/>
+                        <ComboBoxItem Content="1.14.3"/>
+                        <ComboBoxItem Content="1.14.2"/>
+                        <ComboBoxItem Content="1.14.1"/>
+                        <ComboBoxItem Content="1.14"/>
+                        <ComboBoxItem Content="1.13.2"/>
+                        <ComboBoxItem Content="1.13.1"/>
+                        <ComboBoxItem Content="1.13"/>
+                        <ComboBoxItem Content="1.12.2"/>
+                        <ComboBoxItem Content="1.12.1"/>
+                        <ComboBoxItem Content="1.12"/>
+                        <ComboBoxItem Content="1.11.2"/>
+                        <ComboBoxItem Content="1.11.1"/>
+                        <ComboBoxItem Content="1.11"/>
+                        <ComboBoxItem Content="1.10.2"/>
+                        <ComboBoxItem Content="1.10.1"/>
+                        <ComboBoxItem Content="1.10"/>
+                        <ComboBoxItem Content="1.9.4"/>
+                        <ComboBoxItem Content="1.8.9"/>
+                        <ComboBoxItem Content="1.7.10"/>
+                        <ComboBoxItem Content="1.7.2"/>
+                    </ComboBox>
+                    <Label Content="游戏版本:" HorizontalAlignment="Left" Margin="7,80,0,0" VerticalAlignment="Top" Width="74" HorizontalContentAlignment="Center"/>
+                    <ComboBox x:Name="ModrinthJZQ" HorizontalAlignment="Left" Margin="80,116,0,0" VerticalAlignment="Top" Width="183" Height="30" SelectedIndex="0">
+                        <ComboBoxItem Content="全部"/>
+                        <ComboBoxItem Content="Fabric"/>
+                        <ComboBoxItem Content="Forge"/>
+                    </ComboBox>
+                    <Label Content="加载器:" HorizontalAlignment="Left" Margin="26,122,0,0" VerticalAlignment="Top" Width="54" HorizontalContentAlignment="Center"/>
+                    <ComboBox x:Name="ModrinthLB" HorizontalAlignment="Left" Margin="79,160,0,0" VerticalAlignment="Top" Width="184" Height="30" SelectedIndex="0">
+                        <ComboBoxItem Content="全部"/>
+                        <ComboBoxItem Content="奇遇"/>
+                        <ComboBoxItem Content="诅咒"/>
+                        <ComboBoxItem Content="装饰"/>
+                        <ComboBoxItem Content="设备"/>
+                        <ComboBoxItem Content="食物"/>
+                        <ComboBoxItem Content="图书馆"/>
+                        <ComboBoxItem Content="魔法"/>
+                        <ComboBoxItem Content="杂项"/>
+                        <ComboBoxItem Content="优化"/>
+                        <ComboBoxItem Content="存储"/>
+                        <ComboBoxItem Content="科技"/>
+                        <ComboBoxItem Content="效用"/>
+                        <ComboBoxItem Content="世源"/>
+                    </ComboBox>
+                    <Label Content="类别:" HorizontalAlignment="Left" Margin="38,166,0,0" VerticalAlignment="Top" Width="38" HorizontalContentAlignment="Center"/>
+                    <Border x:Name="ModLogo" HorizontalAlignment="Left" Margin="43,331,0,0" VerticalAlignment="Top" CornerRadius="6" Width="192" Height="50">
+                        <Border.Background>
+                            <ImageBrush ImageSource="https://img.kuibu.net/imgs/2022/03/dfec220836847e06.png"/>
+                        </Border.Background>
+                    </Border>
+                </Grid>
+            </TabItem>
+            <TabItem>
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal" Margin="0,0,9.2,0">
+                        <iconPacks:PackIconSimpleIcons Kind="CurseForge" Margin="0,2,5,0"/>
+                        <Label Content="资源下载(CurseForge)"/>
                     </StackPanel>
                 </TabItem.Header>
                 <Grid>

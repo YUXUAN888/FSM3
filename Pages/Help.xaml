@@ -9,7 +9,7 @@
       Title="Help">
 
     <Grid>
-        <Label Content="帮助还在制作中哦" HorizontalAlignment="Left" Margin="314,182,0,0" VerticalAlignment="Top"/>
+        <Label Content="帮助还在制作中哦" HorizontalAlignment="Left" Margin="309,192,0,0" VerticalAlignment="Top"/>
 
     </Grid>
 </Page>

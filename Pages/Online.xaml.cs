@@ -1077,16 +1077,17 @@ namespace FSM3.Pages
                 String ww = System.Text.Encoding.Default.GetString(c);
                 String JM = DecryptDES(ww, "1234567w");
                 after = JM.Split(new char[] { '|' });
-                Game.WritePrivateProfileString("common", "server_addr", after[1], FileOnlineKEHU + @"\frpc.ini");
-                Game.WritePrivateProfileString("common", "server_port", "7000", FileOnlineKEHU + @"\frpc.ini");
-                Game.WritePrivateProfileString("common", "user", after[0], FileOnlineKEHU + @"\frpc.ini");
-                Game.WritePrivateProfileString("common", "meta_token", after[2], FileOnlineKEHU + @"\frpc.ini");
-                Game.WritePrivateProfileString(WWQ, "server_name", after[0], FileOnlineKEHU + @"\frpc.ini");
-                Game.WritePrivateProfileString(WWQ, "type", "stcp", FileOnlineKEHU + @"\frpc.ini");
-                Game.WritePrivateProfileString(WWQ, "bind_addr", "127.0.0.1", FileOnlineKEHU + @"\frpc.ini");
-                Game.WritePrivateProfileString(WWQ, "bind_port", "32423", FileOnlineKEHU + @"\frpc.ini");
-                Game.WritePrivateProfileString(WWQ, "role", "visitor", FileOnlineKEHU + @"\frpc.ini");
-                Game.WritePrivateProfileString(WWQ, "sk", "test", FileOnlineKEHU + @"\frpc.ini");
+                //File.Create(FileOnlineServer + @"\frpc.ini");
+                Game.WritePrivateProfileString("common", "server_addr", after[1], FileOnlineServer + @"\frpc.ini");
+                Game.WritePrivateProfileString("common", "server_port", "7000", FileOnlineServer + @"\frpc.ini");
+                Game.WritePrivateProfileString("common", "user", after[0], FileOnlineServer + @"\frpc.ini");
+                Game.WritePrivateProfileString("common", "meta_token", after[2], FileOnlineServer + @"\frpc.ini");
+                Game.WritePrivateProfileString(WWQ, "server_name", after[0], FileOnlineServer + @"\frpc.ini");
+                Game.WritePrivateProfileString(WWQ, "type", "stcp", FileOnlineServer + @"\frpc.ini");
+                Game.WritePrivateProfileString(WWQ, "bind_addr", "127.0.0.1", FileOnlineServer + @"\frpc.ini");
+                Game.WritePrivateProfileString(WWQ, "bind_port", "32423", FileOnlineServer + @"\frpc.ini");
+                Game.WritePrivateProfileString(WWQ, "role", "visitor", FileOnlineServer + @"\frpc.ini");
+                Game.WritePrivateProfileString(WWQ, "sk", "test", FileOnlineServer + @"\frpc.ini");
                 CmdProcess1.StartInfo.FileName = FileOnlineServer + @"\frpc.exe";
                 //CmdProcess.StartInfo.FileName = StartFileName;
                 CmdProcess1.StartInfo.Arguments = "-c " + FileOnlineServer + @"\frpc.ini";
@@ -1097,7 +1098,7 @@ namespace FSM3.Pages
                 CmdProcess1.OutputDataReceived += new DataReceivedEventHandler(p_OutputDataReceivedG1);
                 CmdProcess1.Start();
                 CmdProcess1.BeginOutputReadLine();
-                File.Delete(FileOnlineServer + @"\frpc.ini");
+                //File.Delete(FileOnlineServer + @"\frpc.ini");
             }
         }
         private async void ReadStdOutputActionG1(string msg)
@@ -1144,8 +1145,15 @@ namespace FSM3.Pages
                     var result = await dialog.ShowAsync();
                     if (result == ContentDialogResult.Primary)
                     {
-                        byte[] b = System.Text.Encoding.Default.GetBytes(aw);
-                        Clipboard.SetDataObject(Convert.ToBase64String(b));
+                        try
+                        {
+                            byte[] b = System.Text.Encoding.Default.GetBytes(aw);
+                            Clipboard.SetDataObject(Convert.ToBase64String(b));
+                        }
+                        catch
+                        {
+
+                        }
                     }
                 }
                 if (msg.IndexOf("error") + 1 != 0)
@@ -1208,7 +1216,32 @@ namespace FSM3.Pages
             }
             SC.ScrollToEnd();
         }
-
+        ///<summary>
+        ///生成随机字符串
+        ///</summary>
+        ///<param name="length">目标字符串的长度</param>
+        ///<param name="useNum">是否包含数字，1=包含，默认为包含</param>
+        ///<param name="useLow">是否包含小写字母，1=包含，默认为包含</param>
+        ///<param name="useUpp">是否包含大写字母，1=包含，默认为包含</param>
+        ///<param name="useSpe">是否包含特殊字符，1=包含，默认为不包含</param>
+        ///<param name="custom">要包含的自定义字符，直接输入要包含的字符列表</param>
+        ///<returns>指定长度的随机字符串</returns>
+        public string GetRnd(int length, bool useNum, bool useLow, bool useUpp, bool useSpe, string custom)
+        {
+            byte[] b = new byte[4];
+            new System.Security.Cryptography.RNGCryptoServiceProvider().GetBytes(b);
+            Random r = new Random(BitConverter.ToInt32(b, 0));
+            string s = null, str = custom;
+            if (useNum == true) { str += "0123456789"; }
+            if (useLow == true) { str += "abcdefghijklmnopqrstuvwxyz"; }
+            if (useUpp == true) { str += "ABCDEFGHIJKLMNOPQRSTUVWXYZ"; }
+            if (useSpe == true) { str += "!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~"; }
+            for (int i = 0; i < length; i++)
+            {
+                   s += str.Substring(r.Next(0, str.Length - 1), 1);
+            }
+            return s;
+        }
         private async void Button_Click_66(object sender, RoutedEventArgs e)
         {
             StackPanel panel = new StackPanel()
@@ -1218,8 +1251,21 @@ namespace FSM3.Pages
             };
             panel.Children.Add(new TextBlock() { Text = "请输入你的游戏端口，以便进行联机" });
             TextBox box3 = new TextBox();
+            TextBox box4 = new TextBox();
+            TextBox box5 = new TextBox();
+            ComboBox box6 = new ComboBox();
             box3.SetCurrentValue(ModernWpf.Controls.Primitives.ControlHelper.HeaderProperty, "游戏端口:");
             panel.Children.Add(box3);
+            box4.SetCurrentValue(ModernWpf.Controls.Primitives.ControlHelper.HeaderProperty, "你的昵称:");
+            panel.Children.Add(box4);
+            box5.SetCurrentValue(ModernWpf.Controls.Primitives.ControlHelper.HeaderProperty, "游戏版本:");
+            panel.Children.Add(box5);
+            box6.SetCurrentValue(ModernWpf.Controls.Primitives.ControlHelper.HeaderProperty, "加载器:");
+            box6.Items.Add("无");
+            box6.Items.Add("Forge");
+            box6.Items.Add("Fabric");
+            box6.SelectedIndex = 0;
+            panel.Children.Add(box6);
             ContentDialog dialog = new ContentDialog()
             {
                 Title = "联机信息采集",
@@ -1233,9 +1279,24 @@ namespace FSM3.Pages
             if (result == ContentDialogResult.Primary)
             {
                 try
-                {
-                    SquareMinecraftLauncher.Online.Server s = new SquareMinecraftLauncher.Online.Server(int.Parse(box3.Text));
-                    String yqm = s.Start();
+                { 
+                    SquareMinecraftLauncher.Online.Server s = new SquareMinecraftLauncher.Online.Server();
+                    SquareMinecraftLauncher.Online.Server.Type tb = new SquareMinecraftLauncher.Online.Server.Type();
+                    if (box6.SelectedIndex is 0)
+                    {
+                        tb = SquareMinecraftLauncher.Online.Server.Type.NoFound;
+                    }
+                    if (box6.SelectedIndex is 1)
+                    {
+                        tb = SquareMinecraftLauncher.Online.Server.Type.Forge;
+                    }
+                    if (box6.SelectedIndex is 2)
+                    {
+                        tb = SquareMinecraftLauncher.Online.Server.Type.Fabric;
+                    }
+                    string yqm = GetRnd(32, true, true, true, false, "@#$%&");
+                    await s.ServerConnect("SDEVF3G28RGFEIQ3UFGR4389YRH3IR32G988GEIF328", box4.Text,box5.Text,tb, int.Parse(box3.Text),SquareMinecraftLauncher.Online.Server.P2PType.Forward, yqm);
+                    s.Start();
                     ContentDialog dialogw = new ContentDialog()
                     {
                         Title = "开启成功",
@@ -1252,7 +1313,7 @@ namespace FSM3.Pages
                     var resultw = await dialogw.ShowAsync();
                     if (resultw == ContentDialogResult.Primary)
                     {
-                        Clipboard.SetDataObject(yqm);
+                        Clipboard.SetDataObject("我正在使用FSM启动器进行 Minecraft"+box5.Text+" 联机！ mod加载器:" + box6.Text +"  快来FSM推荐联机输入邀请码 " +yqm+" 来找我玩吧!");
                     }
                 }
                 catch(Exception ex)
@@ -1284,8 +1345,11 @@ namespace FSM3.Pages
             };
             panel.Children.Add(new TextBlock() { Text = "请输入你的邀请码，以便进行联机" });
             TextBox box = new TextBox();
+            TextBox box1 = new TextBox();
             box.SetCurrentValue(ModernWpf.Controls.Primitives.ControlHelper.HeaderProperty, "邀请码:");
             panel.Children.Add(box);
+            box1.SetCurrentValue(ModernWpf.Controls.Primitives.ControlHelper.HeaderProperty, "你的昵称:");
+            panel.Children.Add(box1);
             ContentDialog dialog = new ContentDialog()
             {
                 Title = "联机信息采集",
@@ -1300,7 +1364,8 @@ namespace FSM3.Pages
             {
                 try
                 {
-                    SquareMinecraftLauncher.Online.Client c = new SquareMinecraftLauncher.Online.Client(box.Text);
+                    SquareMinecraftLauncher.Online.Client c = new SquareMinecraftLauncher.Online.Client();
+                    await c.ClientConnect(box.Text, SquareMinecraftLauncher.Online.Client.P2PType.P2P, "SDEVF3G28RGFEIQ3UFGR4389YRH3IR32G988GEIF328", box1.Text);
                     string s = c.Start();
                     ContentDialog dialogw = new ContentDialog()
                     {
@@ -1312,7 +1377,7 @@ namespace FSM3.Pages
                         Content = new TextBlock()
                         {
                             TextWrapping = TextWrapping.WrapWithOverflow,
-                            Text = "进入游戏后点击多人游戏，添加服务器地址为:" + s+" 以连接",
+                            Text = "进入游戏后点击多人游戏，添加服务器地址为:"+ s +" 以连接",
                         },
 
                     };

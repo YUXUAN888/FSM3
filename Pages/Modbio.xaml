@@ -1,0 +1,26 @@
+﻿<Page x:Class="FSM3.Pages.Modbio"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:FSM3.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="436.8" d:DesignWidth="754.4"
+      Title="Modbio" Loaded="Load">
+
+    <Grid x:Name="ModName">
+        <ListBox x:Name="ModL" HorizontalAlignment="Left" Height="331" Margin="24,98,0,0" VerticalAlignment="Top" Width="706" SelectionChanged="ListBox_SelectionChanged"/>
+        <Border CornerRadius="7,7,7,7" BorderBrush="#FF323232" BorderThickness="1" HorizontalAlignment="Left" Height="76" Margin="20,13,0,0" VerticalAlignment="Top" Width="713">
+            <Grid Margin="1.2,0.2,-1,0.2">
+                <Border x:Name="ModLogo" HorizontalAlignment="Left" Margin="13,9,0,0" VerticalAlignment="Top" CornerRadius="6" Width="56" Height="56">
+                    <Border.Background>
+                        <ImageBrush ImageSource="/FSM3;component/Image/IMG_5145(20220228-195827).JPG"/>
+                    </Border.Background>
+                </Border>
+                <Label x:Name="Name" Content="Label" HorizontalAlignment="Left" Margin="75,14,0,0" VerticalAlignment="Top" FontSize="18" Width="556"/>
+                <Label x:Name="bio" Content="bio" HorizontalAlignment="Left" Margin="75,43,0,0" VerticalAlignment="Top" FontSize="15" Width="618" Height="21"/>
+            </Grid>
+        </Border>
+
+    </Grid>
+</Page>

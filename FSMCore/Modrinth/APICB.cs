@@ -85,6 +85,10 @@ namespace FSM3.Modrinth
         /// 
         /// </summary>
         public string host { get; set; }
+        ///<summary>
+        ///
+        ///</summary>
+        public string project_id { get; set; }
     }
 
     public class Root
