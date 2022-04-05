@@ -427,9 +427,10 @@ namespace FSM3.Pages
                         // DIYvar.lw = user1;
                         vlist.ItemsSource = user1.ToArray();
                     }
-
+                    
                 }
                 // string mcPath = (sender as ListBox).SelectedItem.ToString();
+                vlist.SelectedIndex = 0;
             }
             catch (Exception ex)
             {
@@ -782,6 +783,7 @@ namespace FSM3.Pages
 
                 }
                 // string mcPath = (sender as ListBox).SelectedItem.ToString();
+                vlist.SelectedIndex = 0;
             }
             catch (Exception ex)
             {

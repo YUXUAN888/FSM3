@@ -149,159 +149,94 @@ namespace FSM3.Pages
         public string MFLJ;
         private async void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            if (CJFJ.Content.ToString() is "关闭房间")
+            StackPanel panel = new StackPanel()
+            {
+                VerticalAlignment = VerticalAlignment.Stretch,
+                HorizontalAlignment = HorizontalAlignment.Stretch,
+            };
+            panel.Children.Add(new TextBlock() { Text = "请输入你的游戏端口，以便进行联机" });
+            TextBox box3 = new TextBox();
+            TextBox box4 = new TextBox();
+            TextBox box5 = new TextBox();
+            ComboBox box6 = new ComboBox();
+            box3.SetCurrentValue(ModernWpf.Controls.Primitives.ControlHelper.HeaderProperty, "游戏端口:");
+            panel.Children.Add(box3);
+            box4.SetCurrentValue(ModernWpf.Controls.Primitives.ControlHelper.HeaderProperty, "你的昵称:");
+            panel.Children.Add(box4);
+            box5.SetCurrentValue(ModernWpf.Controls.Primitives.ControlHelper.HeaderProperty, "游戏版本:");
+            panel.Children.Add(box5);
+            box6.SetCurrentValue(ModernWpf.Controls.Primitives.ControlHelper.HeaderProperty, "加载器:");
+            box6.Items.Add("无");
+            box6.Items.Add("Forge");
+            box6.Items.Add("Fabric");
+            box6.SelectedIndex = 0;
+            panel.Children.Add(box6);
+            ContentDialog dialog = new ContentDialog()
+            {
+                Title = "联机信息采集",
+                PrimaryButtonText = "开始！",
+                CloseButtonText = "取消",
+                IsPrimaryButtonEnabled = true,
+                DefaultButton = ContentDialogButton.Primary,
+                Content = panel,
+            };
+            var result = await dialog.ShowAsync();
+            if (result == ContentDialogResult.Primary)
             {
                 try
                 {
-                    CmdProcess1.Kill();
-                    CmdProcess1.CancelOutputRead();
-                    //ReadStdOutput = null;
-                    CmdProcess1.OutputDataReceived -= new DataReceivedEventHandler(p_OutputDataReceived1);
-                    CJFJ.Content = "创建并开启房间";
-                }
-                catch
-                {
-
-                }
-            }
-            else
-            {
-                StackPanel panel = new StackPanel()
-                {
-                    VerticalAlignment = VerticalAlignment.Stretch,
-                    HorizontalAlignment = HorizontalAlignment.Stretch,
-                };
-                panel.Children.Add(new TextBlock() { Text = "请输入你的一些信息，以便进行联机" });
-                TextBox box = new TextBox();
-                TextBox box2 = new TextBox();
-                TextBox box3 = new TextBox();
-                box.SetCurrentValue(ModernWpf.Controls.Primitives.ControlHelper.HeaderProperty, "房间名:");
-                box2.SetCurrentValue(ModernWpf.Controls.Primitives.ControlHelper.HeaderProperty, "你的QQ:");
-                box3.SetCurrentValue(ModernWpf.Controls.Primitives.ControlHelper.HeaderProperty, "游戏端口:");
-                panel.Children.Add(box);
-                panel.Children.Add(box2);
-                panel.Children.Add(box3);
-                ContentDialog dialog = new ContentDialog()
-                {
-                    Title = "联机信息采集",
-                    PrimaryButtonText = "开始！",
-                    CloseButtonText = "取消",
-                    IsPrimaryButtonEnabled = true,
-                    DefaultButton = ContentDialogButton.Primary,
-                    Content = panel,
-                };
-                var result = await dialog.ShowAsync();
-                if (result == ContentDialogResult.Primary)
-                {
-                    onlinename = box.Text;
-                    onlinezijiqq = box2.Text;
-                    onlineduankou = box3.Text;
-                    if(onlinename != "" && onlinezijiqq != "" && onlineduankou != "")
+                    SquareMinecraftLauncher.Online.Server s = new SquareMinecraftLauncher.Online.Server();
+                    SquareMinecraftLauncher.Online.Server.Type tb = new SquareMinecraftLauncher.Online.Server.Type();
+                    if (box6.SelectedIndex is 0)
                     {
-                        try
-                        {
-                            if (Game.IniReadValue("ONLINE", "Server") == "GZ")
-                            {
-                                WebClient MyWebClient = new WebClient();
-                                MyWebClient.Credentials = CredentialCache.DefaultCredentials;//获取或设置用于向Internet资源的请求进行身份验证的网络凭据
-                                StringBuilder sb = new StringBuilder();
-                                String pageData = MyWebClient.DownloadString("http://119.29.66.223/"); //从指定网站下载数据
-                                pageData = Encoding.UTF8.GetString(MyWebClient.DownloadData("http://119.29.66.223/"));
-                                byte[] buff = Convert.FromBase64String(pageData);
-                                string decStr = System.Text.Encoding.Default.GetString(buff);
-                                Game.WritePrivateProfileString("common", "server_addr", "gz1.qwq.one", FileOnlineServer + @"\frpc.ini");
-                                Game.WritePrivateProfileString("common", "server_port", "7000", FileOnlineServer + @"\frpc.ini");
-                                Game.WritePrivateProfileString("common", "dns", "223.5.5.5", FileOnlineServer + @"\frpc.ini");
-                                Game.WritePrivateProfileString("common", "token", decStr, FileOnlineServer + @"\frpc.ini");
-                                Game.WritePrivateProfileString(onlinezijiqq, "type", Game.IniReadValue("ONLINE", "TCPP2P"), FileOnlineServer + @"\frpc.ini");
-                                Game.WritePrivateProfileString(onlinezijiqq, "sk", "12345678", FileOnlineServer + @"\frpc.ini");
-                                Game.WritePrivateProfileString(onlinezijiqq, "local_port", onlineduankou, FileOnlineServer + @"\frpc.ini");
-                                Game.WritePrivateProfileString(onlinezijiqq, "remote_port", "25565", FileOnlineServer + @"\frpc.ini");
-                                CmdProcess1.StartInfo.FileName = FileOnlineServer + @"\frpc.exe";
-                                //CmdProcess.StartInfo.FileName = StartFileName;
-                                CmdProcess1.StartInfo.Arguments = "-c " + FileOnlineServer + @"\frpc.ini";
-                                CmdProcess1.StartInfo.CreateNoWindow = true;
-                                CmdProcess1.StartInfo.UseShellExecute = false;
-                                CmdProcess1.StartInfo.RedirectStandardInput = true;
-                                CmdProcess1.StartInfo.RedirectStandardOutput = true;
-                                CJFJ.Content = "关闭房间";
-                                CmdProcess1.OutputDataReceived += new DataReceivedEventHandler(p_OutputDataReceived1);
-                                CmdProcess1.Start();
-                                CmdProcess1.BeginOutputReadLine();
-                            }
-                            else
-                            {
-                                WebClient MyWebClient = new WebClient();
-                                MyWebClient.Credentials = CredentialCache.DefaultCredentials;//获取或设置用于向Internet资源的请求进行身份验证的网络凭据
-                                StringBuilder sb = new StringBuilder();
-                                String pageData = MyWebClient.DownloadString("http://1.116.201.220/"); //从指定网站下载数据
-                                pageData = Encoding.UTF8.GetString(MyWebClient.DownloadData("http://1.116.201.220/"));
-                                byte[] buff = Convert.FromBase64String(pageData);
-                                string decStr = System.Text.Encoding.Default.GetString(buff);
-                                Game.WritePrivateProfileString("common", "server_addr", "sh.qwq.one", FileOnlineServer + @"\frpc.ini");
-                                Game.WritePrivateProfileString("common", "server_port", "7000", FileOnlineServer + @"\frpc.ini");
-                                Game.WritePrivateProfileString("common", "dns", "223.5.5.5", FileOnlineServer + @"\frpc.ini");
-                                Game.WritePrivateProfileString("common", "token", decStr, FileOnlineServer + @"\frpc.ini");
-                                Game.WritePrivateProfileString(onlinezijiqq, "type", Game.IniReadValue("ONLINE", "TCPP2P"), FileOnlineServer + @"\frpc.ini");
-                                Game.WritePrivateProfileString(onlinezijiqq, "sk", "12345678", FileOnlineServer + @"\frpc.ini");
-                                Game.WritePrivateProfileString(onlinezijiqq, "local_port", onlineduankou, FileOnlineServer + @"\frpc.ini");
-                                Game.WritePrivateProfileString(onlinezijiqq, "remote_port", "25565", FileOnlineServer + @"\frpc.ini");
-                                CmdProcess1.StartInfo.FileName = FileOnlineServer + @"\frpc.exe";
-                                //CmdProcess.StartInfo.FileName = StartFileName;
-                                CmdProcess1.StartInfo.Arguments = "-c " + FileOnlineServer + @"\frpc.ini";
-                                CmdProcess1.StartInfo.CreateNoWindow = true;
-                                CmdProcess1.StartInfo.UseShellExecute = false;
-                                CmdProcess1.StartInfo.RedirectStandardInput = true;
-                                CmdProcess1.StartInfo.RedirectStandardOutput = true;
-                                CJFJ.Content = "关闭房间";
-                                CmdProcess1.OutputDataReceived += new DataReceivedEventHandler(p_OutputDataReceived1);
-                                CmdProcess1.Start();
-                                CmdProcess1.BeginOutputReadLine();
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            ContentDialog dialogw = new ContentDialog()
-                            {
-                                Title = "灾难性故障",
-                                PrimaryButtonText = "好吧",
-                                IsPrimaryButtonEnabled = true,
-                                DefaultButton = ContentDialogButton.Primary,
-                                Content = new TextBlock()
-                                {
-                                    TextWrapping = TextWrapping.WrapWithOverflow,
-                                    Text = ex.Message
-                                },
-
-                            };
-                            var resultw = await dialogw.ShowAsync();
-                            if (resultw == ContentDialogResult.Primary)
-                            {
-
-                            }
-                        }
+                        tb = SquareMinecraftLauncher.Online.Server.Type.NoFound;
                     }
-                    else
+                    if (box6.SelectedIndex is 1)
                     {
-                        ContentDialog dialogwx = new ContentDialog()
-                        {
-                            Title = "不填写怎么联机呢",
-                            PrimaryButtonText = "我知道啦!",
-                            IsPrimaryButtonEnabled = true,
-                            DefaultButton = ContentDialogButton.Primary,
-                            Content = new TextBlock()
-                            {
-                                TextWrapping = TextWrapping.WrapWithOverflow,
-                                Text = "填写准确的信息,你才能跟好友愉快的联机哦!",
-                            },
-
-                        };
-                        var resultwx = await dialogwx.ShowAsync();
-                        if (resultwx == ContentDialogResult.Primary)
-                        {
-
-                        }
+                        tb = SquareMinecraftLauncher.Online.Server.Type.Forge;
                     }
+                    if (box6.SelectedIndex is 2)
+                    {
+                        tb = SquareMinecraftLauncher.Online.Server.Type.Fabric;
+                    }
+                    string yqm = GetRnd(32, true, true, true, false, "@#$%&");
+                    await s.ServerConnect("SDEVF3G28RGFEIQ3UFGR4389YRH3IR32G988GEIF328", box4.Text, box5.Text, tb, int.Parse(box3.Text), SquareMinecraftLauncher.Online.Server.P2PType.Forward, yqm);
+                    s.Start();
+                    ContentDialog dialogw = new ContentDialog()
+                    {
+                        Title = "开启成功",
+                        PrimaryButtonText = "复制邀请码",
+                        IsPrimaryButtonEnabled = true,
+                        DefaultButton = ContentDialogButton.Primary,
+                        Content = new TextBlock()
+                        {
+                            TextWrapping = TextWrapping.WrapWithOverflow,
+                            Text = "您已开房，请复制邀请码给小伙伴~"
+                        },
+
+                    };
+                    var resultw = await dialogw.ShowAsync();
+                    if (resultw == ContentDialogResult.Primary)
+                    {
+                        Clipboard.SetDataObject("我正在使用FSM启动器进行 Minecraft" + box5.Text + " 联机！ mod加载器:" + box6.Text + "  快来FSM推荐联机输入邀请码 " + yqm + " 来找我玩吧!");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    ContentDialog dialogw = new ContentDialog()
+                    {
+                        Title = "遇到错误了",
+                        PrimaryButtonText = "好吧",
+                        IsPrimaryButtonEnabled = true,
+                        DefaultButton = ContentDialogButton.Primary,
+                        Content = new TextBlock()
+                        {
+                            TextWrapping = TextWrapping.WrapWithOverflow,
+                            Text = ex.Message + "\n可能是你的游戏昵称没有填写，或者游戏版本没有填写",
+                        },
+
+                    };
+                    var resultw = await dialogw.ShowAsync();
                 }
             }
         }
@@ -461,227 +396,74 @@ namespace FSM3.Pages
         public static string[] after;
         private async void Button_Click_2(object sender, RoutedEventArgs e)
         {
-            if (Game.IniReadValue("ONLINE", "Server") == "GZ")
+            StackPanel panel = new StackPanel()
+            {
+                VerticalAlignment = VerticalAlignment.Stretch,
+                HorizontalAlignment = HorizontalAlignment.Stretch,
+            };
+            panel.Children.Add(new TextBlock() { Text = "请输入你的邀请码，以便进行联机" });
+            TextBox box = new TextBox();
+            TextBox box1 = new TextBox();
+            box.SetCurrentValue(ModernWpf.Controls.Primitives.ControlHelper.HeaderProperty, "邀请码:");
+            panel.Children.Add(box);
+            box1.SetCurrentValue(ModernWpf.Controls.Primitives.ControlHelper.HeaderProperty, "你的昵称:");
+            panel.Children.Add(box1);
+            ContentDialog dialog = new ContentDialog()
+            {
+                Title = "联机信息采集",
+                PrimaryButtonText = "开始！",
+                CloseButtonText = "取消",
+                IsPrimaryButtonEnabled = true,
+                DefaultButton = ContentDialogButton.Primary,
+                Content = panel,
+            };
+            var result = await dialog.ShowAsync();
+            if (result == ContentDialogResult.Primary)
             {
                 try
                 {
-                    WebClient MyWebClient = new WebClient();
-                    MyWebClient.Credentials = CredentialCache.DefaultCredentials;//获取或设置用于向Internet资源的请求进行身份验证的网络凭据
-                    StringBuilder sb = new StringBuilder();
-                    String pageData = MyWebClient.DownloadString("http://119.29.66.223/"); //从指定网站下载数据
-                    pageData = Encoding.UTF8.GetString(MyWebClient.DownloadData("http://119.29.66.223/"));
-                    byte[] buff = Convert.FromBase64String(pageData);
-                    string decStr = System.Text.Encoding.Default.GetString(buff);
-                    StackPanel panel = new StackPanel()
+                    SquareMinecraftLauncher.Online.Client c = new SquareMinecraftLauncher.Online.Client();
+                    await c.ClientConnect(box.Text, SquareMinecraftLauncher.Online.Client.P2PType.Forward, "SDEVF3G28RGFEIQ3UFGR4389YRH3IR32G988GEIF328", box1.Text);
+                    string s = c.Start();
+                    ContentDialog dialogw = new ContentDialog()
                     {
-                        VerticalAlignment = VerticalAlignment.Stretch,
-                        HorizontalAlignment = HorizontalAlignment.Stretch,
-                    };
-                    panel.Children.Add(new TextBlock() { Text = "请输入你的一些信息，以便进行联机" });
-                    TextBox box = new TextBox();
-                    TextBox box2 = new TextBox();
-                    box.SetCurrentValue(ModernWpf.Controls.Primitives.ControlHelper.HeaderProperty, "邀请码:");
-                    box2.SetCurrentValue(ModernWpf.Controls.Primitives.ControlHelper.HeaderProperty, "你的QQ:");
-                    panel.Children.Add(box);
-                    panel.Children.Add(box2);
-                    ContentDialog dialog = new ContentDialog()
-                    {
-                        Title = "联机信息采集",
-                        PrimaryButtonText = "开始！",
-                        CloseButtonText = "取消",
+                        Title = "连接成功!",
+                        PrimaryButtonText = "复制地址",
                         IsPrimaryButtonEnabled = true,
+                        IsSecondaryButtonEnabled = true,
                         DefaultButton = ContentDialogButton.Primary,
-                        Content = panel,
-                    };
-                    var result = await dialog.ShowAsync();
-                    if (result == ContentDialogResult.Primary)
-                    {
-                        String yqm = box.Text;
-                        if (yqm == MFLJ)
+                        Content = new TextBlock()
                         {
-                            StackPanel panelw = new StackPanel()
-                            {
-                                VerticalAlignment = VerticalAlignment.Stretch,
-                                HorizontalAlignment = HorizontalAlignment.Stretch,
-                            };
-                            panelw.Children.Add(new TextBlock() { Text = "获得成就:我连我自己\n奥利给!!!!!!" });
-                            ContentDialog dialogw = new ContentDialog()
-                            {
-                                Title = "真好玩",
-                                PrimaryButtonText = "好玩!",
-                                IsPrimaryButtonEnabled = true,
-                                DefaultButton = ContentDialogButton.Primary,
-                                Content = panelw,
-                            };
-                            var resultw = await dialogw.ShowAsync();
-                            if (resultw == ContentDialogResult.Primary)
-                            {
+                            TextWrapping = TextWrapping.WrapWithOverflow,
+                            Text = "进入游戏后点击多人游戏，添加服务器地址为:" + s + " 以连接",
+                        },
 
-                            }
-                        }
-                        else
-                        {
-                            String xcqq = box2.Text;
-                            byte[] c = Convert.FromBase64String(yqm);
-                            String ww = System.Text.Encoding.Default.GetString(c);
-                            after = ww.Split(new char[] { '|' });
-                            onlineduifangqq = after[0];
-                            Game.WritePrivateProfileString("common", "server_addr", "gz1.qwq.one", FileOnlineServer + @"\frpc.ini");
-                            Game.WritePrivateProfileString("common", "server_port", "7000", FileOnlineServer + @"\frpc.ini");
-                            Game.WritePrivateProfileString("common", "token", decStr, FileOnlineServer + @"\frpc.ini");
-                            Game.WritePrivateProfileString("common", "dns", "223.5.5.5", FileOnlineServer + @"\frpc.ini");
-                            Game.WritePrivateProfileString(xcqq, "server_name", onlineduifangqq, FileOnlineServer + @"\frpc.ini");
-                            Game.WritePrivateProfileString(xcqq, "type", Game.IniReadValue("ONLINE", "TCPP2P"), FileOnlineKEHU + @"\frpc.ini");
-                            Game.WritePrivateProfileString(xcqq, "bind_addr", "127.0.0.1", FileOnlineServer + @"\frpc.ini");
-                            Game.WritePrivateProfileString(xcqq, "bind_port", "25565", FileOnlineServer + @"\frpc.ini");
-                            Game.WritePrivateProfileString(xcqq, "role", "visitor", FileOnlineServer + @"\frpc.ini");
-                            Game.WritePrivateProfileString(xcqq, "sk", "12345678", FileOnlineServer + @"\frpc.ini");
-                            CmdProcess1.StartInfo.FileName = FileOnlineServer + @"\frpc.exe";
-                            //CmdProcess.StartInfo.FileName = StartFileName;
-                            CmdProcess1.StartInfo.Arguments = "-c " + FileOnlineServer + @"\frpc.ini";
-                            CmdProcess1.StartInfo.CreateNoWindow = true;
-                            CmdProcess1.StartInfo.UseShellExecute = false;
-                            CmdProcess1.StartInfo.RedirectStandardInput = true;
-                            CmdProcess1.StartInfo.RedirectStandardOutput = true;
-                            CmdProcess1.OutputDataReceived += new DataReceivedEventHandler(p_OutputDataReceivedw);
-                            CmdProcess1.Start();
-                            CmdProcess1.BeginOutputReadLine();
-                        }
+                    };
+                    var resultw = await dialogw.ShowAsync();
+                    if (resultw == ContentDialogResult.Primary)
+                    {
+                        Clipboard.SetDataObject(s);
                     }
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
-                    StackPanel panel = new StackPanel()
+                    ContentDialog dialogw = new ContentDialog()
                     {
-                        VerticalAlignment = VerticalAlignment.Stretch,
-                        HorizontalAlignment = HorizontalAlignment.Stretch,
-                    };
-                    panel.Children.Add(new TextBlock() { Text = "怎么会失败!?可能是邀请码错误 打开日志看看吧！\n"+ex.Message });
-                    ContentDialog dialog = new ContentDialog()
-                    {
-                        Title = "失..失败了？",
-                        PrimaryButtonText = "打开日志",
-                        CloseButtonText = "取消",
+                        Title = "失..失败了?",
+                        PrimaryButtonText = "好吧",
                         IsPrimaryButtonEnabled = true,
                         DefaultButton = ContentDialogButton.Primary,
-                        Content = panel,
-                    };
-                    var result = await dialog.ShowAsync();
-                    if (result == ContentDialogResult.Primary)
-                    {
-                        System.Diagnostics.Process.Start(System.AppDomain.CurrentDomain.BaseDirectory + @"FSM\Logs");
-                    }
-                }
-            }
-            else
-            {
-                try
-                {
-                    WebClient MyWebClient = new WebClient();
-                    MyWebClient.Credentials = CredentialCache.DefaultCredentials;//获取或设置用于向Internet资源的请求进行身份验证的网络凭据
-                    StringBuilder sb = new StringBuilder();
-                    String pageData = MyWebClient.DownloadString("http://1.116.201.220/"); //从指定网站下载数据
-                    pageData = Encoding.UTF8.GetString(MyWebClient.DownloadData("http://1.116.201.220/"));
-                    byte[] buff = Convert.FromBase64String(pageData);
-                    string decStr = System.Text.Encoding.Default.GetString(buff);
-                    StackPanel panel = new StackPanel()
-                    {
-                        VerticalAlignment = VerticalAlignment.Stretch,
-                        HorizontalAlignment = HorizontalAlignment.Stretch,
-                    };
-                    panel.Children.Add(new TextBlock() { Text = "请输入你的一些信息，以便进行联机" });
-                    TextBox box = new TextBox();
-                    TextBox box2 = new TextBox();
-                    box.SetCurrentValue(ModernWpf.Controls.Primitives.ControlHelper.HeaderProperty, "邀请码:");
-                    box2.SetCurrentValue(ModernWpf.Controls.Primitives.ControlHelper.HeaderProperty, "你的QQ:");
-                    panel.Children.Add(box);
-                    panel.Children.Add(box2);
-                    ContentDialog dialog = new ContentDialog()
-                    {
-                        Title = "联机信息采集",
-                        PrimaryButtonText = "开始！",
-                        CloseButtonText = "取消",
-                        IsPrimaryButtonEnabled = true,
-                        DefaultButton = ContentDialogButton.Primary,
-                        Content = panel,
-                    };
-                    var result = await dialog.ShowAsync();
-                    if (result == ContentDialogResult.Primary)
-                    {
-                        String yqm = box.Text;
-                        if (yqm == MFLJ)
+                        Content = new TextBlock()
                         {
-                            StackPanel panelw = new StackPanel()
-                            {
-                                VerticalAlignment = VerticalAlignment.Stretch,
-                                HorizontalAlignment = HorizontalAlignment.Stretch,
-                            };
-                            panelw.Children.Add(new TextBlock() { Text = "获得成就:我连我自己\n奥利给!!!!!!" });
-                            ContentDialog dialogw = new ContentDialog()
-                            {
-                                Title = "真好玩",
-                                PrimaryButtonText = "好玩!",
-                                IsPrimaryButtonEnabled = true,
-                                DefaultButton = ContentDialogButton.Primary,
-                                Content = panelw,
-                            };
-                            var resultw = await dialogw.ShowAsync();
-                            if (resultw == ContentDialogResult.Primary)
-                            {
-                                
-                            }
-                        }
-                        else
-                        {
-                            String xcqq = box2.Text;
-                            byte[] c = Convert.FromBase64String(yqm);
-                            String ww = System.Text.Encoding.Default.GetString(c);
-                            after = ww.Split(new char[] { '|' });
-                            onlineduifangqq = after[0];
-                            Game.WritePrivateProfileString("common", "server_addr", "sh.qwq.one", FileOnlineServer + @"\frpc.ini");
-                            Game.WritePrivateProfileString("common", "server_port", "7000", FileOnlineServer + @"\frpc.ini");
-                            Game.WritePrivateProfileString("common", "token", decStr, FileOnlineServer + @"\frpc.ini");
-                            Game.WritePrivateProfileString("common", "dns", "223.5.5.5", FileOnlineServer + @"\frpc.ini");
-                            Game.WritePrivateProfileString(xcqq, "server_name", onlineduifangqq, FileOnlineServer + @"\frpc.ini");
-                            Game.WritePrivateProfileString(xcqq, "type", Game.IniReadValue("ONLINE", "TCPP2P"), FileOnlineServer + @"\frpc.ini");
-                            Game.WritePrivateProfileString(xcqq, "bind_addr", "127.0.0.1", FileOnlineServer + @"\frpc.ini");
-                            Game.WritePrivateProfileString(xcqq, "bind_port", "25565", FileOnlineServer + @"\frpc.ini");
-                            Game.WritePrivateProfileString(xcqq, "role", "visitor", FileOnlineServer + @"\frpc.ini");
-                            Game.WritePrivateProfileString(xcqq, "sk", "12345678", FileOnlineServer + @"\frpc.ini");
-                            CmdProcess1.StartInfo.FileName = FileOnlineServer + @"\frpc.exe";
-                            //CmdProcess.StartInfo.FileName = StartFileName;
-                            CmdProcess1.StartInfo.Arguments = "-c " + FileOnlineServer + @"\frpc.ini";
-                            CmdProcess1.StartInfo.CreateNoWindow = true;
-                            CmdProcess1.StartInfo.UseShellExecute = false;
-                            CmdProcess1.StartInfo.RedirectStandardInput = true;
-                            CmdProcess1.StartInfo.RedirectStandardOutput = true;
-                            CmdProcess1.OutputDataReceived += new DataReceivedEventHandler(p_OutputDataReceivedw);
-                            CmdProcess1.Start();
-                            CmdProcess1.BeginOutputReadLine();
-                        }
-                    }
-                }
-                catch
-                {
-                    StackPanel panel = new StackPanel()
-                    {
-                        VerticalAlignment = VerticalAlignment.Stretch,
-                        HorizontalAlignment = HorizontalAlignment.Stretch,
+                            TextWrapping = TextWrapping.WrapWithOverflow,
+                            Text = ex.Message + "\n可能是你的游戏昵称没有填写",
+                        },
+
                     };
-                    panel.Children.Add(new TextBlock() { Text = "怎么会失败!?可能是邀请码错误 打开日志看看吧！" });
-                    ContentDialog dialog = new ContentDialog()
+                    var resultw = await dialogw.ShowAsync();
+                    if (resultw == ContentDialogResult.Primary)
                     {
-                        Title = "失..失败了？",
-                        PrimaryButtonText = "打开日志",
-                        CloseButtonText = "取消",
-                        IsPrimaryButtonEnabled = true,
-                        DefaultButton = ContentDialogButton.Primary,
-                        Content = panel,
-                    };
-                    var result = await dialog.ShowAsync();
-                    if (result == ContentDialogResult.Primary)
-                    {
-                        System.Diagnostics.Process.Start(System.AppDomain.CurrentDomain.BaseDirectory + @"FSM\Logs");
+
                     }
                 }
             }
@@ -1327,7 +1109,7 @@ namespace FSM3.Pages
                         Content = new TextBlock()
                         {
                             TextWrapping = TextWrapping.WrapWithOverflow,
-                            Text = ex.Message,
+                            Text = ex.Message + "\n可能是你的游戏昵称没有填写，或者游戏版本没有填写",
                         },
 
                     };
@@ -1398,7 +1180,7 @@ namespace FSM3.Pages
                         Content = new TextBlock()
                         {
                             TextWrapping = TextWrapping.WrapWithOverflow,
-                            Text = ex.Message,
+                            Text = ex.Message+"\n可能是你的游戏昵称没有填写",
                         },
 
                     };

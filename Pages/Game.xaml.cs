@@ -99,7 +99,102 @@ namespace FSM3.Pages
         {
             InitializeComponent();
             NowVw.NowV = NowV;
-            
+            try
+            {
+                string aaw = About.DecryptDES(IniReadValue("JSM", "JSM"), "87654321");
+                // MessageBox.Show(DecryptDES("ODliMzdkNWNmOTBhOTViNQ==", "8765432w"));
+                string code = null;
+                SelectQuery query = new SelectQuery("select * from Win32_ComputerSystemProduct");
+                using (ManagementObjectSearcher searcher = new ManagementObjectSearcher(query))
+                {
+                    foreach (var item in searcher.Get())
+                    {
+                        using (item) code = item["UUID"].ToString();
+                    }
+
+                }
+                if (aaw == code)
+                {
+                    About.YJS = true;
+                    switch (int.Parse(IniReadValue("JSM", "Color")))
+                    {
+                        case 0:
+                            DisHelper.DisHelper.RunOnMainThread(() =>
+                            {
+                                ThemeManager.Current.AccentColor = System.Windows.Media.Color.FromRgb(255, 140, 0);  //橙色
+                                WritePrivateProfileString("JSM", "Color", "0", FileS);
+                            });
+                            break;
+                        case 1:
+                            DisHelper.DisHelper.RunOnMainThread(() =>
+                            {
+                                ThemeManager.Current.AccentColor = System.Windows.Media.Color.FromRgb(255, 67, 67);  //鲜艳红
+                                WritePrivateProfileString("JSM", "Color", "1", FileS);
+                            });
+                            break;
+                        case 2:
+                            DisHelper.DisHelper.RunOnMainThread(() =>
+                            {
+                                ThemeManager.Current.AccentColor = System.Windows.Media.Color.FromRgb(232, 17, 35);  //中国红
+                                WritePrivateProfileString("JSM", "Color", "2", FileS);
+                            });
+                            break;
+                        case 3:
+                            DisHelper.DisHelper.RunOnMainThread(() =>
+                            {
+                                ThemeManager.Current.AccentColor = System.Windows.Media.Color.FromRgb(234, 0, 94);  //小马宝莉
+                                WritePrivateProfileString("JSM", "Color", "3", FileS);
+                            });
+                            break;
+                        case 4:
+                            DisHelper.DisHelper.RunOnMainThread(() =>
+                            {
+                                ThemeManager.Current.AccentColor = System.Windows.Media.Color.FromRgb(142, 140, 216);  //淡紫色
+                                WritePrivateProfileString("JSM", "Color", "4", FileS);
+                            });
+                            break;
+                        case 5:
+                            DisHelper.DisHelper.RunOnMainThread(() =>
+                            {
+                                ThemeManager.Current.AccentColor = System.Windows.Media.Color.FromRgb(45, 125, 154);  //青色
+                                WritePrivateProfileString("JSM", "Color", "5", FileS);
+                            });
+                            break;
+                        case 6:
+                            DisHelper.DisHelper.RunOnMainThread(() =>
+                            {
+                                ThemeManager.Current.AccentColor = System.Windows.Media.Color.FromRgb(16, 124, 16);  //原谅绿
+                                WritePrivateProfileString("JSM", "Color", "6", FileS);
+                            });
+                            break;
+                        case 7:
+                            DisHelper.DisHelper.RunOnMainThread(() =>
+                            {
+                                ThemeManager.Current.AccentColor = System.Windows.Media.Color.FromRgb(46, 47, 42);  //高端灰
+                                WritePrivateProfileString("JSM", "Color", "7", FileS);
+                            });
+                            break;
+                        case 8:
+                            DisHelper.DisHelper.RunOnMainThread(() =>
+                            {
+                                ThemeManager.Current.AccentColor = System.Windows.Media.Color.FromRgb(0, 204, 106);  //青草绿
+                                WritePrivateProfileString("JSM", "Color", "8", FileS);
+                            });
+                            break;
+                        case 9:
+                            DisHelper.DisHelper.RunOnMainThread(() =>
+                            {
+                                ThemeManager.Current.AccentColor = System.Windows.Media.Color.FromRgb(202, 80, 16);  //深度橘
+                                WritePrivateProfileString("JSM", "Color", "9", FileS);
+                            });
+                            break;
+                    }
+                }
+            }
+            catch
+            {
+
+            }
             if (Game.IniReadValueW("OffLine", "Skin") == "" || Game.IniReadValueW("OffLine", "Skin") == null)
             {
 
