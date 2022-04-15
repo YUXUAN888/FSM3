@@ -17,10 +17,12 @@
 A Minecraft Launcher！
 
 The open source purpose of this project is to learn, troubleshoot and disclose security strategies
-Author: 宇轩Yu_Xuan
+Author: Yu_Xuan
 Please note that this project follows GNU GPL3.0 open source agreement
 
 </div>
+
+![Alt](https://repobeats.axiom.co/api/embed/4aa64d844a6f7e8330e0b653cceffa5a0f775af0.svg "Repobeats analytics image")
   
 ## Using components：
 
