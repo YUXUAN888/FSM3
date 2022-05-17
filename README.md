@@ -1,35 +1,62 @@
-# FSM Launcher3(Master)
+<p align="center">
+<img src="https://s3.bmp.ovh/imgs/2022/03/d948906676b5a9c0.png"/>
+</p>
+
+<div align="center">
+  
+# FSM Launcher 3
+
+[![Discord](https://img.shields.io/discord/935789562322632735.svg?label=&logo=discord&logoColor=ffffff&color=7389D8&labelColor=6A7EC2)](https://discord.gg/Xj9pGPcRHr)
+<a href="https://github.com/YUXUAN888/FSM3/blob/master/LICENSE"><img alt="GitHub license" src="https://img.shields.io/github/license/YUXUAN888/FSM3"></a>
+<a href="https://github.com/YUXUAN888/FSM3/issues"><img alt="GitHub issues" src="https://img.shields.io/github/issues/YUXUAN888/FSM3"></a>
+<a href="https://github.com/YUXUAN888/FSM3/stargazers"><img alt="GitHub stars" src="https://img.shields.io/github/stars/YUXUAN888/FSM3"></a>
+<a href="https://github.com/YUXUAN888/FSM3/network"><img alt="GitHub forks" src="https://img.shields.io/github/forks/YUXUAN888/FSM3"></a>
+
+[简体中文](https://github.com/YUXUAN888/FSM3/blob/master/%5BCN%5DREADME.md) | English
+  
 A Minecraft Launcher！
 
-此项目开源目的在于学习，错误排查，公开安全策略  
-作者：宇轩Yu_Xuan
-请注意该项目遵循GNU GPL3.0开源协议  
+The open source purpose of this project is to learn, troubleshoot and disclose security strategies
+Author: Yu_Xuan
+Please note that this project follows GNU GPL3.0 open source agreement
+
+</div>
+
+![Alt](https://repobeats.axiom.co/api/embed/4aa64d844a6f7e8330e0b653cceffa5a0f775af0.svg "Repobeats analytics image")
   
-## 使用组件：
+## Using components：
 
 #### BMCLAPI
 bangbang93's minecraft launcher api  
 https://bmclapidoc.bangbang93.com/  
-> 关于  
-BMCLAPI是@bangbang93开发的BMCL的一部分，用于解决国内线路对Forge和Minecraft官方使用的Amazon S3 速度缓慢的问题。BMCLAPI是对外开放的，所有需要Minecraft资源的启动器均可调用。  
-协议  
-BMCLAPI下的所有文件，除BMCLAPI本身的源码之外，归源站点所有  
-BMCLAPI会尽量保证文件的完整性、有效性和实时性，对于使用BMCLAPI带来的一切纠纷，与BMCLAPI无关。  
-BMCLAPI和BMCL不同，属于非开源项目  
-所有使用BMCLAPI的程序必需在下载界面或其他可视部分标明来源  
-禁止在BMCLAPI上二次封装其他协议  
-捐助  
-服务器的开销是有费用的，若你觉得BMCLAPI对你有帮助，欢迎捐助，支付宝：bangbang93@bangbang93.com服务器的开销是有费用的，若你觉得BMCLAPI对你有帮助，欢迎捐助，支付宝：bangbang93@bangbang93.com  
+> About  
+BMCLAPI is a part of bmcl developed by @bangbang93, which is used to solve the problem of slow speed of domestic lines to Amazon S3 officially used by forge and minecraft. BMCL API is open to the public, and all initiators that need minecraft resources can call it.
+Agreement:
+All files under bmclapi, except the source code of BMCLAPI itself, belong to the source site.
+Bmclapi will try its best to ensure the integrity, effectiveness and real-time of the file. All disputes caused by using bmclapi have nothing to do with bmclapi.
+Unlike bmcl, BMCLAPI is a non open source project.
+All programs using BMCLAPI must indicate the source in the download interface or other visual parts.
+It is forbidden to encapsulate other protocols on BMCLAPI.
+donation:
+The cost of the server is charged. If you think BMCLAPI is helpful to you, you are welcome to contribute. Alipay: bangbang93@bangbang93.com
+(Translated from: Yu_Xuan)
 
 ------------
 
 #### 2018k
-> 关于  
-简单, 快速。
-一个软件更新平台
-https://2018k.cn
+http://2018k.cn
+> About  
+Simple and fast.
+A software update platform.
+
+------------
+
+#### TencentTXC
+https://txc.qq.com/
+> About  
+Feedback interactive community with more than 10000 products in use.
   
-# 开源代码许可  
+# Open source license  
 
 ## MahApps.Metro.IconPacks  
 
@@ -66,9 +93,10 @@ https://github.com/Fody/Costura/blob/master/license.txt
 
 ## ModernWpf
 
+https://github.com/Kinnara/ModernWpf/
 Brings the new Modern UI alias Metro UI of Windows 8/10 to .NET Windows Forms applications.
 Licensed under the MIT License(MIT);  
-https://github.com/Kinnara/ModernWpf#readme
+https://github.com/Kinnara/ModernWpf/blob/master/LICENSE
 
 ## SharpZipLib  
 
@@ -78,18 +106,17 @@ SharpZipLib (#ziplib, formerly NZipLib) is a compression library for Zip, GZip, 
 Licensed under the MIT License(MIT);  
 https://github.com/icsharpcode/SharpZipLib/blob/master/LICENSE.txt  
 
-## MojangSharp  
+## MojangAPI  
 
-https://github.com/hawezo/MojangSharp  
-Copyright 2017 Enzo Innocenzi  
-MojangSharp is a C# wrapper for the Mojang API and Mojang Authentication API.  
-Licensed under the Apache License, Version 2.0;  
-https://github.com/hawezo/MojangSharp/blob/master/LICENSE  
+https://github.com/CmlLib/MojangAPI
+Copyright 2021 CmlLib  
+.NET Library for Mojang API、
+Mojang Authentication and Microsoft Xbox Authentication
 
 ## SquareMinecraftLauncherCore
 
 https://github.com/baibao132/SquareMinecraftLauncherCore
 Copyright (c) 2022 BaibaoStudio
-使用.NET开发的MinecraftCore库
-Licensed under the MIT License(MIT);  
+Minecraft core library developed by .NET
+Licensed under the MIT License(MIT);
 https://github.com/baibao132/SquareMinecraftLauncherCore/blob/master/LICENSE
