@@ -5,8 +5,10 @@ using ModernWpf;
 using ModernWpf.Controls;
 using SquareMinecraftLauncher.Minecraft;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Management;
 using System.Runtime.InteropServices;
@@ -118,18 +120,60 @@ namespace FSM3.Pages
                 int ram;
                 int r1;
                 r1 = (int)(MemoryAvailable / 1024 / 1024);
-
-                if (r1 <= 1024)
+                if (r1 <= 2048)
                     ram = r1;
                 else
-                    ram = r1 - 1024;
-
-
-
+                    ram = r1 - 3072;
                 return ram;
             }
-
-
+        }
+        class GetFiles
+        {
+            ArrayList alst;
+            // 获得文件夹中指定后缀的文件
+            // dir是文件夹，extension是后缀
+            public void GetFile(string dir, string extension)
+            {
+                try
+                {
+                    string[] files = Directory.GetFiles(dir);
+                    foreach (string file in files)
+                    {
+                        string exname = file.Substring(file.LastIndexOf(".") + 1);
+                        if (extension.IndexOf(file.Substring(file.LastIndexOf(".") + 1)) > -1)
+                        {
+                            FileInfo fi = new FileInfo(file);
+                            alst.Add(fi.FullName);
+                        }
+                    }
+                }
+                catch
+                {
+                }
+            }
+            // 获得文件夹中的文件及其子文件夹中的文件
+            public void GetDirs(string path, string extension)
+            {
+                GetFile(path, extension);
+                try
+                {
+                    string[] dirs = Directory.GetDirectories(path);
+                    foreach (string dir in dirs)
+                    {
+                        GetDirs(dir, extension);
+                    }
+                }
+                catch
+                {
+                }
+            }
+            // 获得指定文件夹下指定后缀的所有文件
+            public string[] Readlist(string path, string extension)
+            {
+                alst = new ArrayList();  // 清空alst
+                GetDirs(path, extension);
+                return (string[])alst.ToArray(typeof(string));
+            }
         }
         public Settings()
         {
@@ -141,6 +185,10 @@ namespace FSM3.Pages
             if(IniReadValue("QDBQ","QDBQ") is "Yes")
             {
                 BQQD.IsChecked = true;
+            }
+            if (IniReadValue("AutoJava", "AutoJava") is "Yes")
+            {
+                AutoJava.IsChecked = true;
             }
             STCP.IsChecked = false;
             if(About.YJS is true)
@@ -177,13 +225,22 @@ namespace FSM3.Pages
             {
 
             }
-            List<JavaVersion> aa = tools.Tools.GetJavaPath();
-            for (int i = 0; i < aa.Count; i++)
+            try
             {
-                Java_list.Items.Add(aa[i].Path);
+                List<JavaVersion> aa = tools.Tools.GetJavaPath();
+                string sPath = Environment.GetEnvironmentVariable("JAVA_HOME");
+                for (int i = 0; i < aa.Count; i++)
+                {
+                    Java_list.Items.Add(aa[i].Path);
+                }
+                Java_list.Items.Add(sPath);
+            }
+            catch
+            {
+
             }
             RAMS.AddHandler(Slider.MouseUpEvent, new MouseButtonEventHandler(MouseUP), true);
-            RAMS.Maximum = MemoryAvailable / 1024 / 1024;
+            RAMS.Maximum = MemoryAvailable / 1024 / 1024 - 1024;
             RAMS.Value = GetRAM;
             if (IniReadValue("RAM", "RAMW") != "")
             {
@@ -202,6 +259,7 @@ namespace FSM3.Pages
                 AZGX.Visibility = System.Windows.Visibility.Visible;
                 UpdateLabel.Content = "检测到新版本! FSM" + xdbb;
                 Update_Log.Content = "更新日志：" + GXNR;
+                STB.SelectedIndex = 2;
             }
             else
             {
@@ -232,102 +290,7 @@ namespace FSM3.Pages
                 ThemeManager.Current.ApplicationTheme = ApplicationTheme.Dark;
                 WritePrivateProfileString("Color", "ZT", "Dark", FileS);
             }
-            try
-            {
-                string aaw = About.DecryptDES(IniReadValue("JSM", "JSM"), "87654321");
-                // MessageBox.Show(DecryptDES("ODliMzdkNWNmOTBhOTViNQ==", "8765432w"));
-                string code = null;
-                SelectQuery query = new SelectQuery("select * from Win32_ComputerSystemProduct");
-                using (ManagementObjectSearcher searcher = new ManagementObjectSearcher(query))
-                {
-                    foreach (var item in searcher.Get())
-                    {
-                        using (item) code = item["UUID"].ToString();
-                    }
-
-                }
-                if (aaw == code)
-                {
-                    About.YJS = true;
-                    switch (int.Parse(IniReadValue("JSM", "Color")))
-                    {
-                        case 0:
-                            DisHelper.DisHelper.RunOnMainThread(() =>
-                            {
-                                ThemeManager.Current.AccentColor = System.Windows.Media.Color.FromRgb(255, 140, 0);  //橙色
-                                WritePrivateProfileString("JSM", "Color", "0", FileS);
-                            });
-                            break;
-                        case 1:
-                            DisHelper.DisHelper.RunOnMainThread(() =>
-                            {
-                                ThemeManager.Current.AccentColor = System.Windows.Media.Color.FromRgb(255, 67, 67);  //鲜艳红
-                                WritePrivateProfileString("JSM", "Color", "1", FileS);
-                            });
-                            break;
-                        case 2:
-                            DisHelper.DisHelper.RunOnMainThread(() =>
-                            {
-                                ThemeManager.Current.AccentColor = System.Windows.Media.Color.FromRgb(232, 17, 35);  //中国红
-                                WritePrivateProfileString("JSM", "Color", "2", FileS);
-                            });
-                            break;
-                        case 3:
-                            DisHelper.DisHelper.RunOnMainThread(() =>
-                            {
-                                ThemeManager.Current.AccentColor = System.Windows.Media.Color.FromRgb(234, 0, 94);  //小马宝莉
-                                WritePrivateProfileString("JSM", "Color", "3", FileS);
-                            });
-                            break;
-                        case 4:
-                            DisHelper.DisHelper.RunOnMainThread(() =>
-                            {
-                                ThemeManager.Current.AccentColor = System.Windows.Media.Color.FromRgb(142, 140, 216);  //淡紫色
-                                WritePrivateProfileString("JSM", "Color", "4", FileS);
-                            });
-                            break;
-                        case 5:
-                            DisHelper.DisHelper.RunOnMainThread(() =>
-                            {
-                                ThemeManager.Current.AccentColor = System.Windows.Media.Color.FromRgb(45, 125, 154);  //青色
-                                WritePrivateProfileString("JSM", "Color", "5", FileS);
-                            });
-                            break;
-                        case 6:
-                            DisHelper.DisHelper.RunOnMainThread(() =>
-                            {
-                                ThemeManager.Current.AccentColor = System.Windows.Media.Color.FromRgb(16, 124, 16);  //原谅绿
-                                WritePrivateProfileString("JSM", "Color", "6", FileS);
-                            });
-                            break;
-                        case 7:
-                            DisHelper.DisHelper.RunOnMainThread(() =>
-                            {
-                                ThemeManager.Current.AccentColor = System.Windows.Media.Color.FromRgb(46, 47, 42);  //高端灰
-                                WritePrivateProfileString("JSM", "Color", "7", FileS);
-                            });
-                            break;
-                        case 8:
-                            DisHelper.DisHelper.RunOnMainThread(() =>
-                            {
-                                ThemeManager.Current.AccentColor = System.Windows.Media.Color.FromRgb(0, 204, 106);  //青草绿
-                                WritePrivateProfileString("JSM", "Color", "8", FileS);
-                            });
-                            break;
-                        case 9:
-                            DisHelper.DisHelper.RunOnMainThread(() =>
-                            {
-                                ThemeManager.Current.AccentColor = System.Windows.Media.Color.FromRgb(202, 80, 16);  //深度橘
-                                WritePrivateProfileString("JSM", "Color", "9", FileS);
-                            });
-                            break;
-                    }
-                }
-            }
-            catch
-            {
-
-            }
+           
         }
         private void java_list_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -605,7 +568,7 @@ namespace FSM3.Pages
             }
         }
 
-        private async void Button_Click_3(object sender, RoutedEventArgs e)
+        private void Button_Click_3(object sender, RoutedEventArgs e)
         {
             System.Diagnostics.Process.Start("https://www.kancloud.cn/yu_xuan/fsm3/2628960");
 
@@ -644,14 +607,39 @@ namespace FSM3.Pages
 
         private void AutoJava_c(object sender, RoutedEventArgs e)
         {
-            if (AutoJava.IsChecked == true)
-            {
-                Java_list.IsEnabled = false;
-            }
-            else
-            {
-                Java_list.IsEnabled = true;
-            }
+                if (AutoJava.IsChecked is true)
+                {
+                try
+                {
+                    WritePrivateProfileString("AutoJava", "AutoJava", "Yes", FileS);
+                    for (int i = 0; i < Java_list.Items.Count; ++i)
+                    {
+                        Var.JavaL.Add(Java_list.Items[i].ToString());
+                    }
+                }
+                catch
+                {
+
+                }
+                try
+                {
+                    var s = tools.Tools.GetJavaPath();
+                    for (int i = 0; i < Java_list.Items.Count; ++i)
+                    {
+                        string str = s[i].Version;
+                        string result = System.Text.RegularExpressions.Regex.Replace(str, @"[^0-9]+", "");
+                        Var.JavaB.Add(result);
+                    }
+                }
+                catch
+                {
+
+                }
+                }
+                else
+                {
+                    WritePrivateProfileString("AutoJava", "AutoJava", "No", FileS);
+                }
         }
         private void GSXT_Checked(object sender, RoutedEventArgs e)
         {
@@ -895,6 +883,32 @@ namespace FSM3.Pages
             {
                 WritePrivateProfileString("QDBQ", "QDBQ", "No", FileS);
             }
+        }
+
+        private void AutoJava_Checked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        #region 内存回收
+        [DllImport("kernel32.dll", EntryPoint = "SetProcessWorkingSetSize")]
+        public static extern int SetProcessWorkingSetSize(IntPtr process, int minSize, int maxSize);
+        /// <summary>
+        /// 释放内存
+        /// </summary>
+        public static void ClearMemory()
+        {
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
+            if (Environment.OSVersion.Platform == PlatformID.Win32NT)
+            {
+                SetProcessWorkingSetSize(System.Diagnostics.Process.GetCurrentProcess().Handle, -1, -1);
+            }
+        }
+#endregion
+        private void Button_Click_5(object sender, RoutedEventArgs e)
+        {
+            ClearMemory();
         }
     }
 }

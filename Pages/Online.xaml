@@ -14,15 +14,15 @@
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
                         <ui:FontIcon Glyph="&#xE71B;" Margin="0,0,4,0"/>
-                        <Label Content="推荐联机"/>
+                        <Label Content="联机"/>
                     </StackPanel>
                 </TabItem.Header>
                 <Grid>
                     <Grid.Background>
                         <ImageBrush/>
                     </Grid.Background>
-                    <Label Content="推荐联机(P2PS)" HorizontalAlignment="Left" Margin="11,10,0,0" VerticalAlignment="Top" FontSize="24"/>
-                    <Label Content="推荐联机无需正版,双方离线也可进行联机,并且延迟低" HorizontalAlignment="Left" Margin="11,42,0,0" VerticalAlignment="Top" FontSize="15"/>
+                    <Label Content="Minecraft联机" HorizontalAlignment="Left" Margin="11,10,0,0" VerticalAlignment="Top" FontSize="24"/>
+                    <Label Content="双方离线可进行联机" HorizontalAlignment="Left" Margin="11,42,0,0" VerticalAlignment="Top" FontSize="15" Width="595"/>
                     <Border CornerRadius="7,7,7,7" BorderBrush="#FF323232" BorderThickness="1" HorizontalAlignment="Left" Height="85" Margin="17,77,0,0" VerticalAlignment="Top" Width="713">
                         <Grid>
                             <Label Content="创建房间" HorizontalAlignment="Left" Margin="16,10,0,0" VerticalAlignment="Top" Height="24" Width="77" FontSize="18"/>
@@ -44,8 +44,25 @@
             <TabItem>
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
+                        <ui:FontIcon Glyph="&#xE71D;" Margin="0,0,4,0"/>
+                        <Label Content="联机大厅"/>
+                    </StackPanel>
+                </TabItem.Header>
+                <Grid>
+                    <Grid.Background>
+                        <ImageBrush/>
+                    </Grid.Background>
+                    <Label Content="联机大厅" HorizontalAlignment="Left" Margin="11,10,0,0" VerticalAlignment="Top" FontSize="24"/>
+                    <Label Content="正在制作中" HorizontalAlignment="Left" Margin="11,42,0,0" VerticalAlignment="Top" FontSize="15" Width="595"/>
+                    <ListBox x:Name="List" HorizontalAlignment="Left" Height="317" Margin="19,70,0,0" VerticalAlignment="Top" Width="713"/>
+                    <Button Content="刷新房间" HorizontalAlignment="Left" Margin="660,27,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_4"/>
+                </Grid>
+            </TabItem>
+            <TabItem Visibility="Hidden">
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
                         <ui:FontIcon Glyph="&#xE716;" Margin="0,0,4,0"/>
-                        <Label Content="备用联机"/>
+                        <Label Content="联机方式B"/>
                     </StackPanel>
                 </TabItem.Header>
                 <Grid>
@@ -53,13 +70,13 @@
                         <ImageBrush/>
                     </Grid.Background>
                     <TextBox x:Name="SC" HorizontalAlignment="Left" Height="251" Margin="21,14,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="710" Visibility="Hidden"/>
-                    <Label Content="备用联机(Forward)" HorizontalAlignment="Left" Margin="11,10,0,0" VerticalAlignment="Top" FontSize="24"/>
-                    <Label Content="备用联机支持离线模式进入,作为备用,采用端口转发" HorizontalAlignment="Left" Margin="11,42,0,0" VerticalAlignment="Top" FontSize="15" Width="346"/>
+                    <Label Content="联机方式B(Forward)" HorizontalAlignment="Left" Margin="11,10,0,0" VerticalAlignment="Top" FontSize="24"/>
+                    <Label Content="双方离线可进行联机,采用端口转发,延迟稍高,不建议使用" HorizontalAlignment="Left" Margin="11,42,0,0" VerticalAlignment="Top" FontSize="15" Width="579"/>
                     <Border CornerRadius="7,7,7,7" BorderBrush="#FF323232" BorderThickness="1" HorizontalAlignment="Left" Height="85" Margin="17,77,0,0" VerticalAlignment="Top" Width="713">
                         <Grid>
                             <Label Content="创建房间" HorizontalAlignment="Left" Margin="16,10,0,0" VerticalAlignment="Top" Height="24" Width="77" FontSize="18"/>
                             <Label Content="若您是房主,请轻点右侧按钮以开房&#xA;本模式支持双方离线联机(必须使用FSM启动)&#xA;若加入方为正版或外置则无需使用FSM启动" HorizontalAlignment="Left" Margin="16,36,0,0" VerticalAlignment="Top" Height="40" Width="207" FontSize="10"/>
-                            <Button x:Name="CJFJ" Content="创建并开启房间" HorizontalAlignment="Left"  Height="36" Margin="457,26,0,0" VerticalAlignment="Top" Width="233" Click="Button_Click_1"/>
+                            <Button x:Name="CJFJ" Content="创建并开启房间" HorizontalAlignment="Left"  Height="36" Margin="484,25,0,0" VerticalAlignment="Top" Width="207" Click="Button_Click_1"/>
 
                         </Grid>
                     </Border>
@@ -67,7 +84,7 @@
                         <Grid>
                             <Label Content="加入房间" HorizontalAlignment="Left" Margin="16,10,0,0" VerticalAlignment="Top" Height="24" Width="77" FontSize="18"/>
                             <Label Content="输入对方发来的邀请码,轻松联机&#xA;本模式支持双方离线联机(必须使用FSM启动)&#xA;若加入方为正版或外置则无需使用FSM启动" HorizontalAlignment="Left" Margin="16,36,0,0" VerticalAlignment="Top" Height="44" Width="207" FontSize="10"/>
-                            <Button x:Name="JRFJ" Content="加入房间" HorizontalAlignment="Left" Height="36" Margin="457,25,0,0" VerticalAlignment="Top" Width="233" Click="Button_Click_2"/>
+                            <Button x:Name="JRFJ" Content="加入房间" HorizontalAlignment="Left" Height="36" Margin="484,25,0,0" VerticalAlignment="Top" Width="207" Click="Button_Click_2"/>
 
                         </Grid>
                     </Border>

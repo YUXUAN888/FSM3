@@ -368,118 +368,20 @@ namespace FSM3.Pages
         public static String DownloadBZ;
         string DownloadMCName;
         public static int bl;
-        private async void Button_Click(object sender, RoutedEventArgs e)
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                StackPanel panel = new StackPanel()
+                if (mcVersionLists[MCV.SelectedIndex].version is null)
                 {
-                    VerticalAlignment = VerticalAlignment.Stretch,
-                    HorizontalAlignment = HorizontalAlignment.Stretch,
-                };
-                panel.Children.Add(new TextBlock() { Text = "显示的版本名字" });
-                TextBox box = new TextBox();
-                box.SetCurrentValue(ModernWpf.Controls.Primitives.ControlHelper.HeaderProperty, "后期可以更改,但不能跟其他版本重复");
-                panel.Children.Add(box);
 
-                ContentDialog dialogs = new ContentDialog()
-                {
-                    Title = "请输入安装版本名",
-                    PrimaryButtonText = "OK!",
-                    IsPrimaryButtonEnabled = true,
-                    DefaultButton = ContentDialogButton.Primary,
-                    Content = panel,
-                };
-                var results = await dialogs.ShowAsync();
-                if (results == ContentDialogResult.Primary)
-                {
-                    DownloadMCName = box.Text;
-                    AllTheExistingVersion[] a = new AllTheExistingVersion[0];
-                    a = tools.Tools.GetAllTheExistingVersion();
-                    if (box.Text != "")
-                    {
-                        for(int i = 0; i < a.Length; i++)
-                        {
-                            if (a[i].path.Contains(box.Text))
-                            {
-                                bl = 1;
-                            }
-                        }
-                    }
-                }
-                if (bl is 1)
-                {
-                    ContentDialog dialog = new ContentDialog()
-                    {
-                        Title = "不能安装Minecraft",
-                        PrimaryButtonText = "好吧",
-                        IsPrimaryButtonEnabled = true,
-                        DefaultButton = ContentDialogButton.Primary,
-                        Content = new TextBlock()
-                        {
-                            TextWrapping = TextWrapping.WrapWithOverflow,
-                            Text = "你的版本名字重复啦！更换一个名字再试试吧！"
-                        },
-
-                    };
-                    var result = await dialog.ShowAsync();
-                    bl = 0;
                 }
                 else
                 {
-                    ForgeB.Content = "Forge(主流加载器)\n" + "当前未选择";
-                    OptifineB.Content = "Optifine(高清修复)\n" + "当前未选择";
-                    FabricB.Content = "Fabric(轻量加载器)\n" + "当前未选择";
-                    LiteB.Content = "LiteLoader(轻量加载器)\n" + "当前未选择";
-                    IfDown = true;
-                    SFYXZJC.Content = "正在下载中...";
-                    user.AZBZ.Content = "当前步骤:安装Jar";
-                    DownloadBZ = "当前步骤:安装Jar";
-                    DoF.Visibility = Visibility.Visible;
-                    BDD.PDD.Visibility = Visibility.Visible;
-                    DoubleAnimation yd5 = new DoubleAnimation(55, 0, new Duration(TimeSpan.FromSeconds(0.58)));//浮点动画定义了开始值和起始值
-                    DoF.RenderTransform = new TranslateTransform();//在二维x-y坐标系统内平移(移动)对象
-                    yd5.EasingFunction = new CubicEase() { EasingMode = EasingMode.EaseOut };
-                    // yd5.RepeatBehavior = RepeatBehavior.Forever;//设置循环播放
-                    Storyboard.SetTarget(yd5, DoF);//绑定动画为这个按钮执行的浮点动画
-                    Storyboard.SetTargetProperty(yd5, new PropertyPath("RenderTransform.Y"));//依赖的属性
-                    storyboard.Children.Add(yd5);//向故事板中加入此浮点动画
-                    storyboard.Begin();//播放此动画
-                    tools.Tools.DownloadSourceInitialization(DownloadSource.MCBBSSource);
-                    MCDownload download = MinecraftDownload.MCjarDownload(mcVersionLists[MCV.SelectedIndex].version);
-                    if(Game.IniReadValue("Vlist", "Path") == "" || Game.IniReadValue("Vlist", "Path") == "0")
-                    {
-                        Downloadw(Game.Dminecraft + @"\versions\" + DownloadMCName + @"\" + DownloadMCName + ".jar", download.Url);
-                    }
-                    else
-                    {
-                        string a = Game.IniReadValue("Vlist", "Path");
-                        int s = int.Parse(a);
-                        int ss = s + 1;
-                        Downloadw(Game.IniReadValue("VPath", ss.ToString()) + @"\versions\" + DownloadMCName + @"\" + DownloadMCName + ".jar", download.Url);
-                    }
-                    download = MinecraftDownload.MCjsonDownload(mcVersionLists[MCV.SelectedIndex].version);
-                    if (Game.IniReadValue("Vlist", "Path") == "" || Game.IniReadValue("Vlist", "Path") == "0")
-                    {
-                        Downloadw(Game.Dminecraft + @"\versions\" + DownloadMCName + @"\" + DownloadMCName + ".json", download.Url);
-                    }
-                    else
-                    {
-                        string a = Game.IniReadValue("Vlist", "Path");
-                        int s = int.Parse(a);
-                        int ss = s + 1;
-                        Downloadw(Game.IniReadValue("VPath", ss.ToString()) + @"\versions\" + DownloadMCName + @"\" + DownloadMCName + ".json", download.Url);
-                    }
-                    Jarw = Core5.timer(MCjarInstall, 500);
-                    Jarw.Start();
-                    JarTimerBool = true;
+                    _transitionInfo = new DrillInNavigationTransitionInfo();
+                    FSM3.framecontrol.frame.Navigate(dyuri("/Pages/DownPlus.xaml"), null, _transitionInfo);
+                    Var.DownVar = mcVersionLists[MCV.SelectedIndex].version;
                 }
-                ///以上是Asset补全
-                //var loading = await this.ShowProgressAsync("提示", "正在补全中...");
-                //loading.SetIndeterminate();
-                //await lib(loading);
-                //await loading.CloseAsync();
-
             }
             catch
             {
@@ -563,7 +465,6 @@ namespace FSM3.Pages
                 UPDATEW.Stop();
                 AssetDownload assetDownload = new AssetDownload();//asset下载类
                 assetDownload.DownloadProgressChanged += AssetDownload_DownloadProgressChanged;//事件
-
                 await libraries(DownloadMCName);
                 Thread thread = new Thread(async() =>
                 {
@@ -703,7 +604,6 @@ namespace FSM3.Pages
         }
         public async Task<bool> libraries(string version)
         {
-
             try
             {
                 //  tools.DownloadSourceInitialization(DownloadSource.MCBBSSource);
@@ -714,8 +614,8 @@ namespace FSM3.Pages
                     foreach (var i in File)
                     {
                         Downloadw(i.path, i.Url);
-
                     }
+                    DoF.ZJDw.Maximum = File.Length;
                     user.AZBZ.Content = "当前步骤:补全游戏文件";
                     DownloadBZ = "当前步骤:补全游戏文件";
                     bool result = false;
@@ -723,6 +623,10 @@ namespace FSM3.Pages
                     {
                         while(true)
                         {
+                            this.Dispatcher.Invoke(new Action(delegate
+                            {
+                                DoF.ZJDw.Value = File.Length - dlf.Left;
+                            }));
                             if(dlf.EndDownload())
                             {
                                 if (dlf.error > 0) result = false;
@@ -733,6 +637,17 @@ namespace FSM3.Pages
                     });
                     //libraries2 = sz.id;
                     return result;
+                }
+                else
+                {
+                    MCDownload[] Filex = tools.Tools.GetAllTheAsset(version);
+                    if(Filex.Length is 0)
+                    {
+                        this.Dispatcher.Invoke(new Action(delegate { DG.ShowAsync(); }));
+                        this.Dispatcher.Invoke(new Action(delegate { DoF.InstallAssets.IsChecked = true; }));
+                        this.Dispatcher.Invoke(new Action(delegate { WC(); }));
+                        this.Dispatcher.Invoke(new Action(delegate { BDD.PDD.Visibility = Visibility.Hidden; }));
+                    }
                 }
 
 
@@ -860,67 +775,74 @@ namespace FSM3.Pages
 
             }
             mcVersionLists = FSMLauncher_3.DIYvar.minecraft1.ToArray();
-            List<Item> item1 = new List<Item>();
-
-
-            for (int i = 0; i < mcVersionLists.Length; i++)
+            try
             {
-                Item item = new Item();
-                item.Dver.Text = mcVersionLists[i].version;
-                item.TIME.Text = mcVersionLists[i].tsw;
-                item1.Add(item);
+                List<Item> item1 = new List<Item>();
+
+
+                for (int i = 0; i < mcVersionLists.Length; i++)
+                {
+                    Item item = new Item();
+                    item.Dver.Text = mcVersionLists[i].version;
+                    item.TIME.Text = mcVersionLists[i].tsw;
+                    item1.Add(item);
+                }
+                //DIYvar.l = item1;
+                MCV.ItemsSource = item1.ToArray();
+                WebClient wc = new WebClient();
+                string str;
+                str = await HQ("https://api.modrinth.com/v2/search");
+                Modrinth.Root rb = JsonConvert.DeserializeObject<Modrinth.Root>(str);
+                List<modlist> itemx = new List<modlist>();
+                for (int i = 0; i < rb.hits.Count; ++i)
+                {
+                    Console.WriteLine(rb.hits[i].title + "  " + rb.hits[i].versions[0]);
+                    modlist itemy = new modlist();
+                    //modrinthW[i] = rb.hits[i].project_id;
+                    try
+                    {
+                        itemy.ModLogo.Background = new ImageBrush
+                        {
+                            ImageSource = new BitmapImage(new Uri(rb.hits[i].icon_url))
+                        };
+                    }
+                    catch
+                    {
+
+                    }
+                    string a = await wiki.Search(rb.hits[i].title);
+                    if (a is null)
+                    {
+                        itemy.ModName.Content = rb.hits[i].title;
+                        itemy.NameZ.Content = rb.hits[i].title + "|" + rb.hits[i].project_id;
+                        FSMCore.Modrinth.Modpublic.modzname = itemy.ModName.Content.ToString();
+                        string rby = null;
+                        for (int b = 0; b < rb.hits[i].categories.Count; b++)
+                        {
+                            rby = rb.hits[i].categories[b];
+                        }
+                        itemy.ModBio.Content = rb.hits[i].description + "\n最高支持:" + rb.hits[i].latest_version + "  加载器:" + rby;
+                        ModrinthList.Items.Add(itemy);
+                    }
+                    else
+                    {
+                        var b = await wiki.SearchInformation(a);
+                        string rby = null;
+                        for (int bx = 0; bx < rb.hits[i].categories.Count; bx++)
+                        {
+                            rby = rb.hits[i].categories[bx];
+                        }
+                        if (rb.hits[i].title is "Sodium") { itemy.ModName.Content = "钠 (Sodium)"; } else { itemy.ModName.Content = b.Title + " (" + rb.hits[i].title + ")"; }
+                        itemy.ModBio.Content = rb.hits[i].description + "\n最高支持:" + rb.hits[i].latest_version + "  加载器:" + rby;
+                        itemy.NameZ.Content = rb.hits[i].title + "|" + rb.hits[i].project_id;
+                        FSMCore.Modrinth.Modpublic.modzname = itemy.ModName.Content.ToString();
+                        ModrinthList.Items.Add(itemy);
+                    }
+                }
             }
-            //DIYvar.l = item1;
-            MCV.ItemsSource = item1.ToArray();
-            WebClient wc = new WebClient();
-            string str;
-            str = await HQ("https://api.modrinth.com/v2/search");
-            Modrinth.Root rb = JsonConvert.DeserializeObject<Modrinth.Root>(str);
-            List<modlist> itemx = new List<modlist>();
-            for (int i = 0; i < rb.hits.Count; ++i)
+            catch
             {
-                Console.WriteLine(rb.hits[i].title + "  " + rb.hits[i].versions[0]);
-                modlist itemy = new modlist();
-                //modrinthW[i] = rb.hits[i].project_id;
-                try
-                {
-                    itemy.ModLogo.Background = new ImageBrush
-                    {
-                        ImageSource = new BitmapImage(new Uri(rb.hits[i].icon_url))
-                    };
-                }
-                catch
-                {
 
-                }
-                string a = await wiki.Search(rb.hits[i].title);
-                if (a is null)
-                {
-                    itemy.ModName.Content = rb.hits[i].title;
-                    itemy.NameZ.Content= rb.hits[i].title+"|"+rb.hits[i].project_id;
-                    FSMCore.Modrinth.Modpublic.modzname = itemy.ModName.Content.ToString();
-                    string rby = null;
-                    for (int b = 0; b < rb.hits[i].categories.Count; b++)
-                    {
-                        rby = rb.hits[i].categories[b];
-                    }
-                    itemy.ModBio.Content = rb.hits[i].description + "\n最高支持:" + rb.hits[i].latest_version + "  加载器:" + rby;
-                    ModrinthList.Items.Add(itemy);
-                }
-                else
-                {
-                    var b = await wiki.SearchInformation(a);
-                    string rby = null;
-                    for (int bx = 0; bx < rb.hits[i].categories.Count; bx++)
-                    {
-                        rby = rb.hits[i].categories[bx];
-                    }
-                    if(rb.hits[i].title is "Sodium") { itemy.ModName.Content = "钠 (Sodium)"; } else { itemy.ModName.Content = b.Title + " (" + rb.hits[i].title + ")"; }
-                    itemy.ModBio.Content = rb.hits[i].description + "\n最高支持:" + rb.hits[i].latest_version + "  加载器:" + rby;
-                    itemy.NameZ.Content = rb.hits[i].title + "|" + rb.hits[i].project_id;
-                    FSMCore.Modrinth.Modpublic.modzname = itemy.ModName.Content.ToString();
-                    ModrinthList.Items.Add(itemy);
-                }
             }
         }
         internal static McVersionList[] mcVersionLists = new McVersionList[0];
@@ -1098,32 +1020,17 @@ namespace FSM3.Pages
 
         private async void MaxForge_Click(object sender, RoutedEventArgs e)
         {
-            DTB.SelectedIndex = 0;
-            var b = await tools.Tools.GetMaxForge(AZForgeV.Text);
-            inforge = 1;
-            ForgeVer = b.ForgeVersion;
-            ForgeB.Content = "Forge\n" + "Forge - " + b.ForgeVersion;
+
         }
 
         private void ForgeList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            DTB.SelectedIndex = 0;
-            ForgeB.Content = "Forge\n" + ForgeList.SelectedItem;
-            ForgeVer = ForgeList.SelectedItem.ToString();
-            inforge = 1;
+
         }
         String optpatch;
         private void OptifineList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (OptifineList.SelectedIndex != -1)
-            {
-                DTB.SelectedIndex = 0;
-                //OptiFineList[] op = new OptiFineList[0];
-                OptifineB.Content = "Optifine\n" + OptifineList.SelectedItem;
-                OptVer = OptifineList.SelectedItem.ToString();
-                optpatch = opp[OptifineList.SelectedIndex].patch;
-                inopt = 1;
-            }
+
         }
 
         private void XZJC_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -1233,12 +1140,15 @@ namespace FSM3.Pages
         {
             WebClient wc = new WebClient();
             string str = null;
+            //string text = ModrinthLB.Text;
+            //var x = await wiki.Search(text);
+            //var y = await wiki.SearchInformation(x);
             try
             {
                 ModrinthList.Items.Clear();
                 if (ModrinthVer.Text is "全部" && ModrinthJZQ.Text is "全部" && ModrinthLB.Text is "全部")
                 {
-                    str = wc.DownloadString("https://api.modrinth.com/v2/search?query=" + ModrinthText.Text);     
+                    str = wc.DownloadString("https://api.modrinth.com/v2/search?query=" + ModrinthLB.Text);     
                 }
                 else if (ModrinthVer.Text != "全部" && ModrinthJZQ.Text is "全部" && ModrinthLB.Text is "全部")
                 {
@@ -1329,10 +1239,7 @@ namespace FSM3.Pages
 
         private void FabList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            DTB.SelectedIndex = 0;
-            FabricB.Content = "Fabric\n" + FabList.SelectedItem;
-            FabVer = FabList.SelectedItem.ToString();
-            infab = 1;
+
         }
     }
 }

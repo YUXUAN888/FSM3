@@ -4,22 +4,22 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:FSM3.Main"
-      xmlns:Home_API="clr-namespace:FSM3.Home_API" xmlns:ThreadedUI="clr-namespace:ModernWpf.SampleApp.ThreadedUI" x:Class="FSM3.Main.HomePage"
+      xmlns:About_List="clr-namespace:FSM3.About_List" x:Class="FSM3.Main.HomePage"
       mc:Ignorable="d" 
       d:DesignHeight="417" d:DesignWidth="354"
       Title="HomePage" Loaded="Load">
 
     <Grid>
-        <Border CornerRadius="7"  BorderBrush="#FF4E4E4E" BorderThickness="1" HorizontalAlignment="Left" Height="77" Margin="15,28,0,0" VerticalAlignment="Top" Width="324">
+        <Border CornerRadius="7"  BorderBrush="#FF4E4E4E" BorderThickness="1" HorizontalAlignment="Left" Height="67" Margin="15,28,0,0" VerticalAlignment="Top" Width="324">
             <Grid>
-                <Label Content="欢迎您使用FSM3启动器" HorizontalAlignment="Left" Margin="6,6,0,0" VerticalAlignment="Top" Height="19" Width="251"/>
-                <Label Content="巴拉拉小魔仙全身变！&#xD;&#xA;全新的开始，不一样的体验&#xD;&#xA;当前启动器为beta版，若有bug可以反馈哦&#xD;&#xA;" HorizontalAlignment="Left" Margin="5,30,0,0" VerticalAlignment="Top" Width="314" FontSize="10" Height="39"/>
+                <Label Content="欢迎您使用 FSM3 启动器" HorizontalAlignment="Left" Margin="6,6,0,0" VerticalAlignment="Top" Height="19" Width="251"/>
+                <Label Content="FSM3 大步飞跃。&#xD;&#xA;洞庭有归客，潇湘逢故人。" HorizontalAlignment="Left" Margin="6,30,0,0" VerticalAlignment="Top" Width="314" FontSize="10" Height="31"/>
             </Grid>
         </Border>
-        <Border CornerRadius="7"  BorderBrush="#FF4E4E4E" BorderThickness="1" HorizontalAlignment="Left" Height="65" Margin="15,111,0,0" VerticalAlignment="Top" Width="159">
+        <Border CornerRadius="7"  BorderBrush="#FF4E4E4E" BorderThickness="1" HorizontalAlignment="Left" Height="65" Margin="15,104,0,0" VerticalAlignment="Top" Width="325">
             <Grid>
-                <Label Content="今日人品" HorizontalAlignment="Left" Margin="6,6,0,0" VerticalAlignment="Top" Height="19" Width="136"/>
-                <Label x:Name="RP" Content="100！！！&#xD;&#xA;人品爆棚！快带上好基友出去玩" HorizontalAlignment="Left" Margin="6,28,0,0" VerticalAlignment="Top" Width="147" FontSize="10" Height="32"/>
+                <Label Content="吐槽报" HorizontalAlignment="Left" Margin="6,6,0,0" VerticalAlignment="Top" Height="19" Width="136"/>
+                <Label x:Name="RP" Content="未获取到网络" HorizontalAlignment="Left" Margin="6,28,0,0" VerticalAlignment="Top" Width="308" FontSize="10" Height="32"/>
             </Grid>
         </Border>
     </Grid>

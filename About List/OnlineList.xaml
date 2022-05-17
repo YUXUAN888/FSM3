@@ -1,0 +1,16 @@
+﻿<UserControl x:Class="FSM3.About_List.OnlineList"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:FSM3.About_List"
+             mc:Ignorable="d" Height="44.517" Width="502.8">
+    <Grid>
+        <Border x:Name="ModLogo" HorizontalAlignment="Left" Margin="5,2,0,0" VerticalAlignment="Top" CornerRadius="6" Width="42" Height="42">
+            <Border.Background>
+                <ImageBrush ImageSource="https://s1.ax1x.com/2022/04/23/LWhOU0.png"></ImageBrush>
+            </Border.Background>
+        </Border>
+        <Label x:Name="Home" Content="Label" HorizontalAlignment="Left" Margin="55,12,0,0" VerticalAlignment="Top" FontSize="16"/>
+    </Grid>
+</UserControl>

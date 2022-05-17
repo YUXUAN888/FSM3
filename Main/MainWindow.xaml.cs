@@ -25,6 +25,7 @@ using FSM3.Download_Pages;
 using FSM3.Pages;
 using FSMLauncher_3;
 using Gac;
+using Microsoft.Win32;
 using ModernWpf;
 using ModernWpf.Controls;
 using ModernWpf.Navigation;
@@ -235,13 +236,13 @@ namespace FSM3
                             srcdJ = j / ratioW;
                             srcJ = (int)srcdJ;//指向原始图像的列
                             if (srcdJ < 1 || srcdJ > srcBmp.Width - 1 || srcdI < 1 || srcdI > srcBmp.Height - 1)
-                            {//避免溢出（也可使用循环延拓）
+                            {//避免溢出
                                 dstPtr[j * 3] = 255;
                                 dstPtr[j * 3 + 1] = 255;
                                 dstPtr[j * 3 + 2] = 255;
                                 continue;
                             }
-                            a = srcdI - srcI;//计算插入的像素与原始像素距离（决定相邻像素的灰度所占的比例）
+                            a = srcdI - srcI;//计算插入的像素与原始像素距离（相邻像素的灰度所占的比例）
                             b = srcdJ - srcJ;
                             for (int k = 0; k < 3; k++)
                             {//插值    公式：f(i+p,j+q)=(1-p)(1-q)f(i,j)+(1-p)qf(i,j+1)+p(1-q)f(i+1,j)+pqf(i+1, j + 1)
@@ -280,13 +281,12 @@ namespace FSM3
         public class Fly
         {
             public static DownFly FY { get; set; }
-
         }
         public MainWindow()
         {
             InitializeComponent();
             ServicePointManager.DefaultConnectionLimit = 512;
-            Update = "Beta27";
+            Update = "Beta38";
         }
         public static string retString;
         String[] after;
@@ -454,6 +454,7 @@ namespace FSM3
             tools.Tools = Toolsw;
             ZWindoww.Zwindow = ZWindow;
             ZBt.zbt = ZBT;
+            nvSample.IsEnabled = false;
             (FindResource("hideMe") as System.Windows.Media.Animation.Storyboard).Begin(StartGamew.SM);
             (FindResource("hideMe") as System.Windows.Media.Animation.Storyboard).Begin(FSMLogo);
             try
@@ -562,7 +563,8 @@ namespace FSM3
 
                                 };
                                 var result = await dialog.ShowAsync();
-                            }
+                                ZFrame.Source = new Uri("/Pages/Settings.xaml", UriKind.RelativeOrAbsolute);
+                        }
                             try
                             {
 
@@ -765,7 +767,16 @@ namespace FSM3
             });
             System.Environment.Exit(0);
         }
-
+        public String getJavaPath()
+        {
+            String javaKey = "SOFTWARE\\JavaSoft\\Java Runtime Environment";
+            using (var baseKey = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry64).OpenSubKey(javaKey))
+            {
+                String currentVersion = baseKey.GetValue("CurrentVersion").ToString();
+                using (var homeKey = baseKey.OpenSubKey(currentVersion))
+                    return homeKey.GetValue("JavaHome").ToString();
+            }
+        }
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
             this.WindowState = WindowState.Minimized;

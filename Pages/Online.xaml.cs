@@ -1,4 +1,5 @@
-﻿using FSMLauncher_3;
+﻿using FSM3.About_List;
+using FSMLauncher_3;
 using Gac;
 using ModernWpf.Controls;
 using System;
@@ -48,16 +49,16 @@ namespace FSM3.Pages
 
             }
             String File_ = Game.ZongW + @"\Server\frpc.exe";
-            if (!File.Exists(File_))
-            {
-                ZWindoww.Zwindow.IsEnabled = false;
-                ZBt.zbt.Content = "FSM Launcher(初始化联机)";
-                dlf.doSendMsg += new DownLoadFile.dlgSendMsg(SendMsgHander);
-                Directory.CreateDirectory(Game.ZongW + @"\Server");
-                Game.did1 = Download(File_, "OnLine", "http://www.baibaoblog.cn:81/frpc/Server/frpc.exe");
-                Game.ONLINEW = Core5.timer(OnLineI, 2333);
-                Game.ONLINEW.Start();
-            }
+            //if (!File.Exists(File_))
+            //{
+            //    ZWindoww.Zwindow.IsEnabled = false;
+            //    ZBt.zbt.Content = "FSM Launcher(初始化联机)";
+            //    dlf.doSendMsg += new DownLoadFile.dlgSendMsg(SendMsgHander);
+            //    Directory.CreateDirectory(Game.ZongW + @"\Server");
+            //    Game.did1 = Download(File_, "OnLine", "http://www.baibaoblog.cn:81/frpc/Server/frpc.exe");
+            //    Game.ONLINEW = Core5.timer(OnLineI, 2333);
+            //    Game.ONLINEW.Start();
+            //}
         }
         private async void OnLineI(object ob, EventArgs a)
         {
@@ -200,7 +201,7 @@ namespace FSM3.Pages
                         tb = SquareMinecraftLauncher.Online.Server.Type.Fabric;
                     }
                     string yqm = GetRnd(32, true, true, true, false, "@#$%&");
-                    await s.ServerConnect("SDEVF3G28RGFEIQ3UFGR4389YRH3IR32G988GEIF328", box4.Text, box5.Text, tb, int.Parse(box3.Text), SquareMinecraftLauncher.Online.Server.P2PType.Forward, yqm);
+                    await s.ServerConnect("SDEVF3G28RGFEIQ3UFGR4389YRH3IR32G988GEIF328", box4.Text, box5.Text, SquareMinecraftLauncher.Online.Server.Type.Forge, int.Parse(box3.Text), SquareMinecraftLauncher.Online.Server.P2PType.Forward, yqm, "119.45.103.147");
                     s.Start();
                     ContentDialog dialogw = new ContentDialog()
                     {
@@ -218,7 +219,7 @@ namespace FSM3.Pages
                     var resultw = await dialogw.ShowAsync();
                     if (resultw == ContentDialogResult.Primary)
                     {
-                        Clipboard.SetDataObject("我正在使用FSM启动器进行 Minecraft" + box5.Text + " 联机！ mod加载器:" + box6.Text + "  快来FSM推荐联机输入邀请码 " + yqm + " 来找我玩吧!");
+                        Clipboard.SetDataObject("我正在使用FSM启动器进行 Minecraft" + box5.Text + " 联机！ mod加载器:" + box6.Text + "  快来 FSM 联机方式B 输入邀请码" + yqm + "来找我玩吧!");
                     }
                 }
                 catch (Exception ex)
@@ -1026,96 +1027,81 @@ namespace FSM3.Pages
         }
         private async void Button_Click_66(object sender, RoutedEventArgs e)
         {
-            StackPanel panel = new StackPanel()
-            {
-                VerticalAlignment = VerticalAlignment.Stretch,
-                HorizontalAlignment = HorizontalAlignment.Stretch,
-            };
-            panel.Children.Add(new TextBlock() { Text = "请输入你的游戏端口，以便进行联机" });
-            TextBox box3 = new TextBox();
-            TextBox box4 = new TextBox();
-            TextBox box5 = new TextBox();
-            ComboBox box6 = new ComboBox();
-            box3.SetCurrentValue(ModernWpf.Controls.Primitives.ControlHelper.HeaderProperty, "游戏端口:");
-            panel.Children.Add(box3);
-            box4.SetCurrentValue(ModernWpf.Controls.Primitives.ControlHelper.HeaderProperty, "你的昵称:");
-            panel.Children.Add(box4);
-            box5.SetCurrentValue(ModernWpf.Controls.Primitives.ControlHelper.HeaderProperty, "游戏版本:");
-            panel.Children.Add(box5);
-            box6.SetCurrentValue(ModernWpf.Controls.Primitives.ControlHelper.HeaderProperty, "加载器:");
-            box6.Items.Add("无");
-            box6.Items.Add("Forge");
-            box6.Items.Add("Fabric");
-            box6.SelectedIndex = 0;
-            panel.Children.Add(box6);
-            ContentDialog dialog = new ContentDialog()
-            {
-                Title = "联机信息采集",
-                PrimaryButtonText = "开始！",
-                CloseButtonText = "取消",
-                IsPrimaryButtonEnabled = true,
-                DefaultButton = ContentDialogButton.Primary,
-                Content = panel,
-            };
-            var result = await dialog.ShowAsync();
-            if (result == ContentDialogResult.Primary)
-            {
-                try
-                { 
-                    SquareMinecraftLauncher.Online.Server s = new SquareMinecraftLauncher.Online.Server();
-                    SquareMinecraftLauncher.Online.Server.Type tb = new SquareMinecraftLauncher.Online.Server.Type();
-                    if (box6.SelectedIndex is 0)
-                    {
-                        tb = SquareMinecraftLauncher.Online.Server.Type.NoFound;
-                    }
-                    if (box6.SelectedIndex is 1)
-                    {
-                        tb = SquareMinecraftLauncher.Online.Server.Type.Forge;
-                    }
-                    if (box6.SelectedIndex is 2)
-                    {
-                        tb = SquareMinecraftLauncher.Online.Server.Type.Fabric;
-                    }
-                    string yqm = GetRnd(32, true, true, true, false, "@#$%&");
-                    await s.ServerConnect("SDEVF3G28RGFEIQ3UFGR4389YRH3IR32G988GEIF328", box4.Text,box5.Text,tb, int.Parse(box3.Text),SquareMinecraftLauncher.Online.Server.P2PType.Forward, yqm);
-                    s.Start();
-                    ContentDialog dialogw = new ContentDialog()
-                    {
-                        Title = "开启成功",
-                        PrimaryButtonText = "复制邀请码",
-                        IsPrimaryButtonEnabled = true,
-                        DefaultButton = ContentDialogButton.Primary,
-                        Content = new TextBlock()
-                        {
-                            TextWrapping = TextWrapping.WrapWithOverflow,
-                            Text = "您已开房，请复制邀请码给小伙伴~"
-                        },
-
-                    };
-                    var resultw = await dialogw.ShowAsync();
-                    if (resultw == ContentDialogResult.Primary)
-                    {
-                        Clipboard.SetDataObject("我正在使用FSM启动器进行 Minecraft"+box5.Text+" 联机！ mod加载器:" + box6.Text +"  快来FSM推荐联机输入邀请码 " +yqm+" 来找我玩吧!");
-                    }
-                }
-                catch(Exception ex)
+            SquareMinecraftLauncher.Online.Server s = new SquareMinecraftLauncher.Online.Server();
+                StackPanel panel = new StackPanel()
                 {
-                    ContentDialog dialogw = new ContentDialog()
+                    VerticalAlignment = VerticalAlignment.Stretch,
+                    HorizontalAlignment = HorizontalAlignment.Stretch,
+                };
+                panel.Children.Add(new TextBlock() { Text = "请输入你的游戏端口，以便进行联机" });
+                TextBox box3 = new TextBox();
+                TextBox box4 = new TextBox();
+                CheckBox box6 = new CheckBox();
+                box3.SetCurrentValue(ModernWpf.Controls.Primitives.ControlHelper.HeaderProperty, "游戏端口:");
+                panel.Children.Add(box3);
+                box4.SetCurrentValue(ModernWpf.Controls.Primitives.ControlHelper.HeaderProperty, "房间名(建议包含游戏版本等内容):");
+                panel.Children.Add(box4);
+                panel.Children.Add(new TextBlock() { Text = "公开房间:", FontSize = 14 });
+                box6.SetCurrentValue(ModernWpf.Controls.Primitives.ControlHelper.HeaderProperty, "公开房间:");
+                panel.Children.Add(box6);
+                ContentDialog dialog = new ContentDialog()
+                {
+                    Title = "联机信息采集",
+                    PrimaryButtonText = "开始！",
+                    CloseButtonText = "取消",
+                    IsPrimaryButtonEnabled = true,
+                    DefaultButton = ContentDialogButton.Primary,
+                    Content = panel,
+                };
+                var result = await dialog.ShowAsync();
+                if (result == ContentDialogResult.Primary)
+                {
+                    try
                     {
-                        Title = "遇到错误了",
-                        PrimaryButtonText = "好吧",
-                        IsPrimaryButtonEnabled = true,
-                        DefaultButton = ContentDialogButton.Primary,
-                        Content = new TextBlock()
+                        //SquareMinecraftLauncher.Online.Server.Type tb = new SquareMinecraftLauncher.Online.Server.Type();
+                        bool x;
+                        if (box6.IsChecked is true) { x = true; } else { x = false; }
+                        string yqm = GetRnd(32, true, true, true, false, "@#$%&");
+                        await s.ServerConnect("SDEVF3G28RGFEIQ3UFGR4389YRH3IR32G988GEIF328", box4.Text, "baibao Yes", SquareMinecraftLauncher.Online.Server.Type.Forge, int.Parse(box3.Text), SquareMinecraftLauncher.Online.Server.P2PType.Boring, yqm, "119.45.103.147", x);
+                        s.Start();
+                        ContentDialog dialogw = new ContentDialog()
                         {
-                            TextWrapping = TextWrapping.WrapWithOverflow,
-                            Text = ex.Message + "\n可能是你的游戏昵称没有填写，或者游戏版本没有填写",
-                        },
+                            Title = "开启成功",
+                            PrimaryButtonText = "复制邀请码",
+                            IsPrimaryButtonEnabled = true,
+                            DefaultButton = ContentDialogButton.Primary,
+                            Content = new TextBlock()
+                            {
+                                TextWrapping = TextWrapping.WrapWithOverflow,
+                                Text = "您已开房，请复制邀请码给小伙伴~"
+                            },
 
-                    };
-                    var resultw = await dialogw.ShowAsync();
+                        };
+                        var resultw = await dialogw.ShowAsync();
+                        if (resultw == ContentDialogResult.Primary)
+                        {
+                            Clipboard.SetDataObject("我正在使用 FSM3 启动器进行 Minecraft 联机! 快来 FSM3 输入邀请码" + yqm + "来找我玩吧!");
+                            CJFJ_Baibao.Content = "关闭房间";
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        ContentDialog dialogw = new ContentDialog()
+                        {
+                            Title = "遇到错误了",
+                            PrimaryButtonText = "好吧",
+                            IsPrimaryButtonEnabled = true,
+                            DefaultButton = ContentDialogButton.Primary,
+                            Content = new TextBlock()
+                            {
+                                TextWrapping = TextWrapping.WrapWithOverflow,
+                                Text = ex.Message + "\n可能是你的游戏昵称没有填写，或者游戏版本没有填写",
+                            },
+
+                        };
+                        var resultw = await dialogw.ShowAsync();
+                    }
                 }
-            }
         }
 
         private async void Button_Click_77(object sender, RoutedEventArgs e)
@@ -1147,7 +1133,7 @@ namespace FSM3.Pages
                 try
                 {
                     SquareMinecraftLauncher.Online.Client c = new SquareMinecraftLauncher.Online.Client();
-                    await c.ClientConnect(box.Text, SquareMinecraftLauncher.Online.Client.P2PType.P2P, "SDEVF3G28RGFEIQ3UFGR4389YRH3IR32G988GEIF328", box1.Text);
+                    await c.ClientConnect(box.Text, SquareMinecraftLauncher.Online.Client.P2PType.Boring, "SDEVF3G28RGFEIQ3UFGR4389YRH3IR32G988GEIF328", box1.Text);
                     string s = c.Start();
                     ContentDialog dialogw = new ContentDialog()
                     {
@@ -1191,6 +1177,21 @@ namespace FSM3.Pages
                     }
                 }
             }
+        }
+        String[] OnlineHome = new String[5555555];
+        private async void Button_Click_4(object sender, RoutedEventArgs e)
+        {
+            SquareMinecraftLauncher.Online.BaiBaoOnline b = new SquareMinecraftLauncher.Online.BaiBaoOnline();
+            var c = await b.Hall("SDEVF3G28RGFEIQ3UFGR4389YRH3IR32G988GEIF328");
+            List<OnlineList> user1 = new List<OnlineList>();
+            for (int i = 0;i<c.Hall.Count;++i)
+            {
+                OnlineList user = new OnlineList();
+                OnlineHome[i] = c.Hall[i].Code;
+                user.Home.Content = "" + c.Hall[i].Homeowner+" | 点击加入房间";
+                user1.Add(user);
+            }
+            List.ItemsSource = user1;
         }
     }
 }

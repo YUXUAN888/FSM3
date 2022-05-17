@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace FSM3.Pages
+namespace FSM3.About_List
 {
     /// <summary>
-    /// Help.xaml 的交互逻辑
+    /// OnlineList.xaml 的交互逻辑
     /// </summary>
-    public partial class Help : Page
+    public partial class OnlineList : UserControl
     {
-        public Help()
+        public OnlineList()
         {
             InitializeComponent();
         }

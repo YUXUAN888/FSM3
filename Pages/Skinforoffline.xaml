@@ -4,7 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:FSM3.Pages"
-      xmlns:squareminecraftlauncherskin="clr-namespace:SquareMinecraftLauncherSkin;assembly=SquareMinecraftLauncherSkin"
+      
       mc:Ignorable="d" 
       d:DesignHeight="436.8" d:DesignWidth="754.4"
       Title="Skinforoffline">

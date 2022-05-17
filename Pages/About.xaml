@@ -77,8 +77,8 @@
                                     <Label Content="FanSh" HorizontalAlignment="Left" Height="25" VerticalAlignment="Top" Width="196" FontSize="18" Margin="70,148,0,0" Background="{x:Null}"/>
                                     <Label Content="犹太郎" HorizontalAlignment="Left" Height="23" VerticalAlignment="Top" Width="529"  FontSize="18" Margin="70,202,0,0" Background="{x:Null}"/>
                                     <Label Content="交流群内所有支持FSM的小伙伴们" HorizontalAlignment="Left" Height="24" VerticalAlignment="Top" Width="284"  FontSize="18" Margin="70,257,0,0"/>
-                                    <Label Content="提供了 Core 和 BaibaoSkin 联机方式，还帮我修了亿点bug" HorizontalAlignment="Left" Margin="71,67,0,0" VerticalAlignment="Top" Width="400" FontSize="12" Foreground="#FF868686"/>
-                                    <Label Content="提供了两种 Frp 联机方式" HorizontalAlignment="Left" Margin="71,118,0,0" VerticalAlignment="Top" Width="400" FontSize="12" Foreground="#FF868686"/>
+                                    <Label Content="他是一个大好人" HorizontalAlignment="Left" Margin="71,67,0,0" VerticalAlignment="Top" Width="400" FontSize="12" Foreground="#FF868686"/>
+                                    <Label Content="提供了两种联机方式(old)" HorizontalAlignment="Left" Margin="71,118,0,0" VerticalAlignment="Top" Width="400" FontSize="12" Foreground="#FF868686"/>
                                     <Label Content="提供了 FSM 的版本更新直链下载" HorizontalAlignment="Left" Margin="71,171,0,0" VerticalAlignment="Top" Width="400" FontSize="12" Foreground="#FF868686"/>
                                     <Label Content="一开始就支持我制作 FSM 的小伙伴，给我了动力" HorizontalAlignment="Left" Margin="71,227,0,0" VerticalAlignment="Top" Width="400" FontSize="12" Foreground="#FF868686"/>
                                     <Label Content="感谢你们测试 FSM 历代版本和 Beta ，对 FSM 的支持" HorizontalAlignment="Left" Margin="71,280,0,0" VerticalAlignment="Top" Width="400" FontSize="12" Foreground="#FF868686"/>
@@ -94,15 +94,15 @@
                                             <ImageBrush ImageSource="/FSM3;component/Image/IMG_5145(20220228-195827).JPG"></ImageBrush>
                                         </Border.Background>
                                     </Border>
-                                    <Label Content="作者:宇轩Yu_Xuan" HorizontalAlignment="Left" Margin="66,100,0,0" VerticalAlignment="Top" Width="198" FontSize="18"/>
+                                    <Label Content="作者:Yu__Xuan" HorizontalAlignment="Left" Margin="66,100,0,0" VerticalAlignment="Top" Width="198" FontSize="18"/>
                                     <Button Content="赞助作者" HorizontalAlignment="Left" Margin="603,97,0,0" VerticalAlignment="Top" Width="92" Click="Button_Click"/>
-                                    <Label Content="当前版本: Beta27" HorizontalAlignment="Left" Margin="69,66,0,0" VerticalAlignment="Top" Width="400" FontSize="12" Foreground="#FF868686"/>
+                                    <Label Content="当前版本: Beta38" HorizontalAlignment="Left" Margin="69,66,0,0" VerticalAlignment="Top" Width="400" FontSize="12" Foreground="#FF868686"/>
                                 </Grid>
                             </Border>
                             <Border CornerRadius="7,7,7,7" BorderBrush="#FF323232" BorderThickness="1" HorizontalAlignment="Left" Margin="11,490,0,0" VerticalAlignment="Top" Width="710">
                                 <Grid Margin="0.2,0.2,-0.4,0.2">
                                     <Label Content="赞助名单" HorizontalAlignment="Left" Margin="16,10,0,0" VerticalAlignment="Top" Height="24" Width="85" FontSize="18"/>
-                                    <Label Content="战神福尔康,Nunzio520,Himcd,苦逼的老何,ShanZhiXiaoZhu,MaverickPig,Bolen,&#xD;&#xA;爱发电用户_xJf4,爱发电用户_CqeR,不吃剩饭的老剩饭,爱发电用户_SaeE,SakuraMoyi,&#xD;&#xA;爱发电用户_eHSs,Ablazy,?,Loki,0www0,玖月,[IPv1]ICU-Regedit 感谢你们!" HorizontalAlignment="Left" Height="79" Margin="15,39,0,0" VerticalAlignment="Top" Width="684" FontSize="17.65"/>
+                                    <Label Content="玖月,zsq123123,初岁,爱发电用户_JMy3,爱发电用户_r697 感谢你们!" HorizontalAlignment="Left" Height="79" Margin="15,39,0,0" VerticalAlignment="Top" Width="684" FontSize="17.65"/>
                                 </Grid>
                             </Border>
                             <TextBlock HorizontalAlignment="Left" Height="1" Margin="375,268,0,0" TextWrapping="Wrap" Text="除了傻逼Lie" VerticalAlignment="Top" Width="4" FontSize="0.012"/>

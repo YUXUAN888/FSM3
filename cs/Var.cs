@@ -10,5 +10,14 @@ namespace FSM3
     internal class Var
     {
         public static Frame Frame { get; set; }
+        public static List<string> JavaL { get; set; }
+        public static List<string> JavaB { get; set; }
+        public static string IDVar { get; set; }
+        public static string DownVar { get; set; }
+        public static string optpatch { get; set; }
+        public static string ZVar { get; set; }
+        public static string ForgeVar { get; set; }
+        public static string FabVar { get; set; }
+        public static string ForgePath { get; set; }
     }
 }

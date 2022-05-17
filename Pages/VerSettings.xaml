@@ -26,7 +26,7 @@
                         <Grid>
                             <Label Content="个性化" HorizontalAlignment="Left" Margin="16,10,0,0" VerticalAlignment="Top" Height="24" Width="77" FontSize="18"/>
                             <About_List:DoItem x:Name="QWQ" HorizontalAlignment="Left" Margin="12,41,0,0" VerticalAlignment="Top" Height="43" Width="329" Loaded="QWQ_Loaded"/>
-                            <ComboBox HorizontalAlignment="Left" Margin="55,87,0,0" VerticalAlignment="Top" Width="302" SelectionChanged="ComboBox_SelectionChanged" SelectedIndex="0">
+                            <ComboBox x:Name="Com" HorizontalAlignment="Left" Margin="55,87,0,0" VerticalAlignment="Top" Width="302" SelectionChanged="ComboBox_SelectionChanged" SelectedIndex="0" Loaded="Load">
                                 <ComboBoxItem Content="自动"/>
                                 <ComboBoxItem Content="草方块"/>
                                 <ComboBoxItem Content="玻璃"/>
@@ -42,12 +42,11 @@
                     <Border CornerRadius="7,7,7,7" BorderBrush="#FF323232" BorderThickness="1" HorizontalAlignment="Left" Height="98" Margin="17,206,0,0" VerticalAlignment="Top" Width="713">
                         <Grid>
                             <Label Content="高级" HorizontalAlignment="Left" Margin="16,10,0,0" VerticalAlignment="Top" Height="24" Width="77" FontSize="18"/>
-                            <Button Content="打开版本文件夹" HorizontalAlignment="Left" Margin="15,48,0,0" VerticalAlignment="Top" Width="161" Height="34"/>
+                            <Button Content="打开版本文件夹" HorizontalAlignment="Left" Margin="15,48,0,0" VerticalAlignment="Top" Width="161" Height="34" Click="Button_Click_3"/>
                             <Button Content="删除此版本" HorizontalAlignment="Left" Margin="195,48,0,0" VerticalAlignment="Top" Width="161" Height="34" BorderBrush="Red" Click="Button_Click_2"/>
 
                         </Grid>
                     </Border>
-                    <Label Content="呜..版本设置还在施工,用不了哦" HorizontalAlignment="Left" Margin="286,353,0,0" VerticalAlignment="Top"/>
                 </Grid>
             </TabItem>
             <TabItem>
@@ -61,7 +60,9 @@
                     <Grid.Background>
                         <ImageBrush/>
                     </Grid.Background>
-                    <Label Content="呜..mod管理还在施工,用不了哦" HorizontalAlignment="Left" Margin="286,353,0,0" VerticalAlignment="Top"/>
+                    <ListBox x:Name="MODLIST" HorizontalAlignment="Left" Height="366" Margin="164,11,0,0" VerticalAlignment="Top" Width="580" SelectionChanged="MODLIST_SelectionChanged"/>
+                    <Button Content="刷新" HorizontalAlignment="Left" Margin="30,61,0,0" VerticalAlignment="Top" Width="100" Click="Button_Click_4"/>
+                    <Label x:Name="VersionName" Content="" HorizontalAlignment="Left" Margin="11,22,0,0" VerticalAlignment="Top" Height="27" Width="143" FontSize="14" HorizontalContentAlignment="Center"/>
                 </Grid>
             </TabItem>
         </TabControl>

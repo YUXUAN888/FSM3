@@ -6,18 +6,18 @@
              xmlns:local="clr-namespace:FSM3.Download_Pages"
              xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks" x:Class="FSM3.Download_Pages.DownFly"
              mc:Ignorable="d" d:DesignWidth="752" Height="97.067" Foreground="{x:Null}">
-    <UserControl.Background>
-        <SolidColorBrush Color="White" Opacity="0.88888888"/>
-    </UserControl.Background>
+
     <Grid>
+        <ListBox HorizontalAlignment="Left" Height="91" Margin="3,3,0,0" VerticalAlignment="Top" Width="745"/>
         <Border CornerRadius="7,7,7,7" BorderBrush="#FF323232" BorderThickness="1">
             <Grid>
                 <Label Content="安装Minecraft" HorizontalAlignment="Left" Margin="39,8,0,0" VerticalAlignment="Top"/>
                 <CheckBox x:Name="InstallJar" Content="安装Jar" HorizontalAlignment="Left" Margin="24,41,0,0" VerticalAlignment="Top" Width="100"/>
                 <CheckBox x:Name="InstallLib" Content="补全Libraries" HorizontalAlignment="Left" Margin="319,41,0,0" VerticalAlignment="Top" Width="100"/>
                 <CheckBox x:Name="InstallAssets" Content="补全Assets" HorizontalAlignment="Left" Margin="629,41,0,0" VerticalAlignment="Top" Width="100"/>
-                <ProgressBar x:Name="ZJD" HorizontalAlignment="Left" Height="7" Margin="16,82,0,0" VerticalAlignment="Top" Width="718"/>
+                <ProgressBar x:Name="ZJD" HorizontalAlignment="Left" Height="12" Margin="378,77,0,0" VerticalAlignment="Top" Width="356"/>
                 <Image HorizontalAlignment="Left" Height="26" Margin="6,5,0,0" VerticalAlignment="Top" Width="26" Source="/FSM3;component/Image/0E8348D8.PNG"/>
+                <ProgressBar x:Name="ZJDw" HorizontalAlignment="Left" Height="12" Margin="18,77,0,0" VerticalAlignment="Top" Width="356"/>
             </Grid>
         </Border>
         <Border>

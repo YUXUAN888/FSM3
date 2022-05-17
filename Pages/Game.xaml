@@ -5,11 +5,11 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:FSM3.Pages" xmlns:ui="http://schemas.modernwpf.com/2019"
       xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
-      xmlns:squareminecraftlauncherskin="clr-namespace:SquareMinecraftLauncherSkin;assembly=SquareMinecraftLauncherSkin" xmlns:dialogs="clr-namespace:FSM3.Dialogs"
+      xmlns:dialogs="clr-namespace:FSM3.Dialogs"
       xmlns:About_List="clr-namespace:FSM3.About_List" x:Class="FSM3.Pages.Game"
       mc:Ignorable="d" 
       d:DesignHeight="444"
-      Title="Game" Width="752.8">
+      Title="Game" Width="752.8" Loaded="Load">
     <Grid x:Name="GameGrid" Margin="0,0,-0.2,0" Loaded="Load" >
         <Button x:Name="StartGame" HorizontalAlignment="Right" Height="79" Style="{StaticResource AccentButtonStyle}" VerticalAlignment="Bottom" Width="248" Margin="12" Click="Button_Click_Start">
             <WrapPanel Height="64" Width="229">
@@ -45,11 +45,12 @@
                                 </TransformGroup>
                             </TabItem.RenderTransform>
                             <Grid x:Name="MojangGrid">
-                                <TextBox x:Name="Mojang1" HorizontalAlignment="Left" Height="24" Margin="60,85,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="275"/>
-                                <PasswordBox x:Name="Mojang2" HorizontalAlignment="Left" Height="32" Margin="60,124,0,0" VerticalAlignment="Top" Width="275"/>
-                                <Label x:Name="MailM" Content="邮箱:" HorizontalAlignment="Left" Margin="18,93,0,0" VerticalAlignment="Top"/>
-                                <Label x:Name="MailP" Content="密码:" HorizontalAlignment="Left" Margin="18,131,0,0" VerticalAlignment="Top"/>
-                                <Button x:Name="MojangLoginButton" Content="登录" HorizontalAlignment="Left" Height="31" Margin="233,170,0,0" VerticalAlignment="Top" Width="102" Click="Button_Click"/>
+                                <TextBox x:Name="Mojang1" HorizontalAlignment="Left" Height="24" Margin="60,100,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="275"/>
+                                <PasswordBox x:Name="Mojang2" HorizontalAlignment="Left" Height="32" Margin="60,139,0,0" VerticalAlignment="Top" Width="275"/>
+                                <Label x:Name="MailM" Content="邮箱:" HorizontalAlignment="Left" Margin="18,108,0,0" VerticalAlignment="Top"/>
+                                <Label x:Name="MailP" Content="密码:" HorizontalAlignment="Left" Margin="18,146,0,0" VerticalAlignment="Top"/>
+                                <Button x:Name="MojangLoginButton" Content="登录" HorizontalAlignment="Left" Height="31" Margin="233,185,0,0" VerticalAlignment="Top" Width="102" Click="Button_Click"/>
+                                <Label Content="若您仍在使用Mojang账户,请尽快迁移至微软" HorizontalAlignment="Left" Height="42" Margin="38,51,0,0" VerticalAlignment="Top" Width="280"/>
 
                             </Grid>
                         </TabItem>

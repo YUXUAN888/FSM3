@@ -344,9 +344,9 @@ namespace FSM3.Pages
                                 Directory.CreateDirectory(t[i].path + @"\FSM");
                                 // BitmapImage.UriSource must be in a BeginInit/EndInit block.  
                                 user.DverV.Content = t[i].version;
-                                if (IniReadValueKK("config", "icon", t[i].path + @"\FSM\Banner.inif") is null || IniReadValueKK("config", "icon", t[i].path + @"\FSM\Banner.inif") is "" || IniReadValueKK("config", "icon", t[i].path + @"\FSM\Banner.inif") is "Of")
+                                if (IniReadValueKK("config", "icon", t[i].path + @"\FSM\Banner.inif") is null || IniReadValueKK("config", "icon", t[i].path + @"\FSM\Banner.inif") is "" || IniReadValueKK("config", "icon", t[i].path + @"\FSM\Banner.inif") is "0E867560")
                                 {
-                                    WritePrivateProfileString("config", "icon", "Of", t[i].path + @"\FSM\Banner.inif");
+                                    WritePrivateProfileString("config", "icon", "0E867560", t[i].path + @"\FSM\Banner.inif");
                                     bi.BeginInit();
                                     bi.UriSource = new Uri(@"\Image\0E867560.PNG", UriKind.RelativeOrAbsolute);
                                     bi.EndInit();
@@ -480,9 +480,10 @@ namespace FSM3.Pages
                     t = tools.Tools.GetAllTheExistingVersion();
                     String File_ = System.AppDomain.CurrentDomain.BaseDirectory + @"FSM\FSM.slx";
                     Game.WritePrivateProfileString("Vlist", "V", vlist.SelectedIndex.ToString(), File_);
-
-                    NowVS = t[vlist.SelectedIndex].version;
+                Game.WritePrivateProfileString("XX", "XX", t[vlist.SelectedIndex].version, File_);
+                NowVS = t[vlist.SelectedIndex].version;
                     NowVw.NowV.Content = t[vlist.SelectedIndex].version;
+                Var.IDVar = t[vlist.SelectedIndex].IdVersion;
                 }
                 else
                 {
@@ -495,7 +496,8 @@ namespace FSM3.Pages
                     Game.WritePrivateProfileString("Vlist", "V", vlist.SelectedIndex.ToString(), File_);
                     Game.WritePrivateProfileString("XX", "XX", t[vlist.SelectedIndex].version, File_);
                     NowVS = t[vlist.SelectedIndex].version;
-                    NowVw.NowV.Content = t[vlist.SelectedIndex].version;
+                Var.IDVar = t[vlist.SelectedIndex].IdVersion;
+                NowVw.NowV.Content = t[vlist.SelectedIndex].version;
                 }
         }
 
@@ -697,9 +699,9 @@ namespace FSM3.Pages
                                 Directory.CreateDirectory(t[i].path + @"\FSM");
                                 // BitmapImage.UriSource must be in a BeginInit/EndInit block.  
                                 user.DverV.Content = t[i].version;
-                                if (IniReadValueKK("config", "icon", t[i].path + @"\FSM\Banner.inif") is null || IniReadValueKK("config", "icon", t[i].path + @"\FSM\Banner.inif") is "" || IniReadValueKK("config", "icon", t[i].path + @"\FSM\Banner.inif") is "Of")
+                                if (IniReadValueKK("config", "icon", t[i].path + @"\FSM\Banner.inif") is null || IniReadValueKK("config", "icon", t[i].path + @"\FSM\Banner.inif") is "" || IniReadValueKK("config", "icon", t[i].path + @"\FSM\Banner.inif") is "0E867560")
                                 {
-                                    WritePrivateProfileString("config", "icon", "Of", t[i].path + @"\FSM\Banner.inif");
+                                    WritePrivateProfileString("config", "icon", "0E867560", t[i].path + @"\FSM\Banner.inif");
                                     bi.BeginInit();
                                     bi.UriSource = new Uri(@"\Image\0E867560.PNG", UriKind.RelativeOrAbsolute);
                                     bi.EndInit();

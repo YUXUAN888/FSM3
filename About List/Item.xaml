@@ -4,11 +4,11 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:FSM3.About_List"
-             mc:Ignorable="d" Height="44.517" Width="502.8">
+             mc:Ignorable="d" Height="44.517" Width="703.2">
     <Grid Margin="0,0,0,398.6">
         <Image x:Name="Dimage" HorizontalAlignment="Left" Height="42" Margin="6,2,0,-44" VerticalAlignment="Top" Width="41" Source="/Image/0E885BB0.PNG"/>
         <TextBlock x:Name="Dver" HorizontalAlignment="Left" Margin="63,2,0,-27" TextWrapping="Wrap" Text="Ver" VerticalAlignment="Top" FontSize="21" Height="25"/>
-        <TextBlock x:Name="dbb" HorizontalAlignment="Left" Margin="387,8,0,-38" TextWrapping="Wrap" Text="正式版" VerticalAlignment="Top" FontSize="22" Height="30" Width="112"/>
+        <TextBlock x:Name="dbb" HorizontalAlignment="Left" Margin="601,7,0,-37" TextWrapping="Wrap" Text="正式版" VerticalAlignment="Top" FontSize="22" Height="30" Width="100"/>
         <TextBlock x:Name="TIME" HorizontalAlignment="Left" Margin="63,26,0,-42" TextWrapping="Wrap" Text="2020年1月22日" VerticalAlignment="Top" FontSize="11.233" Height="16" Width="185"/>
 
     </Grid>

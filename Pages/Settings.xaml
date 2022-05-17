@@ -11,7 +11,7 @@
       Title="Settings" Width="752.8" Loaded="Load">
 
     <Grid>
-        <TabControl HorizontalAlignment="Left" Height="437" VerticalAlignment="Top" Width="742" Style="{StaticResource DefaultTabControlStyle}">
+        <TabControl x:Name="STB" HorizontalAlignment="Left" Height="437" VerticalAlignment="Top" Width="742" Style="{StaticResource DefaultTabControlStyle}">
             <TabItem>
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
@@ -28,7 +28,7 @@
                             <Label Content="Java路径" HorizontalAlignment="Left" Margin="16,10,0,0" VerticalAlignment="Top" Height="24" Width="77" FontSize="18"/>
                             <Label Content="从1.17以上开始,必须使用Java16以上版本&#xA;建议勾选&quot;让FSM为您选择Java&quot;" HorizontalAlignment="Left" Margin="16,36,0,0" VerticalAlignment="Top" Height="24" Width="193" FontSize="10"/>
                             <ComboBox x:Name="Java_list" HorizontalAlignment="Left" Height="33" Margin="289,9,0,0" VerticalAlignment="Top" Width="328" SelectionChanged="java_list_SelectionChanged" FontSize="13"/>
-                            <CheckBox x:Name="AutoJava" Content="让FSM自动为您选择Java" HorizontalAlignment="Left" Margin="517,42,0,0" VerticalAlignment="Top" FontSize="13" Height="11" Click="AutoJava_c" Width="180" IsEnabled="False"/>
+                            <CheckBox x:Name="AutoJava" Content="让FSM自动为您选择Java(维护中)" HorizontalAlignment="Left" Margin="473,42,0,0" VerticalAlignment="Top" FontSize="13" Height="11" Click="AutoJava_c" Width="224" Checked="AutoJava_Checked" IsEnabled="False"/>
                             <Button Content="手动选择" HorizontalAlignment="Left" Margin="620,10,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_4"/>
 
                         </Grid>
@@ -48,6 +48,7 @@
                             <TextBox x:Name="EY" HorizontalAlignment="Left" Height="23" Margin="167,40,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="529" TextChanged="TextBox_TextChanged"/>
                             <TextBox x:Name="JVM" HorizontalAlignment="Left" Height="23" Margin="167,96,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="528" TextChanged="TextBox1_TextChanged"/>
                             <CheckBox x:Name="BQQD" Content="关闭启动前检查补全" HorizontalAlignment="Left" Height="0" Margin="540,131,0,0" VerticalAlignment="Top" Width="165" RenderTransformOrigin="0.565,0.306" Checked="CheckBox_Checked" Click="CheckBox_Check"/>
+                            <Button Content="回收RAM" HorizontalAlignment="Left" Height="30" Margin="434,132,0,0" VerticalAlignment="Top" Width="91" Click="Button_Click_5"/>
                         </Grid>
                     </Border>
                 </Grid>
