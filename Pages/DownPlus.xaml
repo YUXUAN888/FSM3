@@ -12,7 +12,7 @@
         <Button x:Name="DownB" Content="开始安装" HorizontalAlignment="Left" Margin="545,391,0,0" Style="{StaticResource AccentButtonStyle}" VerticalAlignment="Top" Width="195" Height="35" Click="Button_Click"/>
         <TextBox x:Name="box" HorizontalAlignment="Left" Height="34" Margin="262,392,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="268" VerticalContentAlignment="Center" FontSize="15"/>
         <Label Content="版本名称:" HorizontalAlignment="Left" Margin="192,399,0,0" VerticalAlignment="Top" FontSize="14.544"/>
-        <Border CornerRadius="7,7,7,7" BorderBrush="#FF323232" BorderThickness="1" HorizontalAlignment="Left" Height="206" Margin="11,13,0,0" VerticalAlignment="Top" Width="732">
+        <Border CornerRadius="7,7,7,7" BorderBrush="#FF323232" BorderThickness="1" HorizontalAlignment="Left" Height="270" Margin="11,13,0,0" VerticalAlignment="Top" Width="732">
             <Grid>
                 <Label Content="Forge&#xA;(模组加载器)" HorizontalAlignment="Left" Margin="83,12,0,0" VerticalAlignment="Top" Width="141" FontSize="17" Height="46"/>
                 <Image HorizontalAlignment="Left" Height="50" Margin="12,144,0,0" VerticalAlignment="Top" Width="71" Source="/FSM3;component/Image/0E867560.PNG"/>
@@ -32,15 +32,20 @@
                 <ui:ProgressRing x:Name="BarForge" IsActive="False" HorizontalAlignment="Left" Height="24" Margin="474,23,0,0" VerticalAlignment="Top" Width="27" Focusable="False" IsHitTestVisible="True" IsTabStop="False"/>
                 <ui:ProgressRing x:Name="BarFabric" IsActive="False" HorizontalAlignment="Left" Height="24" Margin="474,91,0,0" VerticalAlignment="Top" Width="27" Focusable="False" IsHitTestVisible="True" IsTabStop="False"/>
                 <ui:ProgressRing x:Name="BarOptifine" IsActive="False" HorizontalAlignment="Left" Height="24" Margin="474,158,0,0" VerticalAlignment="Top" Width="27" Focusable="False" IsHitTestVisible="True" IsTabStop="False"/>
+                <Image HorizontalAlignment="Left" Height="50" Margin="13,209,0,0" VerticalAlignment="Top" Width="71" Source="/FSM3;component/Image/logo.png"/>
+                <Label Content="Quilt&#xA;(模组加载器)" HorizontalAlignment="Left" Margin="83,213,0,0" VerticalAlignment="Top" Width="141" FontSize="17" Height="45"/>
+                <ComboBox x:Name="QuiltList" HorizontalAlignment="Left" Margin="506,219,0,0" VerticalAlignment="Top" Width="216" SelectedIndex="0" SelectionChanged="OptifineList_SelectionChanged" MouseLeftButtonDown="OptifineDown" IsEnabled="False">
+                    <ComboBoxItem Content="暂时不支持" FontSize="14"/>
+                </ComboBox>
 
             </Grid>
         </Border>
-        <Border CornerRadius="7,7,7,7" BorderBrush="#FF323232" BorderThickness="1" HorizontalAlignment="Left" Height="60" Margin="11,228,0,0" VerticalAlignment="Top" Width="732">
+        <Border CornerRadius="7,7,7,7" BorderBrush="#FF323232" BorderThickness="1" HorizontalAlignment="Left" Height="60" Margin="11,288,0,0" VerticalAlignment="Top" Width="732">
             <Grid>
                 <ProgressBar x:Name="ZJD" HorizontalAlignment="Left" Height="12" Margin="366,48,0,0" VerticalAlignment="Top" Width="356"/>
                 <Image HorizontalAlignment="Left" Height="33" Margin="6,5,0,0" VerticalAlignment="Top" Width="32" Source="/FSM3;component/Image/0E8348D8.PNG"/>
                 <ProgressBar x:Name="ZJDw" HorizontalAlignment="Left" Height="12" Margin="6,48,0,0" VerticalAlignment="Top" Width="356"/>
-                <Label x:Name="AZJD" Content="当前:安装Jar" HorizontalAlignment="Left" Margin="46,11,0,0" VerticalAlignment="Top" FontSize="16" Width="673"/>
+                <Label x:Name="AZJD" Content="安装未进行" HorizontalAlignment="Left" Margin="46,11,0,0" VerticalAlignment="Top" FontSize="16" Width="673"/>
             </Grid>
         </Border>
     </Grid>

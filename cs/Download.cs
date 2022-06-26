@@ -52,7 +52,10 @@ namespace FSM3
             All = Files.Length;
             Left = Files.Length;
         }
-
+        public void Thread(int threads)
+        {
+            downLoadFile.ThreadNum = threads;
+        }
         public void Start(string path, string url)
         {
             AddDownload(path, url);

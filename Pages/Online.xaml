@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:FSM3.Pages" xmlns:ui="http://schemas.modernwpf.com/2019"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="Online" Width="752.8">
+      Title="Online" Width="752.8" Loaded="Load">
 
     <Grid>
         <TabControl>
@@ -23,19 +23,19 @@
                     </Grid.Background>
                     <Label Content="Minecraft联机" HorizontalAlignment="Left" Margin="11,10,0,0" VerticalAlignment="Top" FontSize="24"/>
                     <Label Content="双方离线可进行联机" HorizontalAlignment="Left" Margin="11,42,0,0" VerticalAlignment="Top" FontSize="15" Width="595"/>
-                    <Border CornerRadius="7,7,7,7" BorderBrush="#FF323232" BorderThickness="1" HorizontalAlignment="Left" Height="85" Margin="17,77,0,0" VerticalAlignment="Top" Width="713">
+                    <Border CornerRadius="7,7,7,7" BorderBrush="#FF323232" BorderThickness="1" HorizontalAlignment="Left" Height="64" Margin="17,77,0,0" VerticalAlignment="Top" Width="713">
                         <Grid>
                             <Label Content="创建房间" HorizontalAlignment="Left" Margin="16,10,0,0" VerticalAlignment="Top" Height="24" Width="77" FontSize="18"/>
-                            <Label Content="若您是房主,请轻点右侧按钮以开房&#xA;本模式支持双方离线联机(必须使用FSM启动)&#xD;&#xA;若加入方为正版或外置则无需使用FSM启动" HorizontalAlignment="Left" Margin="16,36,0,0" VerticalAlignment="Top" Height="40" Width="211" FontSize="10"/>
-                            <Button x:Name="CJFJ_Baibao" Content="创建并开启房间" HorizontalAlignment="Left" Height="34" Margin="484,25,0,0" VerticalAlignment="Top" Width="207" Click="Button_Click_66"/>
+                            <Label Content="轻点右侧按钮以开房" HorizontalAlignment="Left" Margin="16,36,0,0" VerticalAlignment="Top" Height="40" Width="211" FontSize="12"/>
+                            <Button x:Name="CJFJ_Baibao" Content="创建并开启房间" HorizontalAlignment="Left" Height="34" Margin="484,15,0,0" VerticalAlignment="Top" Width="207" Click="Button_Click_66"/>
 
                         </Grid>
                     </Border>
-                    <Border CornerRadius="7,7,7,7" BorderBrush="#FF323232" BorderThickness="1" HorizontalAlignment="Left" Height="85" Margin="17,172,0,0" VerticalAlignment="Top" Width="713">
+                    <Border CornerRadius="7,7,7,7" BorderBrush="#FF323232" BorderThickness="1" HorizontalAlignment="Left" Height="64" Margin="17,148,0,0" VerticalAlignment="Top" Width="713">
                         <Grid>
                             <Label Content="加入房间" HorizontalAlignment="Left" Margin="16,10,0,0" VerticalAlignment="Top" Height="24" Width="77" FontSize="18"/>
-                            <Label Content="输入对方发来的邀请码,轻松联机&#xA;本模式支持双方离线联机(必须使用FSM启动)&#xD;&#xA;若加入方为正版或外置则无需使用FSM启动" HorizontalAlignment="Left" Margin="16,36,0,0" VerticalAlignment="Top" Height="40" Width="200" FontSize="10"/>
-                            <Button x:Name="JRFJ_Baibao" Content="加入房间" HorizontalAlignment="Left" Height="34" Margin="484,25,0,0" VerticalAlignment="Top" Width="207" Click="Button_Click_77"/>
+                            <Label Content="输入对方发来的邀请码,轻松联机&#xA;" HorizontalAlignment="Left" Margin="16,36,0,0" VerticalAlignment="Top" Height="22" Width="200" FontSize="12"/>
+                            <Button x:Name="JRFJ_Baibao" Content="加入房间" HorizontalAlignment="Left" Height="34" Margin="484,15,0,0" VerticalAlignment="Top" Width="207" Click="Button_Click_77"/>
 
                         </Grid>
                     </Border>
@@ -44,18 +44,18 @@
             <TabItem>
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal">
-                        <ui:FontIcon Glyph="&#xE71D;" Margin="0,0,4,0"/>
-                        <Label Content="联机大厅"/>
+                        <ui:FontIcon Glyph="&#xEC3F;" Margin="-3,0,4,0"/>
+                        <Label Content="网络测试"/>
                     </StackPanel>
                 </TabItem.Header>
                 <Grid>
                     <Grid.Background>
                         <ImageBrush/>
                     </Grid.Background>
-                    <Label Content="联机大厅" HorizontalAlignment="Left" Margin="11,10,0,0" VerticalAlignment="Top" FontSize="24"/>
-                    <Label Content="正在制作中" HorizontalAlignment="Left" Margin="11,42,0,0" VerticalAlignment="Top" FontSize="15" Width="595"/>
-                    <ListBox x:Name="List" HorizontalAlignment="Left" Height="317" Margin="19,70,0,0" VerticalAlignment="Top" Width="713"/>
-                    <Button Content="刷新房间" HorizontalAlignment="Left" Margin="660,27,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_4"/>
+                    <Label Content="网络测试" HorizontalAlignment="Left" Margin="11,10,0,0" VerticalAlignment="Top" FontSize="24"/>
+                    <Label Content="您可以看得您与服务器的网络延迟" HorizontalAlignment="Left" Margin="11,42,0,0" VerticalAlignment="Top" FontSize="15" Width="595"/>
+                    <Label x:Name="MS" Content="66" HorizontalAlignment="Left" Margin="250,169,0,0" VerticalAlignment="Top" FontSize="48" HorizontalContentAlignment="Right" Width="120"/>
+                    <Label Content="ms(毫秒)" HorizontalAlignment="Left" Margin="372,199,0,0" VerticalAlignment="Top" FontSize="18"/>
                 </Grid>
             </TabItem>
             <TabItem Visibility="Hidden">

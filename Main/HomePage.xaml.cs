@@ -73,7 +73,7 @@ namespace FSM3.Main
         {
             try
             {
-                HomePage.Root root = JsonConvert.DeserializeObject<HomePage.Root>(Get("http://119.45.103.147:666/FSM.json"));
+                HomePage.Root root = JsonConvert.DeserializeObject<HomePage.Root>(Get("http://124.221.215.96:666/FSM.json"));
                 int index = this.ra.Next(0, root.FSM.Count);
                 this.RP.Content = (object)root.FSM[index];
             }

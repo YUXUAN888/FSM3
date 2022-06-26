@@ -36,14 +36,15 @@
                     <Button Content="下一步" HorizontalAlignment="Left" Margin="535,353,0,0" Style="{StaticResource AccentButtonStyle}" VerticalAlignment="Top" Width="195" Height="35" FontSize="17.11" Click="Button_Click"/>
 
                     <Download_Pages:DownFly x:Name="DoF" Margin="4,297,1.8,11.4" Visibility="Hidden"/>
+                    <ui:ProgressRing x:Name="Bar" IsActive="True" HorizontalAlignment="Left" Height="55" Margin="228,149,0,0" VerticalAlignment="Top" Width="67" Focusable="False" IsHitTestVisible="True" IsTabStop="False" Visibility="Hidden"/>
 
                 </Grid>
             </TabItem>
-            <TabItem>
+            <TabItem Width="139">
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal" Margin="0,0,9.2,0">
                         <iconPacks:PackIconSimpleIcons Kind="Modx" Margin="0,2,5,0"/>
-                        <Label Content="资源下载(Modrinth)"/>
+                        <Label Content="游戏资源下载"/>
                     </StackPanel>
                 </TabItem.Header>
                 <Grid>
@@ -51,7 +52,7 @@
                     <Label Content="搜索" HorizontalAlignment="Left" Margin="9,9,0,0" VerticalAlignment="Top" Width="255" HorizontalContentAlignment="Center"/>
                     <Button Style="{StaticResource AccentButtonStyle}" Content="🔍" HorizontalAlignment="Left" Margin="228,32,0,0" VerticalAlignment="Top" Width="41" Height="30" Click="Button_Click_2"/>
                     <ListBox x:Name="ModrinthList" HorizontalAlignment="Left" Height="370" Margin="278,12,0,0" VerticalAlignment="Top" Width="464" SelectionChanged="ModrinthList_SelectionChanged"/>
-                    <ComboBox x:Name="ModrinthVer" HorizontalAlignment="Left" Margin="80,74,0,0" VerticalAlignment="Top" Width="183" Height="30" SelectedIndex="0">
+                    <ComboBox x:Name="ModrinthVer" HorizontalAlignment="Left" Margin="80,111,0,0" VerticalAlignment="Top" Width="183" Height="30" SelectedIndex="0">
                         <ComboBoxItem Content="全部"/>
                         <ComboBoxItem Content="1.18.2"/>
                         <ComboBoxItem Content="1.18.1"/>
@@ -89,14 +90,14 @@
                         <ComboBoxItem Content="1.7.10"/>
                         <ComboBoxItem Content="1.7.2"/>
                     </ComboBox>
-                    <Label Content="游戏版本:" HorizontalAlignment="Left" Margin="7,80,0,0" VerticalAlignment="Top" Width="74" HorizontalContentAlignment="Center"/>
-                    <ComboBox x:Name="ModrinthJZQ" HorizontalAlignment="Left" Margin="80,116,0,0" VerticalAlignment="Top" Width="183" Height="30" SelectedIndex="0">
+                    <Label Content="游戏版本:" HorizontalAlignment="Left" Margin="7,117,0,0" VerticalAlignment="Top" Width="74" HorizontalContentAlignment="Center"/>
+                    <ComboBox x:Name="ModrinthJZQ" HorizontalAlignment="Left" Margin="80,153,0,0" VerticalAlignment="Top" Width="183" Height="30" SelectedIndex="0">
                         <ComboBoxItem Content="全部"/>
                         <ComboBoxItem Content="Fabric"/>
                         <ComboBoxItem Content="Forge"/>
                     </ComboBox>
-                    <Label Content="加载器:" HorizontalAlignment="Left" Margin="12,123,0,0" VerticalAlignment="Top" Width="54" HorizontalContentAlignment="Center"/>
-                    <ComboBox x:Name="ModrinthLB" HorizontalAlignment="Left" Margin="79,160,0,0" VerticalAlignment="Top" Width="184" Height="30" SelectedIndex="0">
+                    <Label Content="加载器:" HorizontalAlignment="Left" Margin="12,160,0,0" VerticalAlignment="Top" Width="54" HorizontalContentAlignment="Center"/>
+                    <ComboBox x:Name="ModrinthLB" HorizontalAlignment="Left" Margin="79,196,0,0" VerticalAlignment="Top" Width="184" Height="30" SelectedIndex="0">
                         <ComboBoxItem Content="全部"/>
                         <ComboBoxItem Content="奇遇"/>
                         <ComboBoxItem Content="诅咒"/>
@@ -112,15 +113,16 @@
                         <ComboBoxItem Content="效用"/>
                         <ComboBoxItem Content="世源"/>
                     </ComboBox>
-                    <Label Content="类别:" HorizontalAlignment="Left" Margin="14,166,0,0" VerticalAlignment="Top" Width="38" HorizontalContentAlignment="Center"/>
-                    <Border x:Name="ModLogo" HorizontalAlignment="Left" Margin="43,331,0,0" VerticalAlignment="Top" CornerRadius="6" Width="192" Height="50">
-                        <Border.Background>
-                            <ImageBrush ImageSource="https://img.kuibu.net/imgs/2022/03/dfec220836847e06.png"/>
-                        </Border.Background>
-                    </Border>
+                    <Label Content="类别:" HorizontalAlignment="Left" Margin="14,202,0,0" VerticalAlignment="Top" Width="38" HorizontalContentAlignment="Center"/>
+                    <ComboBox x:Name="Yuan" HorizontalAlignment="Left" Margin="80,70,0,0" VerticalAlignment="Top" Width="183" Height="30" SelectedIndex="0">
+                        <ComboBoxItem Content="CurseForge"/>
+                        <ComboBoxItem Content="Modrinth"/>
+                    </ComboBox>
+                    <Label Content="获取源:" HorizontalAlignment="Left" Margin="7,76,0,0" VerticalAlignment="Top" Width="74" HorizontalContentAlignment="Center"/>
+                    <Button Content="获取热门资源" HorizontalAlignment="Left" Margin="10,237,0,0" VerticalAlignment="Top" Style="{StaticResource AccentButtonStyle}" Width="255" Height="31" Click="Button_Click_3"/>
                 </Grid>
             </TabItem>
-            <TabItem>
+            <TabItem Visibility="Hidden">
                 <TabItem.Header>
                     <StackPanel Orientation="Horizontal" Margin="0,0,9.2,0">
                         <iconPacks:PackIconSimpleIcons Kind="CurseForge" Margin="0,2,5,0"/>
@@ -173,5 +175,6 @@
                 </Grid>
             </TabItem>
         </TabControl>
+        <Label x:Name="JZ" Content="正在加载 Minecraft 列表" HorizontalAlignment="Left" Height="25" Margin="303,206,0,0" VerticalAlignment="Top" Width="235" FontSize="18" Visibility="Hidden"/>
     </Grid>
 </Page>

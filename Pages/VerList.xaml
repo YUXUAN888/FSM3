@@ -20,12 +20,9 @@
             </ListBox.Background>
         </ListBox>
         <Button Content="新增游戏文件夹" HorizontalAlignment="Left" Height="37" Margin="9,394,0,0" VerticalAlignment="Top" Width="145" Click="Button_Click_1"/>
-        <Button Content="删除选中文件夹" HorizontalAlignment="Left" Height="37" Style="{StaticResource AccentButtonStyle}" Margin="160,394,0,0" VerticalAlignment="Top" Width="145" Foreground="White" BorderBrush="Red" Click="Button_Click" IsEnabled="False">
-            <Button.Background>
-                <SolidColorBrush Color="#FFFD0000" Opacity="0.66"/>
-            </Button.Background>
+        <Button Content="删除选中文件夹" HorizontalAlignment="Left" Height="37" Margin="160,394,0,0" VerticalAlignment="Top" Width="145" BorderBrush="Red" Click="Button_Click">
         </Button>
-        <Label Content="呜..部分功能仍在施工,用不了哦" HorizontalAlignment="Left" Margin="334,404,0,0" VerticalAlignment="Top"/>
+        <Button Content="安装整合包" HorizontalAlignment="Left" Height="37" Margin="613,394,0,0" VerticalAlignment="Top" Width="132" BorderBrush="#FFA200FF" Click="Button_Click_2"/>
 
     </Grid>
 </Page>

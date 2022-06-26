@@ -25,30 +25,33 @@
                     </Grid.Background>
                     <Border CornerRadius="7,7,7,7" BorderBrush="#FF323232" BorderThickness="1" HorizontalAlignment="Left" Height="76" Margin="17,13,0,0" VerticalAlignment="Top" Width="713">
                         <Grid>
-                            <Label Content="Java路径" HorizontalAlignment="Left" Margin="16,10,0,0" VerticalAlignment="Top" Height="24" Width="77" FontSize="18"/>
-                            <Label Content="从1.17以上开始,必须使用Java16以上版本&#xA;建议勾选&quot;让FSM为您选择Java&quot;" HorizontalAlignment="Left" Margin="16,36,0,0" VerticalAlignment="Top" Height="24" Width="193" FontSize="10"/>
+                            <ui:SimpleStackPanel Margin="16,10,0,0" HorizontalAlignment="Left">
+                                <Label Content="Java路径" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="18"/>
+                                <Label Content="从1.17以上开始,必须使用Java16以上版本&#xA;建议勾选&quot;让FSM为您选择Java&quot;" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="12"/>
+                            </ui:SimpleStackPanel>
                             <ComboBox x:Name="Java_list" HorizontalAlignment="Left" Height="33" Margin="289,9,0,0" VerticalAlignment="Top" Width="328" SelectionChanged="java_list_SelectionChanged" FontSize="13"/>
-                            <CheckBox x:Name="AutoJava" Content="让FSM自动为您选择Java(维护中)" HorizontalAlignment="Left" Margin="473,42,0,0" VerticalAlignment="Top" FontSize="13" Height="11" Click="AutoJava_c" Width="224" Checked="AutoJava_Checked" IsEnabled="False"/>
+                            <CheckBox x:Name="AutoJava" Content="让FSM自动为您选择 Java" HorizontalAlignment="Left" Margin="517,42,0,0" VerticalAlignment="Top" FontSize="13" Height="11" Click="AutoJava_c" Width="180" Checked="AutoJava_Checked"/>
                             <Button Content="手动选择" HorizontalAlignment="Left" Margin="620,10,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_4"/>
 
                         </Grid>
                     </Border>
-                    <Border CornerRadius="7,7,7,7" BorderBrush="#FF323232" BorderThickness="1" HorizontalAlignment="Left" Height="76" Margin="17,94,0,0" VerticalAlignment="Top" Width="713">
+                    <Border CornerRadius="7,7,7,7" BorderBrush="#FF323232" BorderThickness="1" HorizontalAlignment="Left" Height="82" Margin="17,94,0,0" VerticalAlignment="Top" Width="713">
                         <Grid>
-                            <Label Content="游戏分配内存" HorizontalAlignment="Left" Margin="16,10,0,0" VerticalAlignment="Top" Height="24" Width="109" FontSize="18"/>
-                            <Label Content="资源包等扩展会消耗大量内存&#xA;若您的物理内存较大,建议分配更多给游戏,可提升流畅度" HorizontalAlignment="Left" Margin="16,36,0,0" VerticalAlignment="Top" Height="24" Width="249" FontSize="10"/>
+                            <ui:SimpleStackPanel HorizontalAlignment="Left" Margin="16,10,0,0" Spacing="4">
+                                <Label Content="游戏分配内存" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="18"/>
+                                <Label Content="资源包等扩展会消耗大量内存&#xA;若您的物理内存较大,建议分配更多给游戏,可提升流畅度" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="12"/>
+                            </ui:SimpleStackPanel>
                             <Label x:Name="RAMXS" Margin="433,14,67.2,38.4" HorizontalContentAlignment="Center" />
-                            <Slider x:Name="RAMS" HorizontalAlignment="Left" Margin="369,33,0,0" VerticalAlignment="Top" Width="328" Minimum="10" Maximum="4096" Value="10" Style="{StaticResource DefaultSliderStyle}" TickFrequency="512" ValueChanged="RAMS_ValueChanged" MouseRightButtonUp="MouseUP"/>
+                            <Slider x:Name="RAMS" HorizontalAlignment="Left" Margin="369,44,0,0" VerticalAlignment="Top" Width="328" Minimum="10" Maximum="4096" Value="10" Style="{StaticResource DefaultSliderStyle}" TickFrequency="512" ValueChanged="RAMS_ValueChanged" MouseRightButtonUp="MouseUP"/>
                         </Grid>
                     </Border>
-                    <Border CornerRadius="7,7,7,7" BorderBrush="#FF323232" BorderThickness="1" HorizontalAlignment="Left" Height="168" Margin="17,176,0,0" VerticalAlignment="Top" Width="713">
+                    <Border CornerRadius="7,7,7,7" BorderBrush="#FF323232" BorderThickness="1" HorizontalAlignment="Left" Height="205" Margin="17,181,0,0" VerticalAlignment="Top" Width="713">
                         <Grid>
-                            <Label Content="游戏高级设置(一般无需设置)" HorizontalAlignment="Left" Margin="16,10,0,0" VerticalAlignment="Top" Height="24" Width="233" FontSize="18"/>
-                            <Label Content="额外参数:&#xA;&#xA;&#xA;JVM参数:" HorizontalAlignment="Left" Margin="15,44,0,0" VerticalAlignment="Top" Height="83" Width="146" FontSize="15"/>
-                            <TextBox x:Name="EY" HorizontalAlignment="Left" Height="23" Margin="167,40,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="529" TextChanged="TextBox_TextChanged"/>
-                            <TextBox x:Name="JVM" HorizontalAlignment="Left" Height="23" Margin="167,96,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="528" TextChanged="TextBox1_TextChanged"/>
-                            <CheckBox x:Name="BQQD" Content="关闭启动前检查补全" HorizontalAlignment="Left" Height="0" Margin="540,131,0,0" VerticalAlignment="Top" Width="165" RenderTransformOrigin="0.565,0.306" Checked="CheckBox_Checked" Click="CheckBox_Check"/>
-                            <Button Content="回收RAM" HorizontalAlignment="Left" Height="30" Margin="434,132,0,0" VerticalAlignment="Top" Width="91" Click="Button_Click_5"/>
+                            <Label Content="高级设置(一般无需设置)" HorizontalAlignment="Left" Margin="16,10,0,0" VerticalAlignment="Top" Height="24" Width="233" FontSize="18"/>
+                            <TextBox ui:ControlHelper.Header="额外参数" x:Name="EY" HorizontalAlignment="Left" Height="55" Margin="17,40,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="510" TextChanged="TextBox_TextChanged"/>
+                            <TextBox ui:ControlHelper.Header="JVM参数" x:Name="JVM" HorizontalAlignment="Left" Height="55" Margin="17,96,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="510" TextChanged="TextBox1_TextChanged"/>
+                            <CheckBox x:Name="BQQD" Content="关闭启动前检查补全" HorizontalAlignment="Left" Height="0" Margin="540,160,0,0" VerticalAlignment="Top" Width="165" RenderTransformOrigin="0.565,0.306" Checked="CheckBox_Checked" Click="CheckBox_Check"/>
+                            <Button Content="回收RAM" HorizontalAlignment="Left" Height="30" Margin="434,160,0,0" VerticalAlignment="Top" Width="91" Click="Button_Click_5"/>
                         </Grid>
                     </Border>
                 </Grid>
@@ -74,11 +77,26 @@
 
                         </Grid>
                     </Border>
-                    <Border CornerRadius="7,7,7,7" BorderBrush="#FF323232" BorderThickness="1" HorizontalAlignment="Left" Height="62" Margin="17,13,0,0" VerticalAlignment="Top" Width="713">
+                    <Border CornerRadius="7,7,7,7" BorderBrush="#FF323232" BorderThickness="1" HorizontalAlignment="Left" Height="83" Margin="17,13,0,0" VerticalAlignment="Top" Width="713">
                         <Grid>
-                            <Label Content="网络连接状态" HorizontalAlignment="Left" Margin="16,10,0,0" VerticalAlignment="Top" Height="24" Width="128" FontSize="18"/>
-                            <Label Content="查看你的网络状态，以便更好使用FSM3" HorizontalAlignment="Left" Margin="16,36,0,0" VerticalAlignment="Top" Height="15" Width="193" FontSize="10"/>
-                            <RadioButton HorizontalAlignment="Left" Margin="672,15,-87.8,0" VerticalAlignment="Top" Width="127" Height="43" IsChecked="True"/>
+                            <Label Content="下载源" HorizontalAlignment="Left" Margin="16,11,0,0" VerticalAlignment="Top" Height="24" Width="128" FontSize="18"/>
+                            <Label Content="不同的下载源会带来不同的速度&#xD;&#xA;所有的下载源都是同样的 Minecraft ,无需担心" HorizontalAlignment="Left" Margin="17,38,0,0" VerticalAlignment="Top" Height="36" Width="266" FontSize="12"/>
+                            <ComboBox x:Name="DownloadSC" HorizontalAlignment="Left" Margin="387,26,0,0" VerticalAlignment="Top" Width="310" SelectionChanged="DownloadSC_SelectionChanged">
+                                <ComboBoxItem Content="MCBBS下载源(速度快,版本列表更新慢)"></ComboBoxItem>
+                                <ComboBoxItem Content="BMCLAPI下载源(速度中,版本列表更新速度中)"></ComboBoxItem>
+                                <ComboBoxItem Content="官方下载源(速度慢,版本列表更新快)"></ComboBoxItem>
+                            </ComboBox>
+
+                        </Grid>
+                    </Border>
+                    <Border CornerRadius="7,7,7,7" BorderBrush="#FF323232" BorderThickness="1" HorizontalAlignment="Left" Height="76" Margin="17,102,0,0" VerticalAlignment="Top" Width="713">
+                        <Grid>
+                            <ui:SimpleStackPanel Margin="16,10,0,0" HorizontalAlignment="Left">
+                                <Label Content="下载时并行" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="18"/>
+                                <Label Content="并行的调整会影响到电脑下载时占用与下载速度&#xD;&#xA;理论来说,并行越大速度越快,并行越小速度越慢&#xD;&#xA;" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="12" Height="35" Margin="0,-0.2,0,0"/>
+                            </ui:SimpleStackPanel>
+                            <Label Content="因 FSM3 自研满并行下载体验良好&#xD;&#xA;目前不可更改并行" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="15" Margin="462,19,0,0"/>
+                            <ui:FontIcon Glyph="&#xEA39;" Margin="415,18,251.2,16.4" FontSize="28"/>
 
                         </Grid>
                     </Border>

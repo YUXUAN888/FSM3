@@ -5,15 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FSM3"
         mc:Ignorable="d"
-        xmlns:ui="http://schemas.modernwpf.com/2019" xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks" xmlns:dialogs="clr-namespace:FSM3.Dialogs" xmlns:download_pages="clr-namespace:FSM3.Download_Pages"
+        xmlns:ui="http://schemas.modernwpf.com/2019" xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks" 
+        xmlns:dialogs="clr-namespace:FSM3.Dialogs" xmlns:download_pages="clr-namespace:FSM3.Download_Pages"
         ui:WindowHelper.UseModernWindowStyle="False"
-        ui:ThemeManager.IsThemeAware="True"
+        ui:ThemeManager.IsThemeAware="False"
 
-    Title="FSM Launcher 3" Height="474" Width="794.4" AllowsTransparency="True" WindowStyle="None" Background="{DynamicResource SystemControlPageBackgroundAltHighBrush}"  Foreground="{DynamicResource SystemControlPageTextBaseHighBrush}" WindowStartupLocation="CenterScreen" Loaded="Load" SizeChanged="Size">
+    Title="FSM Launcher 3" Height="474" Width="794.4" AllowsTransparency="True" WindowStyle="None"  Background="{DynamicResource SystemControlPageBackgroundAltHighBrush}"  Foreground="{DynamicResource SystemControlPageTextBaseHighBrush}" WindowStartupLocation="CenterScreen" Loaded="Load" SizeChanged="Size">
     <Grid>
         <dialogs:StartGame x:Name="G" Margin="200,188,203.4,205.6" Visibility="Hidden"/>
         <Image x:Name="FSMLogo" HorizontalAlignment="Left" Height="130" Margin="327,164,0,0" VerticalAlignment="Top" Width="130" Source="/FSM3;component/Image/FSMLogo.png" Visibility="Hidden"/>
-        <ui:NavigationView PaneDisplayMode="LeftCompact" x:Name="nvSample" IsBackButtonVisible="Collapsed" ItemInvoked="Item" Margin="0,37,0.4,-0.4" OpenPaneLength="250">
+        <ui:NavigationView PaneDisplayMode="LeftCompact" x:Name="nvSample" IsBackButtonVisible="Collapsed" ItemInvoked="Item" OpenPaneLength="250" Margin="0,40,0.4,-0.4">
             <ui:NavigationView.MenuItems>
                 <ui:NavigationViewItem Icon="Play" Content="游戏" Tag="Game" IsSelected="True"/>
                 <ui:NavigationViewItem Icon="Download" Content="下载" Tag="Download"/>
@@ -28,7 +29,9 @@
                     </ui:NavigationViewItem.Icon>
                 </ui:NavigationViewItem>
             </ui:NavigationView.MenuItems>
-            <ui:Frame x:Name="ZFrame" NavigationUIVisibility="Hidden" Navigated="Frame_Navigated" Source="/FSM3;component/Download_Pages/Fabric.xaml"/>
+            <ui:Frame x:Name="ZFrame" NavigationUIVisibility="Hidden" Navigated="Frame_Navigated" Source="/FSM3;component/Download_Pages/Fabric.xaml">
+  
+            </ui:Frame>
         </ui:NavigationView>
         <Border x:Name="BD" Margin="-1,37,752.4,0.6" Visibility="Hidden">
             <Border.Background>
@@ -61,7 +64,7 @@
             <TextBlock Height="17" Margin="317,8,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="178" FontSize="14" FontWeight="Bold" Foreground="Red" HorizontalAlignment="Left"/>
         </Grid>
     </Grid>
-    <Window.Effect>
+    <!--<Window.Effect>
         <DropShadowEffect BlurRadius="13" Opacity="0.3"  Direction="90" ShadowDepth="3"/>
-    </Window.Effect>
+    </Window.Effect>-->
 </Window>

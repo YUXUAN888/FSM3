@@ -3,13 +3,13 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:FSM3.Pages"
+      xmlns:local="clr-namespace:FSM3.Pages" xmlns:ui="http://schemas.modernwpf.com/2019"
       mc:Ignorable="d" 
       d:DesignHeight="436.8" d:DesignWidth="754.4"
       Title="Modbio" Loaded="Load">
 
     <Grid x:Name="ModName">
-        <ListBox x:Name="ModL" HorizontalAlignment="Left" Height="331" Margin="24,98,0,0" VerticalAlignment="Top" Width="706" SelectionChanged="ListBox_SelectionChanged"/>
+        <ListBox x:Name="ModL" HorizontalAlignment="Left" Height="329" Margin="245,100,0,0" VerticalAlignment="Top" Width="485" SelectionChanged="ListBox_SelectionChanged"/>
         <Border CornerRadius="7,7,7,7" BorderBrush="#FF323232" BorderThickness="1" HorizontalAlignment="Left" Height="76" Margin="20,13,0,0" VerticalAlignment="Top" Width="713">
             <Grid Margin="1.2,0.2,-1,0.2">
                 <Border x:Name="ModLogo" HorizontalAlignment="Left" Margin="13,9,0,0" VerticalAlignment="Top" CornerRadius="6" Width="56" Height="56">
@@ -21,6 +21,14 @@
                 <Label x:Name="bio" Content="bio" HorizontalAlignment="Left" Margin="75,43,0,0" VerticalAlignment="Top" FontSize="15" Width="618" Height="21"/>
             </Grid>
         </Border>
-
+        <Label Content="发布日期:" HorizontalAlignment="Left" Margin="65,110,0,0" VerticalAlignment="Top" FontSize="16"/>
+        <ui:FontIcon Glyph="&#xEC92;" Margin="19,101,695.4,295.8" FontSize="32"/>
+        <Label x:Name="Time" Content="XXXX-XX-XX" HorizontalAlignment="Left" Margin="25,147,0,0" VerticalAlignment="Top" Width="210"/>
+        <Label Content="图片预览:" HorizontalAlignment="Left" Margin="65,184,0,0" VerticalAlignment="Top" FontSize="16"/>
+        <ui:FontIcon Glyph="&#xEB9F;" Margin="19,175,695.4,221.8" FontSize="32"/>
+        <Border x:Name="ImageYL" HorizontalAlignment="Left" Height="115" Margin="20,215,0,0" VerticalAlignment="Top" Width="215"/>
+        <Label Content="来源:" HorizontalAlignment="Left" Margin="65,341,0,0" VerticalAlignment="Top" FontSize="16"/>
+        <ui:FontIcon Glyph="&#xe707;" Margin="19,332,695.4,64.8" FontSize="32"/>
+        <Label x:Name="LY" Content="此资源来源于CurseForge&#xA;FSM3 通过官方API进行访问" HorizontalAlignment="Left" Margin="25,378,0,0" VerticalAlignment="Top" Width="190"/>
     </Grid>
 </Page>

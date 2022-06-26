@@ -1,5 +1,6 @@
 ﻿using FSM3.About_List;
 using FSMLauncher_3.About_List;
+using ModernWpf.Controls;
 using SquareMinecraftLauncher;
 using SquareMinecraftLauncher.Minecraft;
 using System;
@@ -17,6 +18,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Utils;
 using static FSM3.Pages.Game;
 
 namespace FSM3.Pages
@@ -24,7 +26,7 @@ namespace FSM3.Pages
     /// <summary>
     /// VerList.xaml 的交互逻辑
     /// </summary>
-    public partial class VerList : Page
+    public partial class VerList : System.Windows.Controls.Page
     {
         public class Vlistw
         {
@@ -114,9 +116,58 @@ namespace FSM3.Pages
 
             }
         }
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private async void Button_Click(object sender, RoutedEventArgs e)
         {
+            try
+            {
+                if (pathlist.SelectedIndex is 0)
+                {
+                    ContentDialog dialogx = new ContentDialog()
+                    {
+                        Title = "不能删除文件夹",
+                        PrimaryButtonText = "好吧",
+                        IsPrimaryButtonEnabled = true,
+                        DefaultButton = ContentDialogButton.Primary,
+                        Content = new TextBlock()
+                        {
+                            TextWrapping = TextWrapping.WrapWithOverflow,
+                            Text = "此项为启动器目录,无法删除",
+                        },
+                    };
+                    await dialogx.ShowAsync();
+                }
+                else
+                {
+                    ContentDialog dialog = new ContentDialog()
+                    {
+                        Title = "删除提示",
+                        PrimaryButtonText = "好哒!",
+                        IsPrimaryButtonEnabled = true,
+                        DefaultButton = ContentDialogButton.Primary,
+                        Content = new TextBlock()
+                        {
+                            TextWrapping = TextWrapping.WrapWithOverflow,
+                            Text = "请注意，删除文件夹是指删除游戏文件夹在启动器中列表的项，并不是删除你的游戏文件夹，所以不会丢失数据",
+                        },
 
+                    };
+                    var result = await dialog.ShowAsync();
+                    pathlist.Items.Remove(pathlist.SelectedItem);
+                    for (int i = 2; i <= int.Parse(IniReadValue("VPath1", "1")); i++)
+                    {
+                        Game.WritePrivateProfileString("VPath", i.ToString(), "", File_);
+                    }
+                    Game.WritePrivateProfileString("VPath1", "1", (pathlist.Items.Count - 1).ToString(), File_);
+                    for (int i = 1; i < pathlist.Items.Count; ++i)
+                    {
+                        Game.WritePrivateProfileString("VPath", i.ToString(), (pathlist.Items[i] as PathItem).Path.Content.ToString(), File_);
+                    }
+                }
+            }
+            catch
+            {
+
+            }
         }
         public static string IniReadValueKK(string Section, string Key,string File)
         {
@@ -440,18 +491,20 @@ namespace FSM3.Pages
         String File_ = System.AppDomain.CurrentDomain.BaseDirectory + @"FSM\FSM.slx";
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            System.Windows.Forms.FolderBrowserDialog openFileDialog = new System.Windows.Forms.FolderBrowserDialog();  //选择文件夹
             String File_ = System.AppDomain.CurrentDomain.BaseDirectory + @"FSM\FSM.slx";
-            System.Windows.Forms.FolderBrowserDialog dialog = new System.Windows.Forms.FolderBrowserDialog();//提示用户打开文件窗体
-            dialog.Description = "请选择.minecraft文件夹";
-            if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            var dialogx = new FolderSelectDialog
             {
+                Title = "请选择.minecraft文件夹"
+            };
+            if (dialogx.Show())
+            {
+                var selectFolder = dialogx.FileName;
                 //pathlist.Items.Add(dialog.SelectedPath);
                 List<PathItem> user1 = new List<PathItem>();
 
                 PathItem user = new PathItem();
                 // BitmapImage.UriSource must be in a BeginInit/EndInit block.  
-                user.Path.Content = dialog.SelectedPath;
+                user.Path.Content = selectFolder;
                 pathlist.Items.Add(user);
                 //pathlist.ItemsSource = user1.ToArray();
             }
@@ -459,7 +512,7 @@ namespace FSM3.Pages
             {
 
                 Game.WritePrivateProfileString("VPath1", "1", pathlist.Items.Count.ToString(), File_);
-                Game.WritePrivateProfileString("VPath", pathlist.Items.Count.ToString(), dialog.SelectedPath, File_);
+                Game.WritePrivateProfileString("VPath", pathlist.Items.Count.ToString(), dialogx.FileName, File_);
 
             }
             catch
@@ -481,6 +534,7 @@ namespace FSM3.Pages
                     String File_ = System.AppDomain.CurrentDomain.BaseDirectory + @"FSM\FSM.slx";
                     Game.WritePrivateProfileString("Vlist", "V", vlist.SelectedIndex.ToString(), File_);
                 Game.WritePrivateProfileString("XX", "XX", t[vlist.SelectedIndex].version, File_);
+                Game.WritePrivateProfileString("XX", "IDVar", t[vlist.SelectedIndex].IdVersion, File_);
                 NowVS = t[vlist.SelectedIndex].version;
                     NowVw.NowV.Content = t[vlist.SelectedIndex].version;
                 Var.IDVar = t[vlist.SelectedIndex].IdVersion;
@@ -497,6 +551,7 @@ namespace FSM3.Pages
                     Game.WritePrivateProfileString("XX", "XX", t[vlist.SelectedIndex].version, File_);
                     NowVS = t[vlist.SelectedIndex].version;
                 Var.IDVar = t[vlist.SelectedIndex].IdVersion;
+                Game.WritePrivateProfileString("XX", "IDVar", t[vlist.SelectedIndex].IdVersion, File_);
                 NowVw.NowV.Content = t[vlist.SelectedIndex].version;
                 }
         }
@@ -802,6 +857,24 @@ namespace FSM3.Pages
         private void vlist_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             if(vlist.SelectedIndex != -1) Var.Frame.Navigate(dyuri("/Pages/Game.xaml"));
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            ContentDialog dialog = new ContentDialog()
+            {
+                Title = "提示",
+                PrimaryButtonText = "好吧",
+                IsPrimaryButtonEnabled = true,
+                DefaultButton = ContentDialogButton.Primary,
+                Content = new TextBlock()
+                {
+                    TextWrapping = TextWrapping.WrapWithOverflow,
+                    Text = "整合包安装功能将会在7月上线",
+                },
+
+            };
+            var result = dialog.ShowAsync();
         }
     }
 }

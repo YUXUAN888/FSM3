@@ -12,8 +12,9 @@
     <Grid>
         <Border CornerRadius="7"  BorderBrush="#FF4E4E4E" BorderThickness="1" HorizontalAlignment="Left" Height="67" Margin="15,28,0,0" VerticalAlignment="Top" Width="324">
             <Grid>
-                <Label Content="欢迎您使用 FSM3 启动器" HorizontalAlignment="Left" Margin="6,6,0,0" VerticalAlignment="Top" Height="19" Width="251"/>
+                <Label Content="欢迎您使用 FSM3 启动器" HorizontalAlignment="Left" Margin="29,6,0,0" VerticalAlignment="Top" Height="19" Width="251"/>
                 <Label Content="FSM3 大步飞跃。&#xD;&#xA;洞庭有归客，潇湘逢故人。" HorizontalAlignment="Left" Margin="6,30,0,0" VerticalAlignment="Top" Width="314" FontSize="10" Height="31"/>
+                <Image HorizontalAlignment="Left" Height="20" Margin="3,6,0,0" VerticalAlignment="Top" Width="25" Source="/FSM3;component/Image/FSMLogo.png"/>
             </Grid>
         </Border>
         <Border CornerRadius="7"  BorderBrush="#FF4E4E4E" BorderThickness="1" HorizontalAlignment="Left" Height="65" Margin="15,104,0,0" VerticalAlignment="Top" Width="325">

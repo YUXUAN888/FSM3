@@ -17,19 +17,47 @@
                     </StackPanel>
                 </TabItem.Header>
                 <Grid>
-                    <Button HorizontalAlignment="Left" Height="85" Margin="16,17,0,0" VerticalAlignment="Top" Width="231" Click="Button_Click_5">
-                        <StackPanel Height="76" Width="237">
-                            <iconPacks:PackIconSimpleIcons Kind="Feedly" Margin="0,2,0,0" Height="63" Width="91"/>
-                            <Label Content="反馈" Margin="173.5,-17,14.8,0" FontSize="20"/>
+                    <Button HorizontalAlignment="Left" Height="85" Margin="16,17,0,0" VerticalAlignment="Top" Width="384" Click="Button_Click_5">
+                        <StackPanel Height="76" Width="378">
+                            <iconPacks:PackIconSimpleIcons Kind="Feedly" Margin="-8,2,0,0" Height="62" Width="98"/>
+                            <Label Content="反馈" Margin="325,-17,6.6,0" FontSize="20"/>
                         </StackPanel>
                     </Button>
-                    <Button HorizontalAlignment="Left" Height="85" Margin="259,17,0,0" VerticalAlignment="Top" Width="231" Click="Button_Click_Help">
-                        <StackPanel Height="76" Width="237">
-                            <iconPacks:PackIconSimpleIcons Kind="HelpDesk" Margin="0,5,0,0" Height="60" Width="87"/>
-                            <Label Content="帮助" Margin="173.5,-17,14.8,0" FontSize="20"/>
+                    <Button HorizontalAlignment="Left" Height="85" Margin="410,17,0,0" VerticalAlignment="Top" Width="325" Click="Button_Click_Help">
+                        <StackPanel Height="76" Width="320">
+                            <iconPacks:PackIconSimpleIcons Kind="HelpDesk" Margin="0,5,0,0" Height="59" Width="92"/>
+                            <Label Content="帮助" Margin="260,-17,17,0" FontSize="20" Height="29"/>
                         </StackPanel>
                     </Button>
+                    <Border CornerRadius="7,7,7,7" BorderBrush="#FF323232" BorderThickness="1" HorizontalAlignment="Left" Height="174" Margin="454,112,0,0" VerticalAlignment="Top" Width="280">
+                        <Grid>
+                            <Label Content="超级下载" HorizontalAlignment="Left" Margin="45,9,0,0" VerticalAlignment="Top" Height="24" Width="93" FontSize="18"/>
+                            <ui:FontIcon Glyph="&#xE724;" Margin="8,6,235.4,135.8" FontSize="26"/>
+                            <Button HorizontalAlignment="Left" Height="30" Margin="9,133,0,0" Style="{DynamicResource AccentButtonStyle}" VerticalAlignment="Top" Width="261" Click="Button_Click_Download" Content="开始"/>
+                            <TextBox x:Name="Uri" HorizontalAlignment="Left" Height="23" Margin="42,46,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="230"/>
+                            <Label Content="网址:" HorizontalAlignment="Left" Margin="5,54,0,0" VerticalAlignment="Top"/>
+                            <TextBox x:Name="Path" HorizontalAlignment="Left" Height="23" Margin="42,84,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="187"/>
+                            <Label Content="目录:" HorizontalAlignment="Left" Margin="5,92,0,0" VerticalAlignment="Top"/>
+                            <Button Content="🔍" HorizontalAlignment="Left" Margin="235,85,0,0" VerticalAlignment="Top" Width="37" Height="30" Click="Button_Click_7"/>
+                            <ProgressBar x:Name="Pro" HorizontalAlignment="Left" Height="10" Margin="9,123,0,0" VerticalAlignment="Top" Width="260"/>
 
+                        </Grid>
+                    </Border>
+                    <Button Visibility="Hidden" Content="Button" HorizontalAlignment="Left" Margin="465,171,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_8"/>
+                    <TextBox Visibility="Hidden" x:Name="www" HorizontalAlignment="Left" Height="23" Margin="445,126,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
+                    <Button HorizontalAlignment="Left" Height="85" Margin="195,111,0,0" VerticalAlignment="Top" Width="250" Click="Button_Click_C">
+                        <StackPanel Height="76" Width="320">
+                            <ui:FontIcon Glyph="&#xE8A1;" Margin="4,5,244,0" Height="59" FontSize="67"/>
+                            <Label Content="频道" Margin="188,-17,89,0" FontSize="20" Height="29"/>
+                        </StackPanel>
+                    </Button>
+                    <Button HorizontalAlignment="Left" Height="85" Margin="16,111,0,0" VerticalAlignment="Top" Width="169" Click="Button_Click_Note">
+                        <StackPanel Height="85" Width="159">
+                            <ui:FontIcon Glyph="&#xE70B;" Margin="-3,5,99.2,0" Height="59" FontSize="60"/>
+                            <Label Content="笔记" Margin="111,-17,2.2,0" FontSize="20" Height="22"/>
+                        </StackPanel>
+                    </Button>
+                    <Button Visibility="Hidden" Content="Button" HorizontalAlignment="Left" Margin="245,246,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_9"/>
                 </Grid>
             </TabItem>
             <TabItem>
@@ -39,8 +67,8 @@
                         <Label Content="关于"/>
                     </StackPanel>
                 </TabItem.Header>
-                <Grid>
-                    <ScrollViewer Margin="0,0,-0.2,1473">
+                <Grid Margin="0,0,-0.2,-1">
+                    <ScrollViewer Margin="0,0,0,1466">
                         <Grid Height="1850">
                             <Border CornerRadius="7,7,7,7" BorderBrush="#FF323232" BorderThickness="1" HorizontalAlignment="Left" Height="311" Margin="11,168,0,0" VerticalAlignment="Top" Width="710">
                                 <Grid Margin="0.2,0.2,-0.4,0.2">
@@ -96,25 +124,25 @@
                                     </Border>
                                     <Label Content="作者:Yu__Xuan" HorizontalAlignment="Left" Margin="66,100,0,0" VerticalAlignment="Top" Width="198" FontSize="18"/>
                                     <Button Content="赞助作者" HorizontalAlignment="Left" Margin="603,97,0,0" VerticalAlignment="Top" Width="92" Click="Button_Click"/>
-                                    <Label Content="当前版本: Beta38" HorizontalAlignment="Left" Margin="69,66,0,0" VerticalAlignment="Top" Width="400" FontSize="12" Foreground="#FF868686"/>
+                                    <Label Content="当前版本: Beta43" HorizontalAlignment="Left" Margin="69,66,0,0" VerticalAlignment="Top" Width="400" FontSize="12" Foreground="#FF868686"/>
                                 </Grid>
                             </Border>
                             <Border CornerRadius="7,7,7,7" BorderBrush="#FF323232" BorderThickness="1" HorizontalAlignment="Left" Margin="11,490,0,0" VerticalAlignment="Top" Width="710">
                                 <Grid Margin="0.2,0.2,-0.4,0.2">
                                     <Label Content="赞助名单" HorizontalAlignment="Left" Margin="16,10,0,0" VerticalAlignment="Top" Height="24" Width="85" FontSize="18"/>
-                                    <Label Content="玖月,zsq123123,初岁,爱发电用户_JMy3,爱发电用户_r697 感谢你们!" HorizontalAlignment="Left" Height="79" Margin="15,39,0,0" VerticalAlignment="Top" Width="684" FontSize="17.65"/>
+                                    <Label Content="GGHePinGG,liu_zhou,兔兔,zkhsrc,emmnnmm,爱发电用户_r697 感谢你们!" HorizontalAlignment="Left" Height="79" Margin="15,39,0,0" VerticalAlignment="Top" Width="684" FontSize="17.65"/>
                                 </Grid>
                             </Border>
                             <TextBlock HorizontalAlignment="Left" Height="1" Margin="375,268,0,0" TextWrapping="Wrap" Text="除了傻逼Lie" VerticalAlignment="Top" Width="4" FontSize="0.012"/>
                             <TextBlock HorizontalAlignment="Left" Height="9" Margin="374,276,0,0" TextWrapping="Wrap" Text="KYZ死狗" VerticalAlignment="Top" Width="134" FontSize="0.025"/>
-                            <Border CornerRadius="7,7,7,7" BorderBrush="#FF323232" BorderThickness="1" HorizontalAlignment="Left" Margin="11,619,0,0" VerticalAlignment="Top" Width="710" Height="958">
+                            <Border CornerRadius="7,7,7,7" BorderBrush="#FF323232" BorderThickness="1" HorizontalAlignment="Left" Margin="11,619,0,0" VerticalAlignment="Top" Width="710" Height="862">
                                 <Grid Margin="0.2,0.2,-0.4,0.2">
                                     <Label Content="开源代码许可(GPL-3.0)" HorizontalAlignment="Left" Margin="16,10,0,0" VerticalAlignment="Top" Height="24" Width="199" FontSize="18"/>
                                     <Button Content="打开仓库" HorizontalAlignment="Left" Margin="609,8,0,0" VerticalAlignment="Top" Click="Tile_Click_16" Width="90"/>
-                                    <Label Content="MahApps.Metro.IconPacks&#xD;&#xA;https://github.com/MahApps/MahApps.Metro.IconPacks&#xD;&#xA;Copyright (c) 2016-2018 MahApps, Jan Karger&#xD;&#xA;IconPacks for stylish awesome WPF or UWP apps.&#xD;&#xA;Licensed under the MIT License(MIT);&#xD;&#xA;https://github.com/MahApps/MahApps.Metro.IconPacks/blob/master/LICENSE&#xD;&#xA;&#xD;&#xA;Newtonsoft.Json&#xD;&#xA;https://www.newtonsoft.com/json&#xD;&#xA;https://github.com/JamesNK/Newtonsoft.Json&#xD;&#xA;Copyright (c) 2007 James Newton-King&#xD;&#xA;Json.NET is a popular high-performance JSON framework for .NET&#xD;&#xA;Licensed under the MIT License(MIT);&#xD;&#xA;https://github.com/JamesNK/Newtonsoft.Json/blob/master/LICENSE.md&#xD;&#xA;&#xD;&#xA;Fody&#xD;&#xA;https://github.com/Fody/Fody&#xD;&#xA;Copyright (c) Simon Cropp and contributors&#xD;&#xA;Extensible tool for weaving .net assemblies.&#xD;&#xA;Licensed under the MIT License(MIT);&#xD;&#xA;https://github.com/Fody/Fody/blob/master/License.txt&#xD;&#xA;&#xD;&#xA;Costura.Fody&#xD;&#xA;https://github.com/Fody/Costura&#xD;&#xA;Copyright (c) 2012 Simon Cropp and contributors&#xD;&#xA;Fody add-in for embedding references as resources.&#xD;&#xA;Licensed under the MIT License(MIT);&#xD;&#xA;https://github.com/Fody/Costura/blob/master/license.txt&#xD;&#xA;&#xD;&#xA;ModernWpf&#xD;&#xA;https://github.com/Kinnara/ModernWpf/ Brings the &#xD;&#xA;new Modern UI alias Metro UI of&#xD;&#xA;Windows 8/10 to .NET Windows Forms applications. Licensed under the MIT License(MIT);&#xD;&#xA;https://github.com/Kinnara/ModernWpf/blob/master/LICENSE&#xD;&#xA;&#xD;&#xA;SharpZipLib&#xD;&#xA;https://github.com/icsharpcode/SharpZipLib&#xD;&#xA;Copyright © 2000-2018 SharpZipLib Contributors&#xD;&#xA;SharpZipLib (#ziplib, formerly NZipLib) is a &#xD;&#xA;compression library for Zip, GZip, BZip2, and Tar written entirely in &#xD;&#xA;C# for .NET. It is implemented as an assembly (installable in the GAC), &#xD;&#xA;and thus can easily be incorporated into other projects (in any .NET language)&#xD;&#xA;Licensed under the MIT License(MIT);&#xD;&#xA;https://github.com/icsharpcode/SharpZipLib/blob/master/LICENSE.txt&#xD;&#xA;&#xD;&#xA;MojangAPI&#xD;&#xA;https://github.com/CmlLib/MojangAPI Copyright 2021 CmlLib&#xD;&#xA;.NET Library for Mojang API、&#xD;&#xA; Mojang Authentication and Microsoft Xbox Authentication&#xD;&#xA;&#xD;&#xA;SquareMinecraftLauncherCore&#xD;&#xA;https://github.com/baibao132/SquareMinecraftLauncherCore&#xD;&#xA; Copyright (c) 2022 BaibaoStudio 使用.NET开发的MinecraftCore库&#xD;&#xA; Licensed under the MIT License(MIT);&#xD;&#xA;https://github.com/baibao132/SquareMinecraftLauncherCore/blob/master/LICENSE" HorizontalAlignment="Left" Margin="17,37,0,0" VerticalAlignment="Top" Width="572" FontSize="13"/>
+                                    <Label Content="MahApps.Metro.IconPacks&#xA;https://github.com/MahApps/MahApps.Metro.IconPacks&#xA;Copyright (c) 2016-2018 MahApps, Jan Karger&#xA;IconPacks for stylish awesome WPF or UWP apps.&#xA;Licensed under the MIT License(MIT);&#xA;https://github.com/MahApps/MahApps.Metro.IconPacks/blob/master/LICENSE&#xA;&#xA;Newtonsoft.Json&#xA;https://www.newtonsoft.com/json&#xA;https://github.com/JamesNK/Newtonsoft.Json&#xA;Copyright (c) 2007 James Newton-King&#xA;Json.NET is a popular high-performance JSON framework for .NET&#xA;Licensed under the MIT License(MIT);&#xA;https://github.com/JamesNK/Newtonsoft.Json/blob/master/LICENSE.md&#xA;&#xA;Fody&#xA;https://github.com/Fody/Fody&#xA;Copyright (c) Simon Cropp and contributors&#xA;Extensible tool for weaving .net assemblies.&#xA;Licensed under the MIT License(MIT);&#xA;https://github.com/Fody/Fody/blob/master/License.txt&#xA;&#xA;Costura.Fody&#xA;https://github.com/Fody/Costura&#xA;Copyright (c) 2012 Simon Cropp and contributors&#xA;Fody add-in for embedding references as resources.&#xA;Licensed under the MIT License(MIT);&#xA;https://github.com/Fody/Costura/blob/master/license.txt&#xA;&#xA;ModernWpf&#xA;https://github.com/Kinnara/ModernWpf/ Brings the &#xA;new Modern UI alias Metro UI of&#xA;Windows 8/10 to .NET Windows Forms applications. Licensed under the MIT License(MIT);&#xA;https://github.com/Kinnara/ModernWpf/blob/master/LICENSE&#xA;&#xA;SharpZipLib&#xA;https://github.com/icsharpcode/SharpZipLib&#xA;Copyright © 2000-2018 SharpZipLib Contributors&#xA;SharpZipLib (#ziplib, formerly NZipLib) is a &#xA;compression library for Zip, GZip, BZip2, and Tar written entirely in &#xA;C# for .NET. It is implemented as an assembly (installable in the GAC), &#xA;and thus can easily be incorporated into other projects (in any .NET language)&#xA;Licensed under the MIT License(MIT);&#xA;https://github.com/icsharpcode/SharpZipLib/blob/master/LICENSE.txt&#xA;&#xA;MojangAPI&#xA;https://github.com/CmlLib/MojangAPI Copyright 2021 CmlLib&#xA;.NET Library for Mojang API、&#xA; Mojang Authentication and Microsoft Xbox Authentication" HorizontalAlignment="Left" Margin="17,37,0,0" VerticalAlignment="Top" Width="572" FontSize="13"/>
                                 </Grid>
                             </Border>
-                            <Border CornerRadius="7,7,7,7" BorderBrush="#FF323232" BorderThickness="1" HorizontalAlignment="Left" Margin="11,1588,0,0" VerticalAlignment="Top" Width="710" Height="186">
+                            <Border CornerRadius="7,7,7,7" BorderBrush="#FF323232" BorderThickness="1" HorizontalAlignment="Left" Margin="11,1492,0,0" VerticalAlignment="Top" Width="710" Height="186">
                                 <Grid Margin="0.2,0.2,-0.4,0.2">
                                     <Label Content="解锁Fix版" HorizontalAlignment="Left" Margin="16,10,0,0" VerticalAlignment="Top" Height="24" Width="85" FontSize="18"/>
                                     <TextBox x:Name="JS1" HorizontalAlignment="Left" Height="31" Margin="83,50,0,0" VerticalAlignment="Top" Width="604" VerticalContentAlignment="Center"/>
@@ -132,7 +160,8 @@
                                     <Button Content="复制识别码" HorizontalAlignment="Left" Margin="21,132,0,0" VerticalAlignment="Top" Width="666" Click="Button_Click_sbm"/>
                                 </Grid>
                             </Border>
-                            <Label Content="Minecraft版权归Mojang Studio 所有，版权问题，概不负责，若有能力，建议支持正版" HorizontalAlignment="Left" Height="22" VerticalAlignment="Top" Width="565" Margin="12,1780,0,0"/>
+                            <Label Content="Minecraft版权归Mojang Studio 所有，版权问题，概不负责，若有能力，建议支持正版。" HorizontalAlignment="Left" Height="22" VerticalAlignment="Top" Width="565" Margin="12,1684,0,0"/>
+                            <Image HorizontalAlignment="Left" Height="90" Margin="312,1735,0,0" VerticalAlignment="Top" Width="100" Source="/FSM3;component/Image/FSMLogo.png"/>
                         </Grid>
                     </ScrollViewer>
                 </Grid>

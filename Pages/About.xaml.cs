@@ -28,6 +28,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using static FSM3.MainWindow;
+using FSM3.FSMCore.Download.FSMCoreDownload;
+using SquareMinecraftLauncher.Minecraft;
+using Utils;
 
 namespace FSM3.Pages
 {
@@ -430,6 +433,30 @@ namespace FSM3.Pages
 
         private async void Button_Click_sbm(object sender, RoutedEventArgs e)
         {
+            string code = null;
+            SelectQuery query = new SelectQuery("select * from Win32_ComputerSystemProduct");
+            using (ManagementObjectSearcher searcher = new ManagementObjectSearcher(query))
+            {
+                foreach (var item in searcher.Get())
+                {
+                    using (item) code = item["UUID"].ToString();
+                }
+            }
+            Clipboard.SetDataObject(code);
+            ContentDialog dialog = new ContentDialog()
+            {
+                Title = "已复制识别码",
+                PrimaryButtonText = "好哒!",
+                IsPrimaryButtonEnabled = true,
+                DefaultButton = ContentDialogButton.Primary,
+                Content = new TextBlock()
+                {
+                    TextWrapping = TextWrapping.WrapWithOverflow,
+                    Text = "请到内群解锁"
+                },
+
+            };
+            await dialog.ShowAsync();
         }
         public static string jiema(string s)
         {
@@ -523,12 +550,151 @@ namespace FSM3.Pages
         }
         private void FixJS_Click(object sender, RoutedEventArgs e)
         {
-            
+            try
+            {
+                String JS = JS1.Text;
+                string code = null;
+                SelectQuery query = new SelectQuery("select * from Win32_ComputerSystemProduct");
+                using (ManagementObjectSearcher searcher = new ManagementObjectSearcher(query))
+                {
+                    foreach (var item in searcher.Get())
+                    {
+                        using (item) code = item["UUID"].ToString();
+                    }
+                }
+                string zz = DecryptDES(JS,"87654321");
+                if (zz == code + "SHILI")
+                {
+                    Game.WritePrivateProfileString("JSM", "JSM", EncryptDES(code, "87654321"), Game.FileS);
+                    SoundPlayer player = new SoundPlayer();
+                    player.SoundLocation = ZongW + @"\Fix.wav";
+                    player.Play();
+                    YJS = true;
+                    ContentDialog dialog = new ContentDialog()
+                    {
+                        Title = "解锁成功",
+                        PrimaryButtonText = "好哒!",
+                        IsPrimaryButtonEnabled = true,
+                        DefaultButton = ContentDialogButton.Primary,
+                        Content = new TextBlock()
+                        {
+                            TextWrapping = TextWrapping.WrapWithOverflow,
+                            Text = "感谢您使用FSM启动器,付费功能已解锁"
+                        },
+
+                    };
+                    dialog.ShowAsync();
+                }
+                else
+                {
+                    ContentDialog dialog = new ContentDialog()
+                    {
+                        Title = "解锁失败",
+                        PrimaryButtonText = "好吧",
+                        IsPrimaryButtonEnabled = true,
+                        DefaultButton = ContentDialogButton.Primary,
+                        Content = new TextBlock()
+                        {
+                            TextWrapping = TextWrapping.WrapWithOverflow,
+                            Text = "可能是解锁码错误了"
+                        },
+
+                    };
+                    dialog.ShowAsync();
+                }
+            }
+            catch
+            {
+
+            }
         }
 
         private void Button_Click_Help(object sender, RoutedEventArgs e)
         {
             System.Diagnostics.Process.Start("https://support.qq.com/products/361169/faqs-more/");
+        }
+
+        private async void Button_Click_Download(object sender, RoutedEventArgs e)
+        {
+            ContentDialog dialog = new ContentDialog()
+            {
+                Title = "啊不能点嘛",
+                PrimaryButtonText = "好吧",
+                IsPrimaryButtonEnabled = true,
+                DefaultButton = ContentDialogButton.Primary,
+                Content = new TextBlock()
+                {
+                    TextWrapping = TextWrapping.WrapWithOverflow,
+                    Text = "超级下载还在施工中..."
+                },
+
+            };
+        }
+        private void Button_Click_7(object sender, RoutedEventArgs e)
+        {
+            //3.自定义文件夹框
+            var dialog = new FolderSelectDialog
+            {
+                Title = "选择文件夹"
+            };
+            if (dialog.Show())
+            {
+                var selectFolder = dialog.FileName;
+                Path.Text = selectFolder;
+            }
+        }
+
+        private void Button_Click_8(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show(FSMCore.JavaFix.AutoJava.GetAutoJava(www.Text));
+        }
+
+        private async void Button_Click_9(object sender, RoutedEventArgs e)
+        {
+            var b = await FSMCore.CurseForgeAPI.V1.Get.GetModsV1();
+            for(int i = 0; i < b.Data.Popular.Count; ++i)
+            {
+                Console.WriteLine(b.Data.Popular[i].Name);
+            }
+        }
+
+        private void Button_Click_C(object sender, RoutedEventArgs e)
+        {
+            _transitionInfo = new DrillInNavigationTransitionInfo();
+            //FSM3.framecontrol.frame.Navigate(dyuri("/Pages/Channel.xaml"), null, _transitionInfo);
+            //Console.WriteLine(Get("http://124.221.215.96:321/matomo.php?idsite=1&amp;rec=1"));
+            ContentDialog dialog = new ContentDialog()
+            {
+                Title = "啊不能点嘛",
+                PrimaryButtonText = "好吧",
+                IsPrimaryButtonEnabled = true,
+                DefaultButton = ContentDialogButton.Primary,
+                Content = new TextBlock()
+                {
+                    TextWrapping = TextWrapping.WrapWithOverflow,
+                    Text = "频道目前还在施工中..."
+                },
+
+            };
+            dialog.ShowAsync();
+        }
+
+        private void Button_Click_Note(object sender, RoutedEventArgs e)
+        {
+            ContentDialog dialog = new ContentDialog()
+            {
+                Title = "啊不能点嘛",
+                PrimaryButtonText = "好吧",
+                IsPrimaryButtonEnabled = true,
+                DefaultButton = ContentDialogButton.Primary,
+                Content = new TextBlock()
+                {
+                    TextWrapping = TextWrapping.WrapWithOverflow,
+                    Text = "笔记目前还在施工中..."
+                },
+
+            };
+            dialog.ShowAsync();
         }
     }
 }

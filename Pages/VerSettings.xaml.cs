@@ -31,74 +31,81 @@ namespace FSM3.Pages
         public VerSettings()
         {
             InitializeComponent();
-            VersionName.Content = Game.NowVw.NowV.Content;
-            QWQ.DverV.Content = Game.NowVw.NowV.Content;
-            int a = int.Parse(Game.IniReadValue("Vlist", "Path"));
-            String b = (a + 1).ToString();
-            if (b is "1")
+            try
             {
-                path = Game.Dminecraft;
+                VersionName.Content = Game.NowVw.NowV.Content;
+                QWQ.DverV.Content = Game.NowVw.NowV.Content;
+                int a = int.Parse(Game.IniReadValue("Vlist", "Path"));
+                String b = (a + 1).ToString();
+                if (b is "1")
+                {
+                    path = Game.Dminecraft;
+                }
+                else
+                {
+                    path = Game.IniReadValue("VPath", b);
+                }
+                if (VerList.IniReadValueKK("config", "icon", path + @"\versions\" + Game.NowVw.NowV.Content + @"\FSM\Banner.inif") is "Forge")
+                {
+                    BitmapImage bi = new BitmapImage();
+                    bi.BeginInit();
+                    bi.UriSource = new Uri(@"\Image\ForgeN.png", UriKind.RelativeOrAbsolute);
+                    bi.EndInit();
+                    QWQ.Dimage.Source = bi;
+                    Com.SelectedIndex = 3;
+                }
+                else if (VerList.IniReadValueKK("config", "icon", path + @"\versions\" + Game.NowVw.NowV.Content + @"\FSM\Banner.inif") is "0E867560")
+                {
+                    BitmapImage bi = new BitmapImage();
+                    bi.BeginInit();
+                    bi.UriSource = new Uri(@"\Image\0E867560.PNG", UriKind.RelativeOrAbsolute);
+                    bi.EndInit();
+                    QWQ.Dimage.Source = bi;
+                    Com.SelectedIndex = 2;
+                }
+                else if (VerList.IniReadValueKK("config", "icon", path + @"\versions\" + Game.NowVw.NowV.Content + @"\FSM\Banner.inif") is "Fabric")
+                {
+                    BitmapImage bi = new BitmapImage();
+                    bi.BeginInit();
+                    bi.UriSource = new Uri(@"\Image\Fabric.PNG", UriKind.RelativeOrAbsolute);
+                    bi.EndInit();
+                    QWQ.Dimage.Source = bi;
+                    Com.SelectedIndex = 4;
+                }
+                else if (VerList.IniReadValueKK("config", "icon", path + @"\versions\" + Game.NowVw.NowV.Content + @"\FSM\Banner.inif") is "YB")
+                {
+                    BitmapImage bi = new BitmapImage();
+                    bi.BeginInit();
+                    bi.UriSource = new Uri(@"\Image\" + "0E885BB0.PNG", UriKind.RelativeOrAbsolute);
+                    bi.EndInit();
+                    QWQ.Dimage.Source = bi;
+                    Com.SelectedIndex = 1;
+                }
+                else if (VerList.IniReadValueKK("config", "icon", path + @"\versions\" + Game.NowVw.NowV.Content + @"\FSM\Banner.inif") is "0E830D70")
+                {
+                    BitmapImage bi = new BitmapImage();
+                    bi.BeginInit();
+                    bi.UriSource = new Uri(@"\Image\" + "0E830D70.PNG", UriKind.RelativeOrAbsolute);
+                    bi.EndInit();
+                    QWQ.Dimage.Source = bi;
+                    Com.SelectedIndex = 5;
+                }
+                else
+                {
+                    BitmapImage bi = new BitmapImage();
+                    bi.BeginInit();
+                    bi.UriSource = new Uri(@"\Image\" + VerList.IniReadValueKK("config", "icon", path + @"\version\" + Game.NowVw.NowV.Content + @"\FSM\Banner.inif") + ".png", UriKind.RelativeOrAbsolute);
+                    bi.EndInit();
+                    QWQ.Dimage.Source = bi;
+                    Com.SelectedIndex = 0;
+                }
+                QWQ.BBLX.Content = VerList.IniReadValueKK("config", "bio", path + @"\versions\" + Game.NowVw.NowV.Content + @"\FSM\Banner.inif");
+                QWQ.Booooood.Width = (double)VerList.GetLength(VerList.IniReadValueKK("config", "bio", path + @"\versions\" + Game.NowVw.NowV.Content + @"\FSM\Banner.inif")) * 5.20;
             }
-            else
+            catch
             {
-                path = Game.IniReadValue("VPath", b);
+
             }
-            if (VerList.IniReadValueKK("config", "icon", path + @"\versions\" + Game.NowVw.NowV.Content + @"\FSM\Banner.inif") is "Forge")
-            {
-                BitmapImage bi = new BitmapImage();
-                bi.BeginInit();
-                bi.UriSource = new Uri(@"\Image\ForgeN.png", UriKind.RelativeOrAbsolute);
-                bi.EndInit();
-                QWQ.Dimage.Source = bi;
-                Com.SelectedIndex = 3;
-            }
-            else if (VerList.IniReadValueKK("config", "icon", path + @"\versions\" + Game.NowVw.NowV.Content + @"\FSM\Banner.inif") is "0E867560")
-            {
-                BitmapImage bi = new BitmapImage();
-                bi.BeginInit();
-                bi.UriSource = new Uri(@"\Image\0E867560.PNG", UriKind.RelativeOrAbsolute);
-                bi.EndInit();
-                QWQ.Dimage.Source = bi;
-                Com.SelectedIndex = 2;
-            }
-            else if (VerList.IniReadValueKK("config", "icon", path + @"\versions\" + Game.NowVw.NowV.Content + @"\FSM\Banner.inif") is "Fabric")
-            {
-                BitmapImage bi = new BitmapImage();
-                bi.BeginInit();
-                bi.UriSource = new Uri(@"\Image\Fabric.PNG", UriKind.RelativeOrAbsolute);
-                bi.EndInit();
-                QWQ.Dimage.Source = bi;
-                Com.SelectedIndex = 4;
-            }
-            else if (VerList.IniReadValueKK("config", "icon", path + @"\versions\" + Game.NowVw.NowV.Content + @"\FSM\Banner.inif") is "YB")
-            {
-                BitmapImage bi = new BitmapImage();
-                bi.BeginInit();
-                bi.UriSource = new Uri(@"\Image\" + "0E885BB0.PNG", UriKind.RelativeOrAbsolute);
-                bi.EndInit();
-                QWQ.Dimage.Source = bi;
-                Com.SelectedIndex = 1;
-            }
-            else if(VerList.IniReadValueKK("config", "icon", path + @"\versions\" + Game.NowVw.NowV.Content + @"\FSM\Banner.inif") is "0E830D70")
-            {
-                BitmapImage bi = new BitmapImage();
-                bi.BeginInit();
-                bi.UriSource = new Uri(@"\Image\" + "0E830D70.PNG", UriKind.RelativeOrAbsolute);
-                bi.EndInit();
-                QWQ.Dimage.Source = bi;
-                Com.SelectedIndex = 5;
-            }
-            else
-            {
-                BitmapImage bi = new BitmapImage();
-                bi.BeginInit();
-                bi.UriSource = new Uri(@"\Image\" + VerList.IniReadValueKK("config", "icon", path + @"\version\" + Game.NowVw.NowV.Content + @"\FSM\Banner.inif") + ".png", UriKind.RelativeOrAbsolute);
-                bi.EndInit();
-                QWQ.Dimage.Source = bi;
-                Com.SelectedIndex = 0;
-            }
-            QWQ.BBLX.Content = VerList.IniReadValueKK("config", "bio", path + @"\versions\" + Game.NowVw.NowV.Content + @"\FSM\Banner.inif");
-            QWQ.Booooood.Width = (double)VerList.GetLength(VerList.IniReadValueKK("config", "bio", path + @"\versions\" + Game.NowVw.NowV.Content + @"\FSM\Banner.inif")) * 5.20;
         }
         private void Button_Click(object sender, RoutedEventArgs e)
         {

@@ -286,7 +286,7 @@ namespace FSM3
         {
             InitializeComponent();
             ServicePointManager.DefaultConnectionLimit = 512;
-            Update = "Beta38";
+            Update = "Beta43";
         }
         public static string retString;
         String[] after;
@@ -322,7 +322,6 @@ namespace FSM3
             {
 
             }
-
             return retString;
         }
         private void F1()
@@ -457,16 +456,6 @@ namespace FSM3
             nvSample.IsEnabled = false;
             (FindResource("hideMe") as System.Windows.Media.Animation.Storyboard).Begin(StartGamew.SM);
             (FindResource("hideMe") as System.Windows.Media.Animation.Storyboard).Begin(FSMLogo);
-            try
-            {
-
-                String ww = Get("http://api.2018k.cn/getExample?id=acdbe11aceff42a599113997cbb74103&data=notice");
-                string ggxx = IniReadValue("GG", "DQGG");
-            }
-            catch
-            {
-
-            }
             if (IniReadValue("Color", "ZT") != "" || IniReadValue("Color", "ZT") != null)
             {
                 if (IniReadValue("Color", "ZT") is "Dark")
@@ -536,19 +525,128 @@ namespace FSM3
                     }
                     try
                     {
-                            String gx1 = Get("http://2018k.cn/api/checkVersion?id=acdbe11aceff42a599113997cbb74103&version=" + Update);
-                            after = gx1.Split(new char[] { '|' });
-                            String gx2 = Get("http://2018k.cn/api/getExample?id=acdbe11aceff42a599113997cbb74103&data=force");
-                            String gx3 = Get("http://2018k.cn/api/getExample?id=acdbe11aceff42a599113997cbb74103&data=version");
-                            String gx4 = Get("http://2018k.cn/api/getExample?id=acdbe11aceff42a599113997cbb74103&data=remark|notice");
-                            String gx5 = Get("http://2018k.cn/api/getExample?id=acdbe11aceff42a599113997cbb74103&data=url");
-                            UpLog_and_GG = gx4.Split(new char[] { '|' });
-                            UpdateD = gx5;
-                            if (gx2 == "true" && gx3 != Update)
+                        if (IniReadValue("ONLINE", "TCPP2P") == "" || IniReadValue("ONLINE", "TCPP2P") == null)
+                        {
+                            WritePrivateProfileString("ONLINE", "TCPP2P", "stcp", FileS);
+                        }
+                        if (IniReadValueW("Mojang", "Mail") == null || IniReadValueW("Mojang", "Mail") == "")
+                        {
+
+                        }
+                        else
+                        {
+                            try
+                            {
+                                var login = tools.Tools.MinecraftLogin(IniReadValueW("Mojang", "Mail"), IniReadValueW("Mojang", "PassWord"));
+                                Pages.Game.Mojangname = login.name;
+                                Pages.Game.MojangUUID = login.uuid;
+                                Pages.Game.MojangToken = login.token;
+                                loginmode = "mojang";
+                                mojangyes = "888";
+                                Download(System.AppDomain.CurrentDomain.BaseDirectory + @"FSM\Skin\Skin.png", "", tools.Tools.GetMinecraftSkin(Pages.Game.MojangUUID));
+                                System.Drawing.Point point = new System.Drawing.Point(8, 8);
+                                System.Drawing.Size size = new System.Drawing.Size(8, 8);
+                                Bitmap bitmap = new Bitmap(System.AppDomain.CurrentDomain.BaseDirectory + @"FSM\Skin\Skin.png");
+                                var i = crop(bitmap, new System.Drawing.Point(8, 8), new System.Drawing.Size(8, 8));
+                                Zoom(i, 258, 258, out i, ZoomType.NearestNeighborInterpolation);
+
+                                //i.Save(System.AppDomain.CurrentDomain.BaseDirectory + @"FSM\Skin\steven.png");
+                                System.Drawing.Image img = i;
+
+
+
+                            }
+                            catch
+                            {
+
+                            }
+
+
+                        }
+                        try
+                        {
+                            try
+                            {
+                                if (IniReadValueW("wz", "IDD") == null || IniReadValueW("wz", "IDD") == "")
+                                {
+                                    ///////////////////////////////////////////////////
+                                }
+                                else
+                                {
+                                    string yip = IniReadValueW("wz", "IP");
+                                    string yidd = IniReadValueW("wz", "IDD");
+                                    string yiddp = IniReadValueW("wz", "IDDPassWord");
+                                    Pages.Game.skin = tools.Tools.GetAuthlib_Injector(yip, yidd, yiddp);
+                                    //IDTab.SelectedIndex = 4;
+                                    Pages.Game.Yyes = "888";
+                                }
+
+                            }
+                            catch
+                            {
+
+                            }
+                            if (FSM3.framecontrol.frame != null)
+                            {
+                                Thread WRDF3 = new Thread(F3);
+                                WRDF3.Start();
+                            }
+                        }
+                        catch
+                        {
+
+                        }
+                        if (IniReadValueW("wr", "Atoken") == null || IniReadValueW("wr", "Atoken") == "")
+                        {
+
+                        }
+                        else
+                        {
+                            String Minecraft_Token;
+                            try
+                            {
+                                MicrosoftLogin microsoftLogin = new MicrosoftLogin();
+                                Xbox XboxLogin = new Xbox();
+                                Minecraft_Token = new MinecraftLogin().GetToken(XboxLogin.XSTSLogin(XboxLogin.GetToken(microsoftLogin.RefreshingTokens(IniReadValueW("wr", "Atoken")))));
+                                MinecraftLogin minecraftlogin = new MinecraftLogin();
+                                var Minecraft = minecraftlogin.GetMincraftuuid(Minecraft_Token);
+                                wruuid = Minecraft.uuid;
+                                wrname = Minecraft.name;
+                                wrtoken = Minecraft_Token;
+                                loginmode = "wr";
+                                wryes = "888";
+                                System.Drawing.Point point = new System.Drawing.Point(8, 8);
+                                System.Drawing.Size size = new System.Drawing.Size(8, 8);
+                                Bitmap bitmap = new Bitmap(System.AppDomain.CurrentDomain.BaseDirectory + @"FSM\Skin\Skin.png");
+                                var i = crop(bitmap, new System.Drawing.Point(8, 8), new System.Drawing.Size(8, 8));
+                                Zoom(i, 258, 258, out i, ZoomType.NearestNeighborInterpolation);
+                                i.Save(System.AppDomain.CurrentDomain.BaseDirectory + @"FSM\Skin\steven.png");
+                                System.Drawing.Image img = i;
+                                BitmapImage bi = new BitmapImage();
+                                // BitmapImage.UriSource must be in a BeginInit/EndInit block.  
+                                wryes = "888";
+
+                            }
+                            catch
+                            {
+
+                            }
+                        }
+                    }
+                    catch
+                    {
+
+                    }
+                    try
+                    {
+                        Get("http://124.221.215.96:321/matomo.php?idsite=1&rec=1"); //访问次数api
+                            String gx3 = Get("http://124.221.215.96:666/Update/Version");
+                            UpdateD = Get("http://124.221.215.96:666/Update/Uri");
+                            if (gx3 != Update)
                             {
                                 SFGX = true;
-                                xdbb = after[4];
-                                GXNR = UpLog_and_GG[0];
+                                xdbb = Get("http://124.221.215.96:666/Update/Version");
+                                GXNR = Get("http://124.221.215.96:666/Update/UpdateText");
                                 ContentDialog dialog = new ContentDialog()
                                 {
                                     Title = "检测到启动器有新的版本!",
@@ -558,17 +656,15 @@ namespace FSM3
                                     Content = new TextBlock()
                                     {
                                         TextWrapping = TextWrapping.WrapWithOverflow,
-                                        Text = "新版本为:" + after[4] + "\n请到 设置-软件更新 进行更新!"
+                                        Text = "新版本为:" + xdbb + "\n请到 设置-软件更新 进行更新!"
                                     },
 
                                 };
                                 var result = await dialog.ShowAsync();
                                 ZFrame.Source = new Uri("/Pages/Settings.xaml", UriKind.RelativeOrAbsolute);
-                        }
-                            try
-                            {
-
-                                String ww = Get("http://api.2018k.cn/getExample?id=acdbe11aceff42a599113997cbb74103&data=notice");
+                            }
+                        String ww = null;
+                            ww = Get("http://124.221.215.96:666/Update/notice");
                                 string ggxx = IniReadValue("GG", "DQGG");
                                 if (ggxx == ww)
                                 {
@@ -592,129 +688,23 @@ namespace FSM3
                                     var resultw = await dialogw.ShowAsync();
                                     WritePrivateProfileString("GG", "DQGG", ww, FileS);
                                 }
-                            }
-                            catch
-                            {
-
-                            }
-                            try
-                            {
-                                if (IniReadValue("ONLINE", "TCPP2P") == "" || IniReadValue("ONLINE", "TCPP2P") == null)
-                                {
-                                    WritePrivateProfileString("ONLINE", "TCPP2P", "stcp", FileS);
-                                }
-                                if (IniReadValueW("Mojang", "Mail") == null || IniReadValueW("Mojang", "Mail") == "")
-                                {
-
-                                }
-                                else
-                                {
-                                    try
-                                    {
-                                        var login = tools.Tools.MinecraftLogin(IniReadValueW("Mojang", "Mail"), IniReadValueW("Mojang", "PassWord"));
-                                        Pages.Game.Mojangname = login.name;
-                                        Pages.Game.MojangUUID = login.uuid;
-                                        Pages.Game.MojangToken = login.token;
-                                        loginmode = "mojang";
-                                        mojangyes = "888";
-                                        Download(System.AppDomain.CurrentDomain.BaseDirectory + @"FSM\Skin\Skin.png", "", tools.Tools.GetMinecraftSkin(Pages.Game.MojangUUID));
-                                        System.Drawing.Point point = new System.Drawing.Point(8, 8);
-                                        System.Drawing.Size size = new System.Drawing.Size(8, 8);
-                                        Bitmap bitmap = new Bitmap(System.AppDomain.CurrentDomain.BaseDirectory + @"FSM\Skin\Skin.png");
-                                        var i = crop(bitmap, new System.Drawing.Point(8, 8), new System.Drawing.Size(8, 8));
-                                        Zoom(i, 258, 258, out i, ZoomType.NearestNeighborInterpolation);
-
-                                        //i.Save(System.AppDomain.CurrentDomain.BaseDirectory + @"FSM\Skin\steven.png");
-                                        System.Drawing.Image img = i;
-
-
-
-                                    }
-                                    catch
-                                    {
-
-                                    }
-
-
-                                }
-                                try
-                                {
-                                    try
-                                    {
-                                        if (IniReadValueW("wz", "IDD") == null || IniReadValueW("wz", "IDD") == "")
-                                        {
-                                            ///////////////////////////////////////////////////
-                                        }
-                                        else
-                                        {
-                                            string yip = IniReadValueW("wz", "IP");
-                                            string yidd = IniReadValueW("wz", "IDD");
-                                            string yiddp = IniReadValueW("wz", "IDDPassWord");
-                                            Pages.Game.skin = tools.Tools.GetAuthlib_Injector(yip, yidd, yiddp);
-                                            //IDTab.SelectedIndex = 4;
-                                            Pages.Game.Yyes = "888";
-                                        }
-
-                                    }
-                                    catch
-                                    {
-
-                                    }
-                                    if (FSM3.framecontrol.frame != null)
-                                    {
-                                        Thread WRDF3 = new Thread(F3);
-                                        WRDF3.Start();
-                                    }
-                                }
-                                catch
-                                {
-
-                                }
-                                if (IniReadValueW("wr", "Atoken") == null || IniReadValueW("wr", "Atoken") == "")
-                                {
-
-                                }
-                                else
-                                {
-                                    String Minecraft_Token;
-                                    try
-                                    {
-                                        MicrosoftLogin microsoftLogin = new MicrosoftLogin();
-                                        Xbox XboxLogin = new Xbox();
-                                        Minecraft_Token = new MinecraftLogin().GetToken(XboxLogin.XSTSLogin(XboxLogin.GetToken(microsoftLogin.RefreshingTokens(IniReadValueW("wr", "Atoken")))));
-                                        MinecraftLogin minecraftlogin = new MinecraftLogin();
-                                        var Minecraft = minecraftlogin.GetMincraftuuid(Minecraft_Token);
-                                        wruuid = Minecraft.uuid;
-                                        wrname = Minecraft.name;
-                                        wrtoken = Minecraft_Token;
-                                        loginmode = "wr";
-                                        wryes = "888";
-                                        System.Drawing.Point point = new System.Drawing.Point(8, 8);
-                                        System.Drawing.Size size = new System.Drawing.Size(8, 8);
-                                        Bitmap bitmap = new Bitmap(System.AppDomain.CurrentDomain.BaseDirectory + @"FSM\Skin\Skin.png");
-                                        var i = crop(bitmap, new System.Drawing.Point(8, 8), new System.Drawing.Size(8, 8));
-                                        Zoom(i, 258, 258, out i, ZoomType.NearestNeighborInterpolation);
-                                        i.Save(System.AppDomain.CurrentDomain.BaseDirectory + @"FSM\Skin\steven.png");
-                                        System.Drawing.Image img = i;
-                                        BitmapImage bi = new BitmapImage();
-                                        // BitmapImage.UriSource must be in a BeginInit/EndInit block.  
-                                        wryes = "888";
-
-                                    }
-                                    catch
-                                    {
-
-                                    }
-                                }
-                            }
-                            catch
-                            {
-
-                            }
                     }
                     catch
                     {
+                        ContentDialog dialogw = new ContentDialog()
+                        {
+                            Title = "启动器似乎未连接到网络...",
+                            PrimaryButtonText = "好吧",
+                            IsPrimaryButtonEnabled = true,
+                            DefaultButton = ContentDialogButton.Primary,
+                            Content = new TextBlock()
+                            {
+                                TextWrapping = TextWrapping.WrapWithOverflow,
+                                Text = "检查一下网络哦",
+                            },
 
+                        };
+                        var resultw = await dialogw.ShowAsync();
                     }
                 }));
             });

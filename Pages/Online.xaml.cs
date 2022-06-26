@@ -8,6 +8,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.NetworkInformation;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
@@ -1039,11 +1040,6 @@ namespace FSM3.Pages
                 CheckBox box6 = new CheckBox();
                 box3.SetCurrentValue(ModernWpf.Controls.Primitives.ControlHelper.HeaderProperty, "游戏端口:");
                 panel.Children.Add(box3);
-                box4.SetCurrentValue(ModernWpf.Controls.Primitives.ControlHelper.HeaderProperty, "房间名(建议包含游戏版本等内容):");
-                panel.Children.Add(box4);
-                panel.Children.Add(new TextBlock() { Text = "公开房间:", FontSize = 14 });
-                box6.SetCurrentValue(ModernWpf.Controls.Primitives.ControlHelper.HeaderProperty, "公开房间:");
-                panel.Children.Add(box6);
                 ContentDialog dialog = new ContentDialog()
                 {
                     Title = "联机信息采集",
@@ -1062,7 +1058,7 @@ namespace FSM3.Pages
                         bool x;
                         if (box6.IsChecked is true) { x = true; } else { x = false; }
                         string yqm = GetRnd(32, true, true, true, false, "@#$%&");
-                        await s.ServerConnect("SDEVF3G28RGFEIQ3UFGR4389YRH3IR32G988GEIF328", box4.Text, "baibao Yes", SquareMinecraftLauncher.Online.Server.Type.Forge, int.Parse(box3.Text), SquareMinecraftLauncher.Online.Server.P2PType.Boring, yqm, "119.45.103.147", x);
+                        await s.ServerConnect("SDEVF3G28RGFEIQ3UFGR4389YRH3IR32G988GEIF328", box4.Text, "baibao Yes", SquareMinecraftLauncher.Online.Server.Type.Forge, int.Parse(box3.Text), SquareMinecraftLauncher.Online.Server.P2PType.Boring, yqm, "124.221.215.96",false);
                         s.Start();
                         ContentDialog dialogw = new ContentDialog()
                         {
@@ -1081,7 +1077,6 @@ namespace FSM3.Pages
                         if (resultw == ContentDialogResult.Primary)
                         {
                             Clipboard.SetDataObject("我正在使用 FSM3 启动器进行 Minecraft 联机! 快来 FSM3 输入邀请码" + yqm + "来找我玩吧!");
-                            CJFJ_Baibao.Content = "关闭房间";
                         }
                     }
                     catch (Exception ex)
@@ -1116,8 +1111,6 @@ namespace FSM3.Pages
             TextBox box1 = new TextBox();
             box.SetCurrentValue(ModernWpf.Controls.Primitives.ControlHelper.HeaderProperty, "邀请码:");
             panel.Children.Add(box);
-            box1.SetCurrentValue(ModernWpf.Controls.Primitives.ControlHelper.HeaderProperty, "你的昵称:");
-            panel.Children.Add(box1);
             ContentDialog dialog = new ContentDialog()
             {
                 Title = "联机信息采集",
@@ -1133,7 +1126,7 @@ namespace FSM3.Pages
                 try
                 {
                     SquareMinecraftLauncher.Online.Client c = new SquareMinecraftLauncher.Online.Client();
-                    await c.ClientConnect(box.Text, SquareMinecraftLauncher.Online.Client.P2PType.Boring, "SDEVF3G28RGFEIQ3UFGR4389YRH3IR32G988GEIF328", box1.Text);
+                    await c.ClientConnect(box.Text, SquareMinecraftLauncher.Online.Client.P2PType.Boring, "SDEVF3G28RGFEIQ3UFGR4389YRH3IR32G988GEIF328", DateTime.Now.ToLongTimeString());
                     string s = c.Start();
                     ContentDialog dialogw = new ContentDialog()
                     {
@@ -1179,19 +1172,106 @@ namespace FSM3.Pages
             }
         }
         String[] OnlineHome = new String[5555555];
-        private async void Button_Click_4(object sender, RoutedEventArgs e)
+        private static string CmdPing(string strIp)
+
         {
-            SquareMinecraftLauncher.Online.BaiBaoOnline b = new SquareMinecraftLauncher.Online.BaiBaoOnline();
-            var c = await b.Hall("SDEVF3G28RGFEIQ3UFGR4389YRH3IR32G988GEIF328");
-            List<OnlineList> user1 = new List<OnlineList>();
-            for (int i = 0;i<c.Hall.Count;++i)
+
+            Process p = new Process(); p.StartInfo.FileName = "cmd.exe";//设定程序名
+
+            p.StartInfo.UseShellExecute = false; //关闭Shell的使用
+
+            p.StartInfo.RedirectStandardInput = true;//重定向标准输入
+
+            p.StartInfo.RedirectStandardOutput = true;//重定向标准输出
+
+            p.StartInfo.RedirectStandardError = true;//重定向错误输出
+
+            p.StartInfo.CreateNoWindow = true;//设置不显示窗口
+
+            string pingrst; p.Start(); p.StandardInput.WriteLine("ping " + strIp);
+
+            p.StandardInput.WriteLine("exit");
+
+            string strRst = p.StandardOutput.ReadToEnd();
+
+            if (strRst.IndexOf("(0% loss)") != -1)
+
             {
-                OnlineList user = new OnlineList();
-                OnlineHome[i] = c.Hall[i].Code;
-                user.Home.Content = "" + c.Hall[i].Homeowner+" | 点击加入房间";
-                user1.Add(user);
+
+                pingrst = "连接";
+
             }
-            List.ItemsSource = user1;
+
+            else if (strRst.IndexOf("Destination host unreachable.") != -1)
+
+            {
+
+                pingrst = "无法到达目的主机";
+
+            }
+
+            else if (strRst.IndexOf("Request timed out.") != -1)
+
+            {
+
+                pingrst = "超时";
+
+            }
+
+            else if (strRst.IndexOf("Unknown host") != -1)
+
+            {
+
+                pingrst = "无法解析主机";
+
+            }
+
+            else
+
+            {
+
+                pingrst = strRst;
+
+            }
+
+            p.Close();
+
+            return pingrst;
+
+        }
+
+        private async void Load(object sender, RoutedEventArgs e)
+        {
+            while (true)
+            {
+                string ipstr = "124.221.215.96";
+                //接着实例化一个Ping的实例
+                Ping p = new Ping();
+                //设置Ping选项设置
+                PingOptions options = new PingOptions();
+                options.DontFragment = true;
+                //准备测试数据
+                string data = "FSMNB";
+                byte[] buffer = Encoding.ASCII.GetBytes(data);
+                //设置超时时间
+                int timeout = 120;
+                //调用同步的send方法发送数据，将返回结果保存至PingReply实例
+                PingReply reply = p.Send(ipstr, timeout, buffer, options);
+                long time = 0;
+                if (reply.Status == IPStatus.Success)
+                {
+                    string rpAddress = reply.Address.ToString();//响应主机的地址IP
+                    time = reply.RoundtripTime;//响应时间
+                    long lvtime = reply.Options.Ttl;//生存时间
+                    bool iscon = reply.Options.DontFragment;//是否包含数据分段
+                    string len = reply.Status.ToString();//缓冲区大小
+                }
+                MS.Content = time.ToString();
+                await Task.Run(() =>
+                {
+                    Thread.Sleep(888);
+                });
+            }
         }
     }
 }

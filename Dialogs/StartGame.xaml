@@ -14,6 +14,6 @@
         </Border>
         <ui:ProgressRing IsActive="True" Height="62" Margin="142,10,361.6,8" Width="66"></ui:ProgressRing>
         <Label Margin="216,20,-121.4,36" Content="启动游戏..." FontSize="15.88" FontWeight="Bold"></Label>
-        <Label x:Name="NZDM" Margin="216,44,-121.4,19" Content="你知道吗? FSM最早发布于2020年2月" FontSize="12" FontFamily="Microsoft YaHei"/>
+        <Label x:Name="NZDM" Margin="216,44,-121.4,19" FontSize="12" FontFamily="Microsoft YaHei" Content="你知道吗？FSM1.0 发布于2021年7月9日！"/>
     </Grid>
 </UserControl>

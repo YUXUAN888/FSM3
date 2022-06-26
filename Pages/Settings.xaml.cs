@@ -290,7 +290,102 @@ namespace FSM3.Pages
                 ThemeManager.Current.ApplicationTheme = ApplicationTheme.Dark;
                 WritePrivateProfileString("Color", "ZT", "Dark", FileS);
             }
-           
+            try
+            {
+                string aaw = About.DecryptDES(IniReadValue("JSM", "JSM"), "87654321");
+                // MessageBox.Show(DecryptDES("ODliMzdkNWNmOTBhOTViNQ==", "8765432w"));
+                string code = null;
+                SelectQuery query = new SelectQuery("select * from Win32_ComputerSystemProduct");
+                using (ManagementObjectSearcher searcher = new ManagementObjectSearcher(query))
+                {
+                    foreach (var item in searcher.Get())
+                    {
+                        using (item) code = item["UUID"].ToString();
+                    }
+
+                }
+                if (aaw == code)
+                {
+                    About.YJS = true;
+                    switch (int.Parse(IniReadValue("JSM", "Color")))
+                    {
+                        case 0:
+                            DisHelper.DisHelper.RunOnMainThread(() =>
+                            {
+                                ThemeManager.Current.AccentColor = System.Windows.Media.Color.FromRgb(255, 140, 0);  //橙色
+                                WritePrivateProfileString("JSM", "Color", "0", FileS);
+                            });
+                            break;
+                        case 1:
+                            DisHelper.DisHelper.RunOnMainThread(() =>
+                            {
+                                ThemeManager.Current.AccentColor = System.Windows.Media.Color.FromRgb(255, 67, 67);  //鲜艳红
+                                WritePrivateProfileString("JSM", "Color", "1", FileS);
+                            });
+                            break;
+                        case 2:
+                            DisHelper.DisHelper.RunOnMainThread(() =>
+                            {
+                                ThemeManager.Current.AccentColor = System.Windows.Media.Color.FromRgb(232, 17, 35);  //中国红
+                                WritePrivateProfileString("JSM", "Color", "2", FileS);
+                            });
+                            break;
+                        case 3:
+                            DisHelper.DisHelper.RunOnMainThread(() =>
+                            {
+                                ThemeManager.Current.AccentColor = System.Windows.Media.Color.FromRgb(234, 0, 94);  //小马宝莉
+                                WritePrivateProfileString("JSM", "Color", "3", FileS);
+                            });
+                            break;
+                        case 4:
+                            DisHelper.DisHelper.RunOnMainThread(() =>
+                            {
+                                ThemeManager.Current.AccentColor = System.Windows.Media.Color.FromRgb(142, 140, 216);  //淡紫色
+                                WritePrivateProfileString("JSM", "Color", "4", FileS);
+                            });
+                            break;
+                        case 5:
+                            DisHelper.DisHelper.RunOnMainThread(() =>
+                            {
+                                ThemeManager.Current.AccentColor = System.Windows.Media.Color.FromRgb(45, 125, 154);  //青色
+                                WritePrivateProfileString("JSM", "Color", "5", FileS);
+                            });
+                            break;
+                        case 6:
+                            DisHelper.DisHelper.RunOnMainThread(() =>
+                            {
+                                ThemeManager.Current.AccentColor = System.Windows.Media.Color.FromRgb(16, 124, 16);  //原谅绿
+                                WritePrivateProfileString("JSM", "Color", "6", FileS);
+                            });
+                            break;
+                        case 7:
+                            DisHelper.DisHelper.RunOnMainThread(() =>
+                            {
+                                ThemeManager.Current.AccentColor = System.Windows.Media.Color.FromRgb(46, 47, 42);  //高端灰
+                                WritePrivateProfileString("JSM", "Color", "7", FileS);
+                            });
+                            break;
+                        case 8:
+                            DisHelper.DisHelper.RunOnMainThread(() =>
+                            {
+                                ThemeManager.Current.AccentColor = System.Windows.Media.Color.FromRgb(0, 204, 106);  //青草绿
+                                WritePrivateProfileString("JSM", "Color", "8", FileS);
+                            });
+                            break;
+                        case 9:
+                            DisHelper.DisHelper.RunOnMainThread(() =>
+                            {
+                                ThemeManager.Current.AccentColor = System.Windows.Media.Color.FromRgb(202, 80, 16);  //深度橘
+                                WritePrivateProfileString("JSM", "Color", "9", FileS);
+                            });
+                            break;
+                    }
+                }
+            }
+            catch
+            {
+
+            }
         }
         private void java_list_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -607,39 +702,14 @@ namespace FSM3.Pages
 
         private void AutoJava_c(object sender, RoutedEventArgs e)
         {
-                if (AutoJava.IsChecked is true)
-                {
-                try
-                {
-                    WritePrivateProfileString("AutoJava", "AutoJava", "Yes", FileS);
-                    for (int i = 0; i < Java_list.Items.Count; ++i)
-                    {
-                        Var.JavaL.Add(Java_list.Items[i].ToString());
-                    }
-                }
-                catch
-                {
-
-                }
-                try
-                {
-                    var s = tools.Tools.GetJavaPath();
-                    for (int i = 0; i < Java_list.Items.Count; ++i)
-                    {
-                        string str = s[i].Version;
-                        string result = System.Text.RegularExpressions.Regex.Replace(str, @"[^0-9]+", "");
-                        Var.JavaB.Add(result);
-                    }
-                }
-                catch
-                {
-
-                }
-                }
-                else
-                {
-                    WritePrivateProfileString("AutoJava", "AutoJava", "No", FileS);
-                }
+            if (AutoJava.IsChecked is true)
+            {
+                WritePrivateProfileString("AutoJava", "AutoJava", "Yes", FileS);
+            }
+            else
+            {
+                WritePrivateProfileString("AutoJava", "AutoJava", "No", FileS);
+            }
         }
         private void GSXT_Checked(object sender, RoutedEventArgs e)
         {
@@ -865,7 +935,29 @@ namespace FSM3.Pages
 
         private void Load(object sender, RoutedEventArgs e)
         {
+            try
+            {
+                switch (IniReadValue("DownloadSC", "type"))
+                {
+                    case "MCBBS":
+                        DownloadSC.SelectedIndex = 0;
+                        break;
+                    case "BMCLAPI":
+                        DownloadSC.SelectedIndex = 1;
+                        break;
+                    case "Minecraft":
+                        DownloadSC.SelectedIndex = 2;
+                        break;
+                    case "":
+                        DownloadSC.SelectedIndex = 0;
+                        WritePrivateProfileString("DownloadSC","type","MCBBS",FileS);
+                        break;
+                }
+            }
+            catch
+            {
 
+            }
         }
 
         private void CheckBox_Checked(object sender, RoutedEventArgs e)
@@ -909,6 +1001,29 @@ namespace FSM3.Pages
         private void Button_Click_5(object sender, RoutedEventArgs e)
         {
             ClearMemory();
+        }
+
+        private void DownloadSC_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                switch (DownloadSC.SelectedIndex)
+                {
+                    case 0:
+                        WritePrivateProfileString("DownloadSC", "type", "MCBBS", FileS);
+                        break;
+                    case 1:
+                        WritePrivateProfileString("DownloadSC", "type", "BMCLAPI", FileS);
+                        break;
+                    case 2:
+                        WritePrivateProfileString("DownloadSC", "type", "Minecraft", FileS);
+                        break;
+                }
+            }
+            catch
+            {
+
+            }
         }
     }
 }

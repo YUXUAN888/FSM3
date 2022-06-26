@@ -32,6 +32,8 @@
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
+    <LangVersion>preview</LangVersion>
+    <Nullable>enable</Nullable>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -143,6 +145,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="About List\CList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="About List\DoItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -227,6 +233,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Compile Include="About List\CList.xaml.cs">
+      <DependentUpon>CList.xaml</DependentUpon>
+    </Compile>
     <Compile Include="About List\DoItem.xaml.cs">
       <DependentUpon>DoItem.xaml</DependentUpon>
     </Compile>
@@ -275,15 +284,80 @@
     <Compile Include="Download_Pages\Fabric.xaml.cs">
       <DependentUpon>Fabric.xaml</DependentUpon>
     </Compile>
+    <Compile Include="FSMCore\CurseForgeAPI\V1\Get.cs" />
+    <Compile Include="FSMCore\CurseForge\ApiClient.cs" />
+    <Compile Include="FSMCore\CurseForge\Categories.cs" />
+    <Compile Include="FSMCore\CurseForge\Exceptions\MissingApiKeyException.cs" />
+    <Compile Include="FSMCore\CurseForge\Exceptions\MissingContactEmailException.cs" />
+    <Compile Include="FSMCore\CurseForge\Files.cs" />
+    <Compile Include="FSMCore\CurseForge\Fingerprints.cs" />
+    <Compile Include="FSMCore\CurseForge\Games.cs" />
+    <Compile Include="FSMCore\CurseForge\Minecraft.cs" />
+    <Compile Include="FSMCore\CurseForge\Models\Category.cs" />
+    <Compile Include="FSMCore\CurseForge\Models\Enums\CoreApiStatus.cs" />
+    <Compile Include="FSMCore\CurseForge\Models\Enums\CoreGameVersionStatus.cs" />
+    <Compile Include="FSMCore\CurseForge\Models\Enums\CoreGameVersionTypeStatus.cs" />
+    <Compile Include="FSMCore\CurseForge\Models\Enums\CoreModloaderInstallMethod.cs" />
+    <Compile Include="FSMCore\CurseForge\Models\Enums\CoreModloaderType.cs" />
+    <Compile Include="FSMCore\CurseForge\Models\Enums\CoreStatus.cs" />
+    <Compile Include="FSMCore\CurseForge\Models\Enums\HashAlgo.cs" />
+    <Compile Include="FSMCore\CurseForge\Models\Files\File.cs" />
+    <Compile Include="FSMCore\CurseForge\Models\Files\FileDependency.cs" />
+    <Compile Include="FSMCore\CurseForge\Models\Files\FileHash.cs" />
+    <Compile Include="FSMCore\CurseForge\Models\Files\FileIndex.cs" />
+    <Compile Include="FSMCore\CurseForge\Models\Files\FileModule.cs" />
+    <Compile Include="FSMCore\CurseForge\Models\Files\FileRelationType.cs" />
+    <Compile Include="FSMCore\CurseForge\Models\Files\FileReleaseType.cs" />
+    <Compile Include="FSMCore\CurseForge\Models\Files\FileStatus.cs" />
+    <Compile Include="FSMCore\CurseForge\Models\Files\GetModFilesRequestBody.cs" />
+    <Compile Include="FSMCore\CurseForge\Models\Fingerprints\FingerprintFuzzyMatch.cs" />
+    <Compile Include="FSMCore\CurseForge\Models\Fingerprints\FingerprintFuzzyMatchResult.cs" />
+    <Compile Include="FSMCore\CurseForge\Models\Fingerprints\FingerprintMatch.cs" />
+    <Compile Include="FSMCore\CurseForge\Models\Fingerprints\FingerprintMatchesResult.cs" />
+    <Compile Include="FSMCore\CurseForge\Models\Fingerprints\FolderFingerprint.cs" />
+    <Compile Include="FSMCore\CurseForge\Models\Fingerprints\GetFingerprintMatchesRequestBody.cs" />
+    <Compile Include="FSMCore\CurseForge\Models\Fingerprints\GetFuzzyMatchesRequestBody.cs" />
+    <Compile Include="FSMCore\CurseForge\Models\Games\Game.cs" />
+    <Compile Include="FSMCore\CurseForge\Models\Games\GameAssets.cs" />
+    <Compile Include="FSMCore\CurseForge\Models\Games\GameVersionsByType.cs" />
+    <Compile Include="FSMCore\CurseForge\Models\Games\GameVersionType.cs" />
+    <Compile Include="FSMCore\CurseForge\Models\Games\SortableGameVersion.cs" />
+    <Compile Include="FSMCore\CurseForge\Models\GenericListResponse.cs" />
+    <Compile Include="FSMCore\CurseForge\Models\GenericResponse.cs" />
+    <Compile Include="FSMCore\CurseForge\Models\Minecraft\ForgeInstallProfile_v1.cs" />
+    <Compile Include="FSMCore\CurseForge\Models\Minecraft\MinecraftModloaderInfo.cs" />
+    <Compile Include="FSMCore\CurseForge\Models\Minecraft\MinecraftModloaderInfoListItem.cs" />
+    <Compile Include="FSMCore\CurseForge\Models\Minecraft\MinecraftVersionInfo.cs" />
+    <Compile Include="FSMCore\CurseForge\Models\Mods\FeaturedModsResponse.cs" />
+    <Compile Include="FSMCore\CurseForge\Models\Mods\GetFeaturedModsRequestBody.cs" />
+    <Compile Include="FSMCore\CurseForge\Models\Mods\GetModsByIdsListRequestBody.cs" />
+    <Compile Include="FSMCore\CurseForge\Models\Mods\Mod.cs" />
+    <Compile Include="FSMCore\CurseForge\Models\Mods\ModAsset.cs" />
+    <Compile Include="FSMCore\CurseForge\Models\Mods\ModAuthor.cs" />
+    <Compile Include="FSMCore\CurseForge\Models\Mods\ModLinks.cs" />
+    <Compile Include="FSMCore\CurseForge\Models\Mods\ModLoaderType.cs" />
+    <Compile Include="FSMCore\CurseForge\Models\Mods\ModsSearchSortField.cs" />
+    <Compile Include="FSMCore\CurseForge\Models\Mods\ModsSearchSortOrder.cs" />
+    <Compile Include="FSMCore\CurseForge\Models\Mods\ModStatus.cs" />
+    <Compile Include="FSMCore\CurseForge\Models\Pagination.cs" />
+    <Compile Include="FSMCore\CurseForge\Mods.cs" />
+    <Compile Include="FSMCore\CurseForge\Murmur2.cs" />
     <Compile Include="FSMCore\Download\Fabric\fabricmc.cs" />
     <Compile Include="FSMCore\Download\Fabric\fabricmcInstall.cs" />
     <Compile Include="FSMCore\Download\Fabric\fabricmcJson.cs" />
     <Compile Include="FSMCore\Download\ForgeY.cs" />
+    <Compile Include="FSMCore\Download\FSMCoreDownload\DownloadCore.cs" />
+    <Compile Include="FSMCore\Download\FSMCoreDownload\DownloadCoreAssets.cs" />
+    <Compile Include="FSMCore\Download\FSMCoreDownload\DownloaderAssets.cs" />
     <Compile Include="FSMCore\JavaFix\AutoJava.cs" />
     <Compile Include="FSMCore\Modrinth\APICBD.cs" />
     <Compile Include="FSMCore\Modrinth\APICCC.cs" />
     <Compile Include="FSMCore\Modrinth\Modpublic.cs" />
+    <Compile Include="FSMCore\Other\SomeTools.cs" />
+    <Compile Include="FSMCore\Other\YoudaoT\APIT.cs" />
+    <Compile Include="FSMCore\Other\YoudaoT\Master.cs" />
     <Compile Include="FSMCore\Start\StartGameClass.cs" />
+    <Compile Include="FSMCore\Window\S1.cs" />
     <Compile Include="Home_API\MojangAPI.xaml.cs">
       <DependentUpon>MojangAPI.xaml</DependentUpon>
     </Compile>
@@ -316,6 +390,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\Channel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\Download.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -333,6 +411,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\Modbio.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\ModDuo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -397,6 +479,9 @@
     <Compile Include="Pages\About.xaml.cs">
       <DependentUpon>About.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\Channel.xaml.cs">
+      <DependentUpon>Channel.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Download.xaml.cs">
       <DependentUpon>Download.xaml</DependentUpon>
     </Compile>
@@ -411,6 +496,9 @@
     </Compile>
     <Compile Include="Pages\Modbio.xaml.cs">
       <DependentUpon>Modbio.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\ModDuo.xaml.cs">
+      <DependentUpon>ModDuo.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Online.xaml.cs">
       <DependentUpon>Online.xaml</DependentUpon>
@@ -505,13 +593,12 @@
     <Resource Include="Image\IMG_5145%2820220228-195827%29.JPG" />
     <Resource Include="Image\ModON.png" />
     <Resource Include="Image\ModOFF.png" />
+    <Resource Include="Image\logo.png" />
+    <Resource Include="Image\IMG_6236.JPG" />
     <Content Include="Made\com.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="FSMCore\CurseForge\V1\GetJson\" />
-    <Folder Include="FSMCore\Download\assets\" />
     <Folder Include="FSMCore\Download\Java\" />
-    <Folder Include="FSMCore\Download\libraries\" />
     <Folder Include="FSMCore\Login\Offline\" />
     <Folder Include="FSMCore\modfix\GetJson\" />
   </ItemGroup>

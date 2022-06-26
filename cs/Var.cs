@@ -19,5 +19,7 @@ namespace FSM3
         public static string ForgeVar { get; set; }
         public static string FabVar { get; set; }
         public static string ForgePath { get; set; }
+        public static bool IsCurse { get; set; }
+        public static uint MODCurseID { get; set; }
     }
 }

@@ -1,11 +1,16 @@
 ﻿using FSM3.cs;
+using FSM3.FSMCore.Download.FSMCoreDownload;
 using ModernWpf.Controls;
 using SquareMinecraftLauncher;
 using SquareMinecraftLauncher.Minecraft;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -27,6 +32,7 @@ namespace FSM3.Pages
         public DownPlus()
         {
             InitializeComponent();
+            box.Text = Var.DownVar;
         }
 
         private void Tile_Click_X(object sender, RoutedEventArgs e)
@@ -38,6 +44,7 @@ namespace FSM3.Pages
         {
 
         }
+        public static bool booljar,booljson;
         string DownloadMCName;
         static int JarID, JsonID;
         MinecraftDownload MinecraftDownload = new MinecraftDownload();
@@ -81,42 +88,84 @@ namespace FSM3.Pages
                 }
                 if (pd == 999 || a.Length is 0)
                 {
-                    tools.Tools.DownloadSourceInitialization(DownloadSource.MCBBSSource); //设置下载源
-                    string VarID = Var.DownVar;
-                    // 设置不能退出界面 >
-                    BDD.PDD.Visibility = Visibility.Visible;
-                    DownB.IsEnabled = false;
-                    //到这里设置完成 <
-                    AZJD.Content = "当前:安装游戏核心文件"; //设置过程
-                    ZJDw.IsIndeterminate = true;
-                    ZJD.IsIndeterminate = true;
-                    MCDownload download = MinecraftDownload.MCjarDownload(VarID); //获取MCDownload数据
-                    //下载Jar和Json(开始下载)
-                    if (Game.IniReadValue("Vlist", "Path") == "" || Game.IniReadValue("Vlist", "Path") == "0")
+                    try
                     {
-                        Downloadw(Game.Dminecraft + @"\versions\" + DownloadMCName + @"\" + DownloadMCName + ".jar", download.Url);
+                        switch (Game.IniReadValue("DownloadSC", "type"))
+                        {
+                            case "MCBBS":
+                                tools.Tools.DownloadSourceInitialization(DownloadSource.MCBBSSource); //设置下载源
+                                break;
+                            case "BMCLAPI":
+                                tools.Tools.DownloadSourceInitialization(DownloadSource.bmclapiSource); //设置下载源
+                                break;
+                            case "Minecraft":
+                                tools.Tools.DownloadSourceInitialization(DownloadSource.MinecraftSource); //设置下载源
+                                break;
+                            case null:
+                                tools.Tools.DownloadSourceInitialization(DownloadSource.MCBBSSource); //设置下载源
+                                break;
+                        }
+                        DownloadCore.Restart();
+                        string VarID = Var.DownVar;
+                        // 设置不能退出界面 >
+                        BDD.PDD.Visibility = Visibility.Visible;
+                        DownB.IsEnabled = false;
+                        //到这里设置完成 <
+                        AZJD.Content = "当前:安装游戏核心文件"; //设置过程
+                        booljar = false; booljson = false;
+                        ZJDw.IsIndeterminate = true;
+                        ZJD.IsIndeterminate = true;
+                        WebClient web = new WebClient();
+                        MCDownload download = MinecraftDownload.MCjarDownload(VarID); //获取MCDownload数据
+                                                                                      //下载Jar和Json(开始下载)
+                        if (Game.IniReadValue("Vlist", "Path") == "" || Game.IniReadValue("Vlist", "Path") == "0")
+                        {
+                            Directory.CreateDirectory(Game.Dminecraft + @"\versions\" + DownloadMCName);
+                            await web.DownloadFileTaskAsync(download.Url, Game.Dminecraft + @"\versions\" + DownloadMCName + @"\" + DownloadMCName + ".jar");
+                            tools.Tools.SetMinecraftFilesPath(Game.Dminecraft);
+                            booljar = true;
+                            download = MinecraftDownload.MCjsonDownload(VarID);
+                            await web.DownloadFileTaskAsync(download.Url, Game.Dminecraft + @"\versions\" + DownloadMCName + @"\" + DownloadMCName + ".json");
+                            tools.Tools.SetMinecraftFilesPath(Game.Dminecraft);
+                            booljson = true;
+                        }
+                        else
+                        {
+                            string ab = Game.IniReadValue("Vlist", "Path");
+                            int s = int.Parse(ab);
+                            int ss = s + 1;
+                            Directory.CreateDirectory(Game.IniReadValue("VPath", ss.ToString()) + @"\versions\" + DownloadMCName);
+                            await web.DownloadFileTaskAsync(download.Url,Game.IniReadValue("VPath", ss.ToString()) + @"\versions\" + DownloadMCName + @"\" + DownloadMCName + ".jar");
+                            booljar = true;
+                            string ax = Game.IniReadValue("Vlist", "Path");
+                            download = MinecraftDownload.MCjsonDownload(VarID);
+                            await web.DownloadFileTaskAsync(download.Url, Game.IniReadValue("VPath", ss.ToString()) + @"\versions\" + DownloadMCName + @"\" + DownloadMCName + ".json");
+                            booljson = true;
+                        }
+                        Jarw = Core5.timer(MCjarInstall, 500); //实时判断是否下载完成
+                        Jarw.Start();
                     }
-                    else
+                    catch(Exception ex)
                     {
-                        string ab = Game.IniReadValue("Vlist", "Path");
-                        int s = int.Parse(ab);
-                        int ss = s + 1;
-                        Downloadw(Game.IniReadValue("VPath", ss.ToString()) + @"\versions\" + DownloadMCName + @"\" + DownloadMCName + ".jar", download.Url);
+                        this.Dispatcher.Invoke(new Action(delegate { BDD.PDD.Visibility = Visibility.Hidden; }));
+                        this.Dispatcher.Invoke(new Action(delegate
+                        {
+                            DownB.IsEnabled = false;
+                        }));
+                        ContentDialog dialog = new ContentDialog()
+                        {
+                            Title = "已停止下载",
+                            PrimaryButtonText = "好吧",
+                            IsPrimaryButtonEnabled = true,
+                            DefaultButton = ContentDialogButton.Primary,
+                            Content = new TextBlock()
+                            {
+                                TextWrapping = TextWrapping.WrapWithOverflow,
+                                Text = "遇到错误了，报错信息如下\n" + ex.Message+ex.Data,
+                            },
+                        };
+                        var result = await dialog.ShowAsync();
                     }
-                    download = MinecraftDownload.MCjsonDownload(VarID);
-                    if (Game.IniReadValue("Vlist", "Path") == "" || Game.IniReadValue("Vlist", "Path") == "0")
-                    {
-                        Downloadw(Game.Dminecraft + @"\versions\" + DownloadMCName + @"\" + DownloadMCName + ".json", download.Url);
-                    }
-                    else
-                    {
-                        string ax = Game.IniReadValue("Vlist", "Path");
-                        int s = int.Parse(ax);
-                        int ss = s + 1;
-                        Downloadw(Game.IniReadValue("VPath", ss.ToString()) + @"\versions\" + DownloadMCName + @"\" + DownloadMCName + ".json", download.Url);
-                    }
-                    Jarw = Core5.timer(MCjarInstall, 500); //实时判断是否下载完成
-                    Jarw.Start();
                 }
             }
         }
@@ -146,12 +195,12 @@ namespace FSM3.Pages
             this.Dispatcher.Invoke(new Action(delegate { ZJD.Value = Log.Progress; }));
             if (Log.Progress == 100)
             {
-                this.Dispatcher.Invoke(new Action(delegate { DG.ShowAsync(); }));
-                this.Dispatcher.Invoke(new Action(delegate { BDD.PDD.Visibility = Visibility.Hidden; }));
-                this.Dispatcher.Invoke(new Action(delegate
+                this.Dispatcher.Invoke(async()=>
                 {
+                    await DG.ShowAsync();
+                    BDD.PDD.Visibility = Visibility.Hidden;
                     DownB.IsEnabled = false;
-                }));
+                });
             }
         }
         public async Task<bool> libraries(string version)
@@ -191,36 +240,16 @@ namespace FSM3.Pages
                         MCDownload[] Filex = tools.Tools.GetAllTheAsset(version);
                         if (Filex.Length is 0)
                         {
-                            this.Dispatcher.Invoke(new Action(delegate { DG.ShowAsync(); }));
-                            this.Dispatcher.Invoke(new Action(delegate { BDD.PDD.Visibility = Visibility.Hidden; }));
-                            this.Dispatcher.Invoke(new Action(delegate
-                            {
-                                DownB.IsEnabled = false;
-                            }));
+                            this.Dispatcher.Invoke(async() => {
+                                await DG.ShowAsync();BDD.
+                                PDD.Visibility = Visibility.
+                                Hidden;DownB.IsEnabled = false;
+                            });
+
                         }
                     }
                     return result;
                 }
-                else
-                {
-                    MCDownload[] Filex = tools.Tools.GetAllTheAsset(version);
-                    if (Filex.Length is 0)
-                    {
-                        this.Dispatcher.Invoke(new Action(delegate { DG.ShowAsync(); }));
-                        this.Dispatcher.Invoke(new Action(delegate { BDD.PDD.Visibility = Visibility.Hidden; }));
-                        this.Dispatcher.Invoke(new Action(delegate
-                        {
-                            DownB.IsEnabled = false;
-                        }));
-                    }
-                    else
-                    {
-                        AssetDownload assetDownload = new AssetDownload();//asset下载类
-                        await assetDownload.BuildAssetDownload(1000, DownloadMCName);//构建下载
-                    }
-                }
-
-
             }
             catch (Exception ex)
             {
@@ -245,7 +274,7 @@ namespace FSM3.Pages
                         Content = new TextBlock()
                         {
                             TextWrapping = TextWrapping.WrapWithOverflow,
-                            Text = "打开游戏吧",
+                            Text = "打开游戏吧\n"+ex.Message,
                         },
                     };
                     var result = await dialog.ShowAsync();
@@ -258,6 +287,7 @@ namespace FSM3.Pages
         SquareMinecraftLauncher.Core.fabricmc.fabricmc fab = new SquareMinecraftLauncher.Core.fabricmc.fabricmc();
         private async void Load(object sender, RoutedEventArgs e)
         {
+            dlf.Thread(4);
             BarForge.IsActive = true;
             BarFabric.IsActive = true;
             BarOptifine.IsActive = true;
@@ -358,47 +388,177 @@ namespace FSM3.Pages
         {
         }
 
-        private async void MCjarInstall(object ob, EventArgs a)
+        public async void MCjarInstall(object ob, EventArgs a)
         {
-            if (dlf.EndDownload())
+            //下载Jar和Json(下载完成)
+            Jarw.Stop();
+            await Task.Run(() =>
             {
-                Jarw.Stop();
-                //下载Jar和Json(下载完成)
-                try
+                while (true)
+                {
+                    if (booljar&&booljson)
+                    {
+                        break;
+                    }
+                }
+            });
+            try
                 {
                     if (ForgeList.Text is "不安装" && FabricList.Text is "不安装" && OptifineList.Text is "不安装")
                     {
                         //不安装任何扩展
-                        AssetDownload assetDownload = new AssetDownload();//asset下载类
-                        assetDownload.DownloadProgressChanged += AssetDownload_DownloadProgressChanged;//事件
                         AZJD.Content = "当前:安装游戏运行库"; //设置过程
                         ZJDw.IsIndeterminate = false;
                         ZJD.IsIndeterminate = false;
-                        await libraries(DownloadMCName);
-                        AZJD.Content = "当前:安装游戏资源文件"; //设置过程
-                        ZJDw.IsIndeterminate = false;
-                        ZJD.IsIndeterminate = false;
-                        await assetDownload.BuildAssetDownload(1000, DownloadMCName);//构建下载
+                        MCDownload[] cc = tools.Tools.GetMissingFile(DownloadMCName);
+                        ZJDw.Maximum = cc.Length;
+                        FSMCore.Download.FSMCoreDownload.DownloadCore.Download(cc);
+                        await Task.Run(() =>
+                        {
+                            while (true)
+                            {
+                                if (DownProgress.ProX + DownProgress.Error != cc.Length)
+                                {
+                                    this.Dispatcher.Invoke(new Action(delegate
+                                    {
+                                        ZJDw.Value = DownProgress.ProX+DownProgress.Error;
+                                    }));
+                                }
+                                else
+                                {
+                                    break;
+                                }
+                            }
+                        });
+                    AZJD.Content = "当前:安装游戏资源文件"; //设置过程
+                    ZJDw.IsIndeterminate = false;
+                    ZJD.IsIndeterminate = false;
+                    MCDownload[] ccx = tools.Tools.GetMissingAsset(DownloadMCName);
+                    ZJD.Maximum = ccx.Length - 2;
+                    if (ccx.Length is 0)
+                    {
+                        await DG.ShowAsync();
+                        BDD.PDD.Visibility = Visibility.Hidden;
+                        DownB.IsEnabled = false;
+                        AZJD.Content = "当前已完成"; //设置过程
+                        ZJD.Value = ccx.Length - 2;
+                    }
+                    else
+                    {
+                        await Task.Run(() => { DownloaderAssets.DownloadCool(ccx); });
+                        await Task.Run(() =>
+                        {
+                            while (true)
+                            {
+                                if (DownloaderAssets.ProgressX + DownloaderAssets.FailedX < ccx.Length - 2
+                                )
+                                {
+                                    this.Dispatcher.Invoke(new Action(delegate
+                                    {
+                                        ZJD.Value = DownloaderAssets.ProgressX + DownloaderAssets.FailedX;
+                                    }));
+                                }
+                                else
+                                {
+                                    this.Dispatcher.Invoke(new Action(delegate
+                                    {
+                                        DG.ShowAsync();
+                                        BDD.PDD.Visibility = Visibility.Hidden;
+                                        DownB.IsEnabled = false;
+                                        AZJD.Content = "当前已完成"; //设置过程
+                                        ZJDw.Value = cc.Length;
+                                    }));
+                                    break;
+                                }
+                            }
+                        });
+                    }
+                    DG.ShowAsync();
+                        BDD.PDD.Visibility = Visibility.Hidden;
+                        DownB.IsEnabled = false;
+                        AZJD.Content = "当前已完成"; //设置过程
+                        ZJDw.Value = cc.Length;
                     }
                     if (ForgeList.Text is "不安装" && OptifineList.Text != "不安装" && FabricList.Text is "不安装")
-                    {
+                    { 
                         //只安装Optifine
                         AZJD.Content = "当前:安装高清修复"; //设置过程
                         ZJDw.IsIndeterminate = true;
                         ZJD.IsIndeterminate = true;
                         if (await VarDownload.Optifine())
                         {
-                            AssetDownload assetDownload = new AssetDownload();//asset下载类
-                            assetDownload.DownloadProgressChanged += AssetDownload_DownloadProgressChanged;//事件
-                            AZJD.Content = "当前:安装游戏运行库"; //设置过程
-                            ZJDw.IsIndeterminate = false;
-                            ZJD.IsIndeterminate = false;
-                            await libraries(DownloadMCName);
-                            AZJD.Content = "当前:安装游戏资源文件"; //设置过程
-                            ZJDw.IsIndeterminate = false;
-                            ZJD.IsIndeterminate = false;
-                            await assetDownload.BuildAssetDownload(1000, DownloadMCName);//构建下载
+                        AZJD.Content = "当前:安装游戏运行库"; //设置过程
+                        ZJDw.IsIndeterminate = false;
+                        ZJD.IsIndeterminate = false;
+                        MCDownload[] cc = tools.Tools.GetMissingFile(DownloadMCName);
+                        ZJDw.Maximum = cc.Length;
+                        FSMCore.Download.FSMCoreDownload.DownloadCore.Download(cc);
+                        await Task.Run(() =>
+                        {
+                            while (true)
+                            {
+                                if (DownProgress.ProX + DownProgress.Error != cc.Length)
+                                {
+                                    this.Dispatcher.Invoke(new Action(delegate
+                                    {
+                                        ZJDw.Value = DownProgress.ProX + DownProgress.Error;
+                                    }));
+                                }
+                                else
+                                {
+                                    break;
+                                }
+                            }
+                        });
+                        AZJD.Content = "当前:安装游戏资源文件"; //设置过程
+                        ZJDw.IsIndeterminate = false;
+                        ZJD.IsIndeterminate = false;
+                        MCDownload[] ccx = tools.Tools.GetMissingAsset(DownloadMCName);
+                        ZJD.Maximum = ccx.Length - 2;
+                        if (ccx.Length is 0)
+                        {
+                            await DG.ShowAsync();
+                            BDD.PDD.Visibility = Visibility.Hidden;
+                            DownB.IsEnabled = false;
+                            AZJD.Content = "当前已完成"; //设置过程
+                            ZJD.Value = ccx.Length - 2;
                         }
+                        else
+                        {
+                            await Task.Run(() => { DownloaderAssets.DownloadCool(ccx); });
+                            await Task.Run(() =>
+                            {
+                                while (true)
+                                {
+                                    if (DownloaderAssets.ProgressX + DownloaderAssets.FailedX < ccx.Length - 2
+                                    )
+                                    {
+                                        this.Dispatcher.Invoke(new Action(delegate
+                                        {
+                                            ZJD.Value = DownloaderAssets.ProgressX + DownloaderAssets.FailedX;
+                                        }));
+                                    }
+                                    else
+                                    {
+                                        this.Dispatcher.Invoke(new Action(delegate
+                                        {
+                                            DG.ShowAsync();
+                                            BDD.PDD.Visibility = Visibility.Hidden;
+                                            DownB.IsEnabled = false;
+                                            AZJD.Content = "当前已完成"; //设置过程
+                                            ZJDw.Value = cc.Length;
+                                        }));
+                                        break;
+                                    }
+                                }
+                            });
+                        }
+                        DG.ShowAsync();
+                        BDD.PDD.Visibility = Visibility.Hidden;
+                        DownB.IsEnabled = false;
+                        AZJD.Content = "当前已完成"; //设置过程
+                        ZJDw.Value = cc.Length;
+                    }
                     }
                     if (ForgeList.Text != "不安装" && OptifineList.Text != "不安装" && FabricList.Text is "不安装")
                     {
@@ -460,17 +620,78 @@ namespace FSM3.Pages
                                 });
                                 if (resultsx)
                                 {
-                                    AssetDownload assetDownload = new AssetDownload();//asset下载类
-                                    assetDownload.DownloadProgressChanged += AssetDownload_DownloadProgressChanged;//事件
-                                    AZJD.Content = "当前:安装游戏运行库"; //设置过程
-                                    ZJDw.IsIndeterminate = false;
-                                    ZJD.IsIndeterminate = false;
-                                    await libraries(DownloadMCName);
-                                    AZJD.Content = "当前:安装游戏资源文件"; //设置过程
-                                    ZJDw.IsIndeterminate = false;
-                                    ZJD.IsIndeterminate = false;
-                                    await assetDownload.BuildAssetDownload(1000, DownloadMCName);//构建下载
+                                AZJD.Content = "当前:安装游戏运行库"; //设置过程
+                                ZJDw.IsIndeterminate = false;
+                                ZJD.IsIndeterminate = false;
+                                MCDownload[] cc = tools.Tools.GetMissingFile(DownloadMCName);
+                                ZJDw.Maximum = cc.Length;
+                                FSMCore.Download.FSMCoreDownload.DownloadCore.Download(cc);
+                                await Task.Run(() =>
+                                {
+                                    while (true)
+                                    {
+                                        if (DownProgress.ProX + DownProgress.Error != cc.Length)
+                                        {
+                                            this.Dispatcher.Invoke(new Action(delegate
+                                            {
+                                                ZJDw.Value = DownProgress.ProX + DownProgress.Error;
+                                            }));
+                                        }
+                                        else
+                                        {
+                                            break;
+                                        }
+                                    }
+                                });
+                                AZJD.Content = "当前:安装游戏资源文件"; //设置过程
+                                ZJDw.IsIndeterminate = false;
+                                ZJD.IsIndeterminate = false;
+                                MCDownload[] ccx = tools.Tools.GetMissingAsset(DownloadMCName);
+                                ZJD.Maximum = ccx.Length - 2;
+                                if (ccx.Length is 0)
+                                {
+                                    await DG.ShowAsync();
+                                    BDD.PDD.Visibility = Visibility.Hidden;
+                                    DownB.IsEnabled = false;
+                                    AZJD.Content = "当前已完成"; //设置过程
+                                    ZJD.Value = ccx.Length - 2;
                                 }
+                                else
+                                {
+                                    await Task.Run(() => { DownloaderAssets.DownloadCool(ccx); });
+                                    await Task.Run(() =>
+                                    {
+                                        while (true)
+                                        {
+                                            if (DownloaderAssets.ProgressX + DownloaderAssets.FailedX < ccx.Length - 2
+                                            )
+                                            {
+                                                this.Dispatcher.Invoke(new Action(delegate
+                                                {
+                                                    ZJD.Value = DownloaderAssets.ProgressX + DownloaderAssets.FailedX;
+                                                }));
+                                            }
+                                            else
+                                            {
+                                                this.Dispatcher.Invoke(new Action(delegate
+                                                {
+                                                    DG.ShowAsync();
+                                                    BDD.PDD.Visibility = Visibility.Hidden;
+                                                    DownB.IsEnabled = false;
+                                                    AZJD.Content = "当前已完成"; //设置过程
+                                                    ZJDw.Value = cc.Length;
+                                                }));
+                                                break;
+                                            }
+                                        }
+                                    });
+                                }
+                                DG.ShowAsync();
+                                BDD.PDD.Visibility = Visibility.Hidden;
+                                DownB.IsEnabled = false;
+                                AZJD.Content = "当前已完成"; //设置过程
+                                ZJDw.Value = cc.Length;
+                            }
                             }
                         }
                     }
@@ -483,17 +704,78 @@ namespace FSM3.Pages
                         ZJD.IsIndeterminate = true;
                         if (await VarDownload.Fabric())
                         {
-                            AssetDownload assetDownload = new AssetDownload();//asset下载类
-                            assetDownload.DownloadProgressChanged += AssetDownload_DownloadProgressChanged;//事件
-                            AZJD.Content = "当前:安装游戏运行库"; //设置过程
-                            ZJDw.IsIndeterminate = false;
-                            ZJD.IsIndeterminate = false;
-                            await libraries(DownloadMCName);
-                            AZJD.Content = "当前:安装游戏资源文件"; //设置过程
-                            ZJDw.IsIndeterminate = false;
-                            ZJD.IsIndeterminate = false;
-                            await assetDownload.BuildAssetDownload(1000, DownloadMCName);//构建下载
+                        AZJD.Content = "当前:安装游戏运行库"; //设置过程
+                        ZJDw.IsIndeterminate = false;
+                        ZJD.IsIndeterminate = false;
+                        MCDownload[] cc = tools.Tools.GetMissingFile(DownloadMCName);
+                        ZJDw.Maximum = cc.Length;
+                        FSMCore.Download.FSMCoreDownload.DownloadCore.Download(cc);
+                        await Task.Run(() =>
+                        {
+                            while (true)
+                            {
+                                if (DownProgress.ProX + DownProgress.Error != cc.Length)
+                                {
+                                    this.Dispatcher.Invoke(new Action(delegate
+                                    {
+                                        ZJDw.Value = DownProgress.ProX + DownProgress.Error;
+                                    }));
+                                }
+                                else
+                                {
+                                    break;
+                                }
+                            }
+                        });
+                        AZJD.Content = "当前:安装游戏资源文件"; //设置过程
+                        ZJDw.IsIndeterminate = false;
+                        ZJD.IsIndeterminate = false;
+                        MCDownload[] ccx = tools.Tools.GetMissingAsset(DownloadMCName);
+                        ZJD.Maximum = ccx.Length - 2;
+                        if (ccx.Length is 0)
+                        {
+                            await DG.ShowAsync();
+                            BDD.PDD.Visibility = Visibility.Hidden;
+                            DownB.IsEnabled = false;
+                            AZJD.Content = "当前已完成"; //设置过程
+                            ZJD.Value = ccx.Length - 2;
                         }
+                        else
+                        {
+                            await Task.Run(() => { DownloaderAssets.DownloadCool(ccx); });
+                            await Task.Run(() =>
+                            {
+                                while (true)
+                                {
+                                    if (DownloaderAssets.ProgressX + DownloaderAssets.FailedX < ccx.Length - 2
+                                    )
+                                    {
+                                        this.Dispatcher.Invoke(new Action(delegate
+                                        {
+                                            ZJD.Value = DownloaderAssets.ProgressX + DownloaderAssets.FailedX;
+                                        }));
+                                    }
+                                    else
+                                    {
+                                        this.Dispatcher.Invoke(new Action(delegate
+                                        {
+                                            DG.ShowAsync();
+                                            BDD.PDD.Visibility = Visibility.Hidden;
+                                            DownB.IsEnabled = false;
+                                            AZJD.Content = "当前已完成"; //设置过程
+                                            ZJDw.Value = cc.Length;
+                                        }));
+                                        break;
+                                    }
+                                }
+                            });
+                        }
+                        DG.ShowAsync();
+                        BDD.PDD.Visibility = Visibility.Hidden;
+                        DownB.IsEnabled = false;
+                        AZJD.Content = "当前已完成"; //设置过程
+                        ZJDw.Value = cc.Length;
+                    }
                     }
                     if (ForgeList.Text is "不安装" && OptifineList.Text != "不安装" && FabricList.Text != "不安装")
                     {
@@ -560,17 +842,78 @@ namespace FSM3.Pages
                             ZJD.IsIndeterminate = true;
                             if (await VarDownload.Forge())
                             {
-                                AssetDownload assetDownload = new AssetDownload();//asset下载类
-                                assetDownload.DownloadProgressChanged += AssetDownload_DownloadProgressChanged;//事件
-                                AZJD.Content = "当前:安装游戏运行库"; //设置过程
-                                ZJDw.IsIndeterminate = false;
-                                ZJD.IsIndeterminate = false;
-                                await libraries(DownloadMCName);
-                                AZJD.Content = "当前:安装游戏资源文件"; //设置过程
-                                ZJDw.IsIndeterminate = false;
-                                ZJD.IsIndeterminate = false;
-                                await assetDownload.BuildAssetDownload(1000, DownloadMCName);//构建下载
+                            AZJD.Content = "当前:安装游戏运行库"; //设置过程
+                            ZJDw.IsIndeterminate = false;
+                            ZJD.IsIndeterminate = false;
+                            MCDownload[] cc = tools.Tools.GetMissingFile(DownloadMCName);
+                            ZJDw.Maximum = cc.Length;
+                            FSMCore.Download.FSMCoreDownload.DownloadCore.Download(cc);
+                            await Task.Run(() =>
+                            {
+                                while (true)
+                                {
+                                    if (DownProgress.ProX + DownProgress.Error != cc.Length)
+                                    {
+                                        this.Dispatcher.Invoke(new Action(delegate
+                                        {
+                                            ZJDw.Value = DownProgress.ProX + DownProgress.Error;
+                                        }));
+                                    }
+                                    else
+                                    {
+                                        break;
+                                    }
+                                }
+                            });
+                            AZJD.Content = "当前:安装游戏资源文件"; //设置过程
+                            ZJDw.IsIndeterminate = false;
+                            ZJD.IsIndeterminate = false;
+                            MCDownload[] ccx = tools.Tools.GetMissingAsset(DownloadMCName);
+                            ZJD.Maximum = ccx.Length - 2;
+                            if (ccx.Length is 0)
+                            {
+                                await DG.ShowAsync();
+                                BDD.PDD.Visibility = Visibility.Hidden;
+                                DownB.IsEnabled = false;
+                                AZJD.Content = "当前已完成"; //设置过程
+                                ZJD.Value = ccx.Length - 2;
                             }
+                            else
+                            {
+                                await Task.Run(() => { DownloaderAssets.DownloadCool(ccx); });
+                                await Task.Run(() =>
+                                {
+                                    while (true)
+                                    {
+                                        if (DownloaderAssets.ProgressX + DownloaderAssets.FailedX < ccx.Length - 2
+                                        )
+                                        {
+                                            this.Dispatcher.Invoke(new Action(delegate
+                                            {
+                                                ZJD.Value = DownloaderAssets.ProgressX + DownloaderAssets.FailedX;
+                                            }));
+                                        }
+                                        else
+                                        {
+                                            this.Dispatcher.Invoke(new Action(delegate
+                                            {
+                                                DG.ShowAsync();
+                                                BDD.PDD.Visibility = Visibility.Hidden;
+                                                DownB.IsEnabled = false;
+                                                AZJD.Content = "当前已完成"; //设置过程
+                                                ZJDw.Value = cc.Length;
+                                            }));
+                                            break;
+                                        }
+                                    }
+                                });
+                            }
+                            DG.ShowAsync();
+                            BDD.PDD.Visibility = Visibility.Hidden;
+                            DownB.IsEnabled = false;
+                            AZJD.Content = "当前已完成"; //设置过程
+                            ZJDw.Value = cc.Length;
+                        }
                         }
                     }
                 }
@@ -579,23 +922,23 @@ namespace FSM3.Pages
                     this.Dispatcher.Invoke(new Action(delegate { BDD.PDD.Visibility = Visibility.Hidden; }));
                     this.Dispatcher.Invoke(new Action(delegate
                     {
+                        dialogb.ShowAsync();
                         DownB.IsEnabled = false;
                     }));
-                    ContentDialog dialog = new ContentDialog()
-                    {
-                        Title = "已停止下载",
-                        PrimaryButtonText = "好吧",
-                        IsPrimaryButtonEnabled = true,
-                        DefaultButton = ContentDialogButton.Primary,
-                        Content = new TextBlock()
-                        {
-                            TextWrapping = TextWrapping.WrapWithOverflow,
-                            Text = "遇到错误了，报错信息如下\n"+ex.Message,
-                        },
-                    };
-                    var result = await dialog.ShowAsync();
+                Console.WriteLine(ex.Message);
                 }
             }
-        }
+        ContentDialog dialogb = new ContentDialog()
+        {
+            Title = "已停止下载",
+            PrimaryButtonText = "好吧",
+            IsPrimaryButtonEnabled = true,
+            DefaultButton = ContentDialogButton.Primary,
+            Content = new TextBlock()
+            {
+                TextWrapping = TextWrapping.WrapWithOverflow,
+                Text = "遇到错误了",
+            },
+        };
     }
-}
+    }

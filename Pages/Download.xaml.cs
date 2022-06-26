@@ -1,4 +1,5 @@
-﻿using FSM3.About_List;
+﻿using CurseForge.APIClient;
+using FSM3.About_List;
 using FSMLauncher_3;
 using Gac;
 using ModernWpf.Controls;
@@ -38,9 +39,12 @@ namespace FSM3.Pages
         public Download()
         {
             InitializeComponent();
+            JZ.Visibility = Visibility.Visible;
+            Bar.Visibility = Visibility.Visible;
             if (IfDown is true)
             {
                 SFYXZJC.Content = "正在下载中...";
+
                 if (inforge == 1)
                 {
                     user.FG.Visibility = Visibility.Visible;
@@ -717,18 +721,40 @@ namespace FSM3.Pages
         }
         private async void Load(object sender, RoutedEventArgs e)
         {
-            MCVersionList[] mc = new MCVersionList[0];
+            
+            FSMCore.Other.MCVersionList[] mc = new FSMCore.Other.MCVersionList[0];
+            JZ.Visibility = Visibility.Visible;
+            Bar.Visibility = Visibility.Visible;
             try
             {
-                mc = await tools.Tools.GetMCVersionList();
+                if(IniReadValue("DownloadSC", "type") is null)
+                {
+                    mc = await FSMCore.Other.SomeTools.GetMCVersionList(0);
+                }
+                switch (IniReadValue("DownloadSC", "type"))
+                {
+                    case "MCBBS":
+                        mc = await FSMCore.Other.SomeTools.GetMCVersionList(0);
+                        break;
+                    case "BMCLAPI":
+                        mc = await FSMCore.Other.SomeTools.GetMCVersionList(1);
+                        break;
+                    case "Minecraft":
+                        mc = await FSMCore.Other.SomeTools.GetMCVersionList(2);
+                        break;
+                    case "":
+                        mc = await FSMCore.Other.SomeTools.GetMCVersionList(0);
+                        break;
+                }
             }
             catch (Exception ex)
             {
+                JZ.Visibility = Visibility.Hidden;
+                Bar.Visibility = Visibility.Hidden;
                 ContentDialog dialog = new ContentDialog()
                 {
                     Title = "未获取到游戏下载列表，请重试",
-                    PrimaryButtonText = "重试",
-                    CloseButtonText = "取消",
+                    CloseButtonText = "好吧",
                     IsPrimaryButtonEnabled = true,
                     DefaultButton = ContentDialogButton.Primary,
                     Content = new TextBlock()
@@ -787,58 +813,10 @@ namespace FSM3.Pages
                     item.TIME.Text = mcVersionLists[i].tsw;
                     item1.Add(item);
                 }
+                JZ.Visibility = Visibility.Hidden;
+                Bar.Visibility = Visibility.Hidden;
                 //DIYvar.l = item1;
                 MCV.ItemsSource = item1.ToArray();
-                WebClient wc = new WebClient();
-                string str;
-                str = await HQ("https://api.modrinth.com/v2/search");
-                Modrinth.Root rb = JsonConvert.DeserializeObject<Modrinth.Root>(str);
-                List<modlist> itemx = new List<modlist>();
-                for (int i = 0; i < rb.hits.Count; ++i)
-                {
-                    Console.WriteLine(rb.hits[i].title + "  " + rb.hits[i].versions[0]);
-                    modlist itemy = new modlist();
-                    //modrinthW[i] = rb.hits[i].project_id;
-                    try
-                    {
-                        itemy.ModLogo.Background = new ImageBrush
-                        {
-                            ImageSource = new BitmapImage(new Uri(rb.hits[i].icon_url))
-                        };
-                    }
-                    catch
-                    {
-
-                    }
-                    string a = await wiki.Search(rb.hits[i].title);
-                    if (a is null)
-                    {
-                        itemy.ModName.Content = rb.hits[i].title;
-                        itemy.NameZ.Content = rb.hits[i].title + "|" + rb.hits[i].project_id;
-                        FSMCore.Modrinth.Modpublic.modzname = itemy.ModName.Content.ToString();
-                        string rby = null;
-                        for (int b = 0; b < rb.hits[i].categories.Count; b++)
-                        {
-                            rby = rb.hits[i].categories[b];
-                        }
-                        itemy.ModBio.Content = rb.hits[i].description + "\n最高支持:" + rb.hits[i].latest_version + "  加载器:" + rby;
-                        ModrinthList.Items.Add(itemy);
-                    }
-                    else
-                    {
-                        var b = await wiki.SearchInformation(a);
-                        string rby = null;
-                        for (int bx = 0; bx < rb.hits[i].categories.Count; bx++)
-                        {
-                            rby = rb.hits[i].categories[bx];
-                        }
-                        if (rb.hits[i].title is "Sodium") { itemy.ModName.Content = "钠 (Sodium)"; } else { itemy.ModName.Content = b.Title + " (" + rb.hits[i].title + ")"; }
-                        itemy.ModBio.Content = rb.hits[i].description + "\n最高支持:" + rb.hits[i].latest_version + "  加载器:" + rby;
-                        itemy.NameZ.Content = rb.hits[i].title + "|" + rb.hits[i].project_id;
-                        FSMCore.Modrinth.Modpublic.modzname = itemy.ModName.Content.ToString();
-                        ModrinthList.Items.Add(itemy);
-                    }
-                }
             }
             catch
             {
@@ -858,7 +836,7 @@ namespace FSM3.Pages
         public async Task<string> HQ()
         {
             WebClient wc = new WebClient();
-            await Task.Run(() => { B = wc.DownloadString("https://api.modrinth.com/v2/search"); });
+             B = await wc.DownloadStringTaskAsync("https://api.modrinth.com/v2/search");
             return B;
         } 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -1136,40 +1114,502 @@ namespace FSM3.Pages
             }
             return a;
         }
+        private static bool IsHanZi(string ch)
+        {
+            byte[] byte_len = System.Text.Encoding.Default.GetBytes(ch);
+            if (byte_len.Length == 2) { return true; }
+
+            return false;
+        }
+        String SS;
         private async void Button_Click_2(object sender, RoutedEventArgs e)
         {
-            WebClient wc = new WebClient();
-            string str = null;
-            //string text = ModrinthLB.Text;
-            //var x = await wiki.Search(text);
-            //var y = await wiki.SearchInformation(x);
-            try
+            if (IsHanZi(ModrinthText.Text))
+            {
+                string text = FSMCore.Other.YoudaoT.Master.MasterGet(ModrinthText.Text);
+                FSMCore.Other.YoudaoT.APIT.Root rbx = JsonConvert.DeserializeObject<FSMCore.Other.YoudaoT.APIT.Root>(text);
+                Console.WriteLine(rbx.web[0].value[0]);
+                SS = rbx.web[0].value[0];
+            }
+            else
+            {
+                SS = ModrinthText.Text;
+            }
+            if (Yuan.SelectedIndex is 0)
             {
                 ModrinthList.Items.Clear();
-                if (ModrinthVer.Text is "全部" && ModrinthJZQ.Text is "全部" && ModrinthLB.Text is "全部")
+                if(ModrinthVer.Text is "全部" && ModrinthJZQ.Text is "全部")
                 {
-                    str = wc.DownloadString("https://api.modrinth.com/v2/search?query=" + ModrinthLB.Text);     
+                    var b = await FSMCore.CurseForgeAPI.V1.Get.GetModsS(SS);
+                    for (int i = 0; i < b.Data.Count; ++i)
+                    {
+                        Console.WriteLine(b.Data[i].Name);
+                        modlist itemy = new modlist();
+                        try
+                        {
+                            itemy.ModLogo.Background = new ImageBrush
+                            {
+                                ImageSource = new BitmapImage(new Uri(b.Data[i].Logo.Url))
+                            };
+                        }
+                        catch
+                        {
+
+                        }
+                        string a = await wiki.Search(b.Data[i].Name);
+                        if (a is null)
+                        {
+                            itemy.ModName.Content = b.Data[i].Name;
+                            itemy.NameZ.Content = b.Data[i].Name + "|" + b.Data[i].Id;
+                            FSMCore.Modrinth.Modpublic.modzname = itemy.ModName.Content.ToString();
+                            string rby = null;
+                            for (int w = 0; w < b.Data[i].Authors.Count; w++)
+                            {
+                                rby = b.Data[i].Authors[w].Name;
+                            }
+                            itemy.ModBio.Content = b.Data[i].Summary + "\n" + "作者:" + rby;
+                            ModrinthList.Items.Add(itemy);
+                        }
+                        else
+                        {
+                            var x = await wiki.SearchInformation(a);
+                            string rby = null;
+                            for (int w = 0; w < b.Data[i].Authors.Count; w++)
+                            {
+                                rby = b.Data[i].Authors[w].Name;
+                            }
+                            itemy.ModName.Content = x.Title + " (" + b.Data[i].Name + ")";
+                            itemy.ModBio.Content = b.Data[i].Summary + "\n" + "作者:" + rby;
+                            itemy.NameZ.Content = b.Data[i].Name + "|" + b.Data[i].Id;
+                            if (b.Data[i].Name is "Sodium") { itemy.ModName.Content = "钠 (Sodium)"; }
+                            FSMCore.Modrinth.Modpublic.modzname = itemy.ModName.Content.ToString();
+                            ModrinthList.Items.Add(itemy);
+                        }
+                    }
                 }
-                else if (ModrinthVer.Text != "全部" && ModrinthJZQ.Text is "全部" && ModrinthLB.Text is "全部")
+                else if(ModrinthVer.Text != "全部" && ModrinthJZQ.Text is "全部")
                 {
-                    str = wc.DownloadString("https://api.modrinth.com/v2/search?query="+ModrinthText.Text+"&limit=20&index=relevance&facets=[[%22versions:"+ModrinthVer.Text+"%22]]");
+                    var b = await FSMCore.CurseForgeAPI.V1.Get.GetModsS(SS,ModrinthVer.Text);
+                    for (int i = 0; i < b.Data.Count; ++i)
+                    {
+                        Console.WriteLine(b.Data[i].Name);
+                        modlist itemy = new modlist();
+                        try
+                        {
+                            itemy.ModLogo.Background = new ImageBrush
+                            {
+                                ImageSource = new BitmapImage(new Uri(b.Data[i].Logo.Url))
+                            };
+                        }
+                        catch
+                        {
+
+                        }
+                        string a = await wiki.Search(b.Data[i].Name);
+                        if (a is null)
+                        {
+                            itemy.ModName.Content = b.Data[i].Name;
+                            itemy.NameZ.Content = b.Data[i].Name + "|" + b.Data[i].Id;
+                            FSMCore.Modrinth.Modpublic.modzname = itemy.ModName.Content.ToString();
+                            string rby = null;
+                            for (int w = 0; w < b.Data[i].Authors.Count; w++)
+                            {
+                                rby = b.Data[i].Authors[w].Name;
+                            }
+                            itemy.ModBio.Content = b.Data[i].Summary + "\n" + "作者:" + rby;
+                            ModrinthList.Items.Add(itemy);
+                        }
+                        else
+                        {
+                            var x = await wiki.SearchInformation(a);
+                            string rby = null;
+                            for (int w = 0; w < b.Data[i].Authors.Count; w++)
+                            {
+                                rby = b.Data[i].Authors[w].Name;
+                            }
+                            itemy.ModName.Content = x.Title + " (" + b.Data[i].Name + ")";
+                            itemy.ModBio.Content = b.Data[i].Summary + "\n" + "作者:" + rby;
+                            itemy.NameZ.Content = b.Data[i].Name + "|" + b.Data[i].Id;
+                            FSMCore.Modrinth.Modpublic.modzname = itemy.ModName.Content.ToString();
+                            if (b.Data[i].Name is "Sodium") { itemy.ModName.Content = "钠 (Sodium)"; }
+                            ModrinthList.Items.Add(itemy);
+                        }
+                    }
                 }
-                else if (ModrinthVer.Text is "全部" && ModrinthJZQ.Text != "全部" && ModrinthLB.Text is "全部")
+                else if(ModrinthVer.Text is "全部" && ModrinthJZQ.Text != "全部")
                 {
-                    str = wc.DownloadString("https://api.modrinth.com/v2/search?query=" + ModrinthText.Text + "&limit=20&index=relevance&facets=[[%22categories:" + ModrinthJZQ.Text + "%22]]");
-                }
-                else if (ModrinthVer.Text is "全部" && ModrinthJZQ.Text is "全部" && ModrinthLB.Text != "全部")
+                    if(ModrinthJZQ.SelectedIndex is 1)
+                    {
+                        var b = await FSMCore.CurseForgeAPI.V1.Get.GetModsS(SS, null, CurseForge.APIClient.Models.Mods.ModLoaderType.Fabric);
+                        for (int i = 0; i < b.Data.Count; ++i)
+                        {
+                            Console.WriteLine(b.Data[i].Name);
+                            modlist itemy = new modlist();
+                            try
+                            {
+                                itemy.ModLogo.Background = new ImageBrush
+                                {
+                                    ImageSource = new BitmapImage(new Uri(b.Data[i].Logo.Url))
+                                };
+                            }
+                            catch
+                            {
+
+                            }
+                            string a = await wiki.Search(b.Data[i].Name);
+                            if (a is null)
+                            {
+                                itemy.ModName.Content = b.Data[i].Name;
+                                itemy.NameZ.Content = b.Data[i].Name + "|" + b.Data[i].Id;
+                                FSMCore.Modrinth.Modpublic.modzname = itemy.ModName.Content.ToString();
+                                string rby = null;
+                                for (int w = 0; w < b.Data[i].Authors.Count; w++)
+                                {
+                                    rby = b.Data[i].Authors[w].Name;
+                                }
+                                itemy.ModBio.Content = b.Data[i].Summary + "\n" + "作者:" + rby;
+                                ModrinthList.Items.Add(itemy);
+                            }
+                            else
+                            {
+                                var x = await wiki.SearchInformation(a);
+                                string rby = null;
+                                for (int w = 0; w < b.Data[i].Authors.Count; w++)
+                                {
+                                    rby = b.Data[i].Authors[w].Name;
+                                }
+                                itemy.ModName.Content = x.Title + " (" + b.Data[i].Name + ")";
+                                itemy.ModBio.Content = b.Data[i].Summary + "\n" + "作者:" + rby;
+                                itemy.NameZ.Content = b.Data[i].Name + "|" + b.Data[i].Id;
+                                if (b.Data[i].Name is "Sodium") { itemy.ModName.Content = "钠 (Sodium)"; }
+                                FSMCore.Modrinth.Modpublic.modzname = itemy.ModName.Content.ToString();
+                                ModrinthList.Items.Add(itemy);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        var b = await FSMCore.CurseForgeAPI.V1.Get.GetModsS(SS, null, CurseForge.APIClient.Models.Mods.ModLoaderType.Forge);
+                        for (int i = 0; i < b.Data.Count; ++i)
+                        {
+                            Console.WriteLine(b.Data[i].Name);
+                            modlist itemy = new modlist();
+                            try
+                            {
+                                itemy.ModLogo.Background = new ImageBrush
+                                {
+                                    ImageSource = new BitmapImage(new Uri(b.Data[i].Logo.Url))
+                                };
+                            }
+                            catch
+                            {
+
+                            }
+                            string a = await wiki.Search(b.Data[i].Name);
+                            if (a is null)
+                            {
+                                itemy.ModName.Content = b.Data[i].Name;
+                                itemy.NameZ.Content = b.Data[i].Name + "|" + b.Data[i].Id;
+                                FSMCore.Modrinth.Modpublic.modzname = itemy.ModName.Content.ToString();
+                                string rby = null;
+                                for (int w = 0; w < b.Data[i].Authors.Count; w++)
+                                {
+                                    rby = b.Data[i].Authors[w].Name;
+                                }
+                                itemy.ModBio.Content = b.Data[i].Summary + "\n" + "作者:" + rby;
+                                ModrinthList.Items.Add(itemy);
+                            }
+                            else
+                            {
+                                var x = await wiki.SearchInformation(a);
+                                string rby = null;
+                                for (int w = 0; w < b.Data[i].Authors.Count; w++)
+                                {
+                                    rby = b.Data[i].Authors[w].Name;
+                                }
+                                itemy.ModName.Content = x.Title + " (" + b.Data[i].Name + ")";
+                                itemy.ModBio.Content = b.Data[i].Summary + "\n" + "作者:" + rby;
+                                itemy.NameZ.Content = b.Data[i].Name + "|" + b.Data[i].Id;
+                                FSMCore.Modrinth.Modpublic.modzname = itemy.ModName.Content.ToString();
+                                ModrinthList.Items.Add(itemy);
+                            }
+                        }
+                    }
+                }else if(ModrinthVer.Text != "全部" && ModrinthJZQ.Text != "全部")
                 {
-                    str = wc.DownloadString("https://api.modrinth.com/v2/search?query=" + ModrinthText.Text + "&limit=20&index=relevance&facets=[[%22categories:" + GetZH(ModrinthLB.Text) + "%22]]");
+                    if (ModrinthJZQ.SelectedIndex is 1)
+                    {
+                        var b = await FSMCore.CurseForgeAPI.V1.Get.GetModsS(SS, ModrinthVer.Text, CurseForge.APIClient.Models.Mods.ModLoaderType.Fabric);
+                        for (int i = 0; i < b.Data.Count; ++i)
+                        {
+                            Console.WriteLine(b.Data[i].Name);
+                            modlist itemy = new modlist();
+                            try
+                            {
+                                itemy.ModLogo.Background = new ImageBrush
+                                {
+                                    ImageSource = new BitmapImage(new Uri(b.Data[i].Logo.Url))
+                                };
+                            }
+                            catch
+                            {
+
+                            }
+                            string a = await wiki.Search(b.Data[i].Name);
+                            if (a is null)
+                            {
+                                itemy.ModName.Content = b.Data[i].Name;
+                                itemy.NameZ.Content = b.Data[i].Name + "|" + b.Data[i].Id;
+                                FSMCore.Modrinth.Modpublic.modzname = itemy.ModName.Content.ToString();
+                                string rby = null;
+                                for (int w = 0; w < b.Data[i].Authors.Count; w++)
+                                {
+                                    rby = b.Data[i].Authors[w].Name;
+                                }
+                                itemy.ModBio.Content = b.Data[i].Summary + "\n" + "作者:" + rby;
+                                ModrinthList.Items.Add(itemy);
+                            }
+                            else
+                            {
+                                var x = await wiki.SearchInformation(a);
+                                string rby = null;
+                                for (int w = 0; w < b.Data[i].Authors.Count; w++)
+                                {
+                                    rby = b.Data[i].Authors[w].Name;
+                                }
+                                itemy.ModName.Content = x.Title + " (" + b.Data[i].Name + ")";
+                                itemy.ModBio.Content = b.Data[i].Summary + "\n" + "作者:" + rby;
+                                itemy.NameZ.Content = b.Data[i].Name + "|" + b.Data[i].Id;
+                                FSMCore.Modrinth.Modpublic.modzname = itemy.ModName.Content.ToString();
+                                ModrinthList.Items.Add(itemy);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        var b = await FSMCore.CurseForgeAPI.V1.Get.GetModsS(SS, ModrinthVer.Text, CurseForge.APIClient.Models.Mods.ModLoaderType.Forge);
+                        for (int i = 0; i < b.Data.Count; ++i)
+                        {
+                            Console.WriteLine(b.Data[i].Name);
+                            modlist itemy = new modlist();
+                            try
+                            {
+                                itemy.ModLogo.Background = new ImageBrush
+                                {
+                                    ImageSource = new BitmapImage(new Uri(b.Data[i].Logo.Url))
+                                };
+                            }
+                            catch
+                            {
+
+                            }
+                            string a = await wiki.Search(b.Data[i].Name);
+                            if (a is null)
+                            {
+                                itemy.ModName.Content = b.Data[i].Name;
+                                itemy.NameZ.Content = b.Data[i].Name + "|" + b.Data[i].Id;
+                                FSMCore.Modrinth.Modpublic.modzname = itemy.ModName.Content.ToString();
+                                string rby = null;
+                                for (int w = 0; w < b.Data[i].Authors.Count; w++)
+                                {
+                                    rby = b.Data[i].Authors[w].Name;
+                                }
+                                itemy.ModBio.Content = b.Data[i].Summary + "\n" + "作者:" + rby;
+                                ModrinthList.Items.Add(itemy);
+                            }
+                            else
+                            {
+                                var x = await wiki.SearchInformation(a);
+                                string rby = null;
+                                for (int w = 0; w < b.Data[i].Authors.Count; w++)
+                                {
+                                    rby = b.Data[i].Authors[w].Name;
+                                }
+                                itemy.ModName.Content = x.Title + " (" + b.Data[i].Name + ")";
+                                itemy.ModBio.Content = b.Data[i].Summary + "\n" + "作者:" + rby;
+                                itemy.NameZ.Content = b.Data[i].Name + "|" + b.Data[i].Id;
+                                FSMCore.Modrinth.Modpublic.modzname = itemy.ModName.Content.ToString();
+                                ModrinthList.Items.Add(itemy);
+                            }
+                        }
+                    }
                 }
-                else if (ModrinthVer.Text != "全部" && ModrinthJZQ.Text != "全部" && ModrinthLB.Text != "全部")
+                Var.IsCurse = true;
+            }
+            else
+            {
+                WebClient wc = new WebClient();
+                string str = null;
+                //string text = ModrinthLB.Text;
+                //var x = await wiki.Search(text);
+                //var y = await wiki.SearchInformation(x);
+                try
                 {
-                    str = wc.DownloadString("https://api.modrinth.com/v2/search?query=" + ModrinthText.Text + "&limit=20&index=relevance&facets=[[%22categories:" + GetZH(ModrinthLB.Text) + "%22],[%22categories:" + ModrinthJZQ.Text + "%22],[%22versions:" + ModrinthVer.Text + "%22]]");
+                    ModrinthList.Items.Clear();
+                    if (ModrinthVer.Text is "全部" && ModrinthJZQ.Text is "全部" && ModrinthLB.Text is "全部")
+                    {
+                        str = wc.DownloadString("https://api.modrinth.com/v2/search?query=" + ModrinthLB.Text);
+                    }
+                    else if (ModrinthVer.Text != "全部" && ModrinthJZQ.Text is "全部" && ModrinthLB.Text is "全部")
+                    {
+                        str = wc.DownloadString("https://api.modrinth.com/v2/search?query=" + SS + "&limit=20&index=relevance&facets=[[%22versions:" + ModrinthVer.Text + "%22]]");
+                    }
+                    else if (ModrinthVer.Text is "全部" && ModrinthJZQ.Text != "全部" && ModrinthLB.Text is "全部")
+                    {
+                        str = wc.DownloadString("https://api.modrinth.com/v2/search?query=" + SS + "&limit=20&index=relevance&facets=[[%22categories:" + ModrinthJZQ.Text + "%22]]");
+                    }
+                    else if (ModrinthVer.Text is "全部" && ModrinthJZQ.Text is "全部" && ModrinthLB.Text != "全部")
+                    {
+                        str = wc.DownloadString("https://api.modrinth.com/v2/search?query=" + SS + "&limit=20&index=relevance&facets=[[%22categories:" + GetZH(ModrinthLB.Text) + "%22]]");
+                    }
+                    else if (ModrinthVer.Text != "全部" && ModrinthJZQ.Text != "全部" && ModrinthLB.Text != "全部")
+                    {
+                        str = wc.DownloadString("https://api.modrinth.com/v2/search?query=" + SS + "&limit=20&index=relevance&facets=[[%22categories:" + GetZH(ModrinthLB.Text) + "%22],[%22categories:" + ModrinthJZQ.Text + "%22],[%22versions:" + ModrinthVer.Text + "%22]]");
+                    }
+                    else if (ModrinthVer.Text is "全部" && ModrinthJZQ.Text != "全部" && ModrinthLB.Text != "全部")
+                    {
+                        str = wc.DownloadString("https://api.modrinth.com/v2/search?query=" + SS + "&limit=20&index=relevance&facets=[[%22categories:" + GetZH(ModrinthLB.Text) + "%22],[%22categories:" + ModrinthJZQ.Text + "%22]]");
+                    }
+                    Modrinth.Root rb = JsonConvert.DeserializeObject<Modrinth.Root>(str);
+                    List<modlist> itemx = new List<modlist>();
+                    for (int i = 0; i < rb.hits.Count; ++i)
+                    {
+                        Console.WriteLine(rb.hits[i].title + "  " + rb.hits[i].versions[0]);
+                        modlist itemy = new modlist();
+                        //modrinthW[i] = rb.hits[i].project_id;
+                        itemy.ModLogo.Background = new ImageBrush
+                        {
+                            ImageSource = new BitmapImage(new Uri(rb.hits[i].icon_url))
+                        };
+                        string a = await wiki.Search(rb.hits[i].title);
+                        if (a is null)
+                        {
+                            itemy.ModName.Content = rb.hits[i].title;
+                            itemy.NameZ.Content = rb.hits[i].title + "|" + rb.hits[i].project_id;
+                            FSMCore.Modrinth.Modpublic.modzname = itemy.ModName.Content.ToString();
+                            string rby = null;
+                            for (int b = 0; b < rb.hits[i].categories.Count; b++)
+                            {
+                                rby = rb.hits[i].categories[b];
+                            }
+                            itemy.ModBio.Content = rb.hits[i].description + "\n最高支持:" + rb.hits[i].latest_version + "  加载器:" + rby;
+                            ModrinthList.Items.Add(itemy);
+                        }
+                        else
+                        {
+                            var b = await wiki.SearchInformation(a);
+                            string rby = null;
+                            for (int bx = 0; bx < rb.hits[i].categories.Count; bx++)
+                            {
+                                rby = rb.hits[i].categories[bx];
+                            }
+                            if (rb.hits[i].title is "Sodium") { itemy.ModName.Content = "钠 (Sodium)"; } else { itemy.ModName.Content = b.Title + " (" + rb.hits[i].title + ")"; }
+                            itemy.ModBio.Content = rb.hits[i].description + "\n最高支持:" + rb.hits[i].latest_version + "  加载器:" + rby;
+                            itemy.NameZ.Content = rb.hits[i].title + "|" + rb.hits[i].project_id;
+                            FSMCore.Modrinth.Modpublic.modzname = itemy.ModName.Content.ToString();
+                            ModrinthList.Items.Add(itemy);
+                        }
+                    }
                 }
-                else if (ModrinthVer.Text is "全部" && ModrinthJZQ.Text != "全部" && ModrinthLB.Text != "全部")
+                catch (Exception ex)
                 {
-                    str = wc.DownloadString("https://api.modrinth.com/v2/search?query=" + ModrinthText.Text + "&limit=20&index=relevance&facets=[[%22categories:" + GetZH(ModrinthLB.Text) + "%22],[%22categories:" + ModrinthJZQ.Text + "%22]]");
+                    ContentDialog dialog = new ContentDialog()
+                    {
+                        Title = "搜索失败",
+                        PrimaryButtonText = "好吧",
+                        IsPrimaryButtonEnabled = true,
+                        DefaultButton = ContentDialogButton.Primary,
+                        Content = new TextBlock()
+                        {
+                            TextWrapping = TextWrapping.WrapWithOverflow,
+                            Text = ex.Message,
+                        },
+                    };
+                    var result = dialog.ShowAsync();
                 }
+                Var.IsCurse = false;
+            }
+        }
+        private NavigationTransitionInfo _transitionInfo = null;
+        private void ModrinthList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (Var.IsCurse)
+            {
+                String a = (ModrinthList.SelectedItem as modlist).NameZ.Content.ToString();
+                String[] b = a.Split('|');
+                FSMCore.Modrinth.Modpublic.modname = b[0];
+                Var.MODCurseID = uint.Parse(b[1]);
+                //MessageBox.Show(FSMCore.Modrinth.Modpublic.modname);
+                _transitionInfo = new DrillInNavigationTransitionInfo();
+                FSM3.framecontrol.frame.Navigate(dyuri("/Pages/Modbio.xaml"), null, _transitionInfo);
+            }
+            else
+            {
+                FSMCore.Modrinth.Modpublic.modname = (ModrinthList.SelectedItem as modlist).NameZ.Content.ToString();
+                //MessageBox.Show(FSMCore.Modrinth.Modpublic.modname);
+                _transitionInfo = new DrillInNavigationTransitionInfo();
+                FSM3.framecontrol.frame.Navigate(dyuri("/Pages/Modbio.xaml"), null, _transitionInfo);
+            }
+        }
+
+        private async void Button_Click_3(object sender, RoutedEventArgs e)
+        {
+            ModrinthList.Items.Clear();
+            if(Yuan.SelectedIndex is 0)
+            {
+                Var.IsCurse = true;
+                var b = await FSMCore.CurseForgeAPI.V1.Get.GetModsV1();
+                for (int i = 0; i < b.Data.Popular.Count; ++i)
+                {
+                    Console.WriteLine(b.Data.Popular[i].Name);
+                    modlist itemy = new modlist();
+                    try
+                    {
+                        itemy.ModLogo.Background = new ImageBrush
+                        {
+                            ImageSource = new BitmapImage(new Uri(b.Data.Popular[i].Logo.Url))
+                        };
+                    }
+                    catch
+                    {
+
+                    }
+                    string a = await wiki.Search(b.Data.Popular[i].Name);
+                    if (a is null)
+                    {
+                        itemy.ModName.Content = b.Data.Popular[i].Name;
+                        itemy.NameZ.Content = b.Data.Popular[i].Name + "|" + b.Data.Popular[i].Id;
+                        FSMCore.Modrinth.Modpublic.modzname = itemy.ModName.Content.ToString();
+                        string rby = null;
+                        for (int w = 0; w < b.Data.Popular[i].Authors.Count; w++)
+                        {
+                            rby = b.Data.Popular[i].Authors[w].Name;
+                        }
+                        itemy.ModBio.Content = b.Data.Popular[i].Summary + "\n" + "作者:" + rby;
+                        ModrinthList.Items.Add(itemy);
+                    }
+                    else
+                    {
+                        var x = await wiki.SearchInformation(a);
+                        string rby = null;
+                        for (int w = 0; w < b.Data.Popular[i].Authors.Count; w++)
+                        {
+                            rby = b.Data.Popular[i].Authors[w].Name;
+                        }
+                        itemy.ModName.Content = x.Title + " (" + b.Data.Popular[i].Name + ")";
+                        itemy.ModBio.Content = b.Data.Popular[i].Summary + "\n" + "作者:" + rby;
+                        itemy.NameZ.Content = b.Data.Popular[i].Name + "|" + b.Data.Popular[i].Id;
+                        FSMCore.Modrinth.Modpublic.modzname = itemy.ModName.Content.ToString();
+                        ModrinthList.Items.Add(itemy);
+                    }
+                }
+            }
+            else if (Yuan.SelectedIndex is 1)
+            {
+                Var.IsCurse = false;
+                WebClient wc = new WebClient();
+                string str;
+                str = await HQ("https://api.modrinth.com/v2/search");
                 Modrinth.Root rb = JsonConvert.DeserializeObject<Modrinth.Root>(str);
                 List<modlist> itemx = new List<modlist>();
                 for (int i = 0; i < rb.hits.Count; ++i)
@@ -1177,10 +1617,17 @@ namespace FSM3.Pages
                     Console.WriteLine(rb.hits[i].title + "  " + rb.hits[i].versions[0]);
                     modlist itemy = new modlist();
                     //modrinthW[i] = rb.hits[i].project_id;
-                    itemy.ModLogo.Background = new ImageBrush
+                    try
                     {
-                        ImageSource = new BitmapImage(new Uri(rb.hits[i].icon_url))
-                    };
+                        itemy.ModLogo.Background = new ImageBrush
+                        {
+                            ImageSource = new BitmapImage(new Uri(rb.hits[i].icon_url))
+                        };
+                    }
+                    catch
+                    {
+
+                    }
                     string a = await wiki.Search(rb.hits[i].title);
                     if (a is null)
                     {
@@ -1211,30 +1658,6 @@ namespace FSM3.Pages
                     }
                 }
             }
-            catch(Exception ex)
-            {
-                ContentDialog dialog = new ContentDialog()
-                {
-                    Title = "搜索失败",
-                    PrimaryButtonText = "好吧",
-                    IsPrimaryButtonEnabled = true,
-                    DefaultButton = ContentDialogButton.Primary,
-                    Content = new TextBlock()
-                    {
-                        TextWrapping = TextWrapping.WrapWithOverflow,
-                        Text = ex.Message,
-                    },
-                };
-                var result = dialog.ShowAsync();
-            }
-        }
-        private NavigationTransitionInfo _transitionInfo = null;
-        private void ModrinthList_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            FSMCore.Modrinth.Modpublic.modname = (ModrinthList.SelectedItem as modlist).NameZ.Content.ToString();
-            //MessageBox.Show(FSMCore.Modrinth.Modpublic.modname);
-            _transitionInfo = new DrillInNavigationTransitionInfo();
-            FSM3.framecontrol.frame.Navigate(dyuri("/Pages/Modbio.xaml"), null, _transitionInfo);
         }
 
         private void FabList_SelectionChanged(object sender, SelectionChangedEventArgs e)
