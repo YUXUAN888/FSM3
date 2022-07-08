@@ -19,6 +19,7 @@ A Minecraft Launcher！
 The open source purpose of this project is to learn, troubleshoot and disclose security strategies
 Author: Yu_Xuan
 Please note that this project follows GNU GPL3.0 open source agreement
+PS:some security content or core content is closed source, but please rest assured that 97% of fsm3 content is open source, including validators
 
 </div>
 
