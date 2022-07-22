@@ -114,10 +114,4 @@ Copyright 2021 CmlLib
 .NET Library for Mojang API、
 Mojang Authentication and Microsoft Xbox Authentication
 
-## SquareMinecraftLauncherCore
 
-https://github.com/baibao132/SquareMinecraftLauncherCore
-Copyright (c) 2022 BaibaoStudio
-Minecraft core library developed by .NET
-Licensed under the MIT License(MIT);
-https://github.com/baibao132/SquareMinecraftLauncherCore/blob/master/LICENSE
